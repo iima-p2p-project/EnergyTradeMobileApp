@@ -6,4 +6,31 @@
 
 <ion-content>
 
+  <div class="content-main">
+    <form [formGroup]="createAccountForm">
+      <ion-list>
+        <ion-label class="heading-1">
+          <!--<p>CREATE ACCOUNTt</p>-->
+        </ion-label>
+
+        <ion-item lines="none">
+            <!--<ion-label>FULL NAME</ion-label>-->
+            <ion-input formControlName="fullName" type="Fullname"></ion-input>
+          </ion-item>
+        <ion-item lines="none">
+          <!--<ion-label>PHONE NUMBER</ion-label>-->
+          <ion-input formControlName="phoneNumber" type="number"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <!--<ion-label>4 DIGIT OTP</ion-label>-->
+          <ion-input formControlName="otp" type="number"></ion-input>
+        </ion-item>
+        <!--<ion-label routerLink='/login'>By clicking Continue you are accepting to Sustain Impact Terms & Conditions</ion-label>-->
+        <ion-item lines="none">
+          <ion-button type="submit" (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </form>
+  </div>
 </ion-content>

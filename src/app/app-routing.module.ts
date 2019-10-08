@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -18,7 +18,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'add-device', loadChildren: './pages/add-device/add-device.module#AddDevicePageModule' },
-  { path: 'create-account', loadChildren: './pages/create-account/create-account.module#CreateAccountPageModule' }
+  { path: 'create-account', loadChildren: './pages/create-account/create-account.module#CreateAccountPageModule' },
+  { path: 'otp', loadChildren: './pages/otp/otp.module#OtpPageModule' }
 ];
 
 @NgModule({

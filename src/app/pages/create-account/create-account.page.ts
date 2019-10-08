@@ -12,4 +12,6 @@ export class CreateAccountPage implements OnInit {
   ngOnInit() {
   }
 
+  continueToRegister() {
+  }
 }
