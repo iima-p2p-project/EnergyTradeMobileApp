@@ -1,9 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>add-device</ion-title>
+    <ion-title>ADD RESOURCES</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <div class="content-main">
+    <form [formGroup]="addDeviceForm">
+      <!--<ion-list formControlName="deviceList">
+        <ion-radio-group>
+          <ion-list-header>
+            What energy sources do you have ?
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label>Solar</ion-label>
+            <ion-radio value="solar"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Generator</ion-label>
+            <ion-radio value="generator"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Electric Vehicle</ion-label>
+            <ion-radio value="ev"></ion-radio>
+          </ion-item>
+
+        </ion-radio-group>
+      </ion-list>-->
+
+      <br/>
+      <ion-item>
+        <ion-checkbox class="ch1" formControlName="solarFlag"></ion-checkbox>
+        &nbsp;&nbsp;
+        <ion-label class="add-card">Solar</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox class="ch1" formControlName="generatorFlag"></ion-checkbox>
+        &nbsp;&nbsp;
+        <ion-label class="add-card">Generator</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox class="ch1" formControlName="evFlag"></ion-checkbox>
+        &nbsp;&nbsp;
+        <ion-label class="add-card">Electric Vehicle</ion-label>
+      </ion-item><br/><br/>
+      <ion-button type="submit" (click)="navigateToCapacityPage()" [disabled]="!addDeviceForm.valid" class="align">NEXT
+      </ion-button>
+    </form>
+  </div>
 
 </ion-content>

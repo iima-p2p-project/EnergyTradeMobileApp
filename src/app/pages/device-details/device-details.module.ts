@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AddDevicePage } from './add-device.page';
+import { DeviceDetailsPage } from './device-details.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: AddDevicePage
+    component: DeviceDetailsPage
   }
 ];
 
@@ -22,6 +22,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AddDevicePage]
+  declarations: [DeviceDetailsPage]
 })
-export class AddDevicePageModule {}
+export class DeviceDetailsPageModule {}

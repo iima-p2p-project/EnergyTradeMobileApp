@@ -72,7 +72,7 @@ export class RegisterPage implements OnInit {
     this.registerPayload.email = this.registerForm.get('email').value;
     this.registerPayload.stateId = this.registerForm.get('stateList').value;
     this.registerPayload.phone = this.registerForm.get('boardList').value;
-    this.ingressService.register(this.registerPayload).subscribe((res) => {
+    /*this.ingressService.register(this.registerPayload).subscribe((res) => {
       this.registeredUser = res;
       this.storage.set('USER', this.registeredUser).then(() => {
         this.ingressService.setLoggedInUser(this.registeredUser);
@@ -86,6 +86,12 @@ export class RegisterPage implements OnInit {
           }
         });
       });
+    });*/
+    this.router.navigate(['/add-device'], {
+      queryParams: {
+        //userId: this.registeredUser.userId,
+        redirect: this.redirect
+      }
     });
   }
 }

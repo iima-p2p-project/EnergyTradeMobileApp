@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ADD RESOURCES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="wrapper">
+  <div id="yourdiv">
+    <form [formGroup]="deviceDetailsForm">
+      <br/><br/>
+      <ion-item lines="none" *ngIf="showSolar">
+        <!--<ion-label>FULL NAME</ion-label>-->
+        <ion-input formControlName="solar" placeHolder="Solar"></ion-input>
+      </ion-item>
+      <ion-item lines="none" *ngIf="showGenerator">
+        <!--<ion-label>PHONE NUMBER</ion-label>-->
+        <ion-input formControlName="generator" placeholder="Generator">
+        </ion-input>
+      </ion-item>
+      <ion-item lines="none" *ngIf="showEV">
+        <!--<ion-label>4 DIGIT OTP</ion-label>-->
+        <ion-input formControlName="ev" placeholder="EV"></ion-input>
+      </ion-item><br/><br/>
+      <ion-button type="submit">SAVE
+      </ion-button>
+    </form>
+  </div>
+</div>
+
+</ion-content>
