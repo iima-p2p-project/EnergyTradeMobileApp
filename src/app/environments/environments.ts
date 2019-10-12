@@ -8,7 +8,7 @@ export const environment = {
   
   export const SUPPORT_NUMBER = '8298916264';
   
-  export const INGRESS_URL = 'http://103.120.179.22:8080/jp_ingress';
+  export const INGRESS_URL = 'http://103.120.179.22:8080/et_ingress';
   export const CONFIG_URL = 'http://103.120.179.22:3007/configurations';
   
   export const DEV_FLAG = true;

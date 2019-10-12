@@ -17,9 +17,14 @@ export class IngressService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
+    return { 'recordStatus' : 2 };
     return this.httpClient.post(this.loginUrl
       , userDetails
       , options
     );
+  }
+
+  async testLogin(userDetails) {
+    return { 'recordStatus' : 2 };
   }
 }

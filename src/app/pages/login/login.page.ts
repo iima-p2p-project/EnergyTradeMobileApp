@@ -46,12 +46,12 @@ export class LoginPage implements OnInit {
       "loginMode": "P",
       "phoneNum": this.phoneNumber
     }
-    this.ingressService.login(verifyUserPayload).subscribe((resp) => {
+    this.ingressService.testLogin(verifyUserPayload).then((resp) => {
       console.log('response from login : ' , resp);
       this.userData = resp;
       if (this.userData.recordStatus === 1) {
         this.storage.set('LoggedInUser', this.userData.userId);
-        this.storage.set('allUserData', this.userData).then(() => {
+        this.storage.set('AllUserData', this.userData).then(() => {
           this.router.navigateByUrl('/home');
         });
       }
