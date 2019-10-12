@@ -15,17 +15,17 @@
 
         <ion-item lines="none">
             <!--<ion-label>FULL NAME</ion-label>-->
-            <ion-input formControlName="fullName" type="Fullname" placeHolder="full name"></ion-input>
+            <ion-input formControlName="fullName" placeHolder="full name"></ion-input>
           </ion-item>
         <ion-item lines="none">
           <!--<ion-label>PHONE NUMBER</ion-label>-->
-          <ion-input formControlName="phoneNumber" type="number" placeholder="phone number"></ion-input>
+          <ion-input formControlName="phoneNumber" placeholder="phone number" (ionChange)="enableOTPField()"></ion-input>
         </ion-item>
-        <!--<ion-item lines="none">
-          <ion-label>4 DIGIT OTP</ion-label>
-          <ion-input formControlName="otp" type="number" placeholder="otp"></ion-input>
-        </ion-item>-->
-        <!--<ion-label routerLink='/login'>By clicking Continue you are accepting to Sustain Impact Terms & Conditions</ion-label>-->
+        <ion-item lines="none">
+          <!--<ion-label>4 DIGIT OTP</ion-label>-->
+          <ion-input formControlName="otp" type="number" placeholder="otp" *ngIf="showOTPFlag"></ion-input>
+        </ion-item><br/><br/>
+        <ion-label class="message" routerLink='/login'>By clicking Continue you are accepting to Sustain Impact Terms & Conditions</ion-label>
         <ion-item lines="none">
           <ion-button type="submit" (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
           </ion-button>
