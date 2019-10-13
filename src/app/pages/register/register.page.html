@@ -1,43 +1,63 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>CREATE ACCOUNT</ion-title>
+<ion-header class="_header">
+  
+  <ion-toolbar class="_toolbar">
+    <ion-title class="__title">
+        CREATE ACCOUNT
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="_content">
 
   <div class="content-main">
+
+
     <form [formGroup]="registerForm">
       <ion-list>
-        <ion-label class="heading-1">
-          <!--<p>CREATE ACCOUNTt</p>-->
-        </ion-label>
+     
+          <div class="Label_" >
+              <p class="p__" >EMAIL ADDRESS</p>
+              <ion-input class="_Input" formControlName="email" type="Email"  ></ion-input>
+            </div>
 
-        <ion-item lines="none">
-          <!--<ion-label>EMAIL ADDRESS</ion-label>-->
-          <ion-input formControlName="email" type="Email" placeholder="Email" class="email"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <!--<ion-label>SELECT STATE</ion-label>-->
-          <ion-select formControlName="stateList" placeholder="Select State" (ionChange)="getBoardsPostStateSelection()">
+            <div class="Label_" >
+            <p class="p__" >SELECT STATE</p>
+
+            <div class="Flex_">
+     
+              
+          <ion-select class="_Input" formControlName="stateList" placeholder="Select State" (ionChange)="getBoardsPostStateSelection()">
             <!--<ion-select-option *ngFor="let state of states">{{state.stateName}}</ion-select-option>-->
             <ion-select-option value="1">Andhra Pradesh</ion-select-option>
             <ion-select-option value="2">Telangana</ion-select-option>
           </ion-select>
-        </ion-item>
-        <ion-item lines="none">
-          <!--<ion-label>SELECT BOARD</ion-label>-->
-          <ion-select formControlName="boardList" placeholder="Select Board">
+
+          <img src="../../../assets/assets2/select_state.svg" class="svg_icon">
+
+        </div>
+   </div>
+   <div class="Label_" >
+            <p class="p__" >SELECT BOARD</p>
+
+       
+          <ion-select class="_Input" formControlName="boardList" placeholder="Select Board">
             <!--<ion-select-option *ngFor="let board of boards">{{board.boardName}}</ion-select-option>-->
             <ion-select-option value="tsnpdcl">TSNPDCL</ion-select-option>
             <ion-select-option value="tsspdcl">TSSPDCL</ion-select-option>
           </ion-select>
-        </ion-item><br/><br/><br/>
-        <ion-label class="message" routerLink='/login'>By clicking Continue you are accepting to Sustain Impact Terms & Conditions</ion-label>
-        <ion-item lines="none">
-          <ion-button type="submit" (click)="register()" [disabled]="!registerForm.valid">REGISTER
-          </ion-button>
-        </ion-item>
+   </div>
+
+        <div class="Message">
+            <p class="p_message">By clicking Continue you are accepting to Sustain Impact <span class="Terms_"> Terms & Conditions</span></p>
+          </div>
+
+          <ion-row>
+            <ion-col>
+                <ion-button type="submit" (click)="register()" [disabled]="!registerForm.valid">REGISTER
+                  </ion-button>
+            </ion-col>
+          </ion-row>
+
       </ion-list>
     </form>
   </div>

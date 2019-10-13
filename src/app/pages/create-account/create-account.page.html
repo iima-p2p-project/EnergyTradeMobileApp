@@ -1,36 +1,73 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>CREATE ACCOUNT</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header class="_header">
+  
+    <ion-toolbar class="_toolbar">
+      <ion-title class="__title">
+          CREATE ACCOUNT
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="_content">
+  
+      
+  
+    <div class="content-main">
 
-<ion-content>
 
-  <div class="content-main">
-    <form [formGroup]="createAccountForm">
-      <ion-list>
-        <ion-label class="heading-1">
-          <!--<p>CREATE ACCOUNTt</p>-->
-        </ion-label>
+    <form [formGroup]="createAccountForm" >
+   
+      
 
-        <ion-item lines="none">
-            <!--<ion-label>FULL NAME</ion-label>-->
-            <ion-input formControlName="fullName" placeHolder="full name"></ion-input>
-          </ion-item>
-        <ion-item lines="none">
-          <!--<ion-label>PHONE NUMBER</ion-label>-->
-          <ion-input formControlName="phoneNumber" placeholder="phone number" (ionChange)="enableOTPField()"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <!--<ion-label>4 DIGIT OTP</ion-label>-->
-          <ion-input formControlName="otp" type="number" placeholder="otp" *ngIf="showOTPFlag"></ion-input>
-        </ion-item><br/><br/>
-        <ion-label class="message" routerLink='/login'>By clicking Continue you are accepting to Sustain Impact Terms & Conditions</ion-label>
-        <ion-item lines="none">
-          <ion-button type="submit" (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
-          </ion-button>
-        </ion-item>
-      </ion-list>
+        <div class="Label_" >
+            <p class="p__" >FULL NAME</p>
+            <ion-input class="_Input" formControlName="fullName" ></ion-input>
+          </div>
+
+          <div class="Label_" >
+              <p class="p__" >PHONE NUMBER</p>
+              <ion-input class="_Input" formControlName="phoneNumber" (ionChange)="enableOTPField()"></ion-input>
+            </div>
+
+            <ion-row *ngIf="showOTPFlag">
+              <ion-col>
+                  <p class="reading_">
+                    <img src="../../../assets/assets2/loading_OTP.svg" class="Loading"> 
+                    <span class="_read" style="margin-top: -2px">Reading OTP</span> </p>
+              </ion-col>
+              <ion-col>
+                  <p class="reading_2">00:30</p>  
+              </ion-col>
+            </ion-row>
+
+    
+
+          <div class="Label_" *ngIf="showOTPFlag">
+              <p class="p__" >4 DIGIT OTP</p>
+              <ion-input class="OTP_input" formControlName="otp" type="number"  ></ion-input>
+
+              <button class="Resend_OTP_btn">RESEND`</button>
+            </div>
+
+      
+        <div class="Message">
+          <p class="p_message">By clicking Continue you are accepting to Sustain Impact <span class="Terms_"> Terms & Conditions</span></p>
+        </div>
+        <!-- <ion-label class="message" routerLink='/login'></ion-label> -->
+
+        <ion-row>
+            <ion-col>
+                <ion-button type="submit" (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
+                  </ion-button>
+            </ion-col>
+          </ion-row>
+
+  
     </form>
+
+
+
+
+
+
   </div>
 </ion-content>

@@ -1,29 +1,44 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>LOGIN</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header class="_header">
+  
+    <ion-toolbar class="_toolbar">
+      <ion-title class="__title">
+          SIGN IN
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
+<ion-content class="_content">
 
-  <div class="container">
+  <div class="content-main">
     <form [formGroup]="loginForm">
       <ion-list>
-        <ion-label class="heading-1">
-          <!--<p>LOGIN</p>-->
-        </ion-label>
+   
+          <div class="Label_" >
+              <p class="p__" >PHONE NUMBER</p>
+              <ion-input class="_Input" formControlName="phoneNumber" type="number" ></ion-input>
+     
+            </div>
 
-        <ion-item lines="none">
-          <ion-input formControlName="phoneNumber" type="number" placeholder="phone number"></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-input formControlName="otp" type="number" placeholder="otp"></ion-input>
-        </ion-item>
+            <div class="Label_" >
+                <p class="p__" >4 DIGIT OTP</p>
+                <ion-input class="OTP_input" formControlName="otp" type="number"  ></ion-input>
+  
+                <button class="Resend_OTP_btn">RESEND`</button>
+              </div>
+
+
+           
         <!--<ion-label routerLink='/login'>By clicking Continue you are accepting to Sustain Impact Terms & Conditions</ion-label>-->
-        <ion-item lines="none">
-          <ion-button type="submit" (click)="login()" [disabled]="!loginForm.valid">LOGIN</ion-button>
-        </ion-item>
+    
       </ion-list>
+
+      <ion-row>
+          <ion-col>
+              <ion-button type="submit" (click)="login()" [disabled]="!loginForm.valid">LOGIN</ion-button>
+
+          </ion-col>
+        </ion-row>
+
     </form>
   </div>
 </ion-content>
