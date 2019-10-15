@@ -1,0 +1,79 @@
+<ion-header class="_header">
+  
+  <ion-toolbar class="_toolbar">
+    <ion-title class="__title">
+        CREATE ACCOUNT
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="_content">
+
+    
+
+  <div class="content-main">
+
+
+  <form [formGroup]="createAccountForm" >
+ 
+    
+
+      <div class="Label_" >
+          <p class="p__" >FULL NAME</p>
+          <ion-input class="_Input" formControlName="fullName" ></ion-input>
+        </div>
+
+        <div class="Label_" >
+            <p class="p__" >PHONE NUMBER</p>
+            <ion-input class="_Input" formControlName="phoneNumber" (ionChange)="enableOTPField()"></ion-input>
+          </div>
+
+          <ion-row *ngIf="showOTPFlag">
+            <ion-col>
+                <p class="reading_">
+                  <img src="../../../assets/assets2/loading_OTP.svg" class="Loading"> 
+                  <span class="_read" style="margin-top: -2px">Reading OTP</span> </p>
+            </ion-col>
+            <ion-col>
+                <p class="reading_2">00:30</p>  
+            </ion-col>
+          </ion-row>
+
+  
+
+        <div class="Label_" *ngIf="showOTPFlag">
+            <p class="p__" >4 DIGIT OTP</p>
+            <ion-input class="OTP_input" formControlName="otp" type="number"  ></ion-input>
+
+            <button class="Resend_OTP_btn">RESEND`</button>
+          </div>
+
+    
+      <div class="Message">
+        <p class="p_message">By clicking Continue you are accepting to Sustain Impact <span class="Terms_"> Terms & Conditions</span></p>
+      </div>
+      <!-- <ion-label class="message" routerLink='/login'></ion-label> -->
+
+      <ion-row>
+          <ion-col>
+              <ion-button type="submit" (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
+                </ion-button>
+          </ion-col>
+        </ion-row>
+
+
+  </form>
+
+
+
+
+
+
+</div>
+</ion-content>
+
+<ion-footer>
+<ion-toolbar>
+  <ion-title class="my-footer-style">Already have an accopunt? <span class="redirect-button">SIGN IN</span></ion-title>
+</ion-toolbar>
+</ion-footer>

@@ -1,0 +1,7 @@
+{
+  "name": "energy trade",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
