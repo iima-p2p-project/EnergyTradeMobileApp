@@ -1,7 +1,246 @@
 .message {
-    padding-top: 30px;
-    padding-right: 30px;
-    padding-bottom: 30px;
-    padding-left: 20px;
-    font-size: 10px;
-  }
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  font-size: 10px;
+}
+
+._content {
+  --background: #0148A8;
+}
+
+._toolbar {
+  --background: #0148A8;
+  color: white;
+  text-align: center;
+  border: none;
+  font-family: Gotham;
+  
+}
+
+._header {
+  position: initial;
+  height: 70px;
+  background: #0148A8;
+  font-weight: bold;
+  padding-top: 12px;
+}
+
+.__title{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.content-main {
+  background: white;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  padding: 25px 15px 15px;
+  height: 100%;
+}
+
+
+p.p__ {
+padding-left: 40px;
+font-size: 11px;
+font-family: Gotham;
+font-weight: bold;
+line-height: 10px;
+margin-bottom: 9px;
+}
+
+._Input{
+width: 75% !important;
+margin-left: 40px;
+border: 1px solid lightgray;
+border-radius: 6px;
+padding-left: 10px !important;
+height: 36px;
+}
+
+.Label_ {
+margin-top: 18px !important;
+}
+
+p.p_message {
+text-align: center;
+font-family: Gotham;
+font-weight: bold;
+line-height: 22px;
+font-size: 11px;
+}
+
+.Message {
+padding: 0px 39px;
+}
+
+._btn_{
+background: #7fa4d40f;
+  height: 36px;
+  width: 126px;
+  /* text-align: center; */
+  font-size: 17px;
+  font-family: Gotham;
+  font-weight: bold;
+  border-radius: 60px !important;
+}
+
+._btn{
+text-align: center;
+}
+
+.OTP_input{
+width: 50% !important;
+margin-left: 40px;
+border: 1px solid lightgray;
+border-radius: 6px;
+padding-left: 10px !important;
+float: left;
+height: 36px;
+}
+
+button.Resend_OTP_btn {
+padding-top: 11px;
+padding-left: 24px;
+background: none;
+color: #0148a8;
+font-weight: bold;
+font-family: Gotham;
+border: none;
+
+}
+
+span.Terms_ {
+text-decoration: underline;
+}
+
+p.reading_2 {
+
+font-family: Gotham;
+font-size: 16px;
+font-weight: bold;
+}
+
+p.reading_ {
+padding-left: 35px;
+font-size: 14px;
+font-weight: bold;
+font-family: Gotham;
+float: left;
+}
+//button css
+
+ion-button.md.button.button-small.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+
+width: 107px;
+height: 36px;
+border-radius: 60px;
+box-shadow: none;
+--border-radius: 60px;
+--background: #7fa4d46b;
+}
+
+ion-button.md.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+width: 121px;
+height: 36px;
+border-radius: 60px;
+box-shadow: none;
+--border-radius: 60px;
+--background: #7ea3d4;
+}
+
+ion-row.md.hydrated {
+text-align: center;
+}
+
+ion-row.ios.hydrated {
+text-align: center;
+}
+
+ion-button.hydrated.md.button.button-solid.ion-activatable.ion-focusable {
+width: 170px;
+height: 36px;
+border-radius: 60px;
+box-shadow: none;
+--border-radius: 60px;
+--background: #0048a8;
+box-shadow: 2px 3px 3px 0px #e0e9f5;
+font-family: Gotham;
+padding: 10;
+font-weight: bold;
+}
+
+ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
+width: 170px;
+height: 36px;
+border-radius: 60px;
+box-shadow: none;
+--border-radius: 60px;
+--background: #0048a8;
+box-shadow: 2px 3px 3px 0px #e0e9f5;
+font-family: Gotham;
+padding: 10;
+font-weight: bold;
+}
+
+// otp
+
+.Loading{
+height: 12px;
+}
+
+._read{
+font-size: 11px;
+}
+
+.reading_2{
+font-size: 11px !important;
+}
+
+
+// input css
+
+ion-input._Input.sc-ion-input-md-h.sc-ion-input-md-s.hydrated.ng-dirty.ng-touched.ng-invalid.md.has-value.ion-dirty.ion-touched.ion-invalid {
+border: 1px solid #0048a8;
+color: #0048a8;
+font-family: Gotham;
+font-weight: bold;
+}
+
+ion-input._Input.sc-ion-input-ios-h.sc-ion-input-ios-s.hydrated.ng-dirty.ng-touched.ng-invalid.ios.has-value.ion-dirty.ion-touched.ion-invalid {
+border: 1px solid #0048a8;
+color: #0048a8;
+font-family: Gotham;
+font-weight: bold;
+}
+
+img.Loading {
+  margin-right: 4px;
+}
+
+ion-input{
+color: #0048a8; 
+}
+
+.has-focus{
+border-color: #0048a8 !important;
+}
+
+//================================== footer ===============================
+
+.my-footer-style{
+  font-size: 11px;
+  font-family: Gotham;
+  padding: 0;
+  text-align: center;
+}
+.redirect-button{
+  color: #0048a8; 
+}
+
+ion-footer{
+  padding: 0 20px;
+}
+//=========================================================================
+

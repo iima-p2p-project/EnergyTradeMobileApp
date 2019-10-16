@@ -17,6 +17,9 @@ export class AddDevicePage implements OnInit {
   showGenerator: boolean;
   showEV: boolean;
 
+  Source_1 = true;
+  Source_2 = false;
+
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
     , private formBuilder: FormBuilder
@@ -31,6 +34,7 @@ export class AddDevicePage implements OnInit {
     this.showGenerator = false;
     this.showEV = false;
   }
+
 
   ngOnInit() {
   }
@@ -52,6 +56,16 @@ export class AddDevicePage implements OnInit {
         showEV: this.showEV
       }
     });
+  }
+  
+  Next(){
+    this.Source_1 = false;
+    this.Source_2 = true;
+
+  }
+
+  SaveEnergySourcesDetails(){
+    this.router.navigateByUrl('/home');
   }
 
 }

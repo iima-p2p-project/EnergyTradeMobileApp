@@ -19,8 +19,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'add-device', loadChildren: './pages/add-device/add-device.module#AddDevicePageModule' },
   { path: 'create-account', loadChildren: './pages/create-account/create-account.module#CreateAccountPageModule' },
-  { path: 'otp', loadChildren: './pages/otp/otp.module#OtpPageModule' },
-  { path: 'device-details', loadChildren: './pages/device-details/device-details.module#DeviceDetailsPageModule' }
+  { path: 'otp', loadChildren: './pages/otp/otp.module#OtpPageModule' }
 ];
 
 @NgModule({
