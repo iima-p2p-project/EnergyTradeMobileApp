@@ -13,12 +13,9 @@ export class AddDevicePage implements OnInit {
 
   addDeviceForm: FormGroup;
 
-  showSolar: boolean;
-  showGenerator: boolean;
-  showEV: boolean;
-
-  Source_1 = true;
-  Source_2 = false;
+  isSolarSelected: boolean;
+  isGeneratorSelected: boolean;
+  isEVSelected: boolean;
 
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
@@ -30,9 +27,9 @@ export class AddDevicePage implements OnInit {
       generatorFlag: [null, Validators.nullValidator],
       evFlag: [null, Validators.nullValidator]
     });
-    this.showSolar = false;
-    this.showGenerator = false;
-    this.showEV = false;
+    this.isSolarSelected = false;
+    this.isGeneratorSelected = false;
+    this.isEVSelected = false;
   }
 
 
@@ -40,32 +37,60 @@ export class AddDevicePage implements OnInit {
   }
 
   navigateToCapacityPage() {
-    if(this.addDeviceForm.get('solarFlag').value) {
-      this.showSolar = true;
-    }
-    if(this.addDeviceForm.get('generatorFlag').value) {
-      this.showGenerator = true;
-    }
-    if(this.addDeviceForm.get('evFlag').value) {
-      this.showEV = true;
-    }
     this.router.navigate(['/device-details'], {
       queryParams: {
-        showSolar: this.showSolar,
-        showGenerator: this.showGenerator,
-        showEV: this.showEV
+        showSolar: this.isSolarSelected,
+        showGenerator: this.isGeneratorSelected,
+        showEV: this.isEVSelected
       }
     });
   }
   
   Next(){
-    this.Source_1 = false;
-    this.Source_2 = true;
-
+    this.router.navigate(['/device-details'], {
+      queryParams: {
+        showSolar: this.isSolarSelected,
+        showGenerator: this.isGeneratorSelected,
+        showEV: this.isEVSelected
+      }
+    });
   }
 
   SaveEnergySourcesDetails(){
     this.router.navigateByUrl('/home');
+  }
+
+  selectSolar() {
+    if(!this.isSolarSelected) {
+      document.getElementById("solarDiv").style.border = "solid #0049C6";
+      this.isSolarSelected = true;
+    }
+    else {
+      document.getElementById("solarDiv").style.border = "1px solid #989aa25e";
+      this.isSolarSelected = false;
+    }
+  }
+
+  selectGenerator() {
+    if(!this.isGeneratorSelected) {
+      document.getElementById("generatorDiv").style.border = "solid #0049C6";
+      this.isGeneratorSelected = true;
+    }
+    else {
+      document.getElementById("generatorDiv").style.border = "1px solid #989aa25e";
+      this.isGeneratorSelected = false;
+    }
+  }
+
+  selectEV() {
+    if(!this.isEVSelected) {
+      document.getElementById("evDiv").style.border = "solid #0049C6";
+      this.isEVSelected = true;
+    }
+    else {
+      document.getElementById("evDiv").style.border = "1px solid #989aa25e";
+      this.isEVSelected = false;
+    }
   }
 
 }

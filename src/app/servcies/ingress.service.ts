@@ -9,10 +9,12 @@ import { AllUser } from 'src/app/models/AllUser';
 export class IngressService {
 
   loginUrl = INGRESS_URL + '/login';
-  otpUrl = INGRESS_URL + '/generateOtp';
+  sendOtpUrl = INGRESS_URL + '/sendOtp';
+  verifyOtpUrl = INGRESS_URL + '/verifyOtp';
   getAllStateUrl = INGRESS_URL + '/getAllState';
   getStateBoardMappingUrl = INGRESS_URL + '/getStateBoardMapping';
-  registerUrl = INGRESS_URL + '/createUserExtraDetails';
+  registerUrl = INGRESS_URL + '/registerUser';
+  addDeviceUrl = INGRESS_URL + '/addDevice';
 
   loggedInUser: AllUser;
   loggedInUserId: number;
@@ -41,8 +43,19 @@ export class IngressService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.post(this.otpUrl
+    return this.httpClient.post(this.sendOtpUrl
       , phoneNumber
+      , options
+    );
+  }
+
+  verifyOtp(phoneNumber: string, otp: string) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.verifyOtpUrl
+      , {"phone":phoneNumber,"otp":otp}
       , options
     );
   }
@@ -74,6 +87,18 @@ export class IngressService {
     };
     return this.httpClient.post(this.registerUrl
       , user
+      , options
+    );
+  }
+
+  addDevice(deviceList: any) {
+    console.log('device list : ' , deviceList);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.addDeviceUrl
+      , deviceList
       , options
     );
   }

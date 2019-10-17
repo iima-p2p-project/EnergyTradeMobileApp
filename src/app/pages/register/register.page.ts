@@ -73,19 +73,22 @@ export class RegisterPage implements OnInit {
     this.registerPayload.stateId = this.registerForm.get('stateList').value;
     this.registerPayload.phone = this.registerForm.get('boardList').value;
     /*this.ingressService.register(this.registerPayload).subscribe((res) => {
-      this.registeredUser = res;
-      this.storage.set('USER', this.registeredUser).then(() => {
-        this.ingressService.setLoggedInUser(this.registeredUser);
-        if(this.registeredUser != null) {
-          this.ingressService.setLoggedInUserId(this.registeredUser.userId);
-        }
-        this.router.navigate(['/add-device'], {
-          queryParams: {
-            userId: this.registeredUser.userId,
-            redirect: this.redirect
+      this.resFromService = res;
+      if(this.resFromService.response.key == 1) {
+        this.registeredUser = res;
+        this.storage.set('USER', this.registeredUser).then(() => {
+          this.ingressService.setLoggedInUser(this.registeredUser);
+          if(this.registeredUser != null) {
+            this.ingressService.setLoggedInUserId(this.registeredUser.userId);
           }
+          this.router.navigate(['/add-device'], {
+            queryParams: {
+              userId: this.registeredUser.userId,
+              redirect: this.redirect
+            }
+          });
         });
-      });
+      }
     });*/
     this.router.navigate(['/add-device'], {
       queryParams: {
@@ -94,4 +97,11 @@ export class RegisterPage implements OnInit {
       }
     });
   }
+
+  redirectToLogin() {
+    this.router.navigate(['/login'], {
+      queryParams: {}
+    });
+  }
+  
 }

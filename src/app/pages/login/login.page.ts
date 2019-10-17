@@ -20,6 +20,8 @@ export class LoginPage implements OnInit {
 
   userData: any;
 
+  showOTPFlag: boolean = false;
+
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
     , private formBuilder: FormBuilder
@@ -40,6 +42,15 @@ export class LoginPage implements OnInit {
     this.loginForm.controls['otp'].setValue("");
   }
 
+  ionViewDidEnter() {
+    /*this.route.queryParams.subscribe(params => {
+      this.phoneNumber = params['phoneNumber'];
+      this.redirect = params['redirect'];
+    });*/
+    this.showOTPFlag = false;
+    this.loginForm.controls['phoneNumber'].setValue("");
+  }
+
   login() {
     this.phoneNumber = this.loginForm.get('phoneNumber').value;
     var verifyUserPayload = {
@@ -56,7 +67,7 @@ export class LoginPage implements OnInit {
         });
       }
       else if (this.userData.recordStatus === 2) {
-        this.router.navigate(['/create-account'], {
+        this.router.navigate(['/home'], {
           queryParams: {
             phoneNumber: this.phoneNumber,
             callerPage: this.redirect
@@ -65,4 +76,19 @@ export class LoginPage implements OnInit {
       }
     });
   }
+
+  enableOTPField() {
+    this.phoneNumber = this.loginForm.get('phoneNumber').value;
+    if(this.phoneNumber.length == 10) {
+      //this.ingressService.sendOtp(this.phoneNumber);
+      this.showOTPFlag = true;
+    }
+  }
+
+  redirectToRegister() {
+    this.router.navigate(['/create-account'], {
+      queryParams: {}
+    });
+  }
+
 }

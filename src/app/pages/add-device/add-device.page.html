@@ -11,26 +11,26 @@
 
 <div class="content-main">
 
-  <div class="Source_1" *ngIf="Source_1">
+  <div class="Source_1">
     <p class="enry_p">What enery sources do you have?</p>
 
     <ion-row>
       <ion-col>
-        <div class="Card_">
+        <div class="Card_" (click)="selectSolar()" id="solarDiv">
           
             <img src="../../../assets/assets2/solar-power.svg" class="ico_">
             <p class="p_veh">Solar</p>
           
         </div>
 
-        <div class="Card_">
+        <div class="Card_" (click)="selectGenerator()" id="generatorDiv">
           
             <img src="../../../assets/assets2/generator.svg" class="ico_">
             <p class="p_veh">Generator</p>
           
           </div>
 
-          <div class="Card_">
+          <div class="Card_" (click)="selectEV()" id="evDiv">
 
             <img src="../../../assets/assets2/ev.svg" class="ico_">
             <p class="p_veh">Electric Vehicle</p>
@@ -40,66 +40,11 @@
     </ion-row>
   </div>
 
-
-
-  <div class="Source_2" *ngIf="Source_2">
-
-      <p class="enry_p">What enery sources do you have?</p>
-
-      
-      <div class="Label_" >
-
-          <img src="../../../assets/assets2/solar-power.svg" class="ico_Solar">
-
-          <p class="p___" >  Solar Capacity</p>
- 
-        </div>
-
-        <p class="Input_X">
-            <input class="_Input"  size="17" type="number" placeholder="XX-XX" >
-            <span class="Kwh">kWh</span>
-        </p>
-
-        <div class="Label_" >
-            <img src="../../../assets/assets2/generator.svg" class="ico_Solar">
-            <p class="p___" >  Generator Capacity</p>
-   
-   
-          </div>
-
-          <p class="Input_X">
-              <input class="_Input"  type="number" placeholder="XX-XX" >
-              <span class="Kwh">kWh</span>
-            </p>
-
-          <div class="Label_" >
-              <img src="../../../assets/assets2/ev.svg" class="ico_Solar">
-              <p class="p___" >  Electric Vehicle Capacity</p>
-       
-     
-            </div>
-
-            <p class="Input_X">
-                <input class="_Input"  type="number" placeholder="XX-XX" >
-                <span class="Kwh">kWh</span>
-              </p>
-
-
-
-          
-
-
-
-    </div>
- 
-
-
-
 </div>
 </ion-content>
 
 
-<ion-footer *ngIf="Source_1" class="source_">
+<ion-footer class="source_">
     <ion-toolbar class="_toolbar__">
 
         <ion-buttons slot="start" (click)="Skip()">
@@ -111,23 +56,4 @@
              </ion-buttons>
     
       </ion-toolbar>
-  </ion-footer>
-
-  <ion-footer *ngIf="Source_2">
-
-      <ion-row class="Row__">
-          <ion-col>
-              <ion-button type="submit" (click)="SaveEnergySourcesDetails()" [disabled]="!registerForm.valid">SAVE
-                </ion-button>
-
-              
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="Row__">
-            <ion-col>
-                <button class="btn_Transparent"  >SKIP</button>
-    
-            </ion-col>
-          </ion-row>
   </ion-footer>

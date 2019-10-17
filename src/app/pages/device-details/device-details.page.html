@@ -1,32 +1,69 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>ADD RESOURCES</ion-title>
+<ion-header class="_header">
+
+  <ion-toolbar class="_toolbar">
+    <ion-title class="__title">
+      ADD RESOURCES
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="_content">
 
-  <div id="wrapper">
-  <div id="yourdiv">
+    <div class="content-main">
+
+
     <form [formGroup]="deviceDetailsForm">
-      <br/><br/>
-      <ion-item lines="none" *ngIf="showSolar">
-        <!--<ion-label>FULL NAME</ion-label>-->
-        <ion-input formControlName="solar" placeHolder="Solar"></ion-input>
-      </ion-item>
-      <ion-item lines="none" *ngIf="showGenerator">
-        <!--<ion-label>PHONE NUMBER</ion-label>-->
-        <ion-input formControlName="generator" placeholder="Generator">
-        </ion-input>
-      </ion-item>
-      <ion-item lines="none" *ngIf="showEV">
-        <!--<ion-label>4 DIGIT OTP</ion-label>-->
-        <ion-input formControlName="ev" placeholder="EV"></ion-input>
-      </ion-item><br/><br/>
-      <ion-button type="submit">SAVE
-      </ion-button>
+
+
+      <div class="Source_2">
+
+        <p class="enry_p">Please specify capacity for energy sources you have</p>
+
+        <br /><br />
+        <div class="Label_" *ngIf="showSolar">
+
+          <img src="../../../assets/assets2/solar-power.svg" class="ico_Solar">
+
+          <p class="p___"> Solar Capacity</p>
+
+        </div>
+
+        <p class="Input_X" *ngIf="showSolar">
+          <input formControlName="solar" class="_Input" size="17" type="string" placeholder="XX-XX">
+          <span class="Kwh">kWh</span>
+        </p>
+
+        <div class="Label_" *ngIf="showGenerator">
+          <img src="../../../assets/assets2/generator.svg" class="ico_Solar">
+          <p class="p___"> Generator Capacity</p>
+
+
+        </div>
+
+        <p class="Input_X" *ngIf="showGenerator">
+          <input formControlName="generator" class="_Input" type="string" placeholder="XX-XX">
+          <span class="Kwh">kWh</span>
+        </p>
+
+        <div class="Label_" *ngIf="showEV">
+          <img src="../../../assets/assets2/ev.svg" class="ico_Solar">
+          <p class="p___"> Electric Vehicle Capacity</p>
+
+
+        </div>
+
+        <p class="Input_X" *ngIf="showEV">
+          <input formControlName="ev" class="_Input" type="string" placeholder="XX-XX">
+          <span class="Kwh">kWh</span>
+        </p>
+      </div>
+      <br /><br /><br /><br />
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" (click)="addDevice()">SAVE</ion-button>
+        </ion-col>
+      </ion-row>
     </form>
-  </div>
-</div>
+    </div>
 
 </ion-content>

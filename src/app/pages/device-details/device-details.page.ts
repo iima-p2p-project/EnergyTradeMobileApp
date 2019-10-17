@@ -18,6 +18,10 @@ export class DeviceDetailsPage implements OnInit {
   showGenerator: boolean;
   showEV: boolean;
 
+  devices: any[] = [];
+
+  responseFromService: any;
+
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
     , private formBuilder: FormBuilder
@@ -40,7 +44,7 @@ export class DeviceDetailsPage implements OnInit {
       this.showSolar = true;
     }
     else {
-      this.showSolar = true;
+      this.showSolar = false;
     }
     if(params['showGenerator'] == "true") {
       this.showGenerator = true;
@@ -55,13 +59,8 @@ export class DeviceDetailsPage implements OnInit {
       this.showEV = false;
     }
     });
-    
-    console.log('solar : ', this.showSolar);
-    console.log('generator : ', this.showGenerator);
-    console.log('ev : ', this.showEV);
-    
-  //  window.dispatchEvent(new Event('resize'));
-    /*if(this.showSolar) {
+   
+    if(this.showSolar) {
       this.deviceDetailsForm.controls['solar'].setValidators(Validators.required);
     }
     if(this.showGenerator) {
@@ -69,6 +68,39 @@ export class DeviceDetailsPage implements OnInit {
     }
     if(this.showEV) {
       this.deviceDetailsForm.controls['ev'].setValidators(Validators.required);
-    }*/
+    }
+  }
+
+  addDevice() {
+    if(this.showSolar) {
+      this.devices.push({
+        "deviceId": "1",
+        "deviceCapacity": this.deviceDetailsForm.get('solar').value
+      });
+    }
+
+    if(this.showGenerator) {
+      this.devices.push({
+        "deviceId": "2",
+        "deviceCapacity": this.deviceDetailsForm.get('generator').value
+      });
+    }
+
+    if(this.showEV) {
+      this.devices.push({
+        "deviceId": "1",
+        "deviceCapacity": this.deviceDetailsForm.get('ev').value
+      });
+    }
+
+    //this.router.navigateByUrl('/home');
+
+    this.ingressService.addDevice({ "userId": "1", "devices": this.devices}).subscribe((res) => {
+      this.responseFromService = res;
+      console.log('addqdd : ' , res);
+      if(this.responseFromService.response.key == 200) {
+        this.router.navigateByUrl('/home');
+      }
+    });
   }
 }

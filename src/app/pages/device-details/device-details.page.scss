@@ -1,8 +1,238 @@
-/*#wrapper {
+._content {
+    --background: #0148A8;
+   
+  }
+  
+  ._toolbar {
+    --background: #0148A8;
     text-align: center;
+    border: none;
+    font-family: Gotham;
+    color: white;
+    
+  }
+
+  ._toolbar__{
+    --background: #ffffff;
+    font-family: Gotham;
+  }
+  
+  ._header {
+    position: initial;
+    height: 64px;
+    background: #0148A8;
+    font-weight: bold;
+    padding-top: 6px;
+  }
+
+
+  
+  
+  .__title{
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .content-main {
+    background: white;
+    border-top-right-radius: 22px;
+    border-top-left-radius: 22px;
+    padding: 24px;
+    height: 100%;
 }
-#yourdiv {
-    display: inline-block;
-    padding-top: 200px;
-    padding-left: 100px;
-}*/
+
+p.p__ {
+    padding-left: 40px;
+    font-size: 13px;
+    font-family: Gotham;
+    font-weight: bold;
+    line-height: 10px;
+    margin-bottom: 9px;
+  }
+
+  ._Input{
+    width: 26%;
+    margin-left: 40px;
+    border-radius: 6px;
+    padding-left: 15px !important;
+    --placeholder-color: darkslategray;
+    color: #0148A8;
+    font-weight: bold;
+    border: none;
+    font-size: 20px;
+ 
+  }
+
+  p.Input_X {
+    margin-top: -1px
+}
+
+  .text-input::-moz-placeholder {
+    color: gray;
+  }
+  
+  .text-input:-ms-input-placeholder {
+    color: gray;
+  }
+  
+  .text-input::-webkit-input-placeholder {
+    text-indent: 0;
+    color: gray;
+  }
+
+  ion-button.md.button.button-small.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+
+    width: 75%;
+    height: 46px;
+    border-radius: 60px;
+    box-shadow: none;
+    --border-radius: 60px;
+    --background: #7fa4d4;
+  }
+  
+  ion-button.md.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+    width: 75%;
+    height: 46px;
+    border-radius: 60px;
+    box-shadow: none;
+    --border-radius: 60px;
+    --background: #7fa4d4;
+  }
+  
+  ion-button.ios.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+    width: 75%;
+    height: 46px;
+    border-radius: 60px;
+    box-shadow: none;
+    --border-radius: 60px;
+    --background: #7fa4d4;
+  }
+  
+  ion-row.md.hydrated {
+    text-align: center;
+  }
+  
+  ion-row.ios.hydrated {
+    text-align: center;
+  }
+  
+  ion-button.hydrated.md.button.button-solid.ion-activatable.ion-focusable {
+    width: 75%;
+    height: 46px;
+    border-radius: 60px;
+    box-shadow: none;
+    --border-radius: 60px;
+    --background: #0148A8;
+    box-shadow: 3px 4px 6px 0px #0148a88a;
+    font-family: Gotham;
+    padding: 10;
+    font-weight: bold;
+  }
+  
+  ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
+    width: 75%;
+    height: 46px;
+    border-radius: 60px;
+    box-shadow: none;
+    --border-radius: 60px;
+    --background: #0148A8;
+    box-shadow: 3px 4px 6px 0px #0148a88a;
+    font-family: Gotham;
+    padding: 10;
+    font-weight: bold;
+  }
+
+  button.btn_Transparent {
+    background: none;
+    font-family: Gotham;
+    margin-top: 20px;
+    font-weight: bold;
+    height: 50px;
+    font-size: 18px;
+    columns: #0148A8;
+}
+
+.header-md:after {
+
+    background: #0148A8 !important;
+}
+
+.header-ios:after {
+  
+    background: #0148A8 !important;;
+}
+
+
+.footer-md:after {
+
+  background: #0148A8 !important;
+}
+
+.footer-ios:after {
+
+  background: #0148A8 !important;;
+}
+
+.Card_ {
+  padding-top: 35px;
+  padding-bottom: 30px;
+    border: 1px solid;
+    margin-left: 17%;
+    margin-right: 17%;
+    margin-bottom: 38px;
+    border: 1px solid #989aa25e;
+    border-radius: 7px;
+}
+
+p.enry_p {
+    text-align: center;
+    font-family: Gotham;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 7%;
+}
+
+p.p_veh {
+  /* color: red; */
+  font-weight: bold;
+  /* font-family: Gotham; */
+  color: #0148A8;
+  margin-top: 5px;
+}
+
+p._next {
+  color: #0148A8;
+  font-weight: bold;
+  padding-right: 40px;
+  font-weight: 600;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+p._skip {
+  font-size: 14px;
+  padding-left: 40px;
+}
+
+.Label_ {
+  display: flex;
+  padding-left: 25px;
+}
+p.p___ {
+  font-weight: 500;
+  color: #0148A8;
+  /* font-family: Gotham; */
+  padding-left: 9px;
+  padding-top: -8px !important;
+}
+
+p.Input_X {
+  display: flex;
+}
+
+span.Kwh {
+  font-size: 14px;
+  margin-left: -10px;
+  margin-top: 6px;
+
+}

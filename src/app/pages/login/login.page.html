@@ -15,15 +15,15 @@
  
         <div class="Label_" >
             <p class="p__" >PHONE NUMBER</p>
-            <ion-input class="_Input" formControlName="phoneNumber" type="number" ></ion-input>
+            <ion-input class="_Input" formControlName="phoneNumber" (ionChange)="enableOTPField()"></ion-input>
    
           </div>
 
-          <div class="Label_" >
+          <div class="Label_" *ngIf="showOTPFlag">
               <p class="p__" >4 DIGIT OTP</p>
               <ion-input class="OTP_input" formControlName="otp" type="number"  ></ion-input>
 
-              <button class="Resend_OTP_btn">RESEND`</button>
+              <button class="Resend_OTP_btn">RESEND</button>
             </div>
 
 
@@ -45,6 +45,6 @@
 
 <ion-footer>
 <ion-toolbar>
-  <ion-title class="my-footer-style">Don't have an account? <span class="redirect-button">REGISTER</span></ion-title>
+  <ion-title class="my-footer-style">Don't have an account? <span class="redirect-button" (click)="redirectToRegister()">REGISTER</span></ion-title>
 </ion-toolbar>
 </ion-footer>
