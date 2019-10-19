@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/servcies/ingress.service';
 import { RegisterPayload } from 'src/app/models/RegisterPayload';
+import { ENABLE_SERVICES } from 'src/app/environments/environments'
 
 @Component({
   selector: 'app-register',
@@ -44,11 +45,6 @@ export class RegisterPage implements OnInit {
     }
 
   ngOnInit() {
-    /*this.ingressService.getAllStates().subscribe((res) => {
-      console.log('state list : ' , res);
-      this.resFromService = res;
-      this.states = this.resFromService.response;
-    });*/
   }
 
   ionViewDidEnter() {
@@ -60,10 +56,10 @@ export class RegisterPage implements OnInit {
   }
 
   getBoardsPostStateSelection() {
-    this.ingressService.getBoardsFromSelectedState(this.registerForm.get('stateList').value).subscribe((res) => {
+    /*this.ingressService.getBoardsFromSelectedState(this.registerForm.get('stateList').value).subscribe((res) => {
       this.resFromService = res;
       this.boards = this.resFromService.response;
-    });
+    });*/
   }
 
   register() {
@@ -71,31 +67,37 @@ export class RegisterPage implements OnInit {
     this.registerPayload.fullName = this.fullName;
     this.registerPayload.email = this.registerForm.get('email').value;
     this.registerPayload.stateId = this.registerForm.get('stateList').value;
-    this.registerPayload.phone = this.registerForm.get('boardList').value;
-    /*this.ingressService.register(this.registerPayload).subscribe((res) => {
-      this.resFromService = res;
-      if(this.resFromService.response.key == 1) {
-        this.registeredUser = res;
-        this.storage.set('USER', this.registeredUser).then(() => {
-          this.ingressService.setLoggedInUser(this.registeredUser);
-          if(this.registeredUser != null) {
-            this.ingressService.setLoggedInUserId(this.registeredUser.userId);
-          }
-          this.router.navigate(['/add-device'], {
-            queryParams: {
-              userId: this.registeredUser.userId,
-              redirect: this.redirect
+    this.registerPayload.boardId = this.registerForm.get('boardList').value;
+    if(ENABLE_SERVICES) {
+      this.ingressService.register(this.registerPayload).subscribe((res) => {
+        console.log(res);
+        this.resFromService = res;
+        if(this.resFromService.response.key == 200) {
+          console.log('check2');
+          this.registeredUser = res;
+          this.storage.set('USER', this.registeredUser).then(() => {
+            this.ingressService.setLoggedInUser(this.registeredUser);
+            if(this.registeredUser != null) {
+              this.ingressService.setLoggedInUserId(this.registeredUser.userId);
             }
+            this.router.navigate(['/add-device'], {
+              queryParams: {
+                userId: this.registeredUser.userId,
+                redirect: this.redirect
+              }
+            });
           });
-        });
-      }
-    });*/
-    this.router.navigate(['/add-device'], {
-      queryParams: {
-        //userId: this.registeredUser.userId,
-        redirect: this.redirect
-      }
-    });
+        }
+      });
+    }
+    else {
+      this.router.navigate(['/add-device'], {
+        queryParams: {
+          //userId: this.registeredUser.userId,
+          redirect: this.redirect
+        }
+      });
+    }
   }
 
   redirectToLogin() {

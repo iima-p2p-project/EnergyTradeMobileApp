@@ -88,16 +88,15 @@ export class DeviceDetailsPage implements OnInit {
 
     if(this.showEV) {
       this.devices.push({
-        "deviceId": "1",
+        "deviceId": "3",
         "deviceCapacity": this.deviceDetailsForm.get('ev').value
       });
     }
 
     //this.router.navigateByUrl('/home');
 
-    this.ingressService.addDevice({ "userId": "1", "devices": this.devices}).subscribe((res) => {
+    this.ingressService.addDevice({ "userId": "2", "devices": this.devices}).subscribe((res) => {
       this.responseFromService = res;
-      console.log('addqdd : ' , res);
       if(this.responseFromService.response.key == 200) {
         this.router.navigateByUrl('/home');
       }

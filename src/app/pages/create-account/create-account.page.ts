@@ -4,6 +4,7 @@ import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder} f
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/servcies/ingress.service';
+import { ENABLE_SERVICES } from 'src/app/environments/environments'
 
 
 @Component({
@@ -22,7 +23,7 @@ export class CreateAccountPage implements OnInit {
 
   showOTPFlag: boolean = false;
   user: any;
-
+  userId: any;
   responseFromService: any;
 
   constructor(private ingressService: IngressService
@@ -58,32 +59,49 @@ export class CreateAccountPage implements OnInit {
     this.fullName = this.createAccountForm.get('fullName').value;
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
     this.otp = this.createAccountForm.get('otp').value;
-    /*this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
-      this.responseFromService = res;
-      if(this.responseFromService.response.key == 300) {
-        this.router.navigate(['/register'], {
-          queryParams: {
-            phoneNumber: this.phoneNumber,
-            fullName: this.fullName,
-            redirect: this.redirect
-          }
-        });
-      }
-    });*/
-    this.router.navigate(['/register'], {
-      queryParams: {
-        phoneNumber: this.phoneNumber,
-        fullName: this.fullName,
-        redirect: this.redirect
-      }
-    });
+    if(ENABLE_SERVICES) {
+      this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
+        this.responseFromService = res;
+        if(this.responseFromService.response.key == 200) {
+          this.userId=this.responseFromService.response.userId;
+          this.router.navigate(['/register'], {
+            queryParams: {
+              phoneNumber: this.phoneNumber,
+              fullName: this.fullName,
+              redirect: this.redirect
+            }
+          });
+        }
+        if(this.responseFromService.response.key == 300) {
+          console.log('OTP entered is incorrect');
+        }
+      });
+    }
+    else {
+      this.router.navigate(['/register'], {
+        queryParams: {
+          phoneNumber: this.phoneNumber,
+          fullName: this.fullName,
+          redirect: this.redirect
+        }
+      });
+    } 
   }
   
   enableOTPField() {
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
     if(this.phoneNumber.length == 10) {
-      this.ingressService.sendOtp(this.phoneNumber);
-      this.showOTPFlag = true;
+      if(ENABLE_SERVICES) {
+        this.ingressService.sendOtp(this.phoneNumber).subscribe((res) => {
+          this.responseFromService=res;
+          if(this.responseFromService.response.key == 300) {
+            console.log('User Already Exists. Please Login');
+          }
+          if(this.responseFromService.response.key == 200) {
+            this.showOTPFlag = true;
+          }
+        });
+      }
     }
   }
 

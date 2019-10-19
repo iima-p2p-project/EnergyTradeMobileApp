@@ -20,7 +20,16 @@ const routes: Routes = [
   { path: 'add-device', loadChildren: './pages/add-device/add-device.module#AddDevicePageModule' },
   { path: 'create-account', loadChildren: './pages/create-account/create-account.module#CreateAccountPageModule' },
   { path: 'otp', loadChildren: './pages/otp/otp.module#OtpPageModule' },
-  { path: 'device-details', loadChildren: './pages/device-details/device-details.module#DeviceDetailsPageModule' }
+  { path: 'device-details', loadChildren: './pages/device-details/device-details.module#DeviceDetailsPageModule' },
+  { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule' },
+  { path: 'sell-time-picker', loadChildren: './pages/sell-time-picker/sell-time-picker.module#SellTimePickerPageModule' },
+  { path: 'sell-rate-set', loadChildren: './pages/sell-rate-set/sell-rate-set.module#SellRateSetPageModule' },
+  { path: 'buy-time-picker', loadChildren: './pages/buy-time-picker/buy-time-picker.module#BuyTimePickerPageModule' },
+  { path: 'seller-list', loadChildren: './pages/seller-list/seller-list.module#SellerListPageModule' },
+  { path: 'order-details', loadChildren: './pages/order-details/order-details.module#OrderDetailsPageModule' },
+  { path: 'sell-post-success', loadChildren: './pages/sell-post-success/sell-post-success.module#SellPostSuccessPageModule' },
+  { path: 'buy-post-success', loadChildren: './pages/buy-post-success/buy-post-success.module#BuyPostSuccessPageModule' },
+  { path: 'manage-orders', loadChildren: './pages/manage-orders/manage-orders.module#ManageOrdersPageModule' }
 ];
 
 @NgModule({

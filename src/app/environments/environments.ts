@@ -34,7 +34,8 @@ export const environment = {
   export const OFFERS_URL = 'http://103.120.179.22:8080/jp_ofrmo';
   
   export const TAX_PERCENT = 18;
-  export const ENABLE_LIVE_PAYMENT = true;;
+  export const ENABLE_LIVE_PAYMENT = true;
+  export const ENABLE_SERVICES = true;
   
   
   /*

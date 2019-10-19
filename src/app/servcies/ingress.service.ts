@@ -10,6 +10,7 @@ export class IngressService {
 
   loginUrl = INGRESS_URL + '/login';
   sendOtpUrl = INGRESS_URL + '/sendOtp';
+  generateOtpUrl = INGRESS_URL + '/generateOtp';
   verifyOtpUrl = INGRESS_URL + '/verifyOtp';
   getAllStateUrl = INGRESS_URL + '/getAllState';
   getStateBoardMappingUrl = INGRESS_URL + '/getStateBoardMapping';
@@ -21,7 +22,7 @@ export class IngressService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async login(userDetails) {
+  login(userDetails) {
     console.log("Inside Login", userDetails);
     var options = {
       headers: new HttpHeaders()
@@ -38,13 +39,24 @@ export class IngressService {
     return { 'recordStatus' : 2 };
   }
 
+  generateOtp(phoneNumber: string) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.generateOtpUrl
+      , {"phone":phoneNumber}
+      , options
+    );
+  }
+
   sendOtp(phoneNumber: string) {
     var options = {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
     return this.httpClient.post(this.sendOtpUrl
-      , phoneNumber
+      , {"phone":phoneNumber}
       , options
     );
   }

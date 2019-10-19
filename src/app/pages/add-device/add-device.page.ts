@@ -36,17 +36,10 @@ export class AddDevicePage implements OnInit {
   ngOnInit() {
   }
 
-  navigateToCapacityPage() {
-    this.router.navigate(['/device-details'], {
-      queryParams: {
-        showSolar: this.isSolarSelected,
-        showGenerator: this.isGeneratorSelected,
-        showEV: this.isEVSelected
-      }
-    });
+  skip() {
   }
   
-  Next(){
+  next(){
     this.router.navigate(['/device-details'], {
       queryParams: {
         showSolar: this.isSolarSelected,
