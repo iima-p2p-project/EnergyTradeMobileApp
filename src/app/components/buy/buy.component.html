@@ -1,3 +1,14 @@
-<p>
-  buy works!
-</p>
+<ion-select class="_LOV" placeholder="TYPES OF POWER" [(ngModel)]="deviceName">
+  <ion-select-option value="1">Solar</ion-select-option>
+  <ion-select-option value="2">Generator</ion-select-option>
+  <ion-select-option value="3">Electric Vehicle</ion-select-option>
+</ion-select>
+
+<br /><br />
+<ion-label class="_Label">POWER TO BUY</ion-label>
+<ion-input placeholder="xx-xx" class="_Input" [(ngModel)]="power"></ion-input>
+<ion-row>
+  <ion-col>
+    <ion-button type="submit" class="_Button" (click)="initiateBuyFlow()">BUY</ion-button>
+  </ion-col>
+</ion-row>

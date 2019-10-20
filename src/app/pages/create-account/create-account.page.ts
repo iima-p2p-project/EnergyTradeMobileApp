@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder} from '@angular/forms';
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { IngressService } from 'src/app/servcies/ingress.service';
+import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES } from 'src/app/environments/environments'
 
 

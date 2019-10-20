@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>DASHBOARD</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
+    <br/><br/><br/><br/><br/><br/>
+    <app-buy (buyFlow)=initiateBuyFlow($event)></app-buy>
 
 </ion-content>

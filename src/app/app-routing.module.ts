@@ -2,10 +2,14 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  /*{
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },*/
   {
     path: '',
-    redirectTo: 'create-account',
-    pathMatch: 'full'
+    loadChildren: () => import('src/app/pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
   },
   {
     path: 'home',
@@ -29,7 +33,9 @@ const routes: Routes = [
   { path: 'order-details', loadChildren: './pages/order-details/order-details.module#OrderDetailsPageModule' },
   { path: 'sell-post-success', loadChildren: './pages/sell-post-success/sell-post-success.module#SellPostSuccessPageModule' },
   { path: 'buy-post-success', loadChildren: './pages/buy-post-success/buy-post-success.module#BuyPostSuccessPageModule' },
-  { path: 'manage-orders', loadChildren: './pages/manage-orders/manage-orders.module#ManageOrdersPageModule' }
+  { path: 'manage-orders', loadChildren: './pages/manage-orders/manage-orders.module#ManageOrdersPageModule' },
+  { path: 'buy-power', loadChildren: './pages/buy-power/buy-power.module#BuyPowerPageModule' },
+  { path: 'sell-power', loadChildren: './pages/sell-power/sell-power.module#SellPowerPageModule' }
 ];
 
 @NgModule({

@@ -1,9 +1,48 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>sell-rate-set</ion-title>
+    <ion-title>SELL</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form [formGroup]="sellRateSetForm">
+    <div class="_Div">
+      <ion-label>{{power}}</ion-label><br />
+      <ion-item class="_DateTimePicker">
+        <ion-datetime placeholder="ENTER START TIME" formControlName="startTime" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime>
+      </ion-item>
 
+      <ion-item class="_DateTimePicker">
+        <ion-datetime placeholder="ENTER END TIME" formControlName="endTime" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime>
+      </ion-item>
+
+      <ion-item class="_Input">
+        <ion-input placeholder="00" formControlName="duration"></ion-input>
+      </ion-item>
+
+      <ion-label class="_Label">DURATION</ion-label>
+
+      <ion-item class="_Input">
+        <ion-input placeholder="00" formControlName="power"></ion-input>
+      </ion-item>
+
+      <ion-label class="_Label">UNITS TO POST</ion-label>
+
+      <ion-item class="_Input">
+        <ion-input placeholder="00" formControlName="rate"></ion-input>
+      </ion-item>
+
+      <ion-label class="_Label">SET RATE PER UNIT</ion-label>
+
+      <ion-item lines="none" class="_Div">
+          <ion-input formControlName="totalAmount" class="_TotalAmount">{{totalAmount}}</ion-input>
+      </ion-item>
+      <ion-label class="_Label">TOTAL AMOUNT</ion-label>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" class="_Button" (click)="submit()">SUBMIT</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </form>
 </ion-content>

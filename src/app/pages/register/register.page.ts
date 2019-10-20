@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { IngressService } from 'src/app/servcies/ingress.service';
+import { IngressService } from 'src/app/services/ingress.service';
 import { RegisterPayload } from 'src/app/models/RegisterPayload';
 import { ENABLE_SERVICES } from 'src/app/environments/environments'
 

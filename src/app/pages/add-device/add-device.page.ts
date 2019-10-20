@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder} from '@angular/forms';
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { IngressService } from 'src/app/servcies/ingress.service';
+import { IngressService } from 'src/app/services/ingress.service';
 
 @Component({
   selector: 'app-add-device',

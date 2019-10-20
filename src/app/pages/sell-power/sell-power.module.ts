@@ -5,14 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DashboardPage } from './dashboard.page';
-import { SellComponent } from 'src/app/components/sell/sell.component';
-import { BuyComponent } from 'src/app/components/buy/buy.component';
+import { SellPowerPage } from './sell-power.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardPage
+    component: SellPowerPage
   }
 ];
 
@@ -23,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DashboardPage, SellComponent, BuyComponent]
+  declarations: [SellPowerPage]
 })
-export class DashboardPageModule {}
+export class SellPowerPageModule {}

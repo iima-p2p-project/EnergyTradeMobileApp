@@ -1,0 +1,59 @@
+._content {
+    display: flex;
+}
+
+
+._Input {
+    width: 20% !important;
+    margin-left: 40px;
+    margin-top: 10px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    padding-left: 10px !important;
+    height: 40px;
+}
+
+._Div {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+._Button {
+    width: 50% !important;
+    margin-left: 10px;
+    margin-top: 70px;
+}
+
+._DateTimePicker {
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+._Input {
+    //width: 20% !important;
+    margin-top: 50px;
+    margin-left: 170px;
+    margin-right: 70px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    padding-right: 10px;
+    height: 50px;
+}
+
+._Label {
+    width: 75% !important;
+    margin-left: 15px;
+    font-size: 12px;
+}
