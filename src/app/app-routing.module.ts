@@ -35,7 +35,8 @@ const routes: Routes = [
   { path: 'buy-post-success', loadChildren: './pages/buy-post-success/buy-post-success.module#BuyPostSuccessPageModule' },
   { path: 'manage-orders', loadChildren: './pages/manage-orders/manage-orders.module#ManageOrdersPageModule' },
   { path: 'buy-power', loadChildren: './pages/buy-power/buy-power.module#BuyPowerPageModule' },
-  { path: 'sell-power', loadChildren: './pages/sell-power/sell-power.module#SellPowerPageModule' }
+  { path: 'sell-power', loadChildren: './pages/sell-power/sell-power.module#SellPowerPageModule' },
+  { path: 'forecast-list', loadChildren: './pages/forecast-list/forecast-list.module#ForecastListPageModule' }
 ];
 
 @NgModule({
