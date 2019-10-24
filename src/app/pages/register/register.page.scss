@@ -20,11 +20,11 @@
 }
 
 ._content {
---background: #0148A8;
+--background: #0048a8;
 }
 
 ._toolbar {
---background: #0148A8;
+--background: #0048a8;
 color: white;
 text-align: center;
 border: none;
@@ -35,11 +35,11 @@ font-family: Gotham;
 .__title{
 font-size: 20px;
 font-weight: bold;
+font-family: sans-serif;
 }
 
 .Label_ {
 margin-top: 18px !important;
-margin-bottom: 21px;
 }
 
 p.p__ {
@@ -58,6 +58,7 @@ border: 1px solid lightgray;
 border-radius: 6px;
 padding-left: 10px !important;
 height: 36px;
+font-family: sans-serif;
 }
 
 p.p_message {
@@ -76,7 +77,7 @@ padding: 0 39px;
 ._header {
 position: initial;
 height: 70px;
-background: #0148A8;
+background: #0048a8;
 font-weight: bold;
 padding-top: 12px;
 }
@@ -106,8 +107,8 @@ box-shadow: none;
 }
 
 ion-button.ios.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
-width: 121px;
-height: 36px;
+width: 160px;
+height: 38px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -128,8 +129,8 @@ height: 36px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
---background: #0148A8;
-box-shadow: 3px 4px 6px 0px #0148a88a;
+--background: #0048a8;
+box-shadow: 3px 4px 6px 0px #0048a8;
 font-family: Gotham;
 padding: 10;
 font-weight: bold;
@@ -141,8 +142,8 @@ height: 36px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
---background: #0148A8;
-box-shadow: 3px 4px 6px 0px #0148a88a;
+--background: #0048a8;
+box-shadow: 3px 4px 6px 0px #0048a8;
 font-family: Gotham;
 padding: 10;
 font-weight: bold;
@@ -153,15 +154,15 @@ display: flex;
 }
 
 ion-input._Input.sc-ion-input-md-h.sc-ion-input-md-s.hydrated.ng-dirty.ng-touched.ng-invalid.md.has-value.ion-dirty.ion-touched.ion-invalid {
-border: 1px solid #0148A8;
-color: #0148A8;
+border: 1px solid #0048a8;
+color: #0048a8;
 font-family: Gotham;
 font-weight: bold;
 }
 
 ion-input._Input.sc-ion-input-ios-h.sc-ion-input-ios-s.hydrated.ng-dirty.ng-touched.ng-invalid.ios.has-value.ion-dirty.ion-touched.ion-invalid {
-border: 1px solid #0148A8;
-color: #0148A8;
+border: 1px solid #0048a8;
+color: #0048a8;
 font-family: Gotham;
 font-weight: bold;
 }
@@ -187,6 +188,7 @@ position: fixed;
 }
 .redirect-button{
   color: #0048a8; 
+  font-family: sans-serif;
 }
 
 ion-footer{

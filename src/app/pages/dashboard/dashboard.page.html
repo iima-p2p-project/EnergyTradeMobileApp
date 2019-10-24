@@ -6,8 +6,119 @@
 
 <ion-content>
 
-    <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
+<div class="cont-clr">
+<div class="container">
+  <div class="wf-sec">
+  <div class="row fcast-sec">
+ 
+      <div class="col-5">
+        <div class="wther-fcast">
+          <p><span></span>Today<br>12:00PM-1:00PM</p>
+          <!-- <span><ion-icon name="pin"></ion-icon></span> -->
+          <p class="fc-location"> <span><ion-icon name="pin"></ion-icon></span> Tarnaka</p>
+        </div>
+      </div>
+      <div class="col-7">
+          <div class="forcast">
+            <p>Available Units <span> Price</span></p>
+            <p class="fcspan">50 - 175</p>
+            <p class="view-fcast">View forecast</p>
+            <span><ion-icon name="arrow-round-forward" class="vfc-icn"></ion-icon></span>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+<div class="tab-sec">
+  <nav>
+      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Sell</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Buy</a>
+      </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="power-tab-sec">
+          <h4 class="tab-head">TYPES OF POWER</h4>
+          <div class="power-icons">
+            <ion-icon name="basket" class="pw-icn"></ion-icon>
+            <ion-icon name="calendar" class="pw-icn"></ion-icon>
+            <ion-icon name="logo-model-s" class="pw-icn"></ion-icon>
+          </div>
+
+          <h4 class="tab-head">POWER TO SELLS (UNITS)</h4>
+          <p><input type="text" placeholder="XXX " class="power-inp"/><span>/300</span></p>
+          <ion-button shape="round" color="primary" class="btn-sell">SELL</ion-button>
+        </div>
+          <!-- <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
+          <br/><br/><br/><br/><br/><br/>
+          <app-buy (buyFlow)=initiateBuyFlow($event)></app-buy> -->
+      </div>
+
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+
+  </div>
+</div>
+</div>
+    <!-- <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
     <br/><br/><br/><br/><br/><br/>
     <app-buy (buyFlow)=initiateBuyFlow($event)></app-buy>
+            -->
 
+            <div class="container">
+              <div class="trans-sec">
+                <h5>Latest Transactions</h5>
+                <span>View all </span><ion-icon name="arrow-round-forward" class="vieww-icn"></ion-icon>
+              </div>
+
+              <div class="latest-tsec1">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="trans-icn">
+                      <ion-icon class="circle-icn" name="arrow-dropleft-circle"></ion-icon>
+                    </div>
+                  </div>
+                  <div class="col-9">
+                    <div class="trans-units">
+                      <h6>100 Units<br><span>ID #49857439</span></h6>
+                      <p>Rs. 825.00</p>
+                    </div>
+                    <div class="sechdule-trans">
+                        <ion-icon name="basket" class="st-icn"></ion-icon><span>Solar</span>
+                        <ion-icon name="basket" class="st-icn"></ion-icon><span>6 JUN</span>
+                        <ion-icon name="basket" class="st-icn"></ion-icon><span>03:30 PM - 05:30 PM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="latest-tsec2">
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="trans-icn">
+                        <ion-icon class="circle-icn2" name="arrow-dropleft-circle"></ion-icon>
+                      </div>
+                    </div>
+                    <div class="col-9">
+                      <div class="trans-units">
+                        <h6>250 Units<br><span>ID #49857439</span></h6>
+                        <p>Rs. 458.00</p>
+                      </div>
+                      <div class="sechdule-trans">
+                          <ion-icon name="basket" class="st-icn"></ion-icon><span>Solar</span>
+                          <ion-icon name="basket" class="st-icn"></ion-icon><span>6 JUN</span>
+                          <ion-icon name="basket" class="st-icn"></ion-icon><span>03:30 PM - 05:30 PM</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+
+  </div>
 </ion-content>

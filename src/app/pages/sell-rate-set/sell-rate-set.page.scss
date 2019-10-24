@@ -1,12 +1,33 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+        url('../../../assets/fonts/Montserrat-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat-Light.woff2') format('woff2'),
+        url('../../../assets/fonts/Montserrat-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../../assets/fonts/Roboto-Light.woff2') format('woff2'),
+        url('../../../assets/fonts/Roboto-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
 ._content {
     display: flex;
 }
 
-._Div {
-    margin-top: 20px;
-    font-size: 20px;
-    text-align: center;
-}
+// ._Div {
+//     margin-top: 20px;
+//     font-size: 20px;
+//     text-align: center;
+// }
 
 ._Button {
     width: 25% !important;
@@ -15,41 +36,95 @@
 }
 
 ._DateTimePicker {
-    margin-top: 10px;
-    margin-left: 100px;
-    margin-right: 100px;
-    border: 1px solid lightgray;
     border-radius: 6px;
     text-align: center;
     align-content: center;
     align-items: center;
     align-self: center;
-}
-
-._Input {
-    width: 20% !important;
-    margin-top: 20px;
-    margin-left: 170px;
-    margin-right: 70px;
-    padding-left: 10px !important;
-    border: 1px solid lightgray;
-    border-radius: 6px;
-    text-align: center;
-    align-content: center;
-    align-items: center;
-    align-self: center;
-    padding-right: 10px;
-    height: 50px;
-}
-
-._Label {
-    width: 75% !important;
-    margin-left: 15px;
-    font-size: 12px;
+    border: none;
 }
 
 ._TotalAmount {
-    width: 75% !important;
-    margin-left: 15px;
+    margin-top: -20px;
     font-size: 20px;
 }
+
+.psell-sec {background-color: #0048a8;}
+h3.sell-head {color: #fff;font-family: "Montserrat";font-size: 24px;font-weight: 600;margin-top: 0px;text-transform: uppercase;}
+.srt-time label {font-size: 12px;font-family: "Montserrat";font-weight: 400;color: #fff;margin-left: 18px;margin-bottom: 0px;}
+ion-row.time-sec.ios.hydrated {
+    padding: 0px 5px;
+}
+ion-datetime.ng-untouched.ng-pristine.ng-invalid.ios.datetime-placeholder.in-item.hydrated.ion-untouched.ion-pristine.ion-invalid {
+    color: #fff;
+    font-size: 12px;
+    padding-left: 0px;
+    font-weight: 400;
+    font-family: "Montserrat";
+}
+input.time {border: none;color: #b3b3b5;width: 40%;background-color: transparent;margin-left: 18px;margin-top: 5px;}
+.srt-time span {
+    color: #fff;
+    font-size: 10px;
+    font-family: "Montserrat";
+    margin-top: 10px;
+    float: right;
+    margin-right: 48px;
+    font-weight: 400;
+}
+._Div p {
+    color: #fff;
+    font-size: 48px;
+    text-align: center;
+    font-family: "Montserrat";
+    margin-bottom: -5px;
+    font-weight: 600;
+}
+._Div p.sr-dur {
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-family: "Montserrat";
+    font-weight: 400;
+}
+.trans-icn ion-icon.circle-icn2.ios.hydrated {
+    color: #fff;
+    font-size: 32px;
+    transform: rotate(180deg);
+    margin-bottom: -10px;
+}
+.trans-icn ion-icon.vv-icn.ios.hydrated {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 600;
+}
+._Div hr {
+    height: 1px;
+    background-color: #528ddb;
+    width: 85%;
+}
+._Input {
+    width: 80%;
+    border-radius: 6px;
+    height: 40px;
+}
+ion-label._Label {
+    color: #fff;
+    margin-left: 25px;
+}
+ion-col.sl-btn {position: absolute;bottom: 30px;padding: 0px 25px 0px 15px;}
+.sl-btn{--ion-color-primary: #7fa4d4;}
+ion-row.unit-sec.ios.hydrated {
+    margin-top: 10px;
+}
+ion-icon.nt-ring.ios.hydrated {
+    font-size: 24px;
+    color: #fff;
+    float: right;
+    margin-top: -38px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+ion-icon.rt-arw.ios.hydrated {font-size: 32px;color: #fff;font-weight: 600;margin-bottom: -36px;}

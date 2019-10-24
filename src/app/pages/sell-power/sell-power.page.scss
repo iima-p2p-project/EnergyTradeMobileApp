@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+        url('../../../assets/fonts/Montserrat-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat-Light.woff2') format('woff2'),
+        url('../../../assets/fonts/Montserrat-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../../assets/fonts/Roboto-Light.woff2') format('woff2'),
+        url('../../../assets/fonts/Roboto-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+.psell-sec {background-color: #0048a8;}
+h3.sell-head {color: #fff;font-family: "Montserrat";font-size: 24px;font-weight: 600;margin-top: 0px;text-transform: uppercase;}
+.sell-cont {background-color: #fff;border-top-left-radius: 25px;border-top-right-radius: 25px;}
+p.sl-unit {font-size: 30px;font-weight: 600;font-family: "Montserrat";color: #0048a8;}
+.sell-cont hr {height: 2px;background-color: #e8e8e8;}
+input.time {border: none;color: #b3b3b5;width: 50%;background-color: transparent;}
+input.date {border: none;color: #b3b3b5;width: 100%;}
+.st-time label {font-size: 10px;font-family: "Montserrat";font-weight: 600;color: #000000;}
+.st-time span {font-size: 10px;font-family: "Montserrat";font-weight: 600;color: #b3b3b5;float: right;margin-top: -20px;margin-right: 50px;}
+form.st-sec {padding: 0px 10px;}
+ion-icon.circle-icn2.ios.hydrated {font-size: 32px;color: #7fa3d3;transform: rotate(180deg);}
+.sell-dur p {font-size: 48px;font-weight: 600;font-family: "Montserrat";color: #b3b3b5;margin-bottom: -15px;}
+.sell-dur span{font-family: "Montserrat";}
+ion-col.sl-btn {position: absolute;bottom: 30px;padding: 0px 25px 0px 15px;}
+.sl-btn{--ion-color-primary: #7fa4d4;}

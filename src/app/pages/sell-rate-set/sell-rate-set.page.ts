@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IonDatetime } from '@ionic/angular';
+import { IonDatetime, AlertController } from '@ionic/angular';
 import { Order } from 'src/app/models/Order';
 import { OrderService} from 'src/app/services/order.service';
 
@@ -22,6 +22,7 @@ export class SellRateSetPage implements OnInit {
   duration: string;
   power: string;
 
+
   rate:string;
 
   order: Order = {};
@@ -29,7 +30,7 @@ export class SellRateSetPage implements OnInit {
   constructor(private formBuilder: FormBuilder
     , private router: Router
     , private route: ActivatedRoute
-    , private orderService: OrderService) { 
+    , private orderService: OrderService, private alertController: AlertController) { 
       this.sellRateSetForm = this.formBuilder.group({
         rate: [null, Validators.required],
         startTime: [null, Validators.required],
@@ -56,11 +57,11 @@ export class SellRateSetPage implements OnInit {
     this.sellRateSetForm.controls['endTime'].setValue(this.endTime);
     this.sellRateSetForm.controls['duration'].setValue(this.duration);
     this.sellRateSetForm.controls['power'].setValue(this.power);
-    this.sellRateSetForm.controls['totalAmount'].setValue("00.00");
+    this.sellRateSetForm.controls['totalAmount'].setValue("XXXX");
     console.log('date as string : ' , this.startTime);
   }
 
-  submit() {
+  async submit() {
     this.order.orderId = 1;
     this.order.orderType = 'SELL';
     this.order.deviceName = this.deviceName;
@@ -73,8 +74,26 @@ export class SellRateSetPage implements OnInit {
     this.order.status = "INITIATED";
     this.orderService.createSellOrder(this.order);
     this.orderService.printSellOrderList();
-    this.router.navigate(['sell-post-success'], {
-      queryParams: {}
+    // this.router.navigate(['sell-post-success'], {
+    //   queryParams: {}
+    // });
+
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: 'Post Successful!',
+      message: 'You have successfully posted  your post. Edit or cancel your post from Manager Orders',
+      buttons: ['MANAGE ORDERS']
     });
+
+    await alert.present();
+    let result = await alert.onDidDismiss();
+    console.log(result);
+
+
+    // this.order.createUser(this.sellRateSetForm)
+    // .subscribe( data => {
+    //   this.router.navigate([''])
+    // })
   }
+
 }

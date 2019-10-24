@@ -1,21 +1,23 @@
 ._content {
-  --background: #0148A8;
+  --background: #0048a8;
 }
 
 ._toolbar {
-  --background: #0148A8;
+  --background: #0048a8;
   color: white;
   text-align: center;
   border: none;
-  font-family: Gotham;
+  font-family: sans-serif;
+  font-weight: 600;
   
 }
 
 ._header {
   position: initial;
   height: 70px;
-  background: #0148A8;
+  background: #0048a8;
   font-weight: bold;
+  font-family: sans-serif;
   padding-top: 12px;
 }
 
@@ -51,6 +53,7 @@ border: 1px solid lightgray;
 border-radius: 6px;
 padding-left: 10px !important;
 height: 36px;
+font-family: sans-serif;
 }
 
 .OTP_input{
@@ -61,13 +64,14 @@ height: 36px;
   padding-left: 10px !important;
   float: left;
   height: 36px;
+  font-family: sans-serif;
 }
 
 button.Resend_OTP_btn {
   padding-top: 11px;
   padding-left: 24px;
   background: none;
-  color: #0148A8;
+  color: #0048a8;
   font-weight: bold;
   font-family: Gotham;
   border: none;
@@ -131,7 +135,7 @@ ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
   border-radius: 60px;
   box-shadow: none;
   --border-radius: 60px;
-  --background: #0148A8;
+  --background: #0048a8;
   box-shadow: 2px 3px 3px 0px #bccee8;
   font-family: Gotham;
   padding: 10;
@@ -144,7 +148,19 @@ ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
 
 ion-input{
   color: #0048a8; 
+  font-family: sans-serif !important;
+  font-weight: 600;
 }
+
+input.native-input.sc-ion-input-ios {
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+input.native-input.sc-ion-input-ios {
+  font-family: sans-serif;
+  font-weight: 600;
+} 
 
 .has-focus{
   border-color: #0048a8 !important;
@@ -160,6 +176,7 @@ ion-input{
 }
 .redirect-button{
   color: #0048a8; 
+  font-family: sans-serif;
 }
 
 ion-footer{

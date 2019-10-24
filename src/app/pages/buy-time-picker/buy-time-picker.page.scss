@@ -1,0 +1,122 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+        url('../../../assets/fonts/Montserrat-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../../assets/fonts/Montserrat-Light.woff2') format('woff2'),
+        url('../../../assets/fonts/Montserrat-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../../assets/fonts/Roboto-Light.woff2') format('woff2'),
+        url('../../../assets/fonts/Roboto-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+
+.psell-sec {background-color: #0048a8;}
+h3.sell-head {color: #fff;font-family: "Montserrat";font-size: 24px;font-weight: 600;margin-top: 0px;text-transform: uppercase;}
+ion-icon.nt-ring.ios.hydrated {font-size: 24px;color: #fff;float: right;margin-top: -38px;font-weight: bold;margin-right: 5px;}
+.stt-time label {font-size: 12px;font-family: "Montserrat";font-weight: 400;color: #000000;margin-left: 18px;margin-bottom: 0px;}
+ion-row.time-sec.ios.hydrated {
+    margin-top: 0px;
+}
+ion-datetime.ng-untouched.ng-pristine.ng-invalid.ios.datetime-placeholder.in-item.hydrated.ion-untouched.ion-pristine.ion-invalid {
+    color: #9a9a9e;
+    font-size: 12px;
+    padding-left: 0px;
+    font-weight: 400;
+    font-family: "Montserrat";
+}
+input.time {border: none;color: #b3b3b5;width: 40%;background-color: transparent;margin-left: 18px;margin-top: 5px;}
+.stt-time span {
+    color: #9a9a9e;
+    font-size: 10px;
+    font-family: "Montserrat";
+    margin-top: 10px;
+    float: right;
+    margin-right: 48px;
+    font-weight: 400;
+}
+.sell-cont {background-color: #fff;border-top-left-radius: 25px;border-top-right-radius: 25px;}
+.trans-icn ion-icon.circle-icn2.ios.hydrated {
+    color: #7fa4d4;
+    font-size: 32px;
+    transform: rotate(180deg);
+    margin-bottom: -10px;
+}
+p.sl-unit {font-size: 30px;font-weight: 600;font-family: "Montserrat";color: #0048a8;}
+.sell-cont hr {height: 1px;background-color: #eeeeef;width: 92%;margin-bottom: 0px;}
+._Div p {
+    color: #d0d0d1;
+    font-size: 48px;
+    text-align: center;
+    font-family: "Montserrat";
+    margin-bottom: -5px;
+    font-weight: 600;
+}
+._Div p.sr-dur {
+    font-size: 12px;
+    color: #9a9a9e;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-family: "Montserrat";
+    font-weight: 400;
+}
+._Input {
+    width: 80%;
+    border-radius: 6px;
+    height: 40px;
+}
+ion-label._Label {
+    color: #000000;
+    margin-left: 10px;
+    font-size: 12px;
+}
+ion-button.srch-btn.ios.button.button-full.button-round.button-solid.ion-activatable.ion-focusable.hydrated {
+    width: 70%;
+    margin: auto;
+    padding: 3px 0px;
+}
+.hotd1 {
+    background-color: #d3ecfb;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.hotd1 p {
+    font-size: 10px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+span.hash_txt {
+    font-size: 10px;
+    text-align: center;
+}
+.hotd1 .htd-btn{
+    color: #000000;
+    color: #000000;
+    padding: 7px 0px;
+    width: 100%;
+}
+.hotd2 {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.hotd2 p {font-size: 10px;text-align: center;margin-bottom: 0px;}
+.hotd2 .htd-btn{color: #000000;color: #000000;padding: 7px 0px;width: 100%;}
+ion-icon.rt-arw.ios.hydrated {font-size: 32px;color: #fff;font-weight: 600;margin-bottom: -36px;}
+ion-datetime.ios.datetime-placeholder.in-item.hydrated {margin-left: -15px;}
+.ht-deal h5 {
+    color: #000000;
+    font-size: 16px;
+}
