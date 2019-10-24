@@ -1,20 +1,32 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>SELL</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
+<ion-header class="_header">
+
+    
+    <ion-toolbar class="_toolbar">
+  
+        <ion-buttons slot="start" >
+  
+            <ion-icon class="rt-arw"  name="arrow-round-back"></ion-icon>
+          </ion-buttons>
+  
+      <ion-title class="__title">
+        Sell
+      </ion-title>
+  
+      <ion-buttons slot="end">
+  
+          <ion-icon class="nt-ring" name="notifications-outline"></ion-icon>
+             
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  
+  
+  <ion-content class="_content">
   <div class="psell-sec">
-        <ion-grid>
-            <ion-row>
-              <ion-col size="12" size-sm>
-                <ion-icon class="rt-arw" name="arrow-round-back"></ion-icon>
-                <h3 class="sell-head text-center">Sell</h3>
-                <ion-icon class="nt-ring" name="notifications-outline"></ion-icon>
-              </ion-col>
-            </ion-row>
-        </ion-grid>
+  
 
         <ion-grid>
           <ion-row class="time-sec">
@@ -68,9 +80,10 @@
             <ion-col size="6"><ion-label class="_Label">SET RATE PER UNIT</ion-label></ion-col>
               <ion-col size="1"><span style="color:#fff;">:</span></ion-col>
               <ion-col size="5">
-                <ion-item class="_Input">
-                <ion-input placeholder="00" formControlName="power"></ion-input>
-              </ion-item>
+                <div class="_Input_Sell">
+                    <p class="Rupp_S" slot="start">₹</p>
+                <ion-input placeholder="00" formControlName="power" style="margin-left: 10px;"></ion-input>
+                </div>
             </ion-col>
           </ion-row>
 
@@ -78,9 +91,11 @@
               <ion-col size="6"><ion-label class="_Label">TOTAL AMOUNT</ion-label></ion-col>
                 <ion-col size="1"><span style="color:#fff;">:</span></ion-col>
                 <ion-col size="5">
-                    <ion-item class="_Input input-amt" color="success" lines="none">
-                        <ion-input formControlName="totalAmount" class="_TotalAmount">{{totalAmount}}</ion-input>
-                    </ion-item>
+                    <div class="_InputAmt" >
+                      <p class="Rupp_">₹</p>
+                     
+                        <input formControlName="totalAmount" class="_TotalAmount">{{totalAmount}}
+                    </div>
               </ion-col>
             </ion-row>
 

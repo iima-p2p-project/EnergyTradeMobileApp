@@ -22,6 +22,31 @@
 }
 
 
+._content {
+    --background: #0048a8;
+  }
+  
+  ._toolbar {
+    --background: #0048a8;
+    color: white;
+    text-align: center;
+    border: none;
+    font-family: Gotham;
+    
+  }
+  
+  ._header {
+    position: initial;
+    background: #0048a8;
+    font-weight: bold;
+    padding-top: 12px;
+  }
+  
+  .__title{
+    font-size: 20px;
+  }
+
+
 .wf-sec {
     background-color: #003c8e;
     color: #fff;
@@ -198,3 +223,9 @@ ion-icon.vfc-icn.ios.hydrated{
     transform: rotate(135deg);
 }
 .power-tab-sec{--ion-color-primary: #7fa4d4;}
+
+
+._menu_{
+    font-size: 26px;
+    padding-left: 10px;
+}

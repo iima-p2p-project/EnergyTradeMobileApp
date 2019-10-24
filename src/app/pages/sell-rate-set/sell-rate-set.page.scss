@@ -23,11 +23,35 @@
     display: flex;
 }
 
-// ._Div {
-//     margin-top: 20px;
-//     font-size: 20px;
-//     text-align: center;
-// }
+._content {
+    display: flex;
+}
+
+._content {
+    --background: #0048a8;
+  }
+  
+  ._toolbar {
+    --background: #0048a8;
+    color: white;
+    text-align: center;
+    border: none;
+    font-family: Gotham;
+    
+  }
+  
+  ._header {
+    position: initial;
+    background: #0048a8;
+    font-weight: bold;
+    padding-top: 12px;
+  }
+  
+  .__title{
+    font-size: 20px;
+  }
+
+
 
 ._Button {
     width: 25% !important;
@@ -45,8 +69,12 @@
 }
 
 ._TotalAmount {
-    margin-top: -20px;
-    font-size: 20px;
+    margin-top: -3px;
+    margin-left: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
 }
 
 .psell-sec {background-color: #0048a8;}
@@ -119,12 +147,57 @@ ion-col.sl-btn {position: absolute;bottom: 30px;padding: 0px 25px 0px 15px;}
 ion-row.unit-sec.ios.hydrated {
     margin-top: 10px;
 }
-ion-icon.nt-ring.ios.hydrated {
-    font-size: 24px;
+.nt-ring{
+    font-size: 26px;
     color: #fff;
     float: right;
-    margin-top: -38px;
     font-weight: bold;
     margin-right: 5px;
 }
-ion-icon.rt-arw.ios.hydrated {font-size: 32px;color: #fff;font-weight: 600;margin-bottom: -36px;}
+
+.rt-arw{
+    font-size: 26px;
+    padding-left: 10px;
+}
+
+ion-input._TotalAmount.sc-ion-input-md-h.sc-ion-input-md-s.hydrated.ng-dirty.ng-valid.ng-touched.md.has-value.ion-dirty.ion-valid.ion-touched {
+    background: none;
+    background: #0048a8;
+    color: white;
+    font-size: 30px;
+}
+
+ion-input._TotalAmount.sc-ion-input-ios-h.sc-ion-input-ios-s.hydrated.ng-dirty.ng-valid.ng-touched.ios.has-value.ion-dirty.ion-valid.ion-touched {
+    background: none;
+    background: #0048a8;
+    color: white;
+    font-size: 30px;
+}
+
+._InputAmt {
+    display: flex;
+}
+
+._Input_Sell {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    height: 43px;
+    width: 115px;
+}
+
+p.Rupp_S {
+    color: black !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    font-family: none !important;
+    font-size: 30px !important;
+    padding-left: 9px;
+    padding-right: 9px;
+    border-radius: 1px solid black !important;
+    border-right: 2px solid #adb5bd;
+}
+
+
+
+
