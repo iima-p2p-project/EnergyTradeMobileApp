@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES } from 'src/app/environments/environments';
@@ -27,9 +27,11 @@ export class LoginPage implements OnInit {
 
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
+    , private alertController: AlertController
     , private formBuilder: FormBuilder
     , private router: Router
-    , private storage: Storage) {
+    , private storage: Storage
+    , private toastCtrl: ToastController) {
 
     this.loginForm = this.formBuilder.group({
       phoneNumber: [null, Validators.compose([
@@ -63,13 +65,19 @@ export class LoginPage implements OnInit {
     }
     this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
       this.responseFromService = res;
+      console.log('login response : ' , res);
       if (this.responseFromService.response.key == 200) {
         this.userId = this.responseFromService.response.userId;
+        this.ingressService.getUserDevices(this.userId).subscribe((res) => {
+          console.log('user devices from server : ' , res);
+          this.responseFromService = res;
+          this.ingressService.setUserDevices(this.responseFromService.response.devices);
+        });
         this.storage.set('LoggedInUserId', this.userId).then(() => {
-          this.router.navigate(['/home'], {
+          this.router.navigate(['/dashboard'], {
             queryParams: {
               phoneNumber: this.phoneNumber,
-              callerPage: this.redirect
+              redirect: this.redirect
             }
           });
         });
@@ -90,11 +98,21 @@ export class LoginPage implements OnInit {
             this.showOTPFlag = true;
           }
           if(this.responseFromService.response.key == 300) {
+            this.showOTPFlag = false;
+            this.showToast();
             console.log('User does not exist. Please register.')
           }
         });
       }
     }
+  }
+
+  async showToast() {
+    const toast7 = await this.toastCtrl.create({
+      message: 'User does not exist. Please register.',
+      duration: 3000,
+    });
+    toast7.present();
   }
 
   redirectToRegister() {

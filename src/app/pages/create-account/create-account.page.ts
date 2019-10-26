@@ -4,7 +4,8 @@ import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder} f
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
-import { ENABLE_SERVICES } from 'src/app/environments/environments'
+import { ENABLE_SERVICES } from 'src/app/environments/environments';
+import { AlertController, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class CreateAccountPage implements OnInit {
     , private route: ActivatedRoute
     , private formBuilder: FormBuilder
     , private router: Router
-    , private storage: Storage) {
+    , private storage: Storage
+    , private toastCtrl: ToastController) {
 
       this.createAccountForm = this.formBuilder.group({
         phoneNumber: [null, Validators.compose([
@@ -94,8 +96,11 @@ export class CreateAccountPage implements OnInit {
       if(ENABLE_SERVICES) {
         this.ingressService.sendOtp(this.phoneNumber).subscribe((res) => {
           this.responseFromService=res;
+          console.log('server response from send otp : ' , res);
           if(this.responseFromService.response.key == 300) {
+            this.showOTPFlag = false;
             console.log('User Already Exists. Please Login');
+            this.showToast();
           }
           if(this.responseFromService.response.key == 200) {
             this.showOTPFlag = true;
@@ -103,6 +108,14 @@ export class CreateAccountPage implements OnInit {
         });
       }
     }
+  }
+
+  async showToast() {
+    const toast7 = await this.toastCtrl.create({
+      message: 'User Already Exists. Please Login.',
+      duration: 3000,
+    });
+    toast7.present();
   }
 
   redirectToLogin() {

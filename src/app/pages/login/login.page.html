@@ -18,7 +18,7 @@
             <ion-input class="_Input" formControlName="phoneNumber" (ionChange)="enableOTPField()"></ion-input>
    
           </div>
-
+          <br/>
           <div class="Label_" *ngIf="showOTPFlag">
               <p class="p__" >4 DIGIT OTP</p>
               <ion-input class="OTP_input" formControlName="otp" type="number"  ></ion-input>
@@ -34,7 +34,7 @@
 
     <ion-row>
         <ion-col>
-            <ion-button type="submit" (click)="login()" [disabled]="!loginForm.valid">SIGN IN</ion-button>
+            <ion-button shape="round" type="submit" (click)="login()" [disabled]="!loginForm.valid">SIGN IN</ion-button>
 
         </ion-col>
       </ion-row>

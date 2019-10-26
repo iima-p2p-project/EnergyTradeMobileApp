@@ -13,6 +13,9 @@ export class AddDevicePage implements OnInit {
 
   addDeviceForm: FormGroup;
 
+  userId: any;
+  redirect: any;
+
   isSolarSelected: boolean;
   isGeneratorSelected: boolean;
   isEVSelected: boolean;
@@ -36,12 +39,20 @@ export class AddDevicePage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewDidEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.userId = params['userId'];
+      this.redirect = params['redirect'];
+    });
+  }
+
   skip() {
   }
   
   next(){
     this.router.navigate(['/device-details'], {
       queryParams: {
+        userId: this.userId,
         showSolar: this.isSolarSelected,
         showGenerator: this.isGeneratorSelected,
         showEV: this.isEVSelected

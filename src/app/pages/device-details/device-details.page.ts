@@ -21,6 +21,8 @@ export class DeviceDetailsPage implements OnInit {
   devices: any[] = [];
 
   responseFromService: any;
+  
+  userId: any;
 
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
@@ -40,6 +42,8 @@ export class DeviceDetailsPage implements OnInit {
   ionViewDidEnter() {
   
     this.route.queryParams.subscribe(params => {
+    this.userId = params['userId'];
+    console.log('user id : ' , this.userId);
     if(params['showSolar'] == "true") {
       this.showSolar = true;
     }
@@ -95,10 +99,19 @@ export class DeviceDetailsPage implements OnInit {
 
     //this.router.navigateByUrl('/home');
 
-    this.ingressService.addDevice({ "userId": "2", "devices": this.devices}).subscribe((res) => {
+    this.ingressService.addDevice({ "userId": this.userId, "devices": this.devices}).subscribe((res) => {
       this.responseFromService = res;
+      console.log('add devices : ' , res);
       if(this.responseFromService.response.key == 200) {
-        this.router.navigateByUrl('/home');
+        this.router.navigate(['/dashboard'], {
+        queryParams: {
+          showSolar: this.showSolar,
+          solarCapacity: this.deviceDetailsForm.get('solar').value,
+          showGenerator: this.showGenerator,
+          generatorCapacity: this.deviceDetailsForm.get('generator').value,
+          showEV: this.showEV,
+          evCapacity: this.deviceDetailsForm.get('ev').value
+        }});
       }
     });
   }

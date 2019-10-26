@@ -17,7 +17,7 @@
 
     <form [formGroup]="registerForm">
       <ion-list>
-     
+          <br/>
           <div class="Label_" >
               <p class="p__" >EMAIL ADDRESS</p>
               <ion-input class="_Input" formControlName="email" type="Email"  ></ion-input>
@@ -28,7 +28,7 @@
 
             <div class="Flex_">
      
-              
+            <ion-label class="lov_label">{{selectedState}}</ion-label>  
           <!-- <ion-select class="_Input" formControlName="stateList" placeholder="Select State" (ionChange)="getBoardsPostStateSelection()">
             <ion-select-option *ngFor="let state of states">{{state.stateName}}</ion-select-option>
             <ion-select-option value="1">Andhra Pradesh</ion-select-option>
@@ -44,9 +44,10 @@
 
             <div class="Flex_">
       
-                <img src="../../../assets/assets2/select_state.svg" class="svg_icon" (click)="openState_Modal()">
+              <ion-label class="lov_label">{{selectedBoard}}</ion-label>
+              <img src="../../../assets/assets2/select_board.svg" class="svg_icon" (click)="openBoard_Modal()">
       
-              </div>
+            </div>
 
        
           <!-- <ion-select class="_Input" formControlName="boardList" placeholder="Select Board">
@@ -54,6 +55,7 @@
             <ion-select-option value="1">TSNPDCL</ion-select-option>
             <ion-select-option value="2">TSSPDCL</ion-select-option>
           </ion-select> -->
+   <br/>
    </div>
 
         <!-- <div class="Message">

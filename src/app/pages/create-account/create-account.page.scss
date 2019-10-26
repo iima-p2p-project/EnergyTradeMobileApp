@@ -54,7 +54,7 @@ p.p__ {
 width: 75% !important;
 margin-left: 40px;
 font-family: sans-serif;
-font-weight: 600;
+// dfont-weight: 600;
 border: 1px solid lightgray;
 border-radius: 6px;
 padding-left: 10px !important;
@@ -136,26 +136,39 @@ float: left;
 }
 //button css
 
-ion-button.md.button.button-small.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+// ion-button.md.button.button-small.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
 
-  width: 159px;
-  height: 43px;
-  margin-top: -10px;
-border-radius: 60px;
-box-shadow: none;
---border-radius: 60px;
---background: #7fa4d46b;
-}
+//   width: 159px;
+//   height: 43px;
+//   margin-top: -10px;
+// border-radius: 60px;
+// box-shadow: none;
+// --border-radius: 60px;
+// --background: #7fa4d46b;
+// }
 
-ion-button.md.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
-  width: 159px;
-  height: 43px;
-  margin-top: -10px;
-border-radius: 60px;
-box-shadow: none;
---border-radius: 60px;
---background: #7ea3d4;
-}
+// ion-button.md.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+//   width: 159px;
+//   height: 43px;
+//   margin-top: -10px;
+// border-radius: 60px;
+// box-shadow: none;
+// --border-radius: 60px;
+// --background: #7ea3d4;
+// }
+
+ion-button{
+  width: 121px;
+  height: 36px;
+  border-radius: 60px;
+  box-shadow: none;
+  --border-radius: 60px;
+  --background: #0048a8;
+  //box-shadow: 3px 4px 6px 0px #0048a8;
+  font-family: Gotham;
+  padding: 10;
+  font-weight: bold;
+  }
 
 ion-row.md.hydrated {
 text-align: center;
@@ -165,33 +178,33 @@ ion-row.ios.hydrated {
 text-align: center;
 }
 
-ion-button.hydrated.md.button.button-solid.ion-activatable.ion-focusable {
-  width: 159px;
-  height: 43px;
-  margin-top: -10px;
-border-radius: 60px;
-box-shadow: none;
---border-radius: 60px;
---background: #0048a8;
-box-shadow: 2px 3px 3px 0px #e0e9f5;
-font-family: Gotham;
-padding: 10;
-font-weight: bold;
-}
+// ion-button.hydrated.md.button.button-solid.ion-activatable.ion-focusable {
+//   width: 159px;
+//   height: 43px;
+//   margin-top: -10px;
+// border-radius: 60px;
+// box-shadow: none;
+// --border-radius: 60px;
+// --background: #0048a8;
+// box-shadow: 2px 3px 3px 0px #e0e9f5;
+// font-family: Gotham;
+// padding: 10;
+// font-weight: bold;
+// }
 
-ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
-  width: 159px;
-  height: 43px;
-  margin-top: -10px;
-border-radius: 60px;
-box-shadow: none;
---border-radius: 60px;
---background: #0048a8;
-box-shadow: 2px 3px 3px 0px #e0e9f5;
-font-family: Gotham;
-padding: 10;
-font-weight: bold;
-}
+// ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
+//   width: 159px;
+//   height: 43px;
+//   margin-top: -10px;
+// border-radius: 60px;
+// box-shadow: none;
+// --border-radius: 60px;
+// --background: #0048a8;
+// box-shadow: 2px 3px 3px 0px #e0e9f5;
+// font-family: Gotham;
+// padding: 10;
+// font-weight: bold;
+// }
 
 // otp
 
@@ -210,19 +223,19 @@ font-size: 11px !important;
 
 // input css
 
-ion-input._Input.sc-ion-input-md-h.sc-ion-input-md-s.hydrated.ng-dirty.ng-touched.ng-invalid.md.has-value.ion-dirty.ion-touched.ion-invalid {
-border: 1px solid #0048a8;
-color: #0048a8;
-font-family: sans-serif;
-font-weight: 600;
-}
+// ion-input._Input.sc-ion-input-md-h.sc-ion-input-md-s.hydrated.ng-dirty.ng-touched.ng-invalid.md.has-value.ion-dirty.ion-touched.ion-invalid {
+// border: 1px solid #0048a8;
+// color: #0048a8;
+// font-family: sans-serif;
+// font-weight: 600;
+// }
 
-ion-input._Input.sc-ion-input-ios-h.sc-ion-input-ios-s.hydrated.ng-dirty.ng-touched.ng-invalid.ios.has-value.ion-dirty.ion-touched.ion-invalid {
-border: 1px solid #0048a8;
-color: #0048a8;
-font-family: sans-serif;
-font-weight: 600;
-}
+// ion-input._Input.sc-ion-input-ios-h.sc-ion-input-ios-s.hydrated.ng-dirty.ng-touched.ng-invalid.ios.has-value.ion-dirty.ion-touched.ion-invalid {
+// border: 1px solid #0048a8;
+// color: #0048a8;
+// font-family: sans-serif;
+// font-weight: 600;
+// }
 
 img.Loading {
   margin-right: 4px;

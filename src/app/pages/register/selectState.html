@@ -12,11 +12,10 @@
       
         <div class="bL"></div>
       </ion-header>
-      
+      <br/>
       <ion-content class="_content">
-      
+        
         <div class="content-main">
-
 
             <div class="List_">
                 <div class="Label_GetLocation">
@@ -25,9 +24,9 @@
                 </div>
 
                 <div class="Label_Locations">
-                    <h3 class="Li_">Arunachal Pradesh</h3>
-                    <h3 class="Li_">Chandigarh</h3>
+                    <h3 class="Li_" *ngFor="let state of stateList" (click)="selectState(state)">{{state.stateName}}</h3>
                 </div>
+                
             </div>
 
             </div>
