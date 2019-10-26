@@ -1,0 +1,126 @@
+<ion-header class="_header">
+  
+        <ion-toolbar class="_toolbar">
+      
+          <ion-buttons slot="start">
+              <ion-icon name="arrow-back" class="iconLEFT" (click)="dismiss()"></ion-icon>
+          </ion-buttons>
+          <ion-title class="__title">
+              SELECT STATE
+          </ion-title>
+        </ion-toolbar>
+      
+        <div class="bL"></div>
+      </ion-header>
+      
+      <ion-content class="_content">
+      
+        <div class="content-main">
+
+
+            <div class="List_">
+                <div class="Label_GetLocation">
+                        <ion-icon name="navigate"></ion-icon>
+                    <p class="P_">Current Location</p>
+                </div>
+
+                <div class="Label_Locations">
+                    <h3 class="Li_">Arunachal Pradesh</h3>
+                    <h3 class="Li_">Chandigarh</h3>
+                </div>
+            </div>
+
+            </div>
+
+            </ion-content>
+
+
+
+            <style>
+            
+            .iconLEFT {
+  margin-left: 15px;
+}
+
+._header {
+position: initial;
+height: 80px;
+background: #0048a8;
+font-weight: bold;
+padding-top: 12px;
+}
+
+.content-main {
+  background: white;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  padding: 25px 15px 15px;
+  height: 100%;
+}
+
+
+  
+.bL {
+  background: white;
+  height: 20px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  margin-top: 10px;
+}
+
+._toolbar {
+--background: #0048a8;
+color: white;
+text-align: center;
+border: none;
+font-family: Gotham;
+
+}
+
+.__title{
+font-size: 20px;
+font-weight: bold;
+font-family: sans-serif;
+}
+
+.Label_GetLocation {
+    display: flex;
+    margin-top: -15px;
+    margin-left: 9px;
+    border-bottom: 1px solid lightgray;
+ }
+
+ ion-icon.ios.hydrated {
+    color: #7fa4d4;
+    margin-right: 7px;
+}
+
+ion-icon.md.hydrated {
+    color: #7fa4d4;
+    margin-right: 7px;
+}
+
+p.P_ {
+    color: #0048a8;
+    font-size: 13px;
+    margin-top: -2px;
+    font-family: Montserrat;
+}
+
+h3.Li_ {
+    display: flex;
+    margin-left: 9px;
+    border-bottom: 1px solid lightgray;
+    font-size: 18px;
+    margin-top: 11px;
+    padding-bottom: 11px;
+    font-family: Montserrat;
+}
+
+.iconLEFT{
+    font-size: 30px;
+    color: white !important;
+    margin-right: 7px;
+}
+
+</style>

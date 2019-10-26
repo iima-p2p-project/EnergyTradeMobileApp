@@ -8,10 +8,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ModalPage } from '../app/pages/register/selectState';
+
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [ModalPage,AppComponent],
+  entryComponents: [ModalPage],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { RegisterPayload } from 'src/app/models/RegisterPayload';
 import { ENABLE_SERVICES } from 'src/app/environments/environments'
+import { ModalController } from '@ionic/angular';
+import { ModalPage } from './selectState';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +37,8 @@ export class RegisterPage implements OnInit {
     , private route: ActivatedRoute
     , private formBuilder: FormBuilder
     , private router: Router
-    , private storage: Storage) { 
+    , private storage: Storage
+    , public modalController: ModalController) { 
 
       this.registerForm = this.formBuilder.group({
         email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
@@ -104,6 +107,15 @@ export class RegisterPage implements OnInit {
     this.router.navigate(['/login'], {
       queryParams: {}
     });
+  }
+
+  async openState_Modal() {
+    console.log(this.states);
+    
+    const modal = await this.modalController.create({
+      component: ModalPage,
+    });
+    return await modal.present();
   }
   
 }

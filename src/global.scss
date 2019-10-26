@@ -27,9 +27,14 @@
 
 @font-face {
     font-family: 'Gotham';
-    src: url('./assets/fonts/Gotham-Light.otf'); //mine
-  
+    src: url('./assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+
   }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('./assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+}
   
   .p{
     font-family: Gotham !important;

@@ -21,7 +21,6 @@
 
 ._header {
   position: initial;
-  height: 70px;
   background: #0048a8;
   font-weight: bold;
   padding-top: 12px;
@@ -30,6 +29,7 @@
 .__title{
   font-size: 20px;
   font-family: sans-serif;
+  font-weight: bold;
 }
 
 .content-main {
@@ -42,12 +42,12 @@
 
 
 p.p__ {
-padding-left: 40px;
-font-size: 11px;
-font-family: Gotham;
-font-weight: bold;
-line-height: 10px;
-margin-bottom: 9px;
+  padding-left: 40px;
+  font-size: 13px;
+  font-family: Gotham;
+  font-weight: bold;
+  line-height: 10px;
+  margin-bottom: 10px;
 }
 
 ._Input{
@@ -62,7 +62,7 @@ height: 36px;
 }
 
 .Label_ {
-margin-top: 18px !important;
+margin-top: 20px !important;
 }
 
 p.p_message {
@@ -71,6 +71,7 @@ font-family: Gotham;
 font-weight: bold;
 line-height: 22px;
 font-size: 11px;
+padding: 25px;
 }
 
 .Message {
@@ -137,8 +138,9 @@ float: left;
 
 ion-button.md.button.button-small.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
 
-width: 107px;
-height: 36px;
+  width: 159px;
+  height: 43px;
+  margin-top: -10px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -146,8 +148,9 @@ box-shadow: none;
 }
 
 ion-button.md.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
-width: 166px;
-height: 40px;
+  width: 159px;
+  height: 43px;
+  margin-top: -10px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -163,8 +166,9 @@ text-align: center;
 }
 
 ion-button.hydrated.md.button.button-solid.ion-activatable.ion-focusable {
-width: 166px;
-height: 40px;
+  width: 159px;
+  height: 43px;
+  margin-top: -10px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -176,8 +180,9 @@ font-weight: bold;
 }
 
 ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
-width: 170px;
-height: 36px;
+  width: 159px;
+  height: 43px;
+  margin-top: -10px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -235,7 +240,6 @@ border-color: #0048a8 !important;
 
 .my-footer-style{
   font-size: 11px;
-  font-family: Gotham;
   padding: 0;
   text-align: center;
 }
@@ -244,8 +248,17 @@ border-color: #0048a8 !important;
   font-family: sans-serif; 
 }
 
-ion-footer{
-  padding: 0 20px;
+// new updates
+
+p.Label_BILL {
+  font-family: Montserrat;
+  margin-left: 40px;
+  font-size: 12px;
+  margin-top: 6px;
+  color: gray;
 }
+
+
 //=========================================================================
+
 

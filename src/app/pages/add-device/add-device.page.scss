@@ -1,8 +1,12 @@
-._content {
-    --background: #0148A8;
-   
-  }
+
   
+  .bL {
+    background: white;
+    height: 20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
   ._toolbar {
     --background: #0148A8;
     text-align: center;
@@ -29,8 +33,9 @@
   
   
   .__title{
-    font-size: 17px;
+    font-size: 19px;
     font-weight: bold;
+    font-family: sans-serif;
   }
 
   .content-main {
@@ -186,7 +191,7 @@ p.p__ {
 
 p.enry_p {
     text-align: center;
-    font-family: Gotham;
+    font-family: Montserrat;
     font-weight: bold;
     font-size: 16px;
     margin-bottom: 7%;
@@ -206,12 +211,15 @@ p._next {
   padding-right: 40px;
   font-weight: 600;
   font-family: sans-serif;
-  font-size: 14px;
+  font-size: 15px;
+  margin-top: 11px;
 }
 
 p._skip {
-  font-size: 14px;
+  font-size: 15px;
   padding-left: 40px;
+  color: black;
+  margin-top: 11px;
 }
 
 .Label_ {

@@ -1,10 +1,13 @@
 <ion-header class="_header">
   
   <ion-toolbar class="_toolbar">
+
     <ion-title class="__title">
         CREATE ACCOUNT
     </ion-title>
   </ion-toolbar>
+
+  <div class="bL"></div>
 </ion-header>
 
 <ion-content class="_content">
@@ -26,30 +29,36 @@
             <div class="Flex_">
      
               
-          <ion-select class="_Input" formControlName="stateList" placeholder="Select State" (ionChange)="getBoardsPostStateSelection()">
-            <!--<ion-select-option *ngFor="let state of states">{{state.stateName}}</ion-select-option>-->
+          <!-- <ion-select class="_Input" formControlName="stateList" placeholder="Select State" (ionChange)="getBoardsPostStateSelection()">
+            <ion-select-option *ngFor="let state of states">{{state.stateName}}</ion-select-option>
             <ion-select-option value="1">Andhra Pradesh</ion-select-option>
             <ion-select-option value="2">Telangana</ion-select-option>
-          </ion-select>
+          </ion-select> -->
 
-          <img src="../../../assets/assets2/select_state.svg" class="svg_icon">
+          <img src="../../../assets/assets2/select_state.svg" class="svg_icon" (click)="openState_Modal()">
 
         </div>
    </div>
    <div class="Label_" >
             <p class="p__" >SELECT BOARD</p>
 
+            <div class="Flex_">
+      
+                <img src="../../../assets/assets2/select_state.svg" class="svg_icon" (click)="openState_Modal()">
+      
+              </div>
+
        
-          <ion-select class="_Input" formControlName="boardList" placeholder="Select Board">
-            <!--<ion-select-option *ngFor="let board of boards">{{board.boardName}}</ion-select-option>-->
+          <!-- <ion-select class="_Input" formControlName="boardList" placeholder="Select Board">
+            <ion-select-option *ngFor="let board of boards">{{board.boardName}}</ion-select-option>
             <ion-select-option value="1">TSNPDCL</ion-select-option>
             <ion-select-option value="2">TSSPDCL</ion-select-option>
-          </ion-select>
+          </ion-select> -->
    </div>
 
-        <div class="Message">
+        <!-- <div class="Message">
             <p class="p_message">By clicking Continue you are accepting to Sustain Impact <span class="Terms_"> Terms & Conditions</span></p>
-          </div>
+          </div> -->
 
           <ion-row>
             <ion-col>
