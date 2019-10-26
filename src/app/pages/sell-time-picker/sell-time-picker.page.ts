@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonDatetime } from '@ionic/angular';
+import { IonDatetime, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-sell-time-picker',
@@ -9,6 +9,10 @@ import { IonDatetime } from '@ionic/angular';
   styleUrls: ['./sell-time-picker.page.scss'],
 })
 export class SellTimePickerPage implements OnInit {
+  
+  //Used to determine screen size
+  screenMode:any;
+  screenWidth:any;
 
   sellTimePickerForm: FormGroup;
   startTime: IonDatetime;
@@ -17,14 +21,26 @@ export class SellTimePickerPage implements OnInit {
   duration: string;
   power: string;
 
-  constructor(private router: Router
-    , private route: ActivatedRoute
+  constructor(private router: Router,
+    private platform:Platform,
+     private route: ActivatedRoute
     , private formBuilder: FormBuilder) { 
       this.sellTimePickerForm = this.formBuilder.group({
         startTime: [null, Validators.required],
         endTime: [null, Validators.required],
         duration: [null, Validators.required]
       });
+
+      //determine if screen is big or small
+      this.screenWidth=platform.width();
+      if(this.screenWidth>760)
+      {
+        this.screenMode="big"
+      }
+      else
+      {
+        this.screenMode="small";
+      }
     }
 
   ngOnInit() {
