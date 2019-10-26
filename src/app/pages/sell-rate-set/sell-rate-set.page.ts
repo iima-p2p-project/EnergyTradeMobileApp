@@ -2,9 +2,10 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IonDatetime } from '@ionic/angular';
+import { IonDatetime, Platform, ModalController } from '@ionic/angular';
 import { Order } from 'src/app/models/Order';
 import { OrderService} from 'src/app/services/order.service';
+import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
 
 
 @Component({
@@ -26,8 +27,14 @@ export class SellRateSetPage implements OnInit {
 
   order: Order = {};
 
-  constructor(private formBuilder: FormBuilder
-    , private router: Router
+  //Screenwidth
+  screenWidth:any;
+  screenMode:any;
+
+  constructor(private formBuilder: FormBuilder,
+    public modal:ModalController
+    , private router: Router,
+    public platform:Platform
     , private route: ActivatedRoute
     , private orderService: OrderService) { 
       this.sellRateSetForm = this.formBuilder.group({
@@ -44,6 +51,16 @@ export class SellRateSetPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.screenWidth=this.platform.width();
+      if(this.screenWidth>760)
+      {
+        this.screenMode="big"
+      }
+      else
+      {
+        this.screenMode="small";
+      }
+
     this.route.queryParams.subscribe(params => {
       this.deviceName = params['deviceName'];
       this.power = params['power'];
@@ -73,8 +90,20 @@ export class SellRateSetPage implements OnInit {
     this.order.status = "INITIATED";
     this.orderService.createSellOrder(this.order);
     this.orderService.printSellOrderList();
-    this.router.navigate(['sell-post-success'], {
-      queryParams: {}
-    });
+    // this.router.navigate(['sell-post-success'], {
+    //   queryParams: {}
+    // });
+    this.presentModal();
   }
+
+  async presentModal()
+  {
+    const myModal = await this.modal.create({
+      component: SellPostSuccessPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await myModal.present();
+  }
+
+
 }

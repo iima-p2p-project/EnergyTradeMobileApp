@@ -9,6 +9,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -17,7 +20,8 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot({ name: '__jppdb' }),
-    AppRoutingModule
+    AppRoutingModule,
+    SellPostSuccessPageModule
   ],
   providers: [
     StatusBar,

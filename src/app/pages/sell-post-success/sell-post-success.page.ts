@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-sell-post-success',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellPostSuccessPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modal:ModalController
+  ) { }
 
   ngOnInit() {
+  }
+
+  close()
+  {
+    this.modal.dismiss();
+  }
+
+  manageOrders()
+  {
+    this.close();
   }
 
 }
