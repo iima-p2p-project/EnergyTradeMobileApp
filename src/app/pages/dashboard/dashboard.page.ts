@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,8 +9,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private router: Router
-    , private route: ActivatedRoute) { }
+  selectedOption='sell';
+
+  constructor(
+    private router: Router,
+    private nav:NavController,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
   }
@@ -30,6 +36,25 @@ export class DashboardPage implements OnInit {
         power: buyFlowDetails.power
       }
     });
+  }
+
+  segmentChanged($event)
+  {
+    // console.log($event.detail.value);
+    this.selectedOption=$event.detail.value;
+  }
+
+  go()
+  {
+    if(this.selectedOption=='sell')
+    {
+      //store numbers in services
+      this.nav.navigateForward('sell-time-picker');
+    }
+    else if(this.selectedOption=='buy')
+    {
+      this.nav.navigateForward('buy-time-picker');
+    }
   }
 
 }

@@ -1,0 +1,182 @@
+ion-content{
+  --background:#0048A8;
+
+}
+
+.menu-button{
+  color:white;
+  text-align: left;
+}
+
+.title-top{
+  color:white;
+  text-align:center;
+  font-size:1.6em;
+  font-family:MSemiBold !important;
+}
+
+.box-top{
+  height:135px;
+  width:95%;
+  background-color:rgba(3, 47, 141, 0.726);
+  margin-left:auto;
+  margin-right:auto;
+  padding-top:1%;
+  margin-top:8%;
+  border-radius:3px;
+
+  //LEFT SIDE
+  .box-top-left-left{
+    margin-top:-10px;
+  }
+  .box-top-left-right{
+    margin-top:-11px;
+    font-size:0.6em;
+    font-family:MLight !important;
+    color:white;
+  }
+
+  //RIGHT SIDE
+  .box-top-right-left{
+    margin-top:-10px;
+    font-size:0.6em;
+    color:white;
+    font-family:MMedium !important;
+  }
+  .box-top-right-right{
+    margin-top:-10px;
+    font-size:0.6em;
+    color:white;
+    font-family:MMedium !important;
+    text-align:left;
+  }
+
+  .box-center-right-left{
+    font-size:3em;
+    margin-top:-10px;
+    font-family:MLight !important;
+    color:white;
+  }
+
+  .box-center-right-center{
+    margin-top:-10px;
+    color:rgba(255, 255, 255, 0.5);
+    font-family:MLight !important;
+    font-size:2.5em;
+    text-align:left;
+  }
+
+  .box-center-right-right{
+    font-size:3em;
+    margin-top:-10px;
+    font-family:MLight !important;
+    color:white;
+  }
+
+
+  //BOTTOM ROW
+
+  //LEFT SIDE
+  .bottom-left{
+    font-size:0.7em;
+    font-family:MMedium !important;
+    color:white;
+  }
+  .bottom-left-icon{
+    color:white;
+  }
+
+  //RIGHT SIDE
+  .bottom-right{
+    text-align:right;
+    color:white;
+    font-family:MMedium !important;
+    font-size:0.7em;
+  }
+  .bottom-right-icon{
+    text-align:right;
+    color:white;
+  }
+
+}
+
+
+
+.card-middle{
+  --background:white;
+  width:99% !important;
+  margin-right:auto;
+  margin-left:auto;
+
+  ion-segment-button{
+    text-transform: none;
+    font-family:MMedium !important;
+    color:black;
+    font-size:1.2em;
+  }
+
+  .small-title{
+    font-family:MMedium !important;
+    color:black;
+  }
+  .number-big{
+    font-size:2em;
+    color:rgb(170, 170, 170);
+  }
+
+  ion-button{
+    font-family:MMedium !important;
+  }
+
+}
+
+.middle-row-left{
+  color:white;
+  font-family:MMedium !important;
+  padding-left:15px;
+}
+
+.middle-row-right{
+  font-family:MMedium;
+  color:white;
+  font-size:0.8em;
+  text-align:right;
+}
+
+.card-bottom{
+  --background:white;
+  width:99% !important;
+  margin-right:auto;
+  margin-left:auto;
+
+  .unit-number{
+    font-family:MMedium !important;
+    color:black;
+    font-size:1.2em;
+  }
+  .unit-id{
+    font-family:MLight !important;
+    color:black;
+    font-size:0.7em;
+    text-align:right;
+  }
+  .bottom-row{
+    font-family:MMedium !important;
+    color:black;
+    font-size:0.7em;
+  }
+  .sell{
+    color:rgb(150, 150, 150);
+  }
+}
+
+
+
+// #63B508 — green
+// #D0021B —red
+// #0048A8 -blue
+
+// Montserrat Medium
+// Roboto Regular
+// Montserrat SemiBold
+// Montserrat Light
