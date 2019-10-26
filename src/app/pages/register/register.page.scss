@@ -35,7 +35,6 @@ color: white;
 text-align: center;
 border: none;
 font-family: Gotham;
-height:80px;
 
 }
 
@@ -82,11 +81,11 @@ padding: 0 39px;
 
 
 ._header {
-position: initial;
-height: 70px;
-background: #0048a8;
-font-weight: bold;
-padding-top: 12px;
+  position: initial;
+  height: 84px;
+  background: #0048a8;
+  font-weight: bold;
+  padding-top: 12px;
 }
 
 span.Terms_ {
@@ -95,9 +94,11 @@ text-decoration: underline;
 
 
 ion-button.md.button.button-small.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+ 
 
-width: 107px;
-height: 36px;
+  width: 156px;
+  height: 41px;
+  margin-top: 25px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -105,8 +106,9 @@ box-shadow: none;
 }
 
 ion-button.md.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
-width: 121px;
-height: 36px;
+  width: 156px;
+  height: 41px;
+  margin-top: 25px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -114,8 +116,9 @@ box-shadow: none;
 }
 
 ion-button.ios.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
-width: 160px;
-height: 38px;
+  width: 156px;
+  height: 41px;
+  margin-top: 25px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -131,8 +134,9 @@ text-align: center;
 }
 
 ion-button.hydrated.md.button.button-solid.ion-activatable.ion-focusable {
-width: 121px;
-height: 36px;
+  width: 156px;
+  height: 41px;
+  margin-top: 25px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -144,8 +148,9 @@ font-weight: bold;
 }
 
 ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
-width: 121px;
-height: 36px;
+  width: 156px;
+  height: 41px;
+  margin-top: 25px;
 border-radius: 60px;
 box-shadow: none;
 --border-radius: 60px;
@@ -183,6 +188,22 @@ ion-input._Input.sc-ion-input-md-h.sc-ion-input-md-s.hydrated.ng-dirty.ng-touche
   font-family: sans-serif;
   font-weight: 600;
   }
+
+  ion-input._Input.sc-ion-input-ios-h.sc-ion-input-ios-s.hydrated.ng-dirty.ng-touched.ng-valid.ios.has-value.ion-dirty.ion-touched.ion-valid {
+    font-weight: bold;
+}
+
+ion-input._Input.sc-ion-input-md-h.sc-ion-input-md-s.hydrated.ng-dirty.ng-touched.ng-valid.md.has-value.ion-dirty.ion-touched.ion-valid {
+  font-weight: bold;
+}
+
+  input.native-input.sc-ion-input-ios {
+    font-weight: bold;
+}
+
+input.native-input.sc-ion-input-md {
+  font-weight: bold;
+}
   
   img.Loading {
     margin-right: 4px;
@@ -223,6 +244,14 @@ position: fixed;
 
 ion-footer{
   padding: 0 20px;
+}
+
+p.State_p {
+  margin-top: 7px;
+  margin-left: 9px;
+  font-weight: bold;
+  color: #0048a8;
+  font-size: 16px;
 }
 //=========================================================================
 

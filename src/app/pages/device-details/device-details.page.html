@@ -5,6 +5,11 @@
       ADD RESOURCES
     </ion-title>
   </ion-toolbar>
+
+   
+  <div class="bL"></div>
+     
+
 </ion-header>
 
 <ion-content class="_content">
@@ -28,10 +33,11 @@
 
         </div>
 
-        <p class="Input_X" *ngIf="showSolar">
-          <input formControlName="solar" class="_Input" size="17" type="string" placeholder="XX-XX">
+        <div class="Input_X" *ngIf="showSolar">
+          <ion-input formControlName="solar" class="_Input" size="17" type="string" placeholder="XX-XX">
+            </ion-input>
           <span class="Kwh">kWh</span>
-        </p>
+          </div>
 
         <div class="Label_" *ngIf="showGenerator">
           <img src="../../../assets/assets2/generator.svg" class="ico_Solar">
@@ -40,10 +46,11 @@
 
         </div>
 
-        <p class="Input_X" *ngIf="showGenerator">
-          <input formControlName="generator" class="_Input" type="string" placeholder="XX-XX">
+        <div class="Input_X" *ngIf="showGenerator">
+          <ion-input formControlName="generator" class="_Input" type="string" placeholder="XX-XX">
+            </ion-input>
           <span class="Kwh">kWh</span>
-        </p>
+          </div>
 
         <div class="Label_" *ngIf="showEV">
           <img src="../../../assets/assets2/ev.svg" class="ico_Solar">
@@ -52,10 +59,11 @@
 
         </div>
 
-        <p class="Input_X" *ngIf="showEV">
-          <input formControlName="ev" class="_Input" type="string" placeholder="XX-XX">
+        <div class="Input_X" *ngIf="showEV">
+          <ion-input formControlName="ev" class="_Input" type="string" placeholder="XX-XX">
+            </ion-input>
           <span class="Kwh">kWh</span>
-        </p>
+          </div>
       </div>
       <br /><br /><br /><br />
       <ion-row>

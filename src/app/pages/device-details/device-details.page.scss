@@ -1,45 +1,48 @@
-._content {
-    --background: #0148A8;
-   
+
+
+
+
+
+._header {
+  position: initial;
+  height: 96px;
+  background: #0048a8;
+  font-weight: bold;
+  padding-top: 12px;
+  }
+  
+  .content-main {
+    background: white;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    padding: 25px 15px 15px;
+    height: 100%;
+  }
+  
+  
+    
+  .bL {
+    background: white;
+    height: 20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    margin-top: 10px;
   }
   
   ._toolbar {
-    --background: #0148A8;
-    text-align: center;
-    border: none;
-    font-family: Gotham;
-    color: white;
-    
-  }
-
-  ._toolbar__{
-    --background: #ffffff;
-    font-family: Gotham;
-  }
+  --background: #0048a8;
+  color: white;
+  text-align: center;
+  border: none;
   
-  ._header {
-    position: initial;
-    height: 64px;
-    background: #0148A8;
-    font-weight: bold;
-    padding-top: 6px;
   }
-
-
-  
   
   .__title{
-    font-weight: bold;
-    font-size: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: sans-serif;
   }
-
-  .content-main {
-    background: white;
-    border-top-right-radius: 22px;
-    border-top-left-radius: 22px;
-    padding: 24px;
-    height: 100%;
-}
+  
 
 p.p__ {
     padding-left: 40px;
@@ -226,13 +229,22 @@ p.p___ {
   padding-top: -8px !important;
 }
 
-p.Input_X {
+.Input_X {
   display: flex;
 }
 
 span.Kwh {
   font-size: 14px;
-  margin-left: -10px;
-  margin-top: 6px;
+  padding-top: 14px !important;
+  margin-right: 55%;
 
+}
+
+.has-focus{
+  border: none !important;
+  box-shadow: none !important;
+  }
+
+  .input-has-focus .item-inner {
+    box-shadow: none !important;
 }
