@@ -26,7 +26,7 @@ export class SellTimePickerPage implements OnInit {
   startTime: string;
   endTime: string;
   deviceName: string;
-  duration: string;
+  // duration: string;
   power: number;
 
   constructor(private router: Router,
