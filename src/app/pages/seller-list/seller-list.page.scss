@@ -1,0 +1,94 @@
+ion-content{
+    --background:#0048A8;
+  
+  }
+
+  .menu-button{
+    color:white;
+    text-align: left;
+  }
+  
+  .title-top{
+    padding-top:1em;
+    color:white;
+    text-align:center;
+    font-size:1.3em;
+    font-family:MSemiBold !important;
+  } 
+
+  .top-line{
+      font-family:MMedium !important;
+      font-size:0.7em;
+      color:white;
+      padding-left:2em;
+  }
+
+
+  .middle-card{
+      font-family:MMedium !important;
+      font-size:1em;
+      color:black;
+      .small-font{
+          padding-top:0.5em;
+          font-family:MLight !important;
+          font-size:0.7em;
+          color:rgb(70, 70, 70);
+      }
+      .small-font-black{
+        padding-top:1em;
+        font-family:MMedium !important;
+        font-size:0.6em;
+        color:black;
+        display: inline-block;
+         vertical-align: middle;
+    }
+    .icon{
+        display: inline-block;
+        vertical-align: middle;
+       }
+  }
+
+  .small-font-left{
+      font-size:0.6em;
+      font-family:MMedium !important;
+      display: inline-block;
+      vertical-align: middle;
+      .icon{
+        display: inline-block;
+        vertical-align: middle;
+       }
+  }
+
+  .right-card{
+      font-family:MMedium !important;
+      color:black;
+      .bigger{
+          font-size:1.1em;
+          font-family:MSemiBold !important;
+      }
+      .smaller{
+          font-size:0.7em;
+      }
+      .smaller-grey{
+          color:grey;
+          font-size:0.6em;
+          padding-top:0.5em;
+      }
+  }
+
+  .bottom-footer{
+    border:rgba(173, 216, 230, 0.300) 0.5px solid;
+    padding:1em;
+    font-family:MSemiBold !important;
+  }
+
+  .the-footer{
+    background-color:#0048A8;
+    color:white;
+    padding:0;
+  }
+
+  .height-adjust{
+      margin-top:-1.5em;
+  }
+
