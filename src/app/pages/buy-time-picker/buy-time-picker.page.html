@@ -35,8 +35,16 @@
                   </ion-row>
                   <ion-row>
                       <ion-col>
-                        <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
-                        <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                          <ion-row>
+                              <ion-datetime 
+                              placeholder="_ _:_ _" 
+                              displayFormat="YYYY-MM-DDTHH:mm" 
+                              style="margin-left:-0.7em;"
+                              class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
+                              <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                            </ion-row>
+                        <!-- <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
+                        <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                       </ion-col>
                   </ion-row>
                   <ion-row style="margin-top:-0.5em;">
@@ -56,8 +64,16 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                          <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
-                          <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                            <ion-row>
+                                <ion-datetime 
+                                placeholder="_ _:_ _" 
+                                displayFormat="YYYY-MM-DDTHH:mm" 
+                                style="margin-left:-0.7em;"
+                                class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
+                                <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                              </ion-row>
+                          <!-- <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
+                          <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                         </ion-col>
                     </ion-row>
                     <ion-row style="margin-top:-0.5em;">
@@ -80,8 +96,16 @@
                       </ion-row>
                       <ion-row>
                           <ion-col>
-                            <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
-                            <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                              <ion-row>
+                                  <ion-datetime 
+                                  placeholder="_ _:_ _" 
+                                  displayFormat="YYYY-MM-DDTHH:mm" 
+                                  style="margin-left:-0.7em;"
+                                  class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
+                                  <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                                </ion-row>
+                            <!-- <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
+                            <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                           </ion-col>
                       </ion-row>
                       <ion-row style="margin-top:-0.5em;">
@@ -117,10 +141,11 @@
             </ion-row>
             <ion-row>
               <ion-col offset="1">
-                  ₹
-                  <span class="number-big">
-                      XX-XX
-                  </span>
+                  
+                  <ion-item style="margin-left:-0.5em;margin-top:-0.6em;" class="number-big" lines="none">
+                      <ion-label style="font-size:0.7em;">₹</ion-label>
+                      <ion-input placeholder="XX-XX" class="budge_inp"></ion-input>
+                  </ion-item>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -201,12 +226,12 @@
           </ion-row>
         </div>
       </form> -->
-=======
-<ion-header>
+
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title></ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
     <div class="psell-sec">
@@ -236,10 +261,18 @@
                     <ion-col class="stt-time" size="5" size-sm>
                      
                           <label>START TIME<br>{{power}}</label><br>
-                          <input class="time" type="time" name="usr_time"><span>AM</span>
-                          <ion-item class="_DateTimePicker">
-                              <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime>
-                            </ion-item>
+                          <!-- <input class="time" type="time" name="usr_time"><span>AM</span> -->
+                          <!-- <ion-item class="_DateTimePicker"> -->
+                              <!-- <ion-row>
+                                  <ion-datetime 
+                                  placeholder="_ _:_ _" 
+                                  displayFormat="YYYY-MM-DDTHH:mm" 
+                                  style="margin-left:-0.7em;"
+                                  class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
+                                  <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                                </ion-row> -->
+                              <!-- <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime> -->
+                            <!-- </ion-item> -->
                      
                     </ion-col>
         
@@ -250,10 +283,18 @@
                     <ion-col class="stt-time" size="5" size-sm>
                        
                             <label>END TIME</label><br>
-                            <input class="time" type="time" name="usr_time"><span>AM</span>
-                            <ion-item class="_DateTimePicker">
-                                <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime>
-                              </ion-item>
+                            <!-- <input class="time" type="time" name="usr_time"><span>AM</span> -->
+                            <!-- <ion-item class="_DateTimePicker"> -->
+                                <!-- <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime> -->
+                                <!-- <ion-row>
+                                    <ion-datetime 
+                                    placeholder="_ _:_ _" 
+                                    displayFormat="YYYY-MM-DDTHH:mm" 
+                                    style="margin-left:-0.7em;"
+                                    class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
+                                    <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                                  </ion-row>   -->
+                            <!-- </ion-item> -->
                       
                     </ion-col>
                     
@@ -266,7 +307,7 @@
                     <hr>
                 </div>
     
-                <ion-grid>
+                <!-- <ion-grid>
                     <ion-row class="unit-sec">
                         <ion-col><ion-label class="_Label">BUDGET RANGE</ion-label>
                               <ion-item class="_Input input-amt" lines="none">
@@ -274,7 +315,7 @@
                               </ion-item>
                         </ion-col>
                       </ion-row>
-                </ion-grid>
+                </ion-grid> -->
 
                 <ion-grid>
                   <ion-row>
