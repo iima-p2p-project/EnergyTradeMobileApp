@@ -1,0 +1,33 @@
+ion-content{
+    --background:#0048A8;
+  
+  }
+
+  ion-item{
+      font-family:MMedium !important;
+  }
+
+  .menu-button{
+    color:white;
+    text-align: left;
+    margin-top:1em;
+  }
+  
+  .title-top{
+    color:white;
+    text-align:center;
+    font-size:1.2em;
+    font-family:MSemiBold !important;
+    margin-top:1em;
+  }
+
+  .order_details{
+      font-family:MSemiBold !important;
+      color:white;
+      .bigger{
+          font-size:1.5em;
+      }
+      .smaller{
+          font-size:0.9em;
+      }
+  }
