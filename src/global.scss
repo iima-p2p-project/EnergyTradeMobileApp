@@ -39,3 +39,12 @@
   .p{
     font-family: Gotham !important;
   }
+
+  .my-custom-modal-css .modal-wrapper {
+    height: 35%;
+    width:80%;
+    top: 25%;
+    border-radius:10px;
+    position: absolute; 
+    display: block;  
+ }

@@ -2,9 +2,10 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IonDatetime, AlertController } from '@ionic/angular';
+import { IonDatetime, Platform, ModalController } from '@ionic/angular';
 import { Order } from 'src/app/models/Order';
 import { OrderService} from 'src/app/services/order.service';
+import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
 
 
 @Component({
@@ -27,10 +28,16 @@ export class SellRateSetPage implements OnInit {
 
   order: Order = {};
 
-  constructor(private formBuilder: FormBuilder
-    , private router: Router
+  //Screenwidth
+  screenWidth:any;
+  screenMode:any;
+
+  constructor(private formBuilder: FormBuilder,
+    public modal:ModalController
+    , private router: Router,
+    public platform:Platform
     , private route: ActivatedRoute
-    , private orderService: OrderService, private alertController: AlertController) { 
+    , private orderService: OrderService) { 
       this.sellRateSetForm = this.formBuilder.group({
         rate: [null, Validators.required],
         startTime: [null, Validators.required],
@@ -45,6 +52,16 @@ export class SellRateSetPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.screenWidth=this.platform.width();
+      if(this.screenWidth>760)
+      {
+        this.screenMode="big"
+      }
+      else
+      {
+        this.screenMode="small";
+      }
+
     this.route.queryParams.subscribe(params => {
       this.deviceName = params['deviceName'];
       this.power = params['power'];
@@ -77,23 +94,17 @@ export class SellRateSetPage implements OnInit {
     // this.router.navigate(['sell-post-success'], {
     //   queryParams: {}
     // });
-
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'Post Successful!',
-      message: 'You have successfully posted  your post. Edit or cancel your post from Manager Orders',
-      buttons: ['MANAGE ORDERS']
-    });
-
-    await alert.present();
-    let result = await alert.onDidDismiss();
-    console.log(result);
-
-
-    // this.order.createUser(this.sellRateSetForm)
-    // .subscribe( data => {
-    //   this.router.navigate([''])
-    // })
+    this.presentModal();
   }
+
+  async presentModal()
+  {
+    const myModal = await this.modal.create({
+      component: SellPostSuccessPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await myModal.present();
+  }
+
 
 }

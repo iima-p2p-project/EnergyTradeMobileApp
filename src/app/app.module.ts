@@ -12,6 +12,9 @@ import { StateModalPage } from '../app/pages/register/selectState';
 import { BoardModalPage } from '../app/pages/register/selectBoard';
 
 
+import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
+
+
 @NgModule({
   declarations: [StateModalPage, BoardModalPage, AppComponent],
   entryComponents: [StateModalPage, BoardModalPage],
@@ -20,7 +23,8 @@ import { BoardModalPage } from '../app/pages/register/selectBoard';
     HttpClientModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot({ name: '__jppdb' }),
-    AppRoutingModule
+    AppRoutingModule,
+    SellPostSuccessPageModule
   ],
   providers: [
     StatusBar,

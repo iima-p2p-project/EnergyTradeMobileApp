@@ -65,7 +65,6 @@ export class LoginPage implements OnInit {
     }
     this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
       this.responseFromService = res;
-      console.log('login response : ' , res);
       if (this.responseFromService.response.key == 200) {
         this.userId = this.responseFromService.response.userId;
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
@@ -76,6 +75,7 @@ export class LoginPage implements OnInit {
         this.storage.set('LoggedInUserId', this.userId).then(() => {
           this.router.navigate(['/dashboard'], {
             queryParams: {
+              userId: this.userId,
               phoneNumber: this.phoneNumber,
               redirect: this.redirect
             }

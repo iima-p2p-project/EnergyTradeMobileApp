@@ -1,3 +1,17 @@
 <div class="_Div">
-  <ion-label>Post Successfull !</ion-label>
+  <ion-button style="position:absolute;right:5px;top:5px;" color="dark" fill="clear" (click)="close()" size="small">
+    <ion-icon name="close" slot="icon-only"></ion-icon>
+  </ion-button>
+      <div style="text-align: center;">
+      <ion-icon style="zoom:2;" name="checkmark-circle" color="success"></ion-icon>
+    </div>
+  <ion-label style="font-family:MMedium !important;font-size:0.7em;">
+      Post Successful!
+  </ion-label>
+  <p style="margin-top:-1em;font-family:MMedium !important;font-size:0.5em;color:grey;" class="ion-padding">
+    You've successfully posted your post. Edit or cancel your post from Manager Orders
+  </p>
+  <ion-button shape="round" style="font-family:MSemiBold!important;" (click)="manageOrders()">
+    MANAGE ORDERS
+  </ion-button>
 </div>
