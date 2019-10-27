@@ -201,4 +201,117 @@
           </ion-row>
         </div>
       </form> -->
+=======
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="psell-sec">
+        <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-sm>
+                <ion-icon class="rt-arw" name="arrow-round-back"></ion-icon>
+                <h3 class="sell-head text-center">Buy</h3>
+                <ion-icon class="nt-ring" name="notifications-outline"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    
+          <div class="sell-cont">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12" size-sm>
+                    <p class="sl-unit text-center">50-75 <span style="font-size:12px; color: #000000;"> units</span></p>
+                    <hr>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+    
+              <ion-grid>
+                  <ion-row class="time-sec">
+        
+                    <ion-col class="stt-time" size="5" size-sm>
+                     
+                          <label>START TIME<br>{{power}}</label><br>
+                          <input class="time" type="time" name="usr_time"><span>AM</span>
+                          <ion-item class="_DateTimePicker">
+                              <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime>
+                            </ion-item>
+                     
+                    </ion-col>
+        
+                    <ion-col size="2" class="trans-icn" size-sm align-self-center>
+                        <ion-icon class="circle-icn2" name="arrow-dropleft-circle"></ion-icon>
+                    </ion-col>
+        
+                    <ion-col class="stt-time" size="5" size-sm>
+                       
+                            <label>END TIME</label><br>
+                            <input class="time" type="time" name="usr_time"><span>AM</span>
+                            <ion-item class="_DateTimePicker">
+                                <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime>
+                              </ion-item>
+                      
+                    </ion-col>
+                    
+                  </ion-row>
+                </ion-grid>
+    
+                <div class="_Div">
+                    <p>00:00 <span style="font-size:12px;font-weight:400;color:#9a9a9e;">Hrs</span></p>
+                    <p class="sr-dur">DURATION</p>
+                    <hr>
+                </div>
+    
+                <ion-grid>
+                    <ion-row class="unit-sec">
+                        <ion-col><ion-label class="_Label">BUDGET RANGE</ion-label>
+                              <ion-item class="_Input input-amt" lines="none">
+                                  <ion-input placeholder="XX-XX" class="budge_inp"></ion-input>
+                              </ion-item>
+                        </ion-col>
+                      </ion-row>
+                </ion-grid>
+
+                <ion-grid>
+                  <ion-row>
+                      <ion-col size="12" class="sl-btn" size-sm>
+                        <ion-button class="srch-btn" shape="round" expand="full" (click)="submit()">SEARCH</ion-button>
+                      </ion-col>
+                  </ion-row>
+                </ion-grid>
+
+                <ion-grid>
+                  <ion-row class="ht-deal">
+                    <ion-col size-sm>
+                      <h5>HOT DEALS</h5>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="6">
+                      <div class="hotd1">
+                        <p>Grab upto 50 units of Power  for just Rs.250/- only</p>
+                        <span class="hash_txt">#GreenEnergy @Never-Before</span>
+                        <ion-button class="htd-btn" color="primary" shape="round"><span style="color: #000000;"><b>1</b> Unit | <b>Rs.5/-</b></span></ion-button>
+                        <a><p>BUY NOW</p></a>
+                      </div>
+                    </ion-col>
+                    <ion-col size="6">
+                        <div class="hotd2">
+                            <p>Grab upto 50 units of Power  for just Rs.250/- only</p>
+                            <span class="hash_txt">#GreenEnergy @Never-Before</span>
+                            <ion-button class="htd-btn" color="primary" shape="round"><span style="color: #000000;"><b>1</b> Unit | <b>Rs.5/-</b></span></ion-button>
+                            <a><p>GRAB IT</p></a>
+                        </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+    
+             
+            
+          </div>
+      </div>
 </ion-content>

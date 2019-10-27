@@ -105,18 +105,18 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="3">
-            <ion-button fill="outline" color="light" shape="round" size="small">
+          <ion-col size="3" *ngIf="showSolar">
+            <ion-button fill="outline" color="light" shape="round" size="small" (click)="selectSolarDeviceToSellPower()">
               <ion-icon slot="icon-only" src="assets/svg/solar.svg" size="small"></ion-icon>
             </ion-button>
           </ion-col>
-          <ion-col size="3">
-            <ion-button fill="outline" color="light" shape="round" size="small">
+          <ion-col size="3" *ngIf="showGenerator">
+            <ion-button fill="outline" color="light" shape="round" size="small" (click)="selectGeneratorDeviceToSellPower()">
               <ion-icon slot="icon-only" src="assets/svg/generator (1).svg" size="small"></ion-icon>
             </ion-button>
           </ion-col>
-          <ion-col size="3">
-            <ion-button fill="outline" color="light" shape="round" size="small">
+          <ion-col size="3" *ngIf="showEV">
+            <ion-button fill="outline" color="light" shape="round" size="small" (click)="selectEVDeviceToSellPower()">
               <ion-icon slot="icon-only" src="assets/svg/ev (1).svg" size="small"></ion-icon>
             </ion-button>
           </ion-col>
@@ -127,14 +127,12 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
+          <ion-col size="2">
           <span class="number-big">
-            XXXX
-          </span>
-          <span class="small-title">
-              / 300
+            <ion-input placeholder="XXXX" [(ngModel)]="powerToSell"></ion-input>
           </span>
           </ion-col>
+          <ion-col size="10" padding-top="5px">/ {{deviceCapactiy}}</ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="6" *ngIf="selectedOption=='sell'">
@@ -268,5 +266,4 @@
     <!-- <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
     <br/><br/><br/><br/><br/><br/>
     <app-buy (buyFlow)=initiateBuyFlow($event)></app-buy> -->
-
 </ion-content>

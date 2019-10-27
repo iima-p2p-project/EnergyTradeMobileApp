@@ -8,13 +8,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { StateModalPage } from '../app/pages/register/selectState';
+import { BoardModalPage } from '../app/pages/register/selectBoard';
+
 
 import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [StateModalPage, BoardModalPage, AppComponent],
+  entryComponents: [StateModalPage, BoardModalPage],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -16,9 +16,13 @@ export class IngressService {
   getStateBoardMappingUrl = INGRESS_URL + '/getStateBoardMapping';
   registerUrl = INGRESS_URL + '/registerUser';
   addDeviceUrl = INGRESS_URL + '/addDevice';
+  getUserDevicesUrl = INGRESS_URL + '/getUserDevices';
 
   loggedInUser: AllUser;
   loggedInUserId: number;
+
+
+  userDevicesList: any;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -115,6 +119,17 @@ export class IngressService {
     );
   }
 
+  getUserDevices(userId: any) {
+    console.log('user id : ' , userId);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.get(this.getUserDevicesUrl + '/' + userId
+      , options
+    );
+  }
+
   getLoggedInUser() {
     return this.loggedInUser;
   }
@@ -129,5 +144,13 @@ export class IngressService {
 
   setLoggedInUserId(userId: number) {
     this.loggedInUserId = userId;
+  }
+
+  getUserDevicesFromLocal() {
+    return this.userDevicesList;
+  }
+
+  setUserDevices(deviceList: any) {
+    this.userDevicesList = deviceList;
   }
 }

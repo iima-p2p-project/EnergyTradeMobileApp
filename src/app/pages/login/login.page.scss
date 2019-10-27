@@ -1,21 +1,23 @@
 ._content {
-  --background: #0148A8;
+  --background: #0048a8;
 }
 
 ._toolbar {
-  --background: #0148A8;
+  --background: #0048a8;
   color: white;
   text-align: center;
   border: none;
-  font-family: Gotham;
+  font-family: sans-serif;
+  font-weight: 600;
   
 }
 
 ._header {
   position: initial;
   height: 70px;
-  background: #0148A8;
+  background: #0048a8;
   font-weight: bold;
+  font-family: sans-serif;
   padding-top: 12px;
 }
 
@@ -51,6 +53,7 @@ border: 1px solid lightgray;
 border-radius: 6px;
 padding-left: 10px !important;
 height: 36px;
+font-family: sans-serif;
 }
 
 .OTP_input{
@@ -61,46 +64,47 @@ height: 36px;
   padding-left: 10px !important;
   float: left;
   height: 36px;
+  font-family: sans-serif;
 }
 
 button.Resend_OTP_btn {
   padding-top: 11px;
   padding-left: 24px;
   background: none;
-  color: #0148A8;
+  color: #0048a8;
   font-weight: bold;
   font-family: Gotham;
   border: none;
 }
 //button css
 
-ion-button.md.button.button-small.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+// ion-button.md.button.button-small.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
 
-  width: 107px;
-  height: 36px;
-  border-radius: 60px;
-  box-shadow: none;
-  --border-radius: 60px;
-  --background: #7fa4d46b;
-}
+//   width: 107px;
+//   height: 36px;
+//   border-radius: 60px;
+//   box-shadow: none;
+//   --border-radius: 60px;
+//   --background: #7fa4d46b;
+// }
 
-ion-button.md.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
-  width: 155px;
-  height: 36px;
-  border-radius: 60px;
-  box-shadow: none;
-  --border-radius: 60px;
-  --background: #7fa4d4;
-}
+// ion-button.md.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+//   width: 155px;
+//   height: 36px;
+//   border-radius: 60px;
+//   box-shadow: none;
+//   --border-radius: 60px;
+//   --background: #7fa4d4;
+// }
 
-ion-button.ios.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
-  width: 155px;
-  height: 36px;
-  border-radius: 60px;
-  box-shadow: none;
-  --border-radius: 60px;
-  --background: #7fa4d4;;
-}
+// ion-button.ios.button.button-solid.button-disabled.ion-activatable.ion-focusable.hydrated {
+//   width: 155px;
+//   height: 36px;
+//   border-radius: 60px;
+//   box-shadow: none;
+//   --border-radius: 60px;
+//   --background: #7fa4d4;;
+// }
 
 ion-row.md.hydrated {
   text-align: center;
@@ -112,31 +116,44 @@ ion-row.ios.hydrated {
   margin-top: 20px;
 }
 
-ion-button.hydrated.md.button.button-solid.ion-activatable.ion-focusable {
-  width: 170px;
-  height: 36px;
-  border-radius: 60px;
-  box-shadow: none;
-  --border-radius: 60px;
-  --background: #0148A8;
-  box-shadow: 2px 3px 3px 0px #bccee8;
-  font-family: Gotham;
-  padding: 10;
-  font-weight: bold;
-}
+// ion-button.hydrated.md.button.button-solid.ion-activatable.ion-focusable {
+//   width: 170px;
+//   height: 36px;
+//   border-radius: 60px;
+//   box-shadow: none;
+//   --border-radius: 60px;
+//   --background: #0148A8;
+//   box-shadow: 2px 3px 3px 0px #bccee8;
+//   font-family: Gotham;
+//   padding: 10;
+//   font-weight: bold;
+// }
 
-ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
-  width: 170px;
-  height: 36px;
-  border-radius: 60px;
-  box-shadow: none;
-  --border-radius: 60px;
-  --background: #0148A8;
-  box-shadow: 2px 3px 3px 0px #bccee8;
+// ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
+//   width: 170px;
+//   height: 36px;
+//   border-radius: 60px;
+//   box-shadow: none;
+//   --border-radius: 60px;
+//   --background: #0048a8;
+//   box-shadow: 2px 3px 3px 0px #bccee8;
+//   font-family: Gotham;
+//   padding: 10;
+//   font-weight: bold;
+// }
+
+ion-button{
+  // width: 121px;
+  // height: 36px;
+ // border-radius: 60px;
+  //box-shadow: none;
+  //--border-radius: 60px;
+  --background: #0048a8;
+  //box-shadow: 3px 4px 6px 0px #0048a8;
   font-family: Gotham;
   padding: 10;
   font-weight: bold;
-}
+  }
 
 .list-ios{
   margin-bottom: 20px;
@@ -144,7 +161,19 @@ ion-button.hydrated.ios.button.button-solid.ion-activatable.ion-focusable {
 
 ion-input{
   color: #0048a8; 
+  font-family: sans-serif !important;
+  //font-weight: 400;
 }
+
+// input.native-input.sc-ion-input-ios {
+//   font-family: sans-serif;
+//   font-weight: 600;
+// }
+
+// input.native-input.sc-ion-input-ios {
+//   font-family: sans-serif;
+//   font-weight: 600;
+// } 
 
 .has-focus{
   border-color: #0048a8 !important;
@@ -160,6 +189,7 @@ ion-input{
 }
 .redirect-button{
   color: #0048a8; 
+  font-family: sans-serif;
 }
 
 ion-footer{

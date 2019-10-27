@@ -1,8 +1,81 @@
+<ion-app>
 <ion-header>
   <ion-toolbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <p>SELL</p>
+  <div class="psell-sec">
+  <!-- <p>SELL</p> -->
+  <!-- <div class="sell-power-sec">
+    <div class="container">
+      <div class="sell-head text-center">
+        <p>Sell</p>
+      </div>
+    </div>
+  </div> -->
+
+<ion-grid>
+  <ion-row>
+    <ion-col size="12" size-sm>
+      <h3 class="sell-head text-center">Sell</h3>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<div class="sell-cont">
+<ion-grid>
+  <ion-row>
+    <ion-col size="12" size-sm>
+      <p class="sl-unit text-center">156 <span style="font-size:12px; color: #000000;"> units</span></p>
+      <hr>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="5" class="st-time" size-sm>
+      <form class="st-sec">
+        <label>START TIME</label><br>
+        <input class="time" type="time" name="usr_time"><span>AM</span>
+        <input class="date" type="date" name="bday">
+      </form>
+    </ion-col>
+    <ion-col size="2" class="trans-icn" size-sm align-self-center>
+        <ion-icon class="circle-icn2" name="arrow-dropleft-circle"></ion-icon>
+    </ion-col>
+    <ion-col size="5" class="st-time et-time" size-sm>
+        <form class="st-sec">
+          <label>END TIME</label><br>
+          <input class="time" type="time" name="usr_time"><span>AM</span>
+          <input class="date" type="date" name="bday">
+        </form>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12" class="sell-dur text-center" size-sm>
+      <p>00:00 <span style="font-size: 10px;color: #000000;font-weight: normal;">Hrs</span></p>
+      <span style="font-size: 10px;color: #000000;font-weight: normal;">DURATION</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12" class="sl-btn" size-sm>
+      <ion-button shape="round" expand="full">Proceed to set rate</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>
+</div>
+<!-- <ion-item>
+    <ion-label>MMMM</ion-label>
+    <ion-datetime displayFormat="MMMM" value="2012-12-15T13:47:20.789"></ion-datetime>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>MM DD YY</ion-label>
+    <ion-datetime displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+  </ion-item> -->
+
+</div>
 </ion-content>
+</ion-app>

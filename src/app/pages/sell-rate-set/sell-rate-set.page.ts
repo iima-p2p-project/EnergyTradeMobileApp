@@ -23,6 +23,7 @@ export class SellRateSetPage implements OnInit {
   duration: string;
   power: string;
 
+
   rate:string;
 
   order: Order = {};
@@ -73,11 +74,11 @@ export class SellRateSetPage implements OnInit {
     this.sellRateSetForm.controls['endTime'].setValue(this.endTime);
     this.sellRateSetForm.controls['duration'].setValue(this.duration);
     this.sellRateSetForm.controls['power'].setValue(this.power);
-    this.sellRateSetForm.controls['totalAmount'].setValue("00.00");
+    this.sellRateSetForm.controls['totalAmount'].setValue("XXXX");
     console.log('date as string : ' , this.startTime);
   }
 
-  submit() {
+  async submit() {
     this.order.orderId = 1;
     this.order.orderType = 'SELL';
     this.order.deviceName = this.deviceName;
