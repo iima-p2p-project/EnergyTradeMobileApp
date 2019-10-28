@@ -19,7 +19,12 @@ export class SellTimePickerPage implements OnInit {
 
   durationInHours: any = '00';
   durationInMins: any = '00';
-  duration: any;
+  durationDetails: any;
+  duration: any = "00:00";
+
+  startTimeDetails: any = "DAY,DD MM";
+  endTimeDetails: any = "DAY,DD MM";
+
 
   sellOrderPayload: SellOrderPayload = {};
   sellTimePickerForm: FormGroup;
@@ -28,6 +33,9 @@ export class SellTimePickerPage implements OnInit {
   deviceName: string;
   // duration: string;
   power: number;
+
+  sellerId: any;
+  deviceId: any;
 
   constructor(private router: Router,
     private platform:Platform,
@@ -58,27 +66,37 @@ export class SellTimePickerPage implements OnInit {
   ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
       this.power = params['powerToSell'];
+      this.sellerId = params['sellerId'];
+      this.deviceId = params['deviceId'];
     });
   }
 
-  getDuration() {
-    this.duration = this.timeService.getDuration(this.startTime,this.endTime);
-    this.durationInHours = this.duration.durationInHours;
-    this.durationInMins = this.duration.durationInMins;
+  getStartTimeDetails() {
+    this.durationDetails = this.timeService.getStartTimeDetails(this.startTime,this.endTime);
+    if(this.durationDetails != null) {
+      this.startTimeDetails = this.durationDetails.startTimeDetails;
+      this.duration = this.durationDetails.duration;
+    }
+  }
+
+  getEndTimeDetails() {
+    this.durationDetails = this.timeService.getEndTimeDetails(this.startTime,this.endTime);
+    if(this.durationDetails != null) {
+      this.endTimeDetails = this.durationDetails.endTimeDetails;
+      this.duration = this.durationDetails.duration;
+    }
   }
 
   proceedToSetRate() {
-    
-    this.timeService.getDuration(this.startTime, this.endTime);
-
-    // this.router.navigate(['/sell-rate-set'], {
-    //   queryParams: {
-    //     power: this.power,
-    //     deviceName: this.deviceName,
-    //     duration: this.duration,
-    //     startTime: this.startTime,
-    //     endTime: this.endTime
-    //   }
-    // });
+    this.router.navigate(['/sell-rate-set'], {
+      queryParams: {
+        sellerId: this.sellerId,
+        deviceId: this.deviceId,
+        power: this.power,
+        //duration: this.duration,
+        //startTime: this.startTimeDetails,
+        //endTime: this.endTimeDetails
+      }
+    });
   }
 }

@@ -22,13 +22,13 @@
               </ion-row>
               <ion-row>
                   <ion-col>
-                    <span class='font-start-end font-datetime-big grey-colour'>06:30 </span>
-                    <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                    <span class='font-start-end font-datetime-big grey-colour'>{{startTime}}</span>
+                    <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                   </ion-col>
               </ion-row>
               <ion-row style="margin-top:-0.5em;">
                   <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
-                    THU, 11 JUN
+                    {{startTimeDetails}}
                   </ion-col>
               </ion-row>
             </ion-grid>
@@ -43,13 +43,13 @@
                 </ion-row>
                 <ion-row>
                     <ion-col>
-                      <span class='font-start-end font-datetime-big grey-colour'>06:30 </span>
-                      <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                      <span class='font-start-end font-datetime-big grey-colour'>{{startTime}}</span>
+                      <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                     </ion-col>
                 </ion-row>
                 <ion-row style="margin-top:-0.5em;">
                     <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
-                      THU, 11 JUN
+                      {{startTimeDetails}}
                     </ion-col>
                 </ion-row>
               </ion-grid>
@@ -72,13 +72,13 @@
                   </ion-row>
                   <ion-row>
                       <ion-col>
-                        <span class='font-start-end font-datetime-big grey-colour'>08:00 </span>
-                        <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                        <span class='font-start-end font-datetime-big grey-colour'>{{endTime}}</span>
+                        <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                       </ion-col>
                   </ion-row>
                   <ion-row style="margin-top:-0.5em;">
                       <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
-                        THU, 11 JUN
+                        {{endTimeDetails}}
                       </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -89,7 +89,7 @@
           <ion-row class='ion-text-center'>
             <ion-col size="12" class='ion-text-center'>
               <span class="big-font">
-                01:30
+                {{duration}}
               </span>
               <span class="small-font">
               Hrs
@@ -114,7 +114,7 @@
               :
             </ion-col>
             <ion-col size="4" style="font-size:0.8em;margin-left:-2em;margin-top:-0.5em;font-family:MMedium !important;">
-              <ion-input placeholder="Enter Amount" style="font-family:MMedium !important;" type="number"></ion-input>
+              <ion-input placeholder="Enter Amount" style="font-family:MMedium !important;" type="number" [(ngModel)]="power"></ion-input>
             </ion-col>
           </ion-row>
           <ion-row style="padding-bottom:0.5em;">
@@ -129,7 +129,8 @@
                     <ion-label>
                         ₹
                     </ion-label>
-                    <ion-input placeholder="10.00" style="font-family:MSemiBold !important;border-radius:2px;"></ion-input>
+                    <ion-input placeholder="00.00" style="font-family:MSemiBold !important;border-radius:2px;" 
+                    [(ngModel)]="rate" (ionChange)="calculateTotalAmount()"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -143,7 +144,7 @@
                 <ion-col size="4" style="margin-left:-1em;margin-top:-0.5em;">
                     ₹ <span style="font-family:MMedium !important; font-size:1.5em;">
                         <strong>
-                          1560/-
+                          {{totalAmount}}
                         </strong>
                       </span>
                 </ion-col>

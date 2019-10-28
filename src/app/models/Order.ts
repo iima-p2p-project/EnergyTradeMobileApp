@@ -1,12 +1,14 @@
 import { IonDatetime } from '@ionic/angular';
 
 export class Order{
-    orderId?: number;
+    orderId?: any;
+    sellerId?: any;
+    deviceId?: any;
     orderType?: string;
     deviceName?: string;
-    power?: number;
-    startTime?: string;
-    endTime?: string;
+    powerToSell?: number;
+    transferStartTs?: string;
+    transferEndTs?: string;
     duration?: number;
     ratePerUnit?: number;
     totalAmount?: number;

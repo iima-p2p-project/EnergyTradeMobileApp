@@ -6,7 +6,8 @@ import { IonDatetime, Platform, ModalController } from '@ionic/angular';
 import { Order } from 'src/app/models/Order';
 import { OrderService} from 'src/app/services/order.service';
 import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
-
+import { TimeService } from 'src/app/services/time.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sell-rate-set',
@@ -16,15 +17,19 @@ import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page
 export class SellRateSetPage implements OnInit {
 
   sellRateSetForm: FormGroup;
-  startTime: string;
-  endTime: string;
-  totalAmount: string;
+  sellerId: any;
+  deviceId: any;
+  startTime: any;
+  endTime: any;
+  startTimeDetails: any;
+  endTimeDetails: any;
+  totalAmount: any = "00.00";
   deviceName: string;
   duration: string;
   power: string;
 
 
-  rate:string;
+  rate:any;
 
   order: Order = {};
 
@@ -37,7 +42,8 @@ export class SellRateSetPage implements OnInit {
     , private router: Router,
     public platform:Platform
     , private route: ActivatedRoute
-    , private orderService: OrderService) { 
+    , private orderService: OrderService
+    , private timeService: TimeService) { 
       this.sellRateSetForm = this.formBuilder.group({
         rate: [null, Validators.required],
         startTime: [null, Validators.required],
@@ -63,32 +69,30 @@ export class SellRateSetPage implements OnInit {
       }
 
     this.route.queryParams.subscribe(params => {
-      this.deviceName = params['deviceName'];
       this.power = params['power'];
-      this.startTime = params['startTime'];
-      this.endTime = params['endTime'];
-      this.duration = params['duration'];
+      this.sellerId = params['sellerId'];
+      this.deviceId = params['deviceId'];
     });
 
-    this.sellRateSetForm.controls['startTime'].setValue(this.startTime);
-    this.sellRateSetForm.controls['endTime'].setValue(this.endTime);
-    this.sellRateSetForm.controls['duration'].setValue(this.duration);
-    this.sellRateSetForm.controls['power'].setValue(this.power);
-    this.sellRateSetForm.controls['totalAmount'].setValue("XXXX");
-    console.log('date as string : ' , this.startTime);
+    this.startTime = moment(this.timeService.startTime).format('hh:mm A');
+    this.endTime = moment(this.timeService.endTime).format('hh:mm A');
+    this.startTimeDetails = this.timeService.startTimeDetails;
+    this.endTimeDetails = this.timeService.endTimeDetails;
+    this.duration = this.timeService.duration;
+  }
+
+  calculateTotalAmount() {
+    this.totalAmount = parseInt(this.rate) * parseInt(this.power);
   }
 
   async submit() {
-    this.order.orderId = 1;
-    this.order.orderType = 'SELL';
-    this.order.deviceName = this.deviceName;
-    this.order.duration = +this.duration;
-    this.order.power = +this.power;
-    this.order.ratePerUnit = +this.sellRateSetForm.controls['rate'].value;
+    this.order.sellerId = this.sellerId;
+    this.order.deviceId = this.deviceId;
+    this.order.powerToSell = +this.power;
+    this.order.transferStartTs = this.timeService.startTime;
+    this.order.transferEndTs = this.timeService.endTime;
+    this.order.ratePerUnit = this.rate;
     this.order.totalAmount = 1000;
-    this.order.startTime = this.startTime;
-    this.order.endTime = this.endTime;
-    this.order.status = "INITIATED";
     this.orderService.createSellOrder(this.order);
     this.orderService.printSellOrderList();
     // this.router.navigate(['sell-post-success'], {
