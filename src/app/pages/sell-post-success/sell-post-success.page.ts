@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
@@ -10,7 +10,8 @@ import { TouchSequence } from 'selenium-webdriver';
 export class SellPostSuccessPage implements OnInit {
 
   constructor(
-    public modal:ModalController
+    public modal:ModalController,
+    public nav:NavController
   ) { }
 
   ngOnInit() {
@@ -24,6 +25,7 @@ export class SellPostSuccessPage implements OnInit {
   manageOrders()
   {
     this.close();
+    this.nav.navigateForward('manage-orders');
   }
 
 }
