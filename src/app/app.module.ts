@@ -11,8 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { StateModalPage } from '../app/pages/register/selectState';
 import { BoardModalPage } from '../app/pages/register/selectBoard';
 
-
 import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
+import { BuyPostSuccessPageModule} from './pages/buy-post-success/buy-post-success.module';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-s
     IonicModule.forRoot(),
     IonicStorageModule.forRoot({ name: '__jppdb' }),
     AppRoutingModule,
-    SellPostSuccessPageModule
+    SellPostSuccessPageModule,
+    BuyPostSuccessPageModule
   ],
   providers: [
     StatusBar,

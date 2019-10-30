@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IonDatetime, Platform, ModalController } from '@ionic/angular';
 import { Order } from 'src/app/models/Order';
+import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import { OrderService} from 'src/app/services/order.service';
 import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
 import { TimeService } from 'src/app/services/time.service';
@@ -18,7 +19,8 @@ export class SellRateSetPage implements OnInit {
 
   sellRateSetForm: FormGroup;
   sellerId: any;
-  deviceId: any;
+  userDeviceId: any;
+  deviceTypeId: any;
   startTime: any;
   endTime: any;
   startTimeDetails: any;
@@ -31,7 +33,7 @@ export class SellRateSetPage implements OnInit {
 
   rate:any;
 
-  order: Order = {};
+  sellOrderPayload: SellOrderPayload = {};
 
   //Screenwidth
   screenWidth:any;
@@ -71,7 +73,8 @@ export class SellRateSetPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.power = params['power'];
       this.sellerId = params['sellerId'];
-      this.deviceId = params['deviceId'];
+      this.userDeviceId = params['userDeviceId'];
+      this.deviceTypeId = params['deviceTypeId'];
     });
 
     this.startTime = moment(this.timeService.startTime).format('hh:mm A');
@@ -86,14 +89,15 @@ export class SellRateSetPage implements OnInit {
   }
 
   async submit() {
-    this.order.sellerId = this.sellerId;
-    this.order.deviceId = this.deviceId;
-    this.order.powerToSell = +this.power;
-    this.order.transferStartTs = this.timeService.startTime;
-    this.order.transferEndTs = this.timeService.endTime;
-    this.order.ratePerUnit = this.rate;
-    this.order.totalAmount = 1000;
-    this.orderService.createSellOrder(this.order);
+    this.sellOrderPayload.sellerId = this.sellerId;
+    this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
+    this.sellOrderPayload.userDeviceId = this.userDeviceId;
+    this.sellOrderPayload.powerToSell = +this.power;
+    this.sellOrderPayload.transferStartTs = this.timeService.startTime;
+    this.sellOrderPayload.transferEndTs = this.timeService.endTime;
+    this.sellOrderPayload.ratePerUnit = this.rate;
+    this.sellOrderPayload.totalAmount = 1000;
+    this.orderService.createSellOrder(this.sellOrderPayload).subscribe( (data) => console.log(data));
     this.orderService.printSellOrderList();
     // this.router.navigate(['sell-post-success'], {
     //   queryParams: {}
@@ -101,14 +105,11 @@ export class SellRateSetPage implements OnInit {
     this.presentModal();
   }
 
-  async presentModal()
-  {
+  async presentModal(){
     const myModal = await this.modal.create({
       component: SellPostSuccessPage,
       cssClass: 'my-custom-modal-css'
     });
     return await myModal.present();
   }
-
-
 }

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {NavController} from '@ionic/angular';
 import { IngressService } from 'src/app/services/ingress.service';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
+import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
  
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,10 @@ export class DashboardPage implements OnInit {
   generatorDeviceId: any;
   evDeviceId: any;
 
+  solarDeviceTypeId: any;
+  generatorDeviceTypeId: any;
+  evDeviceTypeId: any;
+
   deviceCapactiy: any;
   deviceTypeId: any;
   userDeviceId: any;
@@ -31,8 +36,11 @@ export class DashboardPage implements OnInit {
   userDeviceList: any;
 
   powerToSell: any;
+  minPowerToBuy: any;
+  maxPowerToBuy: any;
 
   sellOrderPayload: SellOrderPayload = {};
+  buyOrderPayload: BuyOrderPayload = {};
 
   userId: any;
 
@@ -57,16 +65,19 @@ export class DashboardPage implements OnInit {
           this.userDeviceList.forEach(element => {
             if(element.deviceTypeId == 1) {
               this.solarDeviceId = element.userDeviceId;
+              this.solarDeviceTypeId = element.deviceTypeId;
               this.showSolar = true;
               this.solarCapacity = element.capacity;
             }
             if(element.deviceTypeId == 2) {
               this.generatorDeviceId = element.userDeviceId;
+              this.generatorDeviceTypeId = element.deviceTypeId;
               this.showGenerator = true;
               this.generatorCapacity = element.capacity;
             }
             if(element.deviceTypeId == 3) {
               this.evDeviceId = element.userDeviceId;
+              this.evDeviceTypeId = element.deviceTypeId;
               this.showEV = true;
               this.evCapacity = element.capacity;
             }
@@ -127,7 +138,8 @@ export class DashboardPage implements OnInit {
       this.router.navigate(['/sell-time-picker'], {
         queryParams: {
           sellerId: this.userId,
-          deviceId: this.userDeviceId,
+          userDeviceId: this.userDeviceId,
+          deviceTypeId: this.deviceTypeId,
           powerToSell: this.powerToSell,
         }
       });
@@ -136,24 +148,35 @@ export class DashboardPage implements OnInit {
     }
     else if(this.selectedOption=='buy')
     {
-      this.nav.navigateForward('buy-time-picker');
+      this.buyOrderPayload.budgetMin = this.minPowerToBuy;
+      this.buyOrderPayload.budgetMax = this.maxPowerToBuy;
+
+      console.log('dashboard : ' , this.buyOrderPayload);
+
+      this.router.navigate(['/buy-time-picker'], {
+        queryParams: {
+          buyerId: this.userId,
+          unitMin: this.minPowerToBuy,
+          unitMax: this.maxPowerToBuy
+        }
+      });
     }
   }
 
   selectSolarDeviceToSellPower() {
-    this.deviceTypeId = 1;
+    this.deviceTypeId = this.solarDeviceTypeId;
     this.userDeviceId = this.solarDeviceId;
     this.deviceCapactiy = this.solarCapacity;
   }
 
   selectGeneratorDeviceToSellPower() {
-    this.deviceTypeId = 2;
+    this.deviceTypeId = this.generatorDeviceTypeId;
     this.userDeviceId = this.generatorDeviceId;
     this.deviceCapactiy = this.generatorCapacity;
   }
 
   selectEVDeviceToSellPower() {
-    this.deviceTypeId = 3;
+    this.deviceTypeId = this.evDeviceTypeId;
     this.userDeviceId = this.evDeviceId;
     this.deviceCapactiy = this.evCapacity;
   }

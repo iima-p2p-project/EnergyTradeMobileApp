@@ -19,7 +19,7 @@
               </ion-col>
               <ion-col size="5" class="order_details">
                 <span style="font-size:0.9em;">₹ </span>
-                <span class="bigger">225/-</span><br>
+                <span class="bigger">{{totalAmount}}/-</span><br>
                 <span class="smaller" style="margin-top:-1.5em;">Solar Power</span>
               </ion-col>
             </ion-row>
@@ -37,7 +37,7 @@
                         <ion-icon style="zoom:3;vertical-align: middle;" name="flash"></ion-icon>
                     </ion-col>
                     <ion-col size="5" style="text-align:left;display:block;vertical-align:middle;">
-                        25 <br> UNITS
+                        {{ratePerUnit}} <br> UNITS
                     </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -49,8 +49,8 @@
                         <ion-icon style="zoom:2;vertical-align: middle;" color="light" name="time"></ion-icon>
                     </ion-col>
                     <ion-col size="8" style="text-align:left;display:block;vertical-align:middle;">
-                      11 JUN 2019<br>
-                      <span style="font-size:0.7em;">8:00 AM - 9:00 AM</span>
+                      {{date}}<br>
+                      <span style="font-size:0.7em;">{{startTime}} - {{endTime}}</span>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -113,7 +113,7 @@
       </ion-button>
 
       <div style="text-align:center;padding-top:30px;">
-        <ion-button shape="round" color="primary" style="width:80%;text-align:center;">
+        <ion-button shape="round" color="primary" style="width:80%;text-align:center;" (click)="createContract()">
           CONFIRM PAYMENT
         </ion-button>
       </div>

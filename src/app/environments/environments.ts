@@ -9,7 +9,7 @@ export const environment = {
   export const SUPPORT_NUMBER = '8298916264';
   
   export const INGRESS_URL = 'http://103.120.179.22:8080/et_ingress/rest';
-  export const TRADE_URL = 'http://103.120.179.22:8080/et_ingress/rest'
+  export const TRADE_URL = 'http://139.59.30.90:3000/apiv1/trade';
 
 
   export const CONFIG_URL = 'http://103.120.179.22:3007/configurations';

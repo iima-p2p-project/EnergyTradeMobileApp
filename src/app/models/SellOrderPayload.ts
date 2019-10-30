@@ -1,6 +1,7 @@
 export class SellOrderPayload{
-    sellerId?: string;
-    deviceId?: string;
+    sellerId?: any;
+    deviceTypeId?: any;
+    userDeviceId?: any;
     powerToSell?: number;
     transferStartTs?: string;
     transferEndTs?: string;

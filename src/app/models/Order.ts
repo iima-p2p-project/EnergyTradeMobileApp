@@ -3,7 +3,8 @@ import { IonDatetime } from '@ionic/angular';
 export class Order{
     orderId?: any;
     sellerId?: any;
-    deviceId?: any;
+    deviceTypeId?: any;
+    userDeviceId?: any;
     orderType?: string;
     deviceName?: string;
     powerToSell?: number;

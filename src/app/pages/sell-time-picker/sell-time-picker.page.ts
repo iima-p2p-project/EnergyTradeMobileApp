@@ -35,7 +35,8 @@ export class SellTimePickerPage implements OnInit {
   power: number;
 
   sellerId: any;
-  deviceId: any;
+  userDeviceId: any;
+  deviceTypeId: any;
 
   constructor(private router: Router,
     private platform:Platform,
@@ -67,7 +68,10 @@ export class SellTimePickerPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.power = params['powerToSell'];
       this.sellerId = params['sellerId'];
-      this.deviceId = params['deviceId'];
+      this.userDeviceId = params['userDeviceId'];
+      this.deviceTypeId = params['deviceTypeId'];
+      console.log('sell time picker user device id : ' , this.userDeviceId);
+      console.log('sell time picker device type id : ' , this.deviceTypeId);
     });
   }
 
@@ -91,7 +95,8 @@ export class SellTimePickerPage implements OnInit {
     this.router.navigate(['/sell-rate-set'], {
       queryParams: {
         sellerId: this.sellerId,
-        deviceId: this.deviceId,
+        userDeviceId: this.userDeviceId,
+        deviceTypeId: this.deviceTypeId,
         power: this.power,
         //duration: this.duration,
         //startTime: this.startTimeDetails,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-buy-post-success',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuyPostSuccessPage implements OnInit {
 
-  constructor() { }
+  constructor(public modal:ModalController,
+    public nav:NavController) { }
 
   ngOnInit() {
   }
 
+  close()
+  {
+    this.modal.dismiss();
+  }
+
+  manageOrders()
+  {
+    this.close();
+    this.nav.navigateForward('manage-orders');
+  }
 }

@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Order } from 'src/app/models/Order';
 import { IonDatetime } from '@ionic/angular';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { INGRESS_URL, CONFIG_URL, TRADE_URL } from 'src/app/environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
+  createSellOrderUrl = TRADE_URL + '/createSellOrder';
+  searchBuyLeadsUrl = TRADE_URL + '/searchBuyLeads';
+  createContractUrl = TRADE_URL + '/createContract';
+
+  sellerList: any;
+
+
   sellOrderList: Order[] = [{orderId: 1,
+    userDeviceId: 1,
+    deviceTypeId: 1,
     orderType: "SELL",
     deviceName: "SOLAR",
     powerToSell: 200,
@@ -22,6 +33,8 @@ export class OrderService {
     ,
 
   {orderId: 2,
+    userDeviceId: 1,
+    deviceTypeId: 1,
     orderType: "SELL",
     deviceName: "EV",
     powerToSell: 100,
@@ -35,6 +48,8 @@ export class OrderService {
 
   
   buyOrderList: Order[] = [{orderId: 3,
+    userDeviceId: 1,
+    deviceTypeId: 1,
     orderType: "BUY",
     deviceName: "SOLAR",
     powerToSell: 200,
@@ -49,6 +64,8 @@ export class OrderService {
     ,
 
   {orderId: 4,
+    userDeviceId: 1,
+    deviceTypeId: 1,
     orderType: "BUY",
     deviceName: "EV",
     powerToSell: 100,
@@ -60,11 +77,43 @@ export class OrderService {
     budgerRange: 700,
     softdeleteflag: false}];
 
-  constructor() { 
+  constructor(private httpClient: HttpClient) { 
   }
 
-  createSellOrder(order: Order) {
-    this.sellOrderList.push(order);
+  createSellOrder(orderDetails) {
+    console.log("Sell Order : ", orderDetails);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.createSellOrderUrl
+      , orderDetails
+      , options
+    );
+  }
+
+  searchBuyLeads(buyOrderPayload) {
+    console.log("Buy Order : ", buyOrderPayload);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.searchBuyLeadsUrl
+      , buyOrderPayload
+      , options
+    );
+  }
+
+  createContract(createContractPayload) {
+    console.log("Create Contract : ", createContractPayload);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.createContractUrl
+      , createContractPayload
+      , options
+    );
   }
 
   printSellOrderList() {
