@@ -89,6 +89,7 @@ export class SellerListPage implements OnInit {
         buyerId: this.buyerId,
         totalAmount: seller.total_amount,
         ratePerUnit: seller.rate_per_unit,
+        power: seller.power_to_sell,
         startTime: this.getFormattedTime(seller.transfer_start_ts),
         endTime: this.getFormattedTime(seller.transfer_end_ts),
         date: this.getFormatteDate(seller.transfer_start_ts)

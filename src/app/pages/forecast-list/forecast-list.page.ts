@@ -38,6 +38,6 @@ export class ForecastListPage implements OnInit {
     return (powerAvailable - forecast.user_load);
   }
 
-  sellForecast() {
+  sellForecast(forecast: any) {
   }
 }

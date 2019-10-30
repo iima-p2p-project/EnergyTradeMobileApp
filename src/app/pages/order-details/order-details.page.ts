@@ -20,6 +20,7 @@ export class OrderDetailsPage implements OnInit {
   ratePerUnit: number;
   startTime: string;
   endTime: string;
+  power: any;
   date: string;
 
   sellOrderId: any;
@@ -43,6 +44,7 @@ export class OrderDetailsPage implements OnInit {
       this.buyerId = params['buyerId'];
       this.totalAmount = params['totalAmount'];
       this.ratePerUnit = params['ratePerUnit'];
+      this.power = params['power'];
       this.startTime = params['startTime'];
       this.endTime = params['endTime'];
       this.date = params['date'];
