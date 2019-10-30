@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 
+import { IngressService } from 'src/app/services/ingress.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -28,7 +30,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router
+    private router: Router,
+    private ingressService: IngressService
   ) {
     this.initializeApp();
   }
@@ -42,8 +45,6 @@ export class AppComponent {
 
 
   logout(){
-    console.log("Logout event");
-    this.router.navigateByUrl('/login');
-
+    this.ingressService.logout();
   }
 }

@@ -12,6 +12,7 @@ export class OrderService {
   createSellOrderUrl = TRADE_URL + '/createSellOrder';
   searchBuyLeadsUrl = TRADE_URL + '/searchBuyLeads';
   createContractUrl = TRADE_URL + '/createContract';
+  getAllOrdersAndContractsUrl = TRADE_URL + '/getAllOrdersAndContracts';
 
   sellerList: any;
 
@@ -118,5 +119,17 @@ export class OrderService {
 
   printSellOrderList() {
     console.log('Sell Order List : ' , this.sellOrderList);
+  }
+
+  getAllOrdersAndContracts(userId: any) {
+    console.log('getAllOrdersAndContracts user id : ' , userId);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.getAllOrdersAndContractsUrl
+      , {"userId": userId}
+      , options
+    );
   }
 }

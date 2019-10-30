@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/services/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'create-account',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   /*{
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'create-account', loadChildren: './pages/create-account/create-account.module#CreateAccountPageModule' },
   { path: 'otp', loadChildren: './pages/otp/otp.module#OtpPageModule' },
   { path: 'device-details', loadChildren: './pages/device-details/device-details.module#DeviceDetailsPageModule' },
-  { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule' },
+  { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule', canActivate: [AuthGuard] },
   { path: 'sell-time-picker', loadChildren: './pages/sell-time-picker/sell-time-picker.module#SellTimePickerPageModule' },
   { path: 'sell-rate-set', loadChildren: './pages/sell-rate-set/sell-rate-set.module#SellRateSetPageModule' },
   { path: 'buy-time-picker', loadChildren: './pages/buy-time-picker/buy-time-picker.module#BuyTimePickerPageModule' },

@@ -67,18 +67,22 @@ export class LoginPage implements OnInit {
       this.responseFromService = res;
       if (this.responseFromService.response.key == 200) {
         this.userId = this.responseFromService.response.userId;
+        this.ingressService.setLoggedInUserId(this.userId);
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
-          console.log('user devices from server : ' , res);
+          console.log('user devices from server : ', res);
           this.responseFromService = res;
           this.ingressService.setUserDevices(this.responseFromService.response.devices);
-        });
-        this.storage.set('LoggedInUserId', this.userId).then(() => {
-          this.router.navigate(['/dashboard'], {
-            queryParams: {
-              userId: this.userId,
-              phoneNumber: this.phoneNumber,
-              redirect: this.redirect
-            }
+          this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
+          this.storage.set('LoggedInUserId', this.userId).then(() => {
+            this.ingressService.printStorageKeyValue('LoggedInUserId');
+            this.ingressService.printStorageKeyValue('LoggedInUserDevices');
+            this.router.navigate(['/dashboard'], {
+              queryParams: {
+                userId: this.userId,
+                phoneNumber: this.phoneNumber,
+                redirect: this.redirect
+              }
+            });
           });
         });
       }

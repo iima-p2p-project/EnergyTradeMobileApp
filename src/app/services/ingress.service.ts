@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { INGRESS_URL, CONFIG_URL } from 'src/app/environments/environments';
 import { AllUser } from 'src/app/models/AllUser';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,9 @@ export class IngressService {
 
   userDevicesList: any;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient
+    ,private storage: Storage
+    ,private router: Router) { }
 
   login(userDetails) {
     console.log("Inside Login", userDetails);
@@ -152,5 +156,51 @@ export class IngressService {
 
   setUserDevices(deviceList: any) {
     this.userDevicesList = deviceList;
+  }
+
+  async getUserIdToken() {
+    console.log("get token");
+    if (!this.loggedInUser) {
+      console.log("storage token");
+      await this.storage.ready();
+      const token = await this.storage.get('LoggedInUserId');
+      if (token) {
+        console.log("storage token recieved");
+        this.loggedInUserId = token;
+      }
+    }
+    console.log('user id token : ' , this.loggedInUserId);
+    return this.loggedInUserId;
+  }
+
+  async getUserDevicesToken() {
+    console.log("get token");
+    if (!this.userDevicesList) {
+      console.log("storage token");
+      await this.storage.ready();
+      const token = await this.storage.get('LoggedInUserDevices');
+      if (token) {
+        console.log("storage token recieved");
+        this.userDevicesList = token;
+      }
+    }
+    console.log('user devices token : ' , this.userDevicesList);
+    return this.userDevicesList;
+  }
+
+  async printStorageKeyValue(key: any) {
+    console.log(key , ' : ' , await this.storage.get(key));
+  }
+
+  logout(): Promise<boolean> {
+    return this.storage.remove('LoggedInUserDevices').then(() => {
+      return this.storage.remove('LoggedInUserId').then(() => {
+        this.loggedInUserId = null;
+        this.loggedInUser = null;
+        this.userDevicesList = null;
+        this.router.navigate(['/login']);
+        return true;
+      });
+    })
   }
 }

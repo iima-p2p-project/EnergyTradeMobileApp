@@ -59,23 +59,23 @@ export class DashboardPage implements OnInit {
   ionViewDidEnter() {
     this.route.queryParams.subscribe(params => {
       this.userId = params['userId'];
-      if(params['redirect'] == '/login') {
-        this.userDeviceList = this.ingressService.getUserDevicesFromLocal();
-        if(this.userDeviceList!=null){
+      this.ingressService.getUserDevicesToken().then((res) => {
+        this.userDeviceList = res;
+        if (this.userDeviceList != null) {
           this.userDeviceList.forEach(element => {
-            if(element.deviceTypeId == 1) {
+            if (element.deviceTypeId == 1) {
               this.solarDeviceId = element.userDeviceId;
               this.solarDeviceTypeId = element.deviceTypeId;
               this.showSolar = true;
               this.solarCapacity = element.capacity;
             }
-            if(element.deviceTypeId == 2) {
+            if (element.deviceTypeId == 2) {
               this.generatorDeviceId = element.userDeviceId;
               this.generatorDeviceTypeId = element.deviceTypeId;
               this.showGenerator = true;
               this.generatorCapacity = element.capacity;
             }
-            if(element.deviceTypeId == 3) {
+            if (element.deviceTypeId == 3) {
               this.evDeviceId = element.userDeviceId;
               this.evDeviceTypeId = element.deviceTypeId;
               this.showEV = true;
@@ -83,30 +83,30 @@ export class DashboardPage implements OnInit {
             }
           });
         }
-      }
-      else {
-        if (params['showSolar'] == "true") {
-          this.showSolar = true;
-          this.solarCapacity = params['solarCapacity'];
-        }
-        else {
-          this.showSolar = false;
-        }
-        if (params['showGenerator'] == "true") {
-          this.showGenerator = true;
-          this.generatorCapacity = params['generatorCapacity'];
-        }
-        else {
-          this.showGenerator = false;
-        }
-        if (params['showEV'] == "true") {
-          this.showEV = true;
-          this.evCapacity = params['evCapacity'];
-        }
-        else {
-          this.showEV = false;
-        }
-      } 
+      });
+      // else {
+      //   if (params['showSolar'] == "true") {
+      //     this.showSolar = true;
+      //     this.solarCapacity = params['solarCapacity'];
+      //   }
+      //   else {
+      //     this.showSolar = false;
+      //   }
+      //   if (params['showGenerator'] == "true") {
+      //     this.showGenerator = true;
+      //     this.generatorCapacity = params['generatorCapacity'];
+      //   }
+      //   else {
+      //     this.showGenerator = false;
+      //   }
+      //   if (params['showEV'] == "true") {
+      //     this.showEV = true;
+      //     this.evCapacity = params['evCapacity'];
+      //   }
+      //   else {
+      //     this.showEV = false;
+      //   }
+      // }
     });
   }
 
