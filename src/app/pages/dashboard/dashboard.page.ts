@@ -132,7 +132,7 @@ export class DashboardPage implements OnInit {
     if(this.selectedOption=='sell')
     {
       this.sellOrderPayload.sellerId = this.userId;
-      this.sellOrderPayload.deviceId = this.userDeviceId;
+      //this.sellOrderPayload.deviceId = this.userDeviceId;
       this.sellOrderPayload.powerToSell = this.powerToSell;
       console.log('sell order payload from dashboard : ' , this.sellOrderPayload);
       this.router.navigate(['/sell-time-picker'], {
