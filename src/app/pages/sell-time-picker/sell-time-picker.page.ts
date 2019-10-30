@@ -72,6 +72,7 @@ export class SellTimePickerPage implements OnInit {
       this.deviceTypeId = params['deviceTypeId'];
       console.log('sell time picker user device id : ' , this.userDeviceId);
       console.log('sell time picker device type id : ' , this.deviceTypeId);
+      console.log('sell time picker seller id : ' , this.sellerId);
     });
   }
 

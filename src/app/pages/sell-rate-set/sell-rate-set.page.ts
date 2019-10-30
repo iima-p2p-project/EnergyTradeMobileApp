@@ -96,7 +96,7 @@ export class SellRateSetPage implements OnInit {
     this.sellOrderPayload.transferStartTs = this.timeService.startTime;
     this.sellOrderPayload.transferEndTs = this.timeService.endTime;
     this.sellOrderPayload.ratePerUnit = this.rate;
-    this.sellOrderPayload.totalAmount = 1000;
+    this.sellOrderPayload.totalAmount = this.totalAmount;
     this.orderService.createSellOrder(this.sellOrderPayload).subscribe( (data) => console.log(data));
     this.orderService.printSellOrderList();
     // this.router.navigate(['sell-post-success'], {

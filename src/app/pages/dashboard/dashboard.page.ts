@@ -16,7 +16,6 @@ export class DashboardPage implements OnInit {
   showSolar: boolean = true;
   showGenerator: boolean = true;
   showEV: boolean = true;
-
   solarCapacity: string;
   generatorCapacity: string;
   evCapacity: string;
@@ -58,31 +57,34 @@ export class DashboardPage implements OnInit {
 
   ionViewDidEnter() {
     this.route.queryParams.subscribe(params => {
-      this.userId = params['userId'];
-      this.ingressService.getUserDevicesToken().then((res) => {
-        this.userDeviceList = res;
-        if (this.userDeviceList != null) {
-          this.userDeviceList.forEach(element => {
-            if (element.deviceTypeId == 1) {
-              this.solarDeviceId = element.userDeviceId;
-              this.solarDeviceTypeId = element.deviceTypeId;
-              this.showSolar = true;
-              this.solarCapacity = element.capacity;
-            }
-            if (element.deviceTypeId == 2) {
-              this.generatorDeviceId = element.userDeviceId;
-              this.generatorDeviceTypeId = element.deviceTypeId;
-              this.showGenerator = true;
-              this.generatorCapacity = element.capacity;
-            }
-            if (element.deviceTypeId == 3) {
-              this.evDeviceId = element.userDeviceId;
-              this.evDeviceTypeId = element.deviceTypeId;
-              this.showEV = true;
-              this.evCapacity = element.capacity;
-            }
-          });
-        }
+      //this.userId = params['userId'];
+      this.ingressService.getUserIdToken().then((res) => {
+        this.userId = res;
+        this.ingressService.getUserDevicesToken().then((res) => {
+          this.userDeviceList = res;
+          if (this.userDeviceList != null) {
+            this.userDeviceList.forEach(element => {
+              if (element.deviceTypeId == 1) {
+                this.solarDeviceId = element.userDeviceId;
+                this.solarDeviceTypeId = element.deviceTypeId;
+                this.showSolar = true;
+                this.solarCapacity = element.capacity;
+              }
+              if (element.deviceTypeId == 2) {
+                this.generatorDeviceId = element.userDeviceId;
+                this.generatorDeviceTypeId = element.deviceTypeId;
+                this.showGenerator = true;
+                this.generatorCapacity = element.capacity;
+              }
+              if (element.deviceTypeId == 3) {
+                this.evDeviceId = element.userDeviceId;
+                this.evDeviceTypeId = element.deviceTypeId;
+                this.showEV = true;
+                this.evCapacity = element.capacity;
+              }
+            });
+          }
+        });
       });
       // else {
       //   if (params['showSolar'] == "true") {
@@ -132,9 +134,9 @@ export class DashboardPage implements OnInit {
     if(this.selectedOption=='sell')
     {
       this.sellOrderPayload.sellerId = this.userId;
-      this.sellOrderPayload.deviceId = this.userDeviceId;
+      //this.sellOrderPayload.deviceId = this.userDeviceId;
       this.sellOrderPayload.powerToSell = this.powerToSell;
-      console.log('sell order payload from dashboard : ' , this.sellOrderPayload);
+      console.log('user id from dashboard : ' , this.userId);
       this.router.navigate(['/sell-time-picker'], {
         queryParams: {
           sellerId: this.userId,
