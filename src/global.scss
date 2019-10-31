@@ -49,6 +49,15 @@
     display: block;  
  }
 
+ .cancel-custom-modal-css .modal-wrapper {
+  height: 50%;
+  width:80%;
+  top: 25%;
+  border-radius:10px;
+  position: absolute; 
+  display: block;  
+}
+
 
  .icon-circle, .icon-circle-large, .icon-circle-small{
   position: relative;

@@ -1,0 +1,109 @@
+ion-content{
+    --background:#0048A8;
+  
+  }
+
+  ion-item{
+      font-family:MMedium !important;
+  }
+
+  .opacity-sold{
+    opacity:0.4;
+  }
+
+
+  .menu-button{
+    color:white;
+    text-align: left;
+    margin-top:1em;
+  }
+  
+  .title-top{
+    color:white;
+    text-align:center;
+    font-size:1.2em;
+    font-family:MSemiBold !important;
+    margin-top:1em;
+  }
+
+  .row-control{
+    margin-top:-10px;
+}
+
+
+.card-center{
+    background-color:white;
+    width:97%;
+    margin-left:auto;
+    margin-right:auto;
+
+    .card-unit-number{
+      font-family:MMedium !important;
+      color:black;
+      font-size:1.1em;
+    }
+
+    .card-id-number{
+        font-family:MMedium !important;
+        color:grey;
+        font-size:0.8em;
+    }
+
+ 
+
+    .card-bottom-line-left{
+        text-align:left;
+        font-family:MMedium !important;
+        color:grey;
+        font-size:0.8em;
+     }
+     .card-bottom-line-right{
+        text-align:right;
+        font-family:MMedium !important;
+        color:grey;
+        font-size:0.8em;
+     }
+
+     .content-style{
+        padding-top:1em;
+        padding-bottom:0.5em;
+        padding-left:0.5em;
+        padding-right:0.8em;
+     }
+
+    .card-price{
+        text-align:right;
+        font-family:MSemiBold!important;
+        color:black;
+        // font-size:em;
+    }
+
+    .prediction{
+        vertical-align:middle;
+        text-align:left;
+        padding-top:1.6em;
+    }
+}
+
+.bottom-footer{
+    border:rgba(173, 216, 230, 0.300) 0.5px solid;
+    padding:1em;
+    font-family:MSemiBold !important;
+    font-size:0.9em;
+    .icon{
+        display: inline-block;
+        vertical-align: middle;
+        zoom:1.2;
+        color:white;
+       }
+  }
+
+.the-footer{
+    background-color:#0048A8;
+    color:white;
+    padding:0;
+  }
+
+  .height-adjust{
+      margin-top:-1.5em;
+  }

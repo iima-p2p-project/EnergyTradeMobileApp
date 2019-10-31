@@ -13,7 +13,7 @@ import { BoardModalPage } from '../app/pages/register/selectBoard';
 
 
 import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
-
+import { CancelNonTradeHourPageModule } from './cancel-non-trade-hour/cancel-non-trade-hour.module';
 
 @NgModule({
   declarations: [StateModalPage, BoardModalPage, AppComponent],
@@ -24,7 +24,8 @@ import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-s
     IonicModule.forRoot(),
     IonicStorageModule.forRoot({ name: '__jppdb' }),
     AppRoutingModule,
-    SellPostSuccessPageModule
+    SellPostSuccessPageModule,
+    CancelNonTradeHourPageModule
   ],
   providers: [
     StatusBar,

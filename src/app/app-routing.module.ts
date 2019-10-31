@@ -39,7 +39,9 @@ const routes: Routes = [
   { path: 'forecast-list', loadChildren: './pages/forecast-list/forecast-list.module#ForecastListPageModule' },
   { path: 'total-sell-leads', loadChildren: './total-sell-leads/total-sell-leads.module#TotalSellLeadsPageModule' },
   { path: 'total-buy-leads', loadChildren: './total-buy-leads/total-buy-leads.module#TotalBuyLeadsPageModule' },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' }
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
+  { path: 'non-trade-hours', loadChildren: './non-trade-hours/non-trade-hours.module#NonTradeHoursPageModule' },
+  { path: 'cancel-non-trade-hour', loadChildren: './cancel-non-trade-hour/cancel-non-trade-hour.module#CancelNonTradeHourPageModule' }
 ];
 
 @NgModule({
