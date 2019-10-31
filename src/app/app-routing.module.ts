@@ -41,7 +41,12 @@ const routes: Routes = [
   { path: 'total-buy-leads', loadChildren: './total-buy-leads/total-buy-leads.module#TotalBuyLeadsPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'non-trade-hours', loadChildren: './non-trade-hours/non-trade-hours.module#NonTradeHoursPageModule' },
-  { path: 'cancel-non-trade-hour', loadChildren: './cancel-non-trade-hour/cancel-non-trade-hour.module#CancelNonTradeHourPageModule' }
+  { path: 'cancel-non-trade-hour', loadChildren: './cancel-non-trade-hour/cancel-non-trade-hour.module#CancelNonTradeHourPageModule' },
+  { path: 'cancel-in-profile', loadChildren: './cancel-in-profile/cancel-in-profile.module#CancelInProfilePageModule' },
+  { path: 'admin-dashboard', loadChildren: './admin-dashboard/admin-dashboard.module#AdminDashboardPageModule' },
+  { path: 'schedule', loadChildren: './schedule/schedule.module#SchedulePageModule' },
+  { path: 'admin-edit', loadChildren: './admin-edit/admin-edit.module#AdminEditPageModule' },
+  { path: 'modal-edit', loadChildren: './modal-edit/modal-edit.module#ModalEditPageModule' }
 ];
 
 @NgModule({

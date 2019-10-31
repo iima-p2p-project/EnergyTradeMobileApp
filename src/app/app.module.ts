@@ -14,6 +14,8 @@ import { BoardModalPage } from '../app/pages/register/selectBoard';
 
 import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
 import { CancelNonTradeHourPageModule } from './cancel-non-trade-hour/cancel-non-trade-hour.module';
+import { CancelInProfilePageModule } from './cancel-in-profile/cancel-in-profile.module';
+import { ModalEditPageModule } from './modal-edit/modal-edit.module';
 
 @NgModule({
   declarations: [StateModalPage, BoardModalPage, AppComponent],
@@ -25,7 +27,9 @@ import { CancelNonTradeHourPageModule } from './cancel-non-trade-hour/cancel-non
     IonicStorageModule.forRoot({ name: '__jppdb' }),
     AppRoutingModule,
     SellPostSuccessPageModule,
-    CancelNonTradeHourPageModule
+    CancelNonTradeHourPageModule,
+    CancelInProfilePageModule,
+    ModalEditPageModule
   ],
   providers: [
     StatusBar,

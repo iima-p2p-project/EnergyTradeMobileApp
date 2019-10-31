@@ -29,6 +29,7 @@ ion-segment-button{
 
   .card-center{
     background-color:white;
+    z-index:1;
     width:97%;
     margin-left:auto;
     margin-right:auto;
@@ -69,4 +70,27 @@ ion-segment-button{
         text-align:left;
         padding-top:1.6em;
     }
+}
+
+.grey-opacity{
+    opacity:0.5;
+}
+
+.card-bottom-bottom{
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:-20px;
+    z-index:0;
+    background-color:white;
+    width:93%;
+    height:45px;
+    font-size:0.6em;
+    color:black;
+    font-family: MMedium !important;
+    padding:15px;
+    .icon{
+      display: inline-block;
+      vertical-align: middle;
+      zoom:1.8;
+     }
 }

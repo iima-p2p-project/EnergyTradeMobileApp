@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { CancelInProfilePage } from '../cancel-in-profile/cancel-in-profile.page';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
 
-  selectedOption:any;
+  selectedOption='upcoming';
 
-  constructor() { }
+  constructor(
+    public modal:ModalController
+  ) { }
 
   ngOnInit() {
   }
@@ -18,6 +22,16 @@ export class ProfilePage implements OnInit {
   {
     // console.log($event.detail.value);
     this.selectedOption=$event.detail.value;
+  }
+
+  async openCancelModal()
+  {
+    let pqr=await this.modal.create({
+      component:CancelInProfilePage,
+      cssClass:'cancelx-custom-modal-css'
+    })
+
+    return await pqr.present();
   }
 
 }
