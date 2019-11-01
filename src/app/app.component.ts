@@ -26,6 +26,11 @@ export class AppComponent {
       title:'Admin Dashboard',
       url:'/admin-dashboard',
       icon:'people'
+    },
+    {
+      title:'Profile',
+      url:'profile',
+      icon:'contact'
     }
   ];
 

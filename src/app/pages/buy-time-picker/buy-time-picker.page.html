@@ -1,5 +1,200 @@
 <ion-content>
+        <div style="z-index:3;position:absolute;top:10px;left:10px;height:2em;width:auto;">
+          <ion-back-button defaultHref="dashboard" color="light"></ion-back-button>
+        </div>
+      <div style="z-index:3;position:absolute;top:20px;right:20px;height:2em;width:auto;">
+          <ion-icon style="zoom:1.8;" src="assets/svg/notifications.svg"></ion-icon>
+        </div> 
+
+    <ion-grid style="z-index:0;position:absolute;width:100%;height:20%;top:0;background-color:#0048A8;">
         <ion-row>
+              <ion-col offset="2" class="title-top" size="8">
+                <div>BUY</div>
+              </ion-col>
+              <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;">
+ 
+              </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div style="z-index:1;position:absolute;width:100%;top:10%;height:10%;border-top-left-radius:40px;border-top-right-radius:40px;background-color:white;">
+      </div>
+      <ion-grid style="position:relative;z-index:2;padding-top:18%;">
+          <ion-row class='ion-text-center'>
+            <ion-col class='ion-text-center' offset="3" size='5' class="top-row-center">
+              <ion-icon src="assets/svg/solar.svg" style='padding-right:0.5em;'></ion-icon>
+              <span class='no-units'>50-75</span>  units
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div style="padding-top:0.3em;border-bottom:1px solid rgb(221, 221, 221);width:80%;margin-left:auto;margin-right:auto;"></div>
+        <ion-grid>
+          <ion-row class='ion-text-center'>
+            <ion-col size="5" style="position:absolute;left:1.4em;" *ngIf="screenMode=='small'">
+              <ion-grid class='ion-text-left'>
+                <ion-row>
+                  <ion-col class='font-start-end'>
+                    START TIME
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-row>
+                            <ion-datetime 
+                            placeholder="_ _:_ _" 
+                            displayFormat="YYYY-MM-DDTHH:mm" 
+                            style="margin-left:-0.7em;"
+                            class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
+                            <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                          </ion-row>
+                    </ion-col>
+                </ion-row>
+                <ion-row style="margin-top:-0.5em;">
+                    <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
+                      DAY, DD MM
+                    </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+  
+            <ion-col size="5" style="position:absolute;left:12em;" *ngIf="screenMode=='big'">
+                <ion-grid class='ion-text-left'>
+                  <ion-row>
+                    <ion-col class='font-start-end'>
+                      START TIME
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col>
+                          <ion-row>
+                              <ion-datetime 
+                              placeholder="_ _:_ _" 
+                              displayFormat="YYYY-MM-DDTHH:mm" 
+                              style="margin-left:-0.7em;"
+                              class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
+                              <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                            </ion-row>
+                      </ion-col>
+                  </ion-row>
+                  <ion-row style="margin-top:-0.5em;">
+                      <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
+                        DAY, DD MM
+                      </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+  
+            <ion-col size="2" style="position:absolute;left:40%;">
+                <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/arrow 2.svg"></ion-icon>
+              </ion-col>
+            <ion-col size="5" style="position:absolute;right:0px;">
+                <ion-grid class='ion-text-left'>
+                    <ion-row>
+                      <ion-col class="font-start-end">
+                        END TIME
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-row>
+                                <ion-datetime 
+                                placeholder="_ _:_ _" 
+                                displayFormat="YYYY-MM-DDTHH:mm" 
+                                style="margin-left:-0.7em;"
+                                class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
+                                <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                              </ion-row>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row style="margin-top:-0.5em;">
+                        <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
+                          DAY, DD MM
+                        </ion-col>
+                    </ion-row>
+                  </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid style="position:relative;top:90px;">
+          <ion-row class='ion-text-center'>
+            <ion-col size="12" class='ion-text-center'>
+              <span class="big-font grey-colour">
+                00:00
+              </span>
+              <span class="small-font grey-colour">
+              Hrs
+              </span>
+            </ion-col>
+          </ion-row>
+          <ion-row class='ion-text-center' style="margin-top:-0.5em;">
+              <ion-col class="bottom-small-font grey-colour">
+                DURATION
+              </ion-col>
+          </ion-row>
+          <div style="padding-top:1em;border-bottom:1px solid rgb(221, 221, 221);width:80%;margin-left:auto;margin-right:auto;"></div>
+          <ion-row>
+            <ion-col offset="1" size="4" style="padding-top:2em;color:black;font-size:0.7em; font-family:MMedium!important;">
+              BUDGET RANGE
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col offset="1">      
+                <ion-item style="margin-left:-0.5em;margin-top:-0.6em;" class="number-big" lines="none">
+                    <ion-label style="font-size:0.7em;">₹</ion-label>
+                    <ion-input placeholder="XX-XX" class="budge_inp"></ion-input>
+                </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <div style="padding-top:25%;
+        margin-left:auto;margin-right:auto;text-align:center;">
+                <ion-button class="ion-text-center" shape="round" style="font-family:MSemiBold;opacity:0.6;width:70%;" routerDirection="forward" routerLink="/seller-list">
+                  SEARCH
+                </ion-button>
+        </div>
+
+        <div class="thumnails" style="padding-top:1em;">
+        <div style="font-family:MMedium !important;padding-left:1em;margin-top:0.5em;font-size:0.9em;padding-bottom:1em;">
+            HOT DEALS
+        </div>
+
+            <div class="list-thumbnail" style="padding-bottom:1em;">
+              <div class="img-thumb"  style="background-color:lightblue;">
+                <div class="ion-text-wrap">
+                  <span style="font-size:0.6em;">
+                    Grab up to 50 units of power for just ₹250/- only
+                  </span>
+                  <span style="font-size:0.5em;">
+                    #GreenEnergy #NeverBefore
+                  </span>
+                </div>
+              </div>
+              <div class="img-thumb">
+                  <div class="ion-text-wrap">
+                      <span style="font-size:0.6em;">
+                        Grab up to 50 units of power for just ₹250/- only
+                      </span>
+                      <span style="font-size:0.5em;">
+                          #GreenEnergy #NeverBefore
+                        </span>
+                    </div>     
+              </div>
+              <div class="img-thumb">
+                  <div class="ion-text-wrap">
+                      <span style="font-size:0.6em;">
+                        Grab up to 50 units of power for just ₹250/- only
+                      </span>
+                      <span style="font-size:0.5em;">
+                          #GreenEnergy #NeverBefore
+                        </span>
+                    </div>  
+              </div>
+            </div>
+          </div>
+
+      <!-- </div> -->
+
+        <!-- <ion-row>
             <ion-col class="menu-button" size="2">
               <div style="margin-top:-0.7em;padding-top:1em;">
                 <ion-back-button defaultHref="dashboard"></ion-back-button>
@@ -43,8 +238,6 @@
                               class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
                               <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
                             </ion-row>
-                        <!-- <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
-                        <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                       </ion-col>
                   </ion-row>
                   <ion-row style="margin-top:-0.5em;">
@@ -72,8 +265,6 @@
                                 class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
                                 <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
                               </ion-row>
-                          <!-- <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
-                          <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                         </ion-col>
                     </ion-row>
                     <ion-row style="margin-top:-0.5em;">
@@ -104,8 +295,6 @@
                                   class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
                                   <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
                                 </ion-row>
-                            <!-- <span class='font-start-end font-datetime-big grey-colour'>_ _:_ _ </span>
-                            <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                           </ion-col>
                       </ion-row>
                       <ion-row style="margin-top:-0.5em;">
@@ -170,7 +359,6 @@
                     <span style="font-size:0.5em;">
                       #GreenEnergy #NeverBefore
                     </span>
-                    <!-- <ion-button size="small" color="light" shape="round">MORE INFO</ion-button> -->
                   </div>
                 </div>
                 <div class="img-thumb">
@@ -196,7 +384,7 @@
               </div>
             </div>
 
-        </div>
+        </div> -->
     
     
     
@@ -232,7 +420,7 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
+<!-- <ion-content>
     <div class="psell-sec">
         <ion-grid>
             <ion-row>
@@ -259,7 +447,7 @@
         
                     <ion-col class="stt-time" size="5" size-sm>
                      
-                          <label>START TIME<br>{{power}}</label><br>
+                          <label>START TIME<br>{{power}}</label><br> -->
                           <!-- <input class="time" type="time" name="usr_time"><span>AM</span> -->
                           <!-- <ion-item class="_DateTimePicker"> -->
                               <!-- <ion-row>
@@ -273,7 +461,9 @@
                               <!-- <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime> -->
                             <!-- </ion-item> -->
                      
-                    </ion-col>
+
+                    <!-- BOTTOM PART 0 -->
+                    <!-- </ion-col>
         
                     <ion-col size="2" class="trans-icn" size-sm align-self-center>
                         <ion-icon class="circle-icn2" name="arrow-dropleft-circle"></ion-icon>
@@ -281,7 +471,12 @@
         
                     <ion-col class="stt-time" size="5" size-sm>
                        
-                            <label>END TIME</label><br>
+                            <label>END TIME</label><br> -->
+
+
+
+
+
                             <!-- <input class="time" type="time" name="usr_time"><span>AM</span> -->
                             <!-- <ion-item class="_DateTimePicker"> -->
                                 <!-- <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime> -->
@@ -295,7 +490,10 @@
                                   </ion-row>   -->
                             <!-- </ion-item> -->
                       
-                    </ion-col>
+
+
+                       <!-- BOTTOM PART 1      -->
+                    <!-- </ion-col>
                     
                   </ion-row>
                 </ion-grid>
@@ -304,7 +502,7 @@
                     <p>00:00 <span style="font-size:12px;font-weight:400;color:#9a9a9e;">Hrs</span></p>
                     <p class="sr-dur">DURATION</p>
                     <hr>
-                </div>
+                </div> -->
     
                 <!-- <ion-grid>
                     <ion-row class="unit-sec">
@@ -316,15 +514,19 @@
                       </ion-row>
                 </ion-grid> -->
 
-                <ion-grid>
+                <!-- <ion-grid>
                   <ion-row>
                       <ion-col size="12" class="sl-btn" size-sm>
                         <ion-button class="srch-btn" shape="round" expand="full" (click)="submit()">SEARCH</ion-button>
                       </ion-col>
                   </ion-row>
-                </ion-grid>
+                </ion-grid>-->
 
-                <ion-grid>
+
+
+
+                <!--bottom part 2 -->
+                <!-- <ion-grid>
                   <ion-row class="ht-deal">
                     <ion-col size-sm>
                       <h5>HOT DEALS</h5>
@@ -348,10 +550,10 @@
                         </div>
                     </ion-col>
                   </ion-row>
-                </ion-grid>
+                </ion-grid> -->
     
              
             
-          </div>
-      </div>
+          <!-- </div>
+      </div> -->
 </ion-content>
