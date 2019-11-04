@@ -68,13 +68,13 @@
 <ion-footer class="the-footer">
   <ion-grid class="ion-text-center" style="padding:0;">
     <ion-row>
-      <ion-col class="bottom-footer">
+      <ion-col class="bottom-footer" (click)="sortPageBtn()">
         <!-- <ion-button expand="full"> -->
         <ion-icon style="transform: rotate(90deg);" name="swap"></ion-icon>
-        SORT
+          SORT<span class="dot"></span>
         <!-- </ion-button> -->
       </ion-col>
-      <ion-col class="bottom-footer">
+      <ion-col class="bottom-footer" (click)="filterPageBtn()">
         <!-- <ion-button expand="full"> -->
         <ion-icon name="funnel"></ion-icon>
         FILTER

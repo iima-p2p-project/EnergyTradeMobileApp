@@ -1,21 +1,23 @@
 <ion-content>
-    <ion-row>
-        <ion-col class="menu-button" size="2">
-          <div style="margin-top:-0.7em;">
-            <ion-back-button defaultHref="dashboard"></ion-back-button>
-          </div>
-        </ion-col>
-        <ion-col class="title-top" size="8">
-          <div>FORECAST</div>
-        </ion-col>
-        <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;">
-            <div style="margin-top:-0.2em;">
-              <ion-icon src="assets/svg/notifications.svg"></ion-icon>
-            </div>  
-        </ion-col>
-    </ion-row>
-    <div style='position:absolute;z-index:1;bottom:-10%;left:0px;width:100%;height:102%;background-color:white;border-top-left-radius:40px;border-top-right-radius:40px;'>
-      <ion-grid class="price-tables">
+    <div style="z-index:3;position:absolute;top:10px;left:10px;height:2em;width:auto;">
+        <ion-back-button defaultHref="dashboard" color="light"></ion-back-button>
+      </div>
+    <div style="z-index:3;position:absolute;top:20px;right:20px;height:2em;width:auto;">
+        <ion-icon style="zoom:1.8;" src="assets/svg/notifications.svg"></ion-icon>
+      </div> 
+    <ion-grid style="z-index:0;position:absolute;width:100%;height:20%;top:0;background-color:#0048A8;">
+      <ion-row>
+            <ion-col offset="2" class="title-top" size="8">
+              <div>FORECAST</div>
+            </ion-col>
+
+            
+      </ion-row>
+    </ion-grid>
+    <div style="z-index:1;position:absolute;width:100%;top:10%;height:10%;border-top-left-radius:40px;border-top-right-radius:40px;background-color:white;">
+    </div>
+
+    <ion-grid class="price-tables" style="position:relative;z-index:2;padding-top:18%;">
         <ion-row class="small-font">
           <ion-col size="4">
             <strong>
@@ -42,10 +44,8 @@
         <ion-row *ngFor="let forecast of forecastList; let i = index;" style="padding-top:0.5em;padding-bottom:0.5em;" 
           [ngClass]="(i % 2 == 0) ? 'grey-bg' : ''">
           <ion-col size="4" class="dt-list-text">
-            <!-- <ion-text class="dt-list-text"> -->
               <div style="color:rgb(94, 93, 93)">Today</div>
               <div>06:00 AM - 07:00 AM</div>
-            <!-- </ion-text> -->
           </ion-col>
           <ion-col size="2" class="dt-unit-text">
             {{getForecastPower(forecast)}}
@@ -68,5 +68,471 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </div>
+
+
+    <!-- <ion-row>
+        <ion-col class="menu-button" size="2">
+          <div style="margin-top:-0.7em;">
+            <ion-back-button defaultHref="dashboard"></ion-back-button>
+          </div>
+        </ion-col>
+        <ion-col class="title-top" size="8">
+          <div>FORECAST</div>
+        </ion-col>
+        <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;">
+            <div style="margin-top:-0.2em;">
+              <ion-icon src="assets/svg/notifications.svg"></ion-icon>
+            </div>  
+        </ion-col>
+    </ion-row>
+    <div style='position:absolute;z-index:1;bottom:-10%;left:0px;width:100%;height:90%;background-color:white;border-top-left-radius:40px;border-top-right-radius:40px;'>
+      <ion-grid class="price-tables">
+        <ion-row class="small-font">
+          <ion-col size="4">
+            <strong>
+              <strong>
+                Date & Time
+              </strong>
+            </strong>
+          </ion-col>
+          <ion-col size="2">
+            <strong>
+              Units
+            </strong>
+          </ion-col>
+          <ion-col size="4">
+            <strong>
+              Price (₹)
+            </strong>
+          </ion-col>
+          <ion-col size="2">
+            
+          </ion-col>
+        </ion-row>
+        LINE 1
+        <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" class="grey-bg">
+          <ion-col size="4" class="dt-list-text">
+              <div style="color:rgb(94, 93, 93)">Today</div>
+              <div>06:00 AM - 07:00 AM</div>
+          </ion-col>
+          <ion-col size="2" class="dt-unit-text">
+            50
+          </ion-col>
+          <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+            <div>
+              <strong>
+                175.00
+              </strong>
+            </div>
+            <div>
+              (Per Unit 5/-)
+            </div>
+          </ion-col>
+          <ion-col size="2" style="margin-left:-1em;">
+            <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+              SELL
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        LINE 2
+        <ion-row style="padding-top:0.5em;padding-bottom:0.5em;">
+            <ion-col size="4" class="dt-list-text">
+                <div style="color:rgb(94, 93, 93)">Today</div>
+                <div>06:00 AM - 07:00 AM</div>
+            </ion-col>
+            <ion-col size="2" class="dt-unit-text">
+              25
+            </ion-col>
+            <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+              <div>
+                <strong>
+                  100.00
+                </strong>
+              </div>
+              <div>
+                (Per Unit 5/-)
+              </div>
+            </ion-col>
+            <ion-col size="2" style="margin-left:-1em;">
+              <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                SELL
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+          LINE 3
+          <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" class="grey-bg">
+              <ion-col size="4" class="dt-list-text">
+                  <div style="color:rgb(94, 93, 93)">Today</div>
+                  <div>06:00 AM - 07:00 AM</div>
+              </ion-col>
+              <ion-col size="2" class="dt-unit-text">
+                50
+              </ion-col>
+              <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                <div>
+                  <strong>
+                    250.00
+                  </strong>
+                </div>
+                <div>
+                  (Per Unit 5/-)
+                </div>
+              </ion-col>
+              <ion-col size="2" style="margin-left:-1em;">
+                <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                  SELL
+                </ion-button>
+              </ion-col>
+            </ion-row>
+
+            LINE 4
+            <ion-row style="padding-top:0.5em;padding-bottom:0.5em;">
+                <ion-col size="4" class="dt-list-text">
+                    <div style="color:rgb(94, 93, 93)">Today</div>
+                    <div>06:00 AM - 07:00 AM</div>
+                </ion-col>
+                <ion-col size="2" class="dt-unit-text">
+                  50
+                </ion-col>
+                <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                  <div>
+                    <strong>
+                      175.00
+                    </strong>
+                  </div>
+                  <div>
+                    (Per Unit 5/-)
+                  </div>
+                </ion-col>
+                <ion-col size="2" style="margin-left:-1em;">
+                  <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                    SELL
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+
+              LINE 5
+              <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" class="grey-bg">
+                  <ion-col size="4" class="dt-list-text">
+                      <div style="color:rgb(94, 93, 93)">Today</div>
+                      <div>06:00 AM - 07:00 AM</div>
+                  </ion-col>
+                  <ion-col size="2" class="dt-unit-text">
+                    50
+                  </ion-col>
+                  <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                    <div>
+                      <strong>
+                        175.00
+                      </strong>
+                    </div>
+                    <div>
+                      (Per Unit 5/-)
+                    </div>
+                  </ion-col>
+                  <ion-col size="2" style="margin-left:-1em;">
+                    <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                      SELL
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+
+                LINE 6
+                <ion-row style="padding-top:0.5em;padding-bottom:0.5em;">
+                    <ion-col size="4" class="dt-list-text">
+                        <div style="color:rgb(94, 93, 93)">Today</div>
+                        <div>06:00 AM - 07:00 AM</div>
+                    </ion-col>
+                    <ion-col size="2" class="dt-unit-text">
+                      50
+                    </ion-col>
+                    <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                      <div>
+                        <strong>
+                          175.00
+                        </strong>
+                      </div>
+                      <div>
+                        (Per Unit 5/-)
+                      </div>
+                    </ion-col>
+                    <ion-col size="2" style="margin-left:-1em;">
+                      <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                        SELL
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+
+                  LINE 7
+                  <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" class="grey-bg">
+                      <ion-col size="4" class="dt-list-text">
+                          <div style="color:rgb(94, 93, 93)">Today</div>
+                          <div>06:00 AM - 07:00 AM</div>
+                      </ion-col>
+                      <ion-col size="2" class="dt-unit-text">
+                        50
+                      </ion-col>
+                      <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                        <div>
+                          <strong>
+                            175.00
+                          </strong>
+                        </div>
+                        <div>
+                          (Per Unit 5/-)
+                        </div>
+                      </ion-col>
+                      <ion-col size="2" style="margin-left:-1em;">
+                        <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                          SELL
+                        </ion-button>
+                      </ion-col>
+                    </ion-row>
+
+                    LINE 8
+                    <ion-row style="padding-top:0.5em;padding-bottom:0.5em;">
+                        <ion-col size="4" class="dt-list-text">
+                            <div style="color:rgb(94, 93, 93)">Today</div>
+                            <div>06:00 AM - 07:00 AM</div>
+                        </ion-col>
+                        <ion-col size="2" class="dt-unit-text">
+                          50
+                        </ion-col>
+                        <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                          <div>
+                            <strong>
+                              175.00
+                            </strong>
+                          </div>
+                          <div>
+                            (Per Unit 5/-)
+                          </div>
+                        </ion-col>
+                        <ion-col size="2" style="margin-left:-1em;">
+                          <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                            SELL
+                          </ion-button>
+                        </ion-col>
+                      </ion-row>
+
+                      LINE 9
+                      <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" class="grey-bg">
+                          <ion-col size="4" class="dt-list-text">
+                              <div style="color:rgb(94, 93, 93)">Today</div>
+                              <div>06:00 AM - 07:00 AM</div>
+                          </ion-col>
+                          <ion-col size="2" class="dt-unit-text">
+                            50
+                          </ion-col>
+                          <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                            <div>
+                              <strong>
+                                175.00
+                              </strong>
+                            </div>
+                            <div>
+                              (Per Unit 5/-)
+                            </div>
+                          </ion-col>
+                          <ion-col size="2" style="margin-left:-1em;">
+                            <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                              SELL
+                            </ion-button>
+                          </ion-col>
+                        </ion-row>
+                        
+                        LINE 10
+                        <ion-row style="padding-top:0.5em;padding-bottom:0.5em;">
+                            <ion-col size="4" class="dt-list-text">
+                                <div style="color:rgb(94, 93, 93)">Today</div>
+                                <div>06:00 AM - 07:00 AM</div>
+                            </ion-col>
+                            <ion-col size="2" class="dt-unit-text">
+                              50
+                            </ion-col>
+                            <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                              <div>
+                                <strong>
+                                  175.00
+                                </strong>
+                              </div>
+                              <div>
+                                (Per Unit 5/-)
+                              </div>
+                            </ion-col>
+                            <ion-col size="2" style="margin-left:-1em;">
+                              <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                                SELL
+                              </ion-button>
+                            </ion-col>
+                          </ion-row>
+
+                          LINE 11
+                          <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" class="grey-bg">
+                              <ion-col size="4" class="dt-list-text">
+                                  <div style="color:rgb(94, 93, 93)">Today</div>
+                                  <div>06:00 AM - 07:00 AM</div>
+                              </ion-col>
+                              <ion-col size="2" class="dt-unit-text">
+                                50
+                              </ion-col>
+                              <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                                <div>
+                                  <strong>
+                                    175.00
+                                  </strong>
+                                </div>
+                                <div>
+                                  (Per Unit 5/-)
+                                </div>
+                              </ion-col>
+                              <ion-col size="2" style="margin-left:-1em;">
+                                <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                                  SELL
+                                </ion-button>
+                              </ion-col>
+                            </ion-row>
+
+                            LINE 12
+                            <ion-row style="padding-top:0.5em;padding-bottom:0.5em;">
+                                <ion-col size="4" class="dt-list-text">
+                                    <div style="color:rgb(94, 93, 93)">Today</div>
+                                    <div>06:00 AM - 07:00 AM</div>
+                                </ion-col>
+                                <ion-col size="2" class="dt-unit-text">
+                                  50
+                                </ion-col>
+                                <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                                  <div>
+                                    <strong>
+                                      175.00
+                                    </strong>
+                                  </div>
+                                  <div>
+                                    (Per Unit 5/-)
+                                  </div>
+                                </ion-col>
+                                <ion-col size="2" style="margin-left:-1em;">
+                                  <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                                    SELL
+                                  </ion-button>
+                                </ion-col>
+                              </ion-row>
+
+                              LINE 13
+                              <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" class="grey-bg">
+                                  <ion-col size="4" class="dt-list-text">
+                                      <div style="color:rgb(94, 93, 93)">Today</div>
+                                      <div>06:00 AM - 07:00 AM</div>
+                                  </ion-col>
+                                  <ion-col size="2" class="dt-unit-text">
+                                    50
+                                  </ion-col>
+                                  <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                                    <div>
+                                      <strong>
+                                        175.00
+                                      </strong>
+                                    </div>
+                                    <div>
+                                      (Per Unit 5/-)
+                                    </div>
+                                  </ion-col>
+                                  <ion-col size="2" style="margin-left:-1em;">
+                                    <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                                      SELL
+                                    </ion-button>
+                                  </ion-col>
+                                </ion-row>
+
+                                LINE 14
+                                <ion-row style="padding-top:0.5em;padding-bottom:0.5em;">
+                                    <ion-col size="4" class="dt-list-text">
+                                        <div style="color:rgb(94, 93, 93)">Today</div>
+                                        <div>06:00 AM - 07:00 AM</div>
+                                    </ion-col>
+                                    <ion-col size="2" class="dt-unit-text">
+                                      50
+                                    </ion-col>
+                                    <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                                      <div>
+                                        <strong>
+                                          175.00
+                                        </strong>
+                                      </div>
+                                      <div>
+                                        (Per Unit 5/-)
+                                      </div>
+                                    </ion-col>
+                                    <ion-col size="2" style="margin-left:-1em;">
+                                      <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                                        SELL
+                                      </ion-button>
+                                    </ion-col>
+                                  </ion-row> -->
+
+
+
+        <!-- NOTE: HOW TO USE WITH FOR LOOP -->
+        <!-- LINE 1 if 'i' is not divisible by 2 -->
+        <!-- <div *ngFor="let item of items; let i = index;"> FOR LOOP STARTS HERE, take note of 'i'
+            <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" class="grey-bg" *ngIf="(i%2)!=0"> MODULUS will not equal to 0 for odd numbers
+              <ion-col size="4" class="dt-list-text">
+                  <div style="color:rgb(94, 93, 93)">Today</div>
+                  <div>06:00 AM - 07:00 AM</div>
+              </ion-col>
+              <ion-col size="2" class="dt-unit-text">
+                50
+              </ion-col>
+              <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                <div>
+                  <strong>
+                    175.00
+                  </strong>
+                </div>
+                <div>
+                  (Per Unit 5/-)
+                </div>
+              </ion-col>
+              <ion-col size="2" style="margin-left:-1em;">
+                <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                  SELL
+                </ion-button>
+              </ion-col>
+            </ion-row> -->
+
+            <!-- LINE 2, if 'i' is divisible by 2 -->
+            <!-- <ion-row style="padding-top:0.5em;padding-bottom:0.5em;" *ngIf="(i%2)==0"> MODULUS WILL EQUAL to 0 for even numbers
+                <ion-col size="4" class="dt-list-text">
+                    <div style="color:rgb(94, 93, 93)">Today</div>
+                    <div>06:00 AM - 07:00 AM</div>
+                </ion-col>
+                <ion-col size="2" class="dt-unit-text">
+                  50
+                </ion-col>
+                <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+                  <div>
+                    <strong>
+                      175.00
+                    </strong>
+                  </div>
+                  <div>
+                    (Per Unit 5/-)
+                  </div>
+                </ion-col>
+                <ion-col size="2" style="margin-left:-1em;">
+                  <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round" color="primary" size="small">
+                    SELL
+                  </ion-button>
+                </ion-col>
+              </ion-row> -->
+        <!-- </div> -->
+
+
+
+
+      <!-- </ion-grid>
+    </div> -->
 </ion-content>

@@ -32,7 +32,7 @@ export class ManageOrdersPage implements OnInit {
         this.orderService.getAllOrdersAndContracts(this.userId).subscribe((res) => {
           this.resFromServer = res;
           this.orderList = this.resFromServer.ordersAndContracts;
-          //this.cdr.detectChanges();
+          this.orderService.orderList = this.orderList;
           this.fineTuneOrderList();
         });
       }

@@ -1,0 +1,80 @@
+<ion-content>
+    <ion-grid>
+        <ion-row style="text-align:right;">
+          <ion-col>
+            <ion-button fill="clear" color="dark" size="small" (click)="close()">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row style="text-align:center;margin-top:-1em;">
+          <ion-col>
+            <ion-icon style="zoom:2" src="assets/svg/calendar.svg"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="first-line">
+            Cancel Non-Trade Hour?
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="second-line">
+            This will allow the customers to trade between 06:30 AM - 08:00 AM on 11 June
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-radio-group [(ngModel)]="selection">
+            
+                <ion-item lines="none" class="second-line" style="margin-top:-1em;">
+                  <ion-radio value="weather"></ion-radio>
+                  <ion-label style="text-align:left;padding-left:2em;">Weather condition not suitable</ion-label>
+                </ion-item>
+            
+                <ion-item lines="none" class="second-line" style="margin-top:-1em;">
+                  <ion-radio value="blackout"></ion-radio>
+                  <ion-label style="text-align:left;padding-left:2em;">Power blackout</ion-label>
+                </ion-item>
+            
+                <ion-item lines="none" class="second-line" style="margin-top:-1em;">
+                  <ion-radio value="bills"></ion-radio>
+                  <ion-label style="text-align:left;padding-left:2em;">Pending bills</ion-label>
+                </ion-item>
+            
+                <ion-item lines="none" class="second-line" style="margin-top:-1em;">
+                  <ion-radio value="shutdown"></ion-radio>
+                  <ion-label style="text-align:left;padding-left:2em;">Plant shutdown</ion-label>
+                </ion-item>
+            
+                <ion-item lines="none" class="second-line" style="margin-top:-1em;">
+                  <ion-radio value="others"></ion-radio>
+                  <ion-label style="text-align:left;padding-left:2em;">Others</ion-label>
+                </ion-item>
+                <ion-item lines="none" class="second-line" style="margin-top:-1em;" *ngIf="selection=='others'">
+                  <ion-textarea style="border:1px solid rgba(128, 128, 128, 0.5);text-align:left;"></ion-textarea>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top:-1em;">
+            <ion-col style="text-align:center;padding-top:1em;">
+              <ion-button shape="round" color="primary" style="width:40%;font-family:MMedium !important;">
+                NO
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align:center;">
+              <ion-button fill="clear" color="primary" size="small">
+                YES, I WANT TO CANCEL
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+    </ion-grid>
+  
+        
+
+</ion-content>

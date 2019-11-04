@@ -23,6 +23,16 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title:'Admin Dashboard',
+      url:'/admin-dashboard',
+      icon:'people'
+    },
+    {
+      title:'Profile',
+      url:'profile',
+      icon:'contact'
     }
   ];
 

@@ -76,7 +76,7 @@ export class LoginPage implements OnInit {
           this.storage.set('LoggedInUserId', this.userId).then(() => {
             this.ingressService.printStorageKeyValue('LoggedInUserId');
             this.ingressService.printStorageKeyValue('LoggedInUserDevices');
-            this.router.navigate(['/dashboard'], {
+            this.router.navigate(['/admin-dashboard'], {
               queryParams: {
                 userId: this.userId,
                 phoneNumber: this.phoneNumber,

@@ -49,6 +49,24 @@
     display: block;  
  }
 
+ .cancel-custom-modal-css .modal-wrapper {
+  height: 50%;
+  width:80%;
+  top: 25%;
+  border-radius:10px;
+  position: absolute; 
+  display: block;  
+}
+
+.cancelx-custom-modal-css .modal-wrapper {
+  height: 75%;
+  width:80%;
+  top: 15%;
+  border-radius:10px;
+  position: absolute; 
+  display: block;  
+}
+
 
  .icon-circle, .icon-circle-large, .icon-circle-small{
   position: relative;
@@ -160,4 +178,18 @@ body {font-family: Roboto, Helvetica, Arial, sans-serif;}
 	border-radius: 50%;
 	width: 100px;
 	height: 100px; 
+}
+
+.dot{
+  height: 6px;
+  width: 6px;
+  background-color:red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom:0.5em;
+}
+
+.searchbar-input {
+  font-size: 0.9em !important;
+  border: 1px solid transparent;
 }

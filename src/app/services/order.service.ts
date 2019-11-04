@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Order } from 'src/app/models/Order';
 import { IonDatetime } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { INGRESS_URL, CONFIG_URL, TRADE_URL } from 'src/app/environments/environments';
+import { INGRESS_URL, CONFIG_URL, TRADE_URL, ORDER_URL } from 'src/app/environments/environments';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,11 @@ export class OrderService {
   createContractUrl = TRADE_URL + '/createContract';
   getAllOrdersAndContractsUrl = TRADE_URL + '/getAllOrdersAndContracts';
 
+  getAllNonTradeHoursUrl = ORDER_URL + '/getNonTradeHours';
+
+  orderList: any;
   sellerList: any;
+  nonTradeHoursList: any;
 
 
   sellOrderList: Order[] = [{orderId: 1,
@@ -129,6 +133,17 @@ export class OrderService {
     };
     return this.httpClient.post(this.getAllOrdersAndContractsUrl
       , {"userId": userId}
+      , options
+    );
+  }
+
+  getAllNonTradeHours(userId: any) {
+    console.log('getAllNonTradeHours user id : ' , userId);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.get(this.getAllNonTradeHoursUrl + '/' + userId
       , options
     );
   }
