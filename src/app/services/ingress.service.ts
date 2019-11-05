@@ -21,7 +21,7 @@ export class IngressService {
   getUserDevicesUrl = INGRESS_URL + '/getUserDevices';
 
   loggedInUser: AllUser;
-  loggedInUserId: number;
+  loggedInUserId: string;
 
 
   userDevicesList: any;
@@ -146,7 +146,7 @@ export class IngressService {
     return this.loggedInUserId;
   }
 
-  setLoggedInUserId(userId: number) {
+  setLoggedInUserId(userId: string) {
     this.loggedInUserId = userId;
   }
 

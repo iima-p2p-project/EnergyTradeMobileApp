@@ -6,6 +6,7 @@ import { TimeService } from 'src/app/services/time.service';
 import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
 import { AstMemoryEfficientTransformer } from '@angular/compiler';
 import * as moment from 'moment';
+import { ADMIN_ROLE } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -32,6 +33,7 @@ export class AdminDashboardPage implements OnInit {
   ionViewDidEnter() {
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
+      this.ingressService.loggedInUserId = this.userId;
       if (this.userId) {
         this.orderService.getAllNonTradeHours(this.userId).subscribe((res) => {
           this.resFromServer = res;
@@ -59,6 +61,6 @@ export class AdminDashboardPage implements OnInit {
   }
 
   getDuration(startTime: string, endTime: string) {
-    return this.timeService.getDuration(startTime,endTime);
+    return this.timeService.getDuration(startTime,endTime, ADMIN_ROLE);
   }
 }

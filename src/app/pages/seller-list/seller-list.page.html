@@ -20,7 +20,7 @@
         Search Result: 4 post found on 11 OCT"
       </ion-col>
     </ion-row>
-    <ion-row class="height-adjust" *ngFor="let seller of sellerList" (click)="selectSeller(seller)">
+    <ion-row class="height-adjust" *ngFor="let seller of displayedSellerList" (click)="selectSeller(seller)">
       <ion-col>
         <ion-card style="background-color:white;" routerDirection="forward" routerLink='/order-details'>
           <ion-grid>
@@ -68,13 +68,13 @@
 <ion-footer class="the-footer">
   <ion-grid class="ion-text-center" style="padding:0;">
     <ion-row>
-      <ion-col class="bottom-footer" (click)="sortPageBtn()">
+      <ion-col class="bottom-footer" (click) = "sortSellRecords()">
         <!-- <ion-button expand="full"> -->
         <ion-icon style="transform: rotate(90deg);" name="swap"></ion-icon>
           SORT<span class="dot"></span>
         <!-- </ion-button> -->
       </ion-col>
-      <ion-col class="bottom-footer" (click)="filterPageBtn()">
+      <ion-col class="bottom-footer" (click) = "filterSellRecords()">
         <!-- <ion-button expand="full"> -->
         <ion-icon name="funnel"></ion-icon>
         FILTER

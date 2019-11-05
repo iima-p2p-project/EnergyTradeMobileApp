@@ -60,6 +60,7 @@ export class DashboardPage implements OnInit {
       //this.userId = params['userId'];
       this.ingressService.getUserIdToken().then((res) => {
         this.userId = res;
+        this.ingressService.loggedInUserId = this.userId;
         this.ingressService.getUserDevicesToken().then((res) => {
           this.userDeviceList = res;
           if (this.userDeviceList != null) {

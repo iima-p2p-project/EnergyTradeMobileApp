@@ -1,3 +1,4 @@
+import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
 import { Injectable } from '@angular/core';
 import { IonDatetime } from '@ionic/angular';
 // import { start } from 'repl';
@@ -25,9 +26,23 @@ export class TimeService {
 
   constructor() { }
 
-  getDuration(startTime: string, endTime: string) {
-    this.startTime = startTime.substring(0,17)+'00.000';
-    this.endTime = endTime.substring(0,17)+'00.000';
+  getDuration(startTime: string, endTime: string, userRole: string) {
+    if(userRole==ADMIN_ROLE) {
+      if(this.startTime!=null) {
+        this.startTime = startTime.substring(0,10) + ' ' + startTime.substring(11,16) + ':00';
+      }
+      if(this.endTime!=null) {
+        this.endTime = endTime.substring(0,10) + ' ' + endTime.substring(11,16) + ':00';
+      }
+    }
+    if(userRole==USER_ROLE) {
+      if(this.startTime!=null) {
+        this.startTime = startTime.substring(0,17)+'00.000';
+      }
+      if(this.endTime!=null) {
+        this.endTime = endTime.substring(0,17)+'00.000';
+      }
+    }
     var duration = moment.duration(moment(endTime).diff(moment(startTime)));
     this.dayDiff = duration.asDays();
     this.hourDiff = duration.asHours();
@@ -44,27 +59,26 @@ export class TimeService {
     this.duration = this.durationInHours+":"+this.durationInMins;
     return this.duration;
   }
-  
 
-  getStartTimeDetails(startTime: string, endTime: string) {
+  getStartTimeDetails(startTime: string, endTime: string, userRole: string) {
     this.startTime = startTime;
     this.startTimeDetails = moment(startTime).format('ddd, DD MMM');
     //console.log('start time display : ' , moment(startTime).format('hh:mm A'));
     this.startTimeDetails = this.startTimeDetails.toUpperCase();
     this.isStartTimeSelected = true;
     if(this.isStartTimeSelected && this.isEndTimeSelected) {
-      this.duration = this.getDuration(startTime,endTime);
+      this.duration = this.getDuration(startTime,endTime,userRole);
     }
     return {startTimeDetails: this.startTimeDetails, duration: this.duration};
   }
 
-  getEndTimeDetails(startTime: string, endTime: string) {
+  getEndTimeDetails(startTime: string, endTime: string, userRole: string) {
     this.endTime = endTime;
     this.endTimeDetails = moment(endTime).format('ddd, DD MMM');
     this.endTimeDetails = this.endTimeDetails.toUpperCase();
     this.isEndTimeSelected = true;
     if(this.isStartTimeSelected && this.isEndTimeSelected) {
-      this.duration = this.getDuration(startTime,endTime);
+      this.duration = this.getDuration(startTime,endTime,userRole);
     }
     return {endTimeDetails: this.endTimeDetails, duration: this.duration};
   }

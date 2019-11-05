@@ -29,16 +29,18 @@
                         <ion-row>
                           <ion-datetime 
                           placeholder="_ _:_ _" 
-                          displayFormat="YYYY-MM-DDTHH:mm" 
+                          displayFormat="hh:mm A"
+                          pickerFormat="MMM DD, YYYY hh:mm A"
                           style="margin-left:-0.7em;"
-                          class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"></ion-datetime>
-                          <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                          class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"
+                          (ionChange)="getStartTimeDetails()"></ion-datetime>
+                          <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
                         </ion-row>
                       </ion-col>
                   </ion-row>
                   <ion-row style="margin-top:-0.5em;">
                       <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
-                        DAY, DD MM
+                        {{startTimeDetails}}
                       </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -58,16 +60,18 @@
                       <ion-row>
                         <ion-datetime 
                         placeholder="_ _:_ _" 
-                        displayFormat="YYYY-MM-DDTHH:mm"
+                        displayFormat="hh:mm A"
+                        pickerFormat="MMM DD, YYYY hh:mm A"
                         style="margin-left:-0.7em;" 
-                        class='font-start-end font-datetime-big grey-colour' [(ngModel)]="endTime" (ionChange)="getDuration()"></ion-datetime>
-                        <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>
+                        class='font-start-end font-datetime-big grey-colour' [(ngModel)]="endTime" 
+                        (ionChange)="getEndTimeDetails()"></ion-datetime>
+                        <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
                       </ion-row>
                       </ion-col>
                   </ion-row>
                   <ion-row style="margin-top:-0.5em;">
                       <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
-                        DAY, DD MM
+                        {{endTimeDetails}}
                       </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -78,7 +82,7 @@
           <ion-row class='ion-text-center'>
             <ion-col size="12" class='ion-text-center'>
               <span class="big-font grey-colour">
-                {{durationInHours}}:{{durationInMins}}
+                {{duration}}
               </span>
               <span class="small-font grey-colour">
               Hrs
@@ -102,8 +106,8 @@
           <ion-row>
             <ion-col>
               <ion-item lines="none">
-                <ion-input style="border:1px solid rgba(190, 190, 190, 0.527);">
-                  <ion-icon color="primary" name="pin" style="text-align:right;font-family:MMedium !important;"></ion-icon>
+                <ion-input style="border:1px solid rgba(190, 190, 190, 0.527);" [(ngModel)]="location">
+                  <ion-icon color="primary" name="pin" style="text-align:right;font-family:MMedium !important;padding-left: 5px"></ion-icon>
                 </ion-input>
               </ion-item>  
             </ion-col>
@@ -116,14 +120,15 @@
             <ion-row style="margin-top:-0.5em;">
               <ion-col>
                 <ion-item lines="none">
-                  <ion-textarea style="border:1px solid rgba(190, 190, 190, 0.527);">
+                  <ion-textarea style="border:1px solid rgba(190, 190, 190, 0.527);" [(ngModel)]="reason">
                   </ion-textarea>
                 </ion-item>  
               </ion-col>
             </ion-row>
         </ion-grid>
         <div style="text-align:center;padding-top:2em;">
-          <ion-button class="opacity-light" shape="round" color="primary" style="width:70%;font-family:MMedium !important;">
+          <ion-button class="opacity-light" shape="round" color="primary" 
+          style="width:70%;font-family:MMedium !important;" (click)="createNonTradeHour()">
             SCHEDULE
           </ion-button>
         </div>

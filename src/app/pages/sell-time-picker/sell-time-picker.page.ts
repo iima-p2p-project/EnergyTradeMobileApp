@@ -5,6 +5,7 @@ import { IonDatetime, Platform } from '@ionic/angular';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import * as moment from 'moment';
 import { TimeService } from 'src/app/services/time.service';
+import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
  
 @Component({
   selector: 'app-sell-time-picker',
@@ -77,7 +78,7 @@ export class SellTimePickerPage implements OnInit {
   }
 
   getStartTimeDetails() {
-    this.durationDetails = this.timeService.getStartTimeDetails(this.startTime,this.endTime);
+    this.durationDetails = this.timeService.getStartTimeDetails(this.startTime,this.endTime, USER_ROLE);
     if(this.durationDetails != null) {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       this.duration = this.durationDetails.duration;
@@ -85,7 +86,7 @@ export class SellTimePickerPage implements OnInit {
   }
 
   getEndTimeDetails() {
-    this.durationDetails = this.timeService.getEndTimeDetails(this.startTime,this.endTime);
+    this.durationDetails = this.timeService.getEndTimeDetails(this.startTime,this.endTime, USER_ROLE);
     if(this.durationDetails != null) {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       this.duration = this.durationDetails.duration;

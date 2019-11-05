@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
 import { TimeService } from 'src/app/services/time.service';
 import { OrderService} from 'src/app/services/order.service';
+import { USER_ROLE } from 'src/app/environments/environments';
+
 
 @Component({
   selector: 'app-buy-time-picker',
@@ -61,7 +63,7 @@ export class BuyTimePickerPage implements OnInit {
     });
   }
   getStartTimeDetails() {
-    this.durationDetails = this.timeService.getStartTimeDetails(this.startTime,this.endTime);
+    this.durationDetails = this.timeService.getStartTimeDetails(this.startTime,this.endTime, USER_ROLE);
     if(this.durationDetails != null) {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       this.duration = this.durationDetails.duration;
@@ -69,7 +71,7 @@ export class BuyTimePickerPage implements OnInit {
   }
 
   getEndTimeDetails() {
-    this.durationDetails = this.timeService.getEndTimeDetails(this.startTime,this.endTime);
+    this.durationDetails = this.timeService.getEndTimeDetails(this.startTime,this.endTime, USER_ROLE);
     if(this.durationDetails != null) {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       this.duration = this.durationDetails.duration;

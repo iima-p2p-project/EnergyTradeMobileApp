@@ -4,7 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
-import { ENABLE_SERVICES } from 'src/app/environments/environments';
+import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginPage implements OnInit {
   otp: string;
 
   userId: any;
+  userRole: any;
   userData: any;
   responseFromService: any;
 
@@ -66,23 +68,35 @@ export class LoginPage implements OnInit {
     this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
       this.responseFromService = res;
       if (this.responseFromService.response.key == 200) {
+        console.log('login response : ' , this.responseFromService);
         this.userId = this.responseFromService.response.userId;
+        this.userRole = this.responseFromService.response.userRole;
         this.ingressService.setLoggedInUserId(this.userId);
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
-          console.log('user devices from server : ', res);
           this.responseFromService = res;
           this.ingressService.setUserDevices(this.responseFromService.response.devices);
           this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
           this.storage.set('LoggedInUserId', this.userId).then(() => {
             this.ingressService.printStorageKeyValue('LoggedInUserId');
             this.ingressService.printStorageKeyValue('LoggedInUserDevices');
-            this.router.navigate(['/admin-dashboard'], {
-              queryParams: {
-                userId: this.userId,
-                phoneNumber: this.phoneNumber,
-                redirect: this.redirect
-              }
-            });
+            if(this.userRole == ADMIN_ROLE) {
+              this.router.navigate(['/admin-dashboard'], {
+                queryParams: {
+                  userId: this.userId,
+                  phoneNumber: this.phoneNumber,
+                  redirect: this.redirect
+                }
+              });
+            }
+            if(this.userRole == USER_ROLE) {
+              this.router.navigate(['/dashboard'], {
+                queryParams: {
+                  userId: this.userId,
+                  phoneNumber: this.phoneNumber,
+                  redirect: this.redirect
+                }
+              });
+            }
           });
         });
       }
