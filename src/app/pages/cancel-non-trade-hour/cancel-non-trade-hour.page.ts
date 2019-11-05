@@ -15,9 +15,15 @@ export class CancelNonTradeHourPage implements OnInit {
   ngOnInit() {
   }
 
-  close()
-  {
+  close(){
     this.modal.dismiss();
   }
 
+  noAction() {
+    this.close();
+  }
+
+  yesAction() {
+    this.close();
+  }
 }

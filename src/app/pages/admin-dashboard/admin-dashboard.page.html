@@ -59,7 +59,8 @@
                             </ion-button>
                         </ion-col>
                         <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)">
-                            <ion-button size="small" expand="full" fill="clear" style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;" routerDirection="forward" routerLink="/admin-edit">
+                            <ion-button size="small" expand="full" fill="clear" style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
+                             (click)="editNonTradeHours(nonTradeHour)">
                               EDIT
                             </ion-button>
                         </ion-col>
@@ -83,7 +84,7 @@
                     <ion-col size="3" style="text-align:left;">
                       <ion-icon style="zoom:2;" src="assets/svg/buy (1).svg"></ion-icon>
                     </ion-col>
-                    <ion-col size="9">
+                    <ion-col size="9" (click)="showBuyLeads()">
                       <div style="font-size:0.7em;color:rgb(0, 0, 160);font-family:MMedium !important;">
                         TOTAL BUY LEADS
                       </div>
@@ -98,7 +99,7 @@
                         <ion-col size="3" style="text-align:left;">
                           <ion-icon style="zoom:2;" src="assets/assets2/buy.svg"></ion-icon>
                         </ion-col>
-                        <ion-col size="9">
+                        <ion-col size="9" (click)="showSellLeads()">
                           <div style="font-size:0.7em;color:rgb(0, 0, 160);font-family:MMedium !important;">
                             TOTAL SELL LEADS
                           </div>

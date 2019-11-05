@@ -4,7 +4,8 @@ import { AdminService } from 'src/app/services/admin.service';
 import { IngressService } from 'src/app/services/ingress.service';
 import { NonTradeHourPayload } from 'src/app/models/NonTradeHourPayload';
 import * as moment from 'moment';
-import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-schedule',
@@ -22,14 +23,38 @@ export class SchedulePage implements OnInit {
   endTimeDetails: any = "DAY,DD MM";
   location: any;
   reason: any;
+  action: any;
+
+  btnLabel: any;
+  header: any;
 
   nonTradeHourPayload: NonTradeHourPayload = {};
 
   constructor(private timeService: TimeService
     , private ingressService: IngressService
-    , private adminService: AdminService) { }
+    , private adminService: AdminService
+    , private router: Router
+    , private route: ActivatedRoute) { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.action = params['action'];
+      if(this.action==ACTION_EDIT) {
+        this.startTime = params['startTime'];
+        this.endTime = params['endTime'];
+        this.getStartTimeDetails();
+        this.getEndTimeDetails();
+        this.btnLabel = 'UPDATE CHANGES';
+        this.header = 'EDIT';
+      }
+      else {
+        this.btnLabel = 'SCHEDULE';
+        this.header = 'SCHEDULE';
+      }
+    });
   }
 
   getStartTimeDetails() {

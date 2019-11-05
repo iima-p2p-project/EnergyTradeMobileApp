@@ -47,7 +47,6 @@ export class TimeService {
     this.dayDiff = duration.asDays();
     this.hourDiff = duration.asHours();
     this.minDiff = Math.round(duration.asMinutes());
-    console.log('min diff : ' , this.minDiff);
     this.durationInHours = Math.floor(this.minDiff/60);
     this.durationInMins = this.minDiff%60;
     if(parseInt(this.durationInHours)<10) {

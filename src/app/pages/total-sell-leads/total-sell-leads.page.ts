@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-total-sell-leads',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TotalSellLeadsPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,
+    private route: ActivatedRoute,) { }
 
   ngOnInit() {
+  }
+
+  selectSellLead() {
+    this.router.navigate(['/profile'], {
+      queryParams: {
+      }
+    });
   }
 
 }

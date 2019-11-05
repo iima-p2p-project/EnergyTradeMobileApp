@@ -8,6 +8,9 @@ export const environment = {
 
   export const ADMIN_ROLE = 'Admin';
   export const USER_ROLE = 'User';
+
+  export const ACTION_CREATE = 'CREATE';
+  export const ACTION_EDIT = 'EDIT';
   
   export const SUPPORT_NUMBER = '8298916264';
   

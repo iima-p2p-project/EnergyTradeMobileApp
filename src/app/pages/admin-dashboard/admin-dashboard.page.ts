@@ -6,7 +6,8 @@ import { TimeService } from 'src/app/services/time.service';
 import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
 import { AstMemoryEfficientTransformer } from '@angular/compiler';
 import * as moment from 'moment';
-import { ADMIN_ROLE } from 'src/app/environments/environments';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -19,7 +20,8 @@ export class AdminDashboardPage implements OnInit {
   nonTradeHourList: any;
   userId: any;
 
-  constructor(
+  constructor(private router: Router,
+    private route: ActivatedRoute,
     public modal:ModalController,
     public nav:NavController,
     private orderService: OrderService,
@@ -62,5 +64,29 @@ export class AdminDashboardPage implements OnInit {
 
   getDuration(startTime: string, endTime: string) {
     return this.timeService.getDuration(startTime,endTime, ADMIN_ROLE);
+  }
+
+  editNonTradeHours(nonTradeHour: any) {
+    this.router.navigate(['/schedule'], {
+      queryParams: {
+        action: ACTION_EDIT,
+        startTime: nonTradeHour.startTime,
+        endTime: nonTradeHour.endTi8me
+      }
+    });
+  }
+
+  showBuyLeads() {
+    this.router.navigate(['/total-buy-leads'], {
+      queryParams: {
+      }
+    });
+  }
+
+  showSellLeads() {
+    this.router.navigate(['/total-sell-leads'], {
+      queryParams: {
+      }
+    });
   }
 }
