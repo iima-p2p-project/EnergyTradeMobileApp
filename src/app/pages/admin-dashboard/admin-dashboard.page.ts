@@ -3,6 +3,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { OrderService } from 'src/app/services/order.service';
 import { IngressService } from 'src/app/services/ingress.service';
 import { TimeService } from 'src/app/services/time.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
 import { AstMemoryEfficientTransformer } from '@angular/compiler';
 import * as moment from 'moment';
@@ -18,6 +19,8 @@ export class AdminDashboardPage implements OnInit {
 
   resFromServer: any;
   nonTradeHourList: any;
+  allBuyLeads: any;
+  allSellLeads: any;
   userId: any;
 
   constructor(private router: Router,
@@ -27,6 +30,7 @@ export class AdminDashboardPage implements OnInit {
     private orderService: OrderService,
     private ingressService: IngressService,
     private timeService: TimeService,
+    private adminService: AdminService
   ) { }
 
   ngOnInit() {
@@ -37,20 +41,35 @@ export class AdminDashboardPage implements OnInit {
       this.userId = res;
       this.ingressService.loggedInUserId = this.userId;
       if (this.userId) {
-        this.orderService.getAllNonTradeHours(this.userId).subscribe((res) => {
+        this.adminService.getAllNonTradeHours(this.userId).subscribe((res) => {
           this.resFromServer = res;
           console.log('Non Trade Hours : ' , this.resFromServer);
           this.nonTradeHourList = this.resFromServer.response.data;
-          this.orderService.nonTradeHoursList = this.nonTradeHourList;
+          this.adminService.nonTradeHoursList = this.nonTradeHourList;
+          this.adminService.getAllBuyLeads(this.userId).subscribe((res) => {
+            this.resFromServer = res;
+            console.log('Buy Leads : ' , this.resFromServer);
+            this.allBuyLeads = this.resFromServer.response.response;
+            this.adminService.allBuyLeads = this.allBuyLeads;
+            this.adminService.getAllSellLeads(this.userId).subscribe((res) => {
+              this.resFromServer = res;
+              console.log('Sell Leads : ' , this.resFromServer);
+              this.allSellLeads = this.resFromServer.response.response;
+              this.adminService.allSellLeads = this.allSellLeads;
+            })
+          });
         });
       }
     })
   }
 
-  async cancelModal() {
+  async cancelModal(nonTradeHour: any) {
     let defg= await this.modal.create({
-      component:CancelNonTradeHourPage,
-      cssClass: 'cancel-custom-modal-css'
+      component: CancelNonTradeHourPage,
+      cssClass: 'cancel-custom-modal-css',
+      componentProps: {
+        'nonTradeHourId': nonTradeHour.nonTradeHourId,
+      }
     })
     return await defg.present();
   }
@@ -70,6 +89,18 @@ export class AdminDashboardPage implements OnInit {
     this.router.navigate(['/schedule'], {
       queryParams: {
         action: ACTION_EDIT,
+        nonTradeHourId: nonTradeHour.nonTradeHourId,
+        startTime: nonTradeHour.startTime,
+        endTime: nonTradeHour.endTi8me
+      }
+    });
+  }
+
+  cancelNonTradeHours(nonTradeHour: any) {
+    this.router.navigate(['/schedule'], {
+      queryParams: {
+        action: ACTION_EDIT,
+        nonTradeHourId: nonTradeHour.nonTradeHourId,
         startTime: nonTradeHour.startTime,
         endTime: nonTradeHour.endTi8me
       }

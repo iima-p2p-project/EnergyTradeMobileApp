@@ -18,7 +18,7 @@
       <ion-grid>
   
         <!-- LINE 1 -->
-        <ion-row class="row-control">
+        <ion-row class="row-control" (click)="selectBuyLead()" *ngFor="let buyLead of allBuyLeads">
             <ion-card class="card-center">
               <ion-card-content>
                 <ion-row  style="margin-top:-0.5em;">
@@ -29,10 +29,10 @@
                     <ion-row style="margin-bottom:0.7em;">
                       <ion-col>
                         <div class="card-unit-number">
-                          50 Units
+                          {{buyLead.powerToSell}} Units
                         </div>
                         <div class="card-id-number">
-                          ID #49857439
+                          ID #{{buyLead.contractId}}
                         </div>
                       </ion-col>
                       <ion-col class="card-right">
@@ -42,15 +42,15 @@
                     <ion-row class="card-bottom-line">
                       <ion-col size="3">
                         <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/ev (1).svg"></ion-icon>
-                        EV
+                        {{buyLead.deviceTypeName}}
                       </ion-col>
                       <ion-col size="3">
                         <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/calendar.svg"></ion-icon>
-                        11 JUN
+                        {{formatTime(buyLead.transferStartTs,'d')}}
                       </ion-col>
                       <ion-col size="6">
                         <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                        03:30 PM - 05:30 PM
+                        {{formatTime(buyLead.transferStartTs,'t')}} - {{formatTime(buyLead.transferEndTs,'t')}}
                       </ion-col>
                     </ion-row>
                   </ion-col>
@@ -58,174 +58,6 @@
               </ion-card-content> 
             </ion-card>
         </ion-row>
-  
-        <!-- LINE 2 -->
-        <ion-row class='row-control'>
-          <ion-card class="card-center">
-            <ion-card-content>
-              <ion-row  style="margin-top:-0.5em;">
-                <ion-col size="2" class="prediction">
-                  <ion-icon style="zoom:3;" src="assets/assets2/sell.svg"></ion-icon>
-                </ion-col>
-                <ion-col size="10">
-                  <ion-row style="margin-bottom:0.7em;">
-                    <ion-col>
-                      <div class="card-unit-number">
-                        50 Units
-                      </div>
-                      <div class="card-id-number">
-                        ID #49857439
-                      </div>
-                    </ion-col>
-                    <ion-col class="card-right">
-                       <ion-icon name="pin" class="icon"></ion-icon> Tarnaka
-                    </ion-col>
-                  </ion-row>
-                  <ion-row class="card-bottom-line">
-                    <ion-col size="3">
-                      <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/ev (1).svg"></ion-icon>
-                      EV
-                    </ion-col>
-                    <ion-col size="3">
-                      <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/calendar.svg"></ion-icon>
-                      11 JUN
-                    </ion-col>
-                    <ion-col size="6">
-                      <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                      03:30 PM - 05:30 PM
-                    </ion-col>
-                  </ion-row>
-                </ion-col>
-              </ion-row>
-            </ion-card-content> 
-          </ion-card>
-        </ion-row>
-  
-        <!-- LINE 3 -->
-        <ion-row class='row-control'>
-            <ion-card class="card-center">
-              <ion-card-content>
-                <ion-row  style="margin-top:-0.5em;">
-                  <ion-col size="2" class="prediction">
-                    <ion-icon style="zoom:3;" src="assets/assets2/sell.svg"></ion-icon>
-                  </ion-col>
-                  <ion-col size="10">
-                    <ion-row style="margin-bottom:0.7em;">
-                      <ion-col>
-                        <div class="card-unit-number">
-                          250 Units
-                        </div>
-                        <div class="card-id-number">
-                          ID #49857439
-                        </div>
-                      </ion-col>
-                      <ion-col class="card-right">
-                         <ion-icon name="pin" class="icon"></ion-icon> Tarnaka
-                      </ion-col>
-                    </ion-row>
-                    <ion-row class="card-bottom-line">
-                      <ion-col size="3">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/ev (1).svg"></ion-icon>
-                        EV
-                      </ion-col>
-                      <ion-col size="3">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/calendar.svg"></ion-icon>
-                        11 JUN
-                      </ion-col>
-                      <ion-col size="6">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                        03:30 PM - 05:30 PM
-                      </ion-col>
-                    </ion-row>
-                  </ion-col>
-                </ion-row>
-              </ion-card-content> 
-            </ion-card>
-          </ion-row>
-  
-          <!-- LINE 4 -->
-        <ion-row class='row-control'>
-            <ion-card class="card-center">
-              <ion-card-content>
-                <ion-row  style="margin-top:-0.5em;">
-                  <ion-col size="2" class="prediction">
-                    <ion-icon style="zoom:3;" src="assets/assets2/sell.svg"></ion-icon>
-                  </ion-col>
-                  <ion-col size="10">
-                    <ion-row style="margin-bottom:0.7em;">
-                      <ion-col>
-                        <div class="card-unit-number">
-                          100 Units
-                        </div>
-                        <div class="card-id-number">
-                          ID #49857439
-                        </div>
-                      </ion-col>
-                      <ion-col class="card-right">
-                         <ion-icon name="pin" class="icon"></ion-icon> Mallapur
-                      </ion-col>
-                    </ion-row>
-                    <ion-row class="card-bottom-line">
-                      <ion-col size="3">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/generator (1).svg"></ion-icon>
-                        GEN
-                      </ion-col>
-                      <ion-col size="3">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/calendar.svg"></ion-icon>
-                        11 JUN
-                      </ion-col>
-                      <ion-col size="6">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                        03:30 PM - 05:30 PM
-                      </ion-col>
-                    </ion-row>
-                  </ion-col>
-                </ion-row>
-              </ion-card-content> 
-            </ion-card>
-          </ion-row>
-  
-          <!-- LINE 5 -->
-        <ion-row class='row-control'>
-            <ion-card class="card-center">
-              <ion-card-content>
-                <ion-row  style="margin-top:-0.5em;">
-                  <ion-col size="2" class="prediction">
-                    <ion-icon style="zoom:3;" src="assets/assets2/sell.svg"></ion-icon>
-                  </ion-col>
-                  <ion-col size="10">
-                    <ion-row style="margin-bottom:0.7em;">
-                      <ion-col>
-                        <div class="card-unit-number">
-                          200 Units
-                        </div>
-                        <div class="card-id-number">
-                          ID #49857439
-                        </div>
-                      </ion-col>
-                      <ion-col class="card-right">
-                         <ion-icon name="pin" class="icon"></ion-icon> Mallapur
-                      </ion-col>
-                    </ion-row>
-                    <ion-row class="card-bottom-line">
-                      <ion-col size="3">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"></ion-icon>
-                        SOLAR
-                      </ion-col>
-                      <ion-col size="3">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/calendar.svg"></ion-icon>
-                        11 JUN
-                      </ion-col>
-                      <ion-col size="6">
-                        <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                        03:30 PM - 05:30 PM
-                      </ion-col>
-                    </ion-row>
-                  </ion-col>
-                </ion-row>
-              </ion-card-content> 
-            </ion-card>
-          </ion-row>
   
       </ion-grid>
   </ion-content>

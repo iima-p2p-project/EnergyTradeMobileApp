@@ -14,8 +14,6 @@ export class OrderService {
   createContractUrl = TRADE_URL + '/createContract';
   getAllOrdersAndContractsUrl = TRADE_URL + '/getAllOrdersAndContracts';
 
-  getAllNonTradeHoursUrl = ORDER_URL + '/getNonTradeHours';
-
   orderList: any;
   sellerList: any;
   nonTradeHoursList: any;
@@ -133,17 +131,6 @@ export class OrderService {
     };
     return this.httpClient.post(this.getAllOrdersAndContractsUrl
       , {"userId": userId}
-      , options
-    );
-  }
-
-  getAllNonTradeHours(userId: any) {
-    console.log('getAllNonTradeHours user id : ' , userId);
-    var options = {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')
-    };
-    return this.httpClient.get(this.getAllNonTradeHoursUrl + '/' + userId
       , options
     );
   }

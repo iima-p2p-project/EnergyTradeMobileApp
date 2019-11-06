@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-cancel-non-trade-hour',
@@ -8,9 +9,13 @@ import { ModalController } from '@ionic/angular';
 })
 export class CancelNonTradeHourPage implements OnInit {
 
-  constructor(
-    public modal:ModalController
-  ) { }
+  @Input() nonTradeHourId: any;
+
+  constructor(public navParams: NavParams
+    , public modal:ModalController
+    , public adminService: AdminService) {
+      this.nonTradeHourId = navParams.get('nonTradeHourId'); 
+    }
 
   ngOnInit() {
   }
@@ -24,6 +29,9 @@ export class CancelNonTradeHourPage implements OnInit {
   }
 
   yesAction() {
-    this.close();
+    this.adminService.cancelNonTradeHour({status: "CANCEL"} , this.nonTradeHourId).subscribe((res) => {
+      console.log('response from cancel non trade hour service : ' , res);
+      this.close();
+    })
   }
 }

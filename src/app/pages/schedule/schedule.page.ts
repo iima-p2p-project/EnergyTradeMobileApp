@@ -13,6 +13,7 @@ import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE, ACTION_CREATE, ACTION_EDIT } fr
   styleUrls: ['./schedule.page.scss'],
 })
 export class SchedulePage implements OnInit {
+  nonTradeHourId: any;
   durationInHours: any = '00';
   durationInMins: any = '00';
   durationDetails: any;
@@ -45,12 +46,13 @@ export class SchedulePage implements OnInit {
       if(this.action==ACTION_EDIT) {
         this.startTime = params['startTime'];
         this.endTime = params['endTime'];
+        this.nonTradeHourId = params['nonTradeHourId'];
         this.getStartTimeDetails();
         this.getEndTimeDetails();
         this.btnLabel = 'UPDATE CHANGES';
         this.header = 'EDIT';
       }
-      else {
+      if(this.action==ACTION_CREATE) {
         this.btnLabel = 'SCHEDULE';
         this.header = 'SCHEDULE';
       }
@@ -73,14 +75,26 @@ export class SchedulePage implements OnInit {
     }
   }
 
-  createNonTradeHour() {
-    this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId.toString();
-    this.nonTradeHourPayload.startTime = this.timeService.startTime;
-    this.nonTradeHourPayload.endTime = this.timeService.endTime;
-    this.nonTradeHourPayload.location = this.location;
-    this.nonTradeHourPayload.nonTradeReason = this.reason;
-    this.adminService.createNonTradeHour(this.nonTradeHourPayload).subscribe((res) => {
-      console.log('response from create non trade hours service : ' , res);
-    }); 
+  submit() {
+    if(this.action==ACTION_EDIT) {
+      this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId.toString();
+      this.nonTradeHourPayload.startTime = this.timeService.startTime;
+      this.nonTradeHourPayload.endTime = this.timeService.endTime;
+      this.nonTradeHourPayload.location = this.location;
+      this.nonTradeHourPayload.nonTradeReason = this.reason;
+      this.adminService.editNonTradeHour(this.nonTradeHourPayload, this.nonTradeHourId).subscribe((res) => {
+        console.log('response from edit non trade hours service : ' , res);
+      }); 
+    }
+    if(this.action==ACTION_CREATE) {
+      this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId.toString();
+      this.nonTradeHourPayload.startTime = this.timeService.startTime;
+      this.nonTradeHourPayload.endTime = this.timeService.endTime;
+      this.nonTradeHourPayload.location = this.location;
+      this.nonTradeHourPayload.nonTradeReason = this.reason;
+      this.adminService.createNonTradeHour(this.nonTradeHourPayload).subscribe((res) => {
+        console.log('response from create non trade hours service : ' , res);
+      }); 
+    }
   }
 }
