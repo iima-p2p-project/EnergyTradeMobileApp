@@ -23,6 +23,7 @@ export class DashboardPage implements OnInit {
   solarDeviceId: any;
   generatorDeviceId: any;
   evDeviceId: any;
+  validInputsFlag = false;
 
   solarDeviceTypeId: any;
   generatorDeviceTypeId: any;
@@ -131,35 +132,43 @@ export class DashboardPage implements OnInit {
   }
 
   go() {
-    if (this.selectedOption == 'sell') {
-      this.sellOrderPayload.sellerId = this.userId;
-      //this.sellOrderPayload.deviceId = this.userDeviceId;
-      this.sellOrderPayload.powerToSell = this.powerToSell;
-      console.log('user id from dashboard : ', this.userId);
-      this.router.navigate(['/sell-time-picker'], {
-        queryParams: {
-          sellerId: this.userId,
-          userDeviceId: this.userDeviceId,
-          deviceTypeId: this.deviceTypeId,
-          powerToSell: this.powerToSell,
-        }
-      });
-      //this.initiateSellFlow(this.sellOrderPayload);
-      //this.nav.navigateForward('sell-time-picker');
+    if (this.maxPowerToBuy > this.minPowerToBuy)
+      this.validInputsFlag = true;
+    else {
+      this.presentAlert("Max value cant be less than Min value.");
+      this.validInputsFlag = false;
     }
-    else if (this.selectedOption == 'buy') {
-      this.buyOrderPayload.budgetMin = this.minPowerToBuy;
-      this.buyOrderPayload.budgetMax = this.maxPowerToBuy;
+    if (this.validInputsFlag) {
+      if (this.selectedOption == 'sell') {
+        this.sellOrderPayload.sellerId = this.userId;
+        //this.sellOrderPayload.deviceId = this.userDeviceId;
+        this.sellOrderPayload.powerToSell = this.powerToSell;
+        console.log('user id from dashboard : ', this.userId);
+        this.router.navigate(['/sell-time-picker'], {
+          queryParams: {
+            sellerId: this.userId,
+            userDeviceId: this.userDeviceId,
+            deviceTypeId: this.deviceTypeId,
+            powerToSell: this.powerToSell,
+          }
+        });
+        //this.initiateSellFlow(this.sellOrderPayload);
+        //this.nav.navigateForward('sell-time-picker');
+      }
+      else if (this.selectedOption == 'buy') {
+        this.buyOrderPayload.budgetMin = this.minPowerToBuy;
+        this.buyOrderPayload.budgetMax = this.maxPowerToBuy;
 
-      console.log('dashboard : ', this.buyOrderPayload);
+        console.log('dashboard : ', this.buyOrderPayload);
 
-      this.router.navigate(['/buy-time-picker'], {
-        queryParams: {
-          buyerId: this.userId,
-          unitMin: this.minPowerToBuy,
-          unitMax: this.maxPowerToBuy
-        }
-      });
+        this.router.navigate(['/buy-time-picker'], {
+          queryParams: {
+            buyerId: this.userId,
+            unitMin: this.minPowerToBuy,
+            unitMax: this.maxPowerToBuy
+          }
+        });
+      }
     }
   }
 
@@ -191,6 +200,7 @@ export class DashboardPage implements OnInit {
       }
 
   }
+
 
   async presentAlert(alertmsg) {
 
