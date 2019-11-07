@@ -23,6 +23,7 @@ export class ManageOrdersPage implements OnInit {
   futureOrders;
   pastOrders;
   displayOrderList;
+  monthFilterKey;
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
@@ -59,6 +60,7 @@ export class ManageOrdersPage implements OnInit {
         obj.orderType = "buy";
         obj.orderId = obj.contract_id;
       }
+      obj.month = moment(obj.transfer_start_ts).format('M');
       this.orderListUpdated.push(obj);
     }
     console.log("Updated orders list", this.orderListUpdated);
@@ -123,8 +125,35 @@ export class ManageOrdersPage implements OnInit {
     }
     );
   }
-  applyMonthFilter() {
+  async applyMonthFilter() {
     console.log("Apply Month Filter");
+    let opts: PickerOptions = {
+      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      columns: [{
+        name: "monthOptions",
+        options: [{ text: "January", value: "1" }
+          , { text: "February", value: "2" }
+          , { text: "March", value: "3" }
+          , { text: "April", value: "4" }
+          , { text: "May", value: "5" }
+          , { text: "June", value: "6" }
+          , { text: "July", value: "7" }
+          , { text: "August", value: "8" }
+          , { text: "September", value: "9" }
+          , { text: "October", value: "10" }
+          , { text: "November", value: "11" }
+          , { text: "December", value: "12" }]
+      }]
+    }
+    let picker = await this.pickerCtrl.create(opts)
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('monthOptions');
+      this.monthFilterKey = col.options[col.selectedIndex].value;
+      console.log("Filter Key:", this.monthFilterKey);
+      this.displayOrderList = this.displayOrderList.filter(order => order.month == this.monthFilterKey);
+    }
+    );
   }
   applyEnergyFilter() {
     console.log("Apply Energy Filter");
