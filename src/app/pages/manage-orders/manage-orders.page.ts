@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
 import { IngressService } from 'src/app/services/ingress.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import * as moment from 'moment';
+import { PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core';
 
 @Component({
   selector: 'app-manage-orders',
@@ -16,10 +17,17 @@ export class ManageOrdersPage implements OnInit {
   orderListUpdated: any = [];
   orderType: any;
   userId: any;
+  periodFilterKey;
+  allOrders;
+  cancelledOrders;
+  futureOrders;
+  pastOrders;
+  displayOrderList;
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
-    , private cdr: ChangeDetectorRef) { }
+    , private cdr: ChangeDetectorRef
+    , private pickerCtrl: PickerController) { }
 
   ngOnInit() {
 
@@ -32,6 +40,8 @@ export class ManageOrdersPage implements OnInit {
         this.orderService.getAllOrdersAndContracts(this.userId).subscribe((res) => {
           this.resFromServer = res;
           this.orderList = this.resFromServer.ordersAndContracts;
+
+          console.log("Orders List:", this.allOrders);
           this.orderService.orderList = this.orderList;
           this.fineTuneOrderList();
         });
@@ -52,6 +62,11 @@ export class ManageOrdersPage implements OnInit {
       this.orderListUpdated.push(obj);
     }
     console.log("Updated orders list", this.orderListUpdated);
+    this.displayOrderList = this.orderListUpdated;
+    this.allOrders = this.orderListUpdated;
+    this.cancelledOrders = this.orderListUpdated.filter(order => order.active_status == '2');
+    this.futureOrders = this.orderListUpdated.filter(order => moment(order.transfer_start_ts).isAfter(moment.now()));
+    this.pastOrders = this.orderListUpdated.filter(order => moment(order.transfer_start_ts).isBefore(moment.now()));
   }
 
   getOrderId(order: any) {
@@ -70,7 +85,48 @@ export class ManageOrdersPage implements OnInit {
   formatTime(ts, type) {
     if (type == 't')
       return moment(ts).format("hh:mm A");
-    else if(type == 'd')
-    return moment(ts).format("Do MMM");
+    else if (type == 'd')
+      return moment(ts).format("Do MMM");
+  }
+
+  async applyPeriodFilter() {
+    console.log("Apply Period Filter");
+
+    let opts: PickerOptions = {
+      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      columns: [{
+        name: "periodOptions",
+        options: [{ text: "All", value: "a" }
+          , { text: "Canceled", value: "c" }
+          , { text: "Future", value: "f" }
+          , { text: "Past", value: "p" }]
+      }]
+    }
+    let picker = await this.pickerCtrl.create(opts)
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('periodOptions');
+      console.log("Selected Col", col);
+      this.periodFilterKey = col.options[col.selectedIndex].value;
+      console.log("Filter Key:", this.periodFilterKey);
+      if (this.periodFilterKey == 'a')
+        this.displayOrderList = this.allOrders;
+      else if (this.periodFilterKey == 'c')
+        this.displayOrderList = this.cancelledOrders;
+      else if (this.periodFilterKey == 'f')
+        this.displayOrderList = this.futureOrders;
+      else if (this.periodFilterKey == 'p')
+        this.displayOrderList = this.pastOrders;
+      else
+        this.displayOrderList = this.allOrders;
+
+    }
+    );
+  }
+  applyMonthFilter() {
+    console.log("Apply Month Filter");
+  }
+  applyEnergyFilter() {
+    console.log("Apply Energy Filter");
   }
 }

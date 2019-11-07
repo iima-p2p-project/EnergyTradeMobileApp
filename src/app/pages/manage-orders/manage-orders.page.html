@@ -36,7 +36,7 @@
   <ion-grid>
 
     <!-- LINE 1 -->
-    <ion-row *ngFor="let order of orderListUpdated">
+    <ion-row *ngFor="let order of displayOrderList">
       <ion-card class="card-center">
         <ion-card-content>
           <ion-row style="margin-top:-0.5em;">
@@ -107,19 +107,19 @@
 <ion-footer class="the-footer">
   <ion-grid class="ion-text-center" style="padding:0;">
     <ion-row>
-      <ion-col class="bottom-footer">
+      <ion-col class="bottom-footer" (click)="applyPeriodFilter()">
         <!-- <ion-button expand="full"> -->
         <ion-icon class="icon" name="time"></ion-icon>
-        TIME
+        PERIOD
         <!-- </ion-button> -->
       </ion-col>
-      <ion-col class="bottom-footer">
+      <ion-col class="bottom-footer" (click)="applyMonthFilter()">
         <!-- <ion-button expand="full"> -->
         <ion-icon class="icon" name="calendar"></ion-icon>
         MONTH
         <!-- </ion-button> -->
       </ion-col>
-      <ion-col class="bottom-footer">
+      <ion-col class="bottom-footer" (click)="applyEnergyFilter()">
         <!-- <ion-button expand="full"> -->
         <ion-icon class="icon" name="flash"></ion-icon>
         ENERGY
