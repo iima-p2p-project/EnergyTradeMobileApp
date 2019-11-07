@@ -5,7 +5,7 @@
             <ion-back-button defaultHref="sell-time-picker"></ion-back-button>
           </div>
         </ion-col>
-        <ion-col class="title-top" size="8">
+        <ion-col class="title-top" size="8" style="margin-left:-0.2em;">
           <div>SELL</div>
         </ion-col>
     </ion-row>
@@ -76,7 +76,7 @@
                         <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                       </ion-col>
                   </ion-row>
-                  <ion-row style="margin-top:-0.5em;">
+                  <ion-row style="margin-top:-0.6em;">
                       <ion-col style="font-size:0.7em;" class='font-start-end grey-colour'>
                         {{endTimeDetails}}
                       </ion-col>
@@ -87,7 +87,7 @@
       </ion-grid>
       <ion-grid style="position:relative;top:90px;color:white;">
           <ion-row class='ion-text-center'>
-            <ion-col size="12" class='ion-text-center'>
+            <ion-col size="12" class='ion-text-center' style="margin-left:0.5em;">
               <span class="big-font">
                 {{duration}}
               </span>
@@ -96,8 +96,8 @@
               </span>
             </ion-col>
           </ion-row>
-          <ion-row class='ion-text-center' style="margin-top:-0.5em;">
-              <ion-col class="bottom-small-font">
+          <ion-row class='ion-text-center' style="margin-top:-0.8em;margin-left:-0.8em;">
+              <ion-col class="bottom-small-font ion-text-center" size="12">
                 DURATION
               </ion-col>
           </ion-row>
@@ -150,9 +150,9 @@
                 </ion-col>
               </ion-row>
         </ion-grid>
-        <div style="padding-top:72%;
+        <div style="padding-top:60%;
         margin-left:auto;margin-right:auto;text-align:center;">
-                <ion-button class="ion-text-center" shape="round" color="dark" style="font-family:MSemiBold;width:75%" (click)="submit()">
+                <ion-button class="ion-text-center" shape="round" color="dark" style="font-family:MSemiBold;width:75%;height:50px;font-size:18px;" (click)="submit()">
                   SUBMIT
                 </ion-button>
         </div>

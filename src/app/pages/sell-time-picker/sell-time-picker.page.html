@@ -17,16 +17,16 @@
     <div style='position:absolute;z-index:1;bottom:0px;left:0px;width:100%;height:90%;background-color:white;border-top-left-radius:40px;border-top-right-radius:40px;'>
       <ion-grid>
         <ion-row class='ion-text-center'>
-          <ion-col class='ion-text-center' offset="3" size='5' class="top-row-center">
+          <ion-col class='ion-text-center' size="12" class="top-row-center">
             <ion-icon src="assets/svg/solar.svg" style='padding-right:0.5em;'></ion-icon>
-            <span class='no-units'>{{power}}</span>
+            <span class='no-units'>{{power}}</span> units
           </ion-col>
         </ion-row>
       </ion-grid>
       <div style="padding-top:0.3em;border-bottom:1px solid rgb(221, 221, 221);width:80%;margin-left:auto;margin-right:auto;"></div>
       <ion-grid>
         <ion-row class='ion-text-center'>
-          <ion-col size="5" style="position:absolute;left:1.4em;" *ngIf="screenMode=='small'">
+          <ion-col size="5" style="position:absolute;left:2em;" *ngIf="screenMode=='small'">
             <ion-grid class='ion-text-left'>
               <ion-row>
                 <ion-col class='font-start-end'>
@@ -87,8 +87,8 @@
           <ion-col size="2" style="position:absolute;left:40%;">
               <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/arrow 2.svg"></ion-icon>
             </ion-col>
-          <ion-col size="5" style="position:absolute;right:0px;">
-              <ion-grid class='ion-text-left'>
+          <ion-col size="5" style="position:absolute;right:-0.5em;">
+              <ion-grid class='ion-text-right'>
                   <ion-row>
                     <ion-col class="font-start-end">
                       END TIME
@@ -128,15 +128,19 @@
             </span>
           </ion-col>
         </ion-row>
-        <ion-row class='ion-text-center' style="margin-top:-0.5em;">
-            <ion-col class="bottom-small-font grey-colour">
+        <ion-row class='ion-text-center' style="margin-top:-0.8em;margin-left:-0.5em;">
+            <ion-col class="bottom-small-font grey-colour ion-text-center" size="12">
               DURATION
             </ion-col>
         </ion-row>
       </ion-grid>
       <div style="padding-top:90%;
       margin-left:auto;margin-right:auto;text-align:center;">
-              <ion-button class="ion-text-center" shape="round" style="font-family:MSemiBold;opacity:0.6;" 
+              <ion-button *ngIf="duration==null" class="ion-text-center" disabled shape="round" style="font-family:MSemiBold;opacity:0.6;" 
+              routerDirection="forward" routerLink="/sell-rate-set" (click)="proceedToSetRate()">
+                PROCEED TO SET RATE
+              </ion-button>
+              <ion-button *ngIf="duration!=null" class="ion-text-center" disabled shape="round" style="font-family:MSemiBold;" 
               routerDirection="forward" routerLink="/sell-rate-set" (click)="proceedToSetRate()">
                 PROCEED TO SET RATE
               </ion-button>
