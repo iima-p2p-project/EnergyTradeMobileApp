@@ -132,30 +132,33 @@ export class DashboardPage implements OnInit {
   }
 
   go() {
-    if (this.maxPowerToBuy > this.minPowerToBuy)
-      this.validInputsFlag = true;
-    else {
-      this.presentAlert("Max value cant be less than Min value.");
-      this.validInputsFlag = false;
+
+
+    if (this.selectedOption == 'sell') {
+      this.sellOrderPayload.sellerId = this.userId;
+      //this.sellOrderPayload.deviceId = this.userDeviceId;
+      this.sellOrderPayload.powerToSell = this.powerToSell;
+      console.log('user id from dashboard : ', this.userId);
+      this.router.navigate(['/sell-time-picker'], {
+        queryParams: {
+          sellerId: this.userId,
+          userDeviceId: this.userDeviceId,
+          deviceTypeId: this.deviceTypeId,
+          powerToSell: this.powerToSell,
+        }
+      });
+      //this.initiateSellFlow(this.sellOrderPayload);
+      //this.nav.navigateForward('sell-time-picker');
     }
-    if (this.validInputsFlag) {
-      if (this.selectedOption == 'sell') {
-        this.sellOrderPayload.sellerId = this.userId;
-        //this.sellOrderPayload.deviceId = this.userDeviceId;
-        this.sellOrderPayload.powerToSell = this.powerToSell;
-        console.log('user id from dashboard : ', this.userId);
-        this.router.navigate(['/sell-time-picker'], {
-          queryParams: {
-            sellerId: this.userId,
-            userDeviceId: this.userDeviceId,
-            deviceTypeId: this.deviceTypeId,
-            powerToSell: this.powerToSell,
-          }
-        });
-        //this.initiateSellFlow(this.sellOrderPayload);
-        //this.nav.navigateForward('sell-time-picker');
+    else if (this.selectedOption == 'buy') {
+
+      if (this.maxPowerToBuy > this.minPowerToBuy)
+        this.validInputsFlag = true;
+      else {
+        this.presentAlert("Max value cant be less than Min value.");
+        this.validInputsFlag = false;
       }
-      else if (this.selectedOption == 'buy') {
+      if (this.validInputsFlag) {
         this.buyOrderPayload.budgetMin = this.minPowerToBuy;
         this.buyOrderPayload.budgetMax = this.maxPowerToBuy;
 
