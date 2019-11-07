@@ -170,17 +170,53 @@ export class DashboardPage implements OnInit {
     this.deviceTypeId = this.solarDeviceTypeId;
     this.userDeviceId = this.solarDeviceId;
     this.deviceCapactiy = this.solarCapacity;
+
+    //TOGGLE TO CHANGE COLOURS
+    this.showSolar=this.toggleTrueFalse(this.showSolar);
+    if(this.showSolar==true)
+    {
+      this.showGenerator=false;
+      this.showEV=false
+    }
   }
 
   selectGeneratorDeviceToSellPower() {
     this.deviceTypeId = this.generatorDeviceTypeId;
     this.userDeviceId = this.generatorDeviceId;
     this.deviceCapactiy = this.generatorCapacity;
+
+    //TOGGLE TO CHANGE COLOURS
+    this.showGenerator=this.toggleTrueFalse(this.showGenerator);
+    if(this.showGenerator==true)
+    {
+      this.showEV=false;
+      this.showSolar=false;
+    }
   }
 
   selectEVDeviceToSellPower() {
     this.deviceTypeId = this.evDeviceTypeId;
     this.userDeviceId = this.evDeviceId;
     this.deviceCapactiy = this.evCapacity;
+
+    //TOGGLE TO CHANGE COLOURS
+    this.showEV=this.toggleTrueFalse(this.showEV);
+    if(this.showEV==true)
+    {
+      this.showSolar=false;
+      this.showGenerator=false;
+    }
+  }
+
+  toggleTrueFalse(what)
+  {
+    if(what==true)
+    {
+      return false;
+    }
+    else if(what==false)
+    {
+      return true;
+    }
   }
 }
