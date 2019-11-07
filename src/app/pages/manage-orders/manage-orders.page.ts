@@ -24,6 +24,7 @@ export class ManageOrdersPage implements OnInit {
   pastOrders;
   displayOrderList;
   monthFilterKey;
+  energyTypeFilterKey;
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
@@ -151,11 +152,29 @@ export class ManageOrdersPage implements OnInit {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.monthFilterKey);
-      this.displayOrderList = this.displayOrderList.filter(order => order.month == this.monthFilterKey);
+      this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
     }
     );
   }
-  applyEnergyFilter() {
-    console.log("Apply Energy Filter");
+  async applyEnergyFilter() {
+    console.log("Apply Month Filter");
+    let opts: PickerOptions = {
+      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      columns: [{
+        name: "energyTypeOptions",
+        options: [{ text: "Electric Vehicle (EV)", value: "Electric Vehicle" }
+          , { text: "Solar", value: "Solar" }
+          , { text: "Generator", value: "Generator" }]
+      }]
+    }
+    let picker = await this.pickerCtrl.create(opts)
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('energyTypeOptions');
+      this.energyTypeFilterKey = col.options[col.selectedIndex].value;
+      console.log("Filter Key:", this.energyTypeFilterKey);
+      this.displayOrderList = this.allOrders.filter(order => order.device_type_name == this.energyTypeFilterKey);
+    }
+    );
   }
 }
