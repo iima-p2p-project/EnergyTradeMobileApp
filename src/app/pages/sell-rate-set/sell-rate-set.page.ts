@@ -9,6 +9,7 @@ import { OrderService} from 'src/app/services/order.service';
 import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
 import { TimeService } from 'src/app/services/time.service';
 import * as moment from 'moment';
+import { USER_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-sell-rate-set',
@@ -29,9 +30,9 @@ export class SellRateSetPage implements OnInit {
   deviceName: string;
   duration: string;
   power: string;
-
-
-  rate:any;
+  sellOrderId: any;
+  action: any;
+  rate: any;
 
   sellOrderPayload: SellOrderPayload = {};
 
@@ -71,6 +72,8 @@ export class SellRateSetPage implements OnInit {
       }
 
     this.route.queryParams.subscribe(params => {
+      this.action = params['action'];
+      this.sellOrderId = params['sellOrderId'];
       this.power = params['power'];
       this.sellerId = params['sellerId'];
       this.userDeviceId = params['userDeviceId'];
@@ -89,20 +92,38 @@ export class SellRateSetPage implements OnInit {
   }
 
   async submit() {
-    this.sellOrderPayload.sellerId = this.sellerId;
-    this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
-    this.sellOrderPayload.userDeviceId = this.userDeviceId;
-    this.sellOrderPayload.powerToSell = +this.power;
-    this.sellOrderPayload.transferStartTs = this.timeService.startTime;
-    this.sellOrderPayload.transferEndTs = this.timeService.endTime;
-    this.sellOrderPayload.ratePerUnit = this.rate;
-    this.sellOrderPayload.totalAmount = this.totalAmount;
-    this.orderService.createSellOrder(this.sellOrderPayload).subscribe( (data) => console.log(data));
-    this.orderService.printSellOrderList();
-    // this.router.navigate(['sell-post-success'], {
-    //   queryParams: {}
-    // });
-    this.presentModal();
+    if(this.action == ACTION_CREATE) {
+      this.sellOrderPayload.sellerId = this.sellerId;
+      this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
+      this.sellOrderPayload.userDeviceId = this.userDeviceId;
+      this.sellOrderPayload.powerToSell = +this.power;
+      this.sellOrderPayload.transferStartTs = this.timeService.startTime;
+      this.sellOrderPayload.transferEndTs = this.timeService.endTime;
+      this.sellOrderPayload.ratePerUnit = this.rate;
+      this.sellOrderPayload.totalAmount = this.totalAmount;
+      this.orderService.createSellOrder(this.sellOrderPayload).subscribe( (data) => console.log(data));
+      this.orderService.printSellOrderList();
+      // this.router.navigate(['sell-post-success'], {
+      //   queryParams: {}
+      // });
+      this.presentModal();
+    }
+    if (this.action == ACTION_EDIT) {
+      this.sellOrderPayload.sellerId = this.sellerId;
+      this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
+      this.sellOrderPayload.userDeviceId = this.userDeviceId;
+      this.sellOrderPayload.powerToSell = +this.power;
+      this.sellOrderPayload.transferStartTs = this.timeService.startTime;
+      this.sellOrderPayload.transferEndTs = this.timeService.endTime;
+      this.sellOrderPayload.ratePerUnit = this.rate;
+      this.sellOrderPayload.totalAmount = this.totalAmount;
+      this.orderService.editSellOrder(this.sellOrderPayload, this.sellOrderId).subscribe((data) => console.log(data));
+      this.orderService.printSellOrderList();
+      // this.router.navigate(['sell-post-success'], {
+      //   queryParams: {}
+      // });
+      this.presentModal();
+    }
   }
 
   async presentModal(){

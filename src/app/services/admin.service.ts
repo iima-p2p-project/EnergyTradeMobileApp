@@ -20,6 +20,9 @@ export class AdminService {
   allBuyLeads: any;
   allSellLeads: any;
 
+  buyLeadsCount: any;
+  sellLeadsCount: any;
+
   constructor(private httpClient: HttpClient) { }
 
   createNonTradeHour(payload) {

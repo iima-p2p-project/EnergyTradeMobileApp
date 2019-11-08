@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {NavController} from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { IngressService } from 'src/app/services/ingress.service';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
- 
+import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -12,7 +13,7 @@ import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
 })
 export class DashboardPage implements OnInit {
 
-  selectedOption='sell';
+  selectedOption = 'sell';
   showSolar: boolean = true;
   showGenerator: boolean = true;
   showEV: boolean = true;
@@ -23,12 +24,13 @@ export class DashboardPage implements OnInit {
   solarDeviceId: any;
   generatorDeviceId: any;
   evDeviceId: any;
+  validInputsFlag = false;
 
   solarDeviceTypeId: any;
   generatorDeviceTypeId: any;
   evDeviceTypeId: any;
 
-  deviceCapactiy: any;
+  deviceCapactiy: any = 100;
   deviceTypeId: any;
   userDeviceId: any;
 
@@ -45,12 +47,13 @@ export class DashboardPage implements OnInit {
 
   constructor(private router: Router
     , private route: ActivatedRoute
-    , private nav:NavController
-    , private ingressService: IngressService) { 
-      this.showSolar = false;
-      this.showGenerator = false;
-      this.showEV = false;
-    }
+    , private nav: NavController
+    , private ingressService: IngressService
+    , private alertController: AlertController) {
+    this.showSolar = false;
+    this.showGenerator = false;
+    this.showEV = false;
+  }
 
   ngOnInit() {
   }
@@ -124,22 +127,22 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  segmentChanged($event)
-  {
+  segmentChanged($event) {
     // console.log($event.detail.value);
-    this.selectedOption=$event.detail.value;
+    this.selectedOption = $event.detail.value;
   }
 
-  go()
-  {
-    if(this.selectedOption=='sell')
-    {
+  go() {
+
+
+    if (this.selectedOption == 'sell') {
       this.sellOrderPayload.sellerId = this.userId;
       //this.sellOrderPayload.deviceId = this.userDeviceId;
       this.sellOrderPayload.powerToSell = this.powerToSell;
-      console.log('user id from dashboard : ' , this.userId);
+      console.log('user id from dashboard : ', this.userId);
       this.router.navigate(['/sell-time-picker'], {
         queryParams: {
+          action: ACTION_CREATE,
           sellerId: this.userId,
           userDeviceId: this.userDeviceId,
           deviceTypeId: this.deviceTypeId,
@@ -149,20 +152,28 @@ export class DashboardPage implements OnInit {
       //this.initiateSellFlow(this.sellOrderPayload);
       //this.nav.navigateForward('sell-time-picker');
     }
-    else if(this.selectedOption=='buy')
-    {
-      this.buyOrderPayload.budgetMin = this.minPowerToBuy;
-      this.buyOrderPayload.budgetMax = this.maxPowerToBuy;
+    else if (this.selectedOption == 'buy') {
 
-      console.log('dashboard : ' , this.buyOrderPayload);
+      if (this.maxPowerToBuy > this.minPowerToBuy)
+        this.validInputsFlag = true;
+      else {
+        this.presentAlert("Max value cant be less than Min value.");
+        this.validInputsFlag = false;
+      }
+      if (this.validInputsFlag) {
+        this.buyOrderPayload.budgetMin = this.minPowerToBuy;
+        this.buyOrderPayload.budgetMax = this.maxPowerToBuy;
 
-      this.router.navigate(['/buy-time-picker'], {
-        queryParams: {
-          buyerId: this.userId,
-          unitMin: this.minPowerToBuy,
-          unitMax: this.maxPowerToBuy
-        }
-      });
+        console.log('dashboard : ', this.buyOrderPayload);
+
+        this.router.navigate(['/buy-time-picker'], {
+          queryParams: {
+            buyerId: this.userId,
+            unitMin: this.minPowerToBuy,
+            unitMax: this.maxPowerToBuy
+          }
+        });
+      }
     }
   }
 
@@ -218,5 +229,28 @@ export class DashboardPage implements OnInit {
     {
       return true;
     }
+  }
+  powerInput(power) {
+    console.log("Power input detected", power);
+    if (this.deviceCapactiy && power)
+      if (power > this.deviceCapactiy) {
+        this.presentAlert("You cant sell more than your device capacity.");
+        this.powerToSell = 0;
+      } else {
+        this.powerToSell = power;
+      }
+
+  }
+
+
+  async presentAlert(alertmsg) {
+
+    //const alertMsg = `<span>${alertmsg}.</span>`;
+
+    const alert = await this.alertController.create({
+      message: alertmsg,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 }

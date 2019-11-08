@@ -1,9 +1,9 @@
 <ion-header class="_header">
-  
+
   <ion-toolbar class="_toolbar">
 
     <ion-title class="__title">
-        CREATE ACCOUNT
+      CREATE ACCOUNT
     </ion-title>
   </ion-toolbar>
 
@@ -17,57 +17,75 @@
 
     <form [formGroup]="registerForm">
       <ion-list>
-          <br/>
-          <div class="Label_" >
-              <p class="p__" >EMAIL ADDRESS</p>
-              <ion-input class="_Input" formControlName="email" type="Email"  ></ion-input>
-            </div>
+        <br />
+        <div class="Label_">
+          <p class="p__">EMAIL ADDRESS</p>
+          <ion-input class="_Input" formControlName="email" type="Email"></ion-input>
+        </div>
 
-            <div class="Label_" >
-            <p class="p__" >SELECT STATE</p>
+        <div class="Label_">
+          <p class="p__">SELECT STATE</p>
 
-            <div class="Flex_">
-     
-            <ion-label class="lov_label">{{selectedState}}</ion-label>  
-          <!-- <ion-select class="_Input" formControlName="stateList" placeholder="Select State" (ionChange)="getBoardsPostStateSelection()">
+          <div class="Flex_">
+
+            <ion-label class="lov_label">{{selectedState}}</ion-label>
+            <!-- <ion-select class="_Input" formControlName="stateList" placeholder="Select State" (ionChange)="getBoardsPostStateSelection()">
             <ion-select-option *ngFor="let state of states">{{state.stateName}}</ion-select-option>
             <ion-select-option value="1">Andhra Pradesh</ion-select-option>
             <ion-select-option value="2">Telangana</ion-select-option>
           </ion-select> -->
 
-          <img src="../../../assets/assets2/select_state.svg" class="svg_icon" (click)="openState_Modal()">
+            <img src="../../../assets/assets2/select_state.svg" class="svg_icon" (click)="openState_Modal()">
 
+          </div>
         </div>
-   </div>
-   <div class="Label_" >
-            <p class="p__" >SELECT BOARD</p>
+        <div class="Label_">
+          <p class="p__">SELECT LOCALITY</p>
 
-            <div class="Flex_">
-      
-              <ion-label class="lov_label">{{selectedBoard}}</ion-label>
-              <img src="../../../assets/assets2/select_board.svg" class="svg_icon" (click)="openBoard_Modal()">
-      
-            </div>
+          <div class="Flex_">
 
-       
+            <ion-label class="lov_label">{{selectedLocality}}</ion-label>
+            <img src="../../../assets/assets2/select_board.svg" class="svg_icon" (click)="openLocality_Modal()">
+
+          </div>
+
+
           <!-- <ion-select class="_Input" formControlName="boardList" placeholder="Select Board">
             <ion-select-option *ngFor="let board of boards">{{board.boardName}}</ion-select-option>
             <ion-select-option value="1">TSNPDCL</ion-select-option>
             <ion-select-option value="2">TSSPDCL</ion-select-option>
           </ion-select> -->
-   <br/>
-   </div>
+          <br />
+        </div>
+        <div class="Label_">
+          <p class="p__">SELECT BOARD</p>
+
+          <div class="Flex_">
+
+            <ion-label class="lov_label">{{selectedBoard}}</ion-label>
+            <img src="../../../assets/assets2/select_board.svg" class="svg_icon" (click)="openBoard_Modal()">
+
+          </div>
+
+
+          <!-- <ion-select class="_Input" formControlName="boardList" placeholder="Select Board">
+            <ion-select-option *ngFor="let board of boards">{{board.boardName}}</ion-select-option>
+            <ion-select-option value="1">TSNPDCL</ion-select-option>
+            <ion-select-option value="2">TSSPDCL</ion-select-option>
+          </ion-select> -->
+          <br />
+        </div>
 
         <!-- <div class="Message">
             <p class="p_message">By clicking Continue you are accepting to Sustain Impact <span class="Terms_"> Terms & Conditions</span></p>
           </div> -->
 
-          <ion-row>
-            <ion-col>
-                <ion-button type="submit" (click)="register()" [disabled]="!registerForm.valid">REGISTER
-                  </ion-button>
-            </ion-col>
-          </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" (click)="register()" [disabled]="!registerForm.valid">REGISTER
+            </ion-button>
+          </ion-col>
+        </ion-row>
 
       </ion-list>
     </form>
@@ -82,6 +100,7 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title class="my-footer-style">Already have an account? <span class="redirect-button" (click)="redirectToLogin()">SIGN IN</span></ion-title>
+    <ion-title class="my-footer-style">Already have an account? <span class="redirect-button"
+        (click)="redirectToLogin()">SIGN IN</span></ion-title>
   </ion-toolbar>
-  </ion-footer>
+</ion-footer>

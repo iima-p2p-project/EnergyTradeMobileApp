@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { StateModalPage } from '../app/pages/register/selectState';
 import { BoardModalPage } from '../app/pages/register/selectBoard';
+import { LocalityModalPage } from '../app/pages/schedule/selectLocality';
 
 import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
 import { BuyPostSuccessPageModule} from './pages/buy-post-success/buy-post-success.module';
@@ -19,8 +20,8 @@ import { CancelInProfilePageModule } from './pages/cancel-in-profile/cancel-in-p
 import { ModalEditPageModule } from './pages/modal-edit/modal-edit.module';
 
 @NgModule({
-  declarations: [StateModalPage, BoardModalPage, AppComponent],
-  entryComponents: [StateModalPage, BoardModalPage],
+  declarations: [StateModalPage, BoardModalPage, LocalityModalPage, AppComponent],
+  entryComponents: [StateModalPage, BoardModalPage, LocalityModalPage],
   imports: [
     BrowserModule,
     HttpClientModule,

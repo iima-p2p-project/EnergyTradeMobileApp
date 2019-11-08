@@ -13,6 +13,9 @@ export class OrderService {
   searchBuyLeadsUrl = TRADE_URL + '/searchBuyLeads';
   createContractUrl = TRADE_URL + '/createContract';
   getAllOrdersAndContractsUrl = TRADE_URL + '/getAllOrdersAndContracts';
+  cancelSellOrderUrl = ORDER_URL + 'updateSellOrder';
+  cancelBuyOrderUrl = ORDER_URL + 'updateContractOrder';
+  editSellOrderUrl = ORDER_URL + 'editSellOrder';
 
   orderList: any;
   sellerList: any;
@@ -131,6 +134,42 @@ export class OrderService {
     };
     return this.httpClient.post(this.getAllOrdersAndContractsUrl
       , {"userId": userId}
+      , options
+    );
+  }
+
+  cancelSellOrder(userId: any) {
+    console.log('cancelSellOrder user id : ' , userId);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.cancelSellOrderUrl + '/' + userId
+      , {"status": "CANCEL"}
+      , options
+    );
+  }
+
+  cancelBuyOrder(userId: any) {
+    console.log('cancelBuyOrder user id : ' , userId);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.cancelBuyOrderUrl + '/' + userId
+      , {"status": "CANCEL"}
+      , options
+    );
+  }
+
+  editSellOrder(payload: any, sellOrderId: any) {
+    console.log('editSellOrder payload : ' , payload);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.editSellOrderUrl + '/' + sellOrderId
+      , payload
       , options
     );
   }

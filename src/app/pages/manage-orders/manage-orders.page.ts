@@ -4,6 +4,10 @@ import { IngressService } from 'src/app/services/ingress.service';
 import * as moment from 'moment';
 import { PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
+import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
+import { ModalController, NavController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-manage-orders',
@@ -23,11 +27,16 @@ export class ManageOrdersPage implements OnInit {
   futureOrders;
   pastOrders;
   displayOrderList;
+  monthFilterKey;
+  energyTypeFilterKey;
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
     , private cdr: ChangeDetectorRef
-    , private pickerCtrl: PickerController) { }
+    , private pickerCtrl: PickerController
+    , public modal:ModalController
+    , private router: Router
+    , private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -59,6 +68,7 @@ export class ManageOrdersPage implements OnInit {
         obj.orderType = "buy";
         obj.orderId = obj.contract_id;
       }
+      obj.month = moment(obj.transfer_start_ts).format('M');
       this.orderListUpdated.push(obj);
     }
     console.log("Updated orders list", this.orderListUpdated);
@@ -123,10 +133,82 @@ export class ManageOrdersPage implements OnInit {
     }
     );
   }
-  applyMonthFilter() {
+  async applyMonthFilter() {
     console.log("Apply Month Filter");
+    let opts: PickerOptions = {
+      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      columns: [{
+        name: "monthOptions",
+        options: [{ text: "January", value: "1" }
+          , { text: "February", value: "2" }
+          , { text: "March", value: "3" }
+          , { text: "April", value: "4" }
+          , { text: "May", value: "5" }
+          , { text: "June", value: "6" }
+          , { text: "July", value: "7" }
+          , { text: "August", value: "8" }
+          , { text: "September", value: "9" }
+          , { text: "October", value: "10" }
+          , { text: "November", value: "11" }
+          , { text: "December", value: "12" }]
+      }]
+    }
+    let picker = await this.pickerCtrl.create(opts)
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('monthOptions');
+      this.monthFilterKey = col.options[col.selectedIndex].value;
+      console.log("Filter Key:", this.monthFilterKey);
+      this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
+    }
+    );
   }
-  applyEnergyFilter() {
-    console.log("Apply Energy Filter");
+  async applyEnergyFilter() {
+    console.log("Apply Month Filter");
+    let opts: PickerOptions = {
+      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      columns: [{
+        name: "energyTypeOptions",
+        options: [{ text: "Electric Vehicle (EV)", value: "Electric Vehicle" }
+          , { text: "Solar", value: "Solar" }
+          , { text: "Generator", value: "Generator" }]
+      }]
+    }
+    let picker = await this.pickerCtrl.create(opts)
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('energyTypeOptions');
+      this.energyTypeFilterKey = col.options[col.selectedIndex].value;
+      console.log("Filter Key:", this.energyTypeFilterKey);
+      this.displayOrderList = this.allOrders.filter(order => order.device_type_name == this.energyTypeFilterKey);
+    }
+    );
+  }
+
+  editSellOrder(order: any) {
+    this.router.navigate(['/sell-time-picker'], {
+      queryParams: {
+        action: ACTION_EDIT,
+        sellOrderId: order.sell_order_id,
+        sellerId: this.userId,
+        userDeviceId: order.user_device_id,
+        deviceTypeId: order.device_type_id,
+        powerToSell: order.power_to_sell,
+        startTime: order.transfer_start_ts,
+        endTime: order.transfer_end_ts
+      }
+    });
+  }
+
+  async cancelModal(order: any , orderType: any) {
+    let defg= await this.modal.create({
+      component: CancelNonTradeHourPage,
+      cssClass: 'cancel-custom-modal-css',
+      componentProps: {
+        'orderId': this.getOrderId(order),
+        'orderType': orderType
+      }
+    })
+    return await defg.present();
   }
 }

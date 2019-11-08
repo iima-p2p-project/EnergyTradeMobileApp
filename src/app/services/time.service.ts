@@ -27,35 +27,40 @@ export class TimeService {
   constructor() { }
 
   getDuration(startTime: string, endTime: string, userRole: string) {
-    if(userRole==ADMIN_ROLE) {
-      if(this.startTime!=null) {
-        this.startTime = startTime.substring(0,10) + ' ' + startTime.substring(11,16) + ':00';
+    if (userRole == ADMIN_ROLE) {
+      if (this.startTime != null) {
+        this.startTime = startTime.substring(0, 10) + ' ' + startTime.substring(11, 16) + ':00';
       }
-      if(this.endTime!=null) {
-        this.endTime = endTime.substring(0,10) + ' ' + endTime.substring(11,16) + ':00';
+      if (this.endTime != null) {
+        this.endTime = endTime.substring(0, 10) + ' ' + endTime.substring(11, 16) + ':00';
       }
     }
-    if(userRole==USER_ROLE) {
-      if(this.startTime!=null) {
-        this.startTime = startTime.substring(0,17)+'00.000';
+    if (userRole == USER_ROLE) {
+      if (this.startTime != null) {
+        this.startTime = startTime.substring(0, 17) + '00.000';
       }
-      if(this.endTime!=null) {
-        this.endTime = endTime.substring(0,17)+'00.000';
+      if (this.endTime != null) {
+        this.endTime = endTime.substring(0, 17) + '00.000';
       }
     }
     var duration = moment.duration(moment(endTime).diff(moment(startTime)));
     this.dayDiff = duration.asDays();
     this.hourDiff = duration.asHours();
     this.minDiff = Math.round(duration.asMinutes());
-    this.durationInHours = Math.floor(this.minDiff/60);
-    this.durationInMins = this.minDiff%60;
-    if(parseInt(this.durationInHours)<10) {
-      this.durationInHours = '0' + this.durationInHours;
+    this.durationInHours = Math.floor(this.minDiff / 60);
+    this.durationInMins = this.minDiff % 60;
+    if (this.durationInMins > 0) {
+      if (parseInt(this.durationInHours) < 10) {
+        this.durationInHours = '0' + this.durationInHours;
+      }
+      if (parseInt(this.durationInMins) < 10) {
+        this.durationInMins = '0' + this.durationInMins;
+      }
+
+      this.duration = this.durationInHours + ":" + this.durationInMins;
+    } else {
+      this.duration = "INVALID";
     }
-    if(parseInt(this.durationInMins)<10) {
-      this.durationInMins = '0' + this.durationInMins;
-    }
-    this.duration = this.durationInHours+":"+this.durationInMins;
     return this.duration;
   }
 
@@ -65,10 +70,10 @@ export class TimeService {
     //console.log('start time display : ' , moment(startTime).format('hh:mm A'));
     this.startTimeDetails = this.startTimeDetails.toUpperCase();
     this.isStartTimeSelected = true;
-    if(this.isStartTimeSelected && this.isEndTimeSelected) {
-      this.duration = this.getDuration(startTime,endTime,userRole);
+    if (this.isStartTimeSelected && this.isEndTimeSelected) {
+      this.duration = this.getDuration(startTime, endTime, userRole);
     }
-    return {startTimeDetails: this.startTimeDetails, duration: this.duration};
+    return { startTimeDetails: this.startTimeDetails, duration: this.duration };
   }
 
   getEndTimeDetails(startTime: string, endTime: string, userRole: string) {
@@ -76,9 +81,9 @@ export class TimeService {
     this.endTimeDetails = moment(endTime).format('ddd, DD MMM');
     this.endTimeDetails = this.endTimeDetails.toUpperCase();
     this.isEndTimeSelected = true;
-    if(this.isStartTimeSelected && this.isEndTimeSelected) {
-      this.duration = this.getDuration(startTime,endTime,userRole);
+    if (this.isStartTimeSelected && this.isEndTimeSelected) {
+      this.duration = this.getDuration(startTime, endTime, userRole);
     }
-    return {endTimeDetails: this.endTimeDetails, duration: this.duration};
+    return { endTimeDetails: this.endTimeDetails, duration: this.duration };
   }
 }
