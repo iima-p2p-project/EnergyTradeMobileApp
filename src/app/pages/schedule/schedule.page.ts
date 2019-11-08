@@ -113,9 +113,11 @@ export class SchedulePage implements OnInit {
 
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned !== null) {
+        console.log('locality data : ' , dataReturned);
         this.dataFromLocalityModal = dataReturned.data;
         this.selectedLocality = this.dataFromLocalityModal.selectedLocalityName;
         this.selectedLocalityId = this.dataFromLocalityModal.selectedLocalityId;
+        this.location = this.selectedLocality;
       }
     });
     return await modal.present();

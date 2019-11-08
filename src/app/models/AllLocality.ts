@@ -1,7 +1,7 @@
 import { AllUser } from './AllUser';
 import { StateBoardMapping } from './StateBoardMapping';
 
-export class AllState{
+export class AllLocality{
     localityId?: number;
     activeStatus?: any;
     createdBy?: string;
