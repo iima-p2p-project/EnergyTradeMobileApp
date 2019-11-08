@@ -8,6 +8,7 @@ import { RegisterPayload } from 'src/app/models/RegisterPayload';
 import { ENABLE_SERVICES } from 'src/app/environments/environments'
 import { ModalController } from '@ionic/angular';
 import { StateModalPage } from './selectState';
+import { LocalityModalPage } from './selectLocality';
 import { BoardModalPage } from './selectBoard';
 
 @Component({
@@ -35,12 +36,15 @@ export class RegisterPage implements OnInit {
 
   dataFromStateModal: any;
   dataFromBoardModal: any;
+  dataFromLocalityModal: any;
 
   selectedState: string;
   selectedBoard: string;
+  selectedLocality: string;
 
   selectedStateId: number;
   selectedBoardId: number;
+  selectedLocalityId: number;
 
 
   constructor(private ingressService: IngressService
@@ -57,6 +61,7 @@ export class RegisterPage implements OnInit {
       });
       this.selectedState = "";
       this.selectedBoard = "";
+      this.selectedLocality = "";
     }
 
   ngOnInit() {
@@ -82,6 +87,7 @@ export class RegisterPage implements OnInit {
     this.registerPayload.fullName = this.fullName;
     this.registerPayload.email = this.registerForm.get('email').value;
     this.registerPayload.stateId = this.selectedStateId;
+    this.registerPayload.localityId = this.selectedLocalityId;
     this.registerPayload.boardId = this.selectedBoardId;
     if(ENABLE_SERVICES) {
       this.ingressService.register(this.registerPayload).subscribe((res) => {
@@ -135,6 +141,21 @@ export class RegisterPage implements OnInit {
     return await modal.present();
   }
 
+  async openLocality_Modal() {
+    const modal = await this.modalController.create({
+      component: LocalityModalPage,
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        this.dataFromLocalityModal = dataReturned.data;
+        this.selectedLocality = this.dataFromLocalityModal.selectedLocalityName;
+        this.selectedLocalityId = this.dataFromLocalityModal.selectedLocalityId;
+      }
+    });
+    return await modal.present();
+  }
+  
   async openBoard_Modal() {
     const modal = await this.modalController.create({
       component: BoardModalPage,

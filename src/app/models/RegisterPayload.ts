@@ -3,5 +3,6 @@ export class RegisterPayload{
     fullName?: string;
     email?: string;
     stateId?: number;
+    localityId?: number;
     boardId?: number;
 }

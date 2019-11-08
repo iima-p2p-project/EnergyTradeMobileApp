@@ -79,19 +79,22 @@
           *ngIf="order.orderType == 'sell'">
           <ion-col size="6">
             <ion-button expand="full" fill="clear"
-              style="font-family:MSemiBold !important;font-size:1.2em;font-weight:800;">
+              style="font-family:MSemiBold !important;font-size:1.2em;font-weight:800;"
+              (click)="cancelModal(order, 'SELL')">
               CANCEL
             </ion-button>
           </ion-col>
           <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)">
             <ion-button expand="full" fill="clear"
-              style="font-family:MSemiBold !important;font-size:1.2em;font-weight:800;">
+              style="font-family:MSemiBold !important;font-size:1.2em;font-weight:800;"
+              (click)="editSellOrder(order)">
               EDIT
             </ion-button>
           </ion-col>
         </ion-row>
         <ion-row style="border-top:0.5px rgba(156, 156, 156, 0.685) solid;text-align:center;"
-          *ngIf="order.orderType == 'buy'">
+          *ngIf="order.orderType == 'buy'"
+          (click)="cancelModal(order, 'BUY')">
           <ion-col size="12">
             <ion-button expand="full" fill="clear"
               style="font-family:MSemiBold !important;font-size:1.2em;font-weight:800; text-align: center;">

@@ -4,6 +4,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { IngressService } from 'src/app/services/ingress.service';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
+import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-dashboard',
@@ -141,6 +142,7 @@ export class DashboardPage implements OnInit {
       console.log('user id from dashboard : ', this.userId);
       this.router.navigate(['/sell-time-picker'], {
         queryParams: {
+          action: ACTION_CREATE,
           sellerId: this.userId,
           userDeviceId: this.userDeviceId,
           deviceTypeId: this.deviceTypeId,

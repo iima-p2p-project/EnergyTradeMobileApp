@@ -5,7 +5,9 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { NonTradeHourPayload } from 'src/app/models/NonTradeHourPayload';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
+import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
+import { LocalityModalPage } from './selectLocality';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-schedule',
@@ -28,6 +30,10 @@ export class SchedulePage implements OnInit {
 
   btnLabel: any;
   header: any;
+  
+  dataFromLocalityModal: any;
+  selectedLocality: string;
+  selectedLocalityId: number;
 
   nonTradeHourPayload: NonTradeHourPayload = {};
 
@@ -35,7 +41,8 @@ export class SchedulePage implements OnInit {
     , private ingressService: IngressService
     , private adminService: AdminService
     , private router: Router
-    , private route: ActivatedRoute) { }
+    , private route: ActivatedRoute
+    , public modalController: ModalController) { }
 
   ngOnInit() {
   }
@@ -43,6 +50,7 @@ export class SchedulePage implements OnInit {
   ionViewDidEnter() {
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
+      console.log('ACTION : ' , this.action);
       if(this.action==ACTION_EDIT) {
         this.startTime = params['startTime'];
         this.endTime = params['endTime'];
@@ -96,5 +104,20 @@ export class SchedulePage implements OnInit {
         console.log('response from create non trade hours service : ' , res);
       }); 
     }
+  }
+
+  async openLocality_Modal() {
+    const modal = await this.modalController.create({
+      component: LocalityModalPage,
+    });
+
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        this.dataFromLocalityModal = dataReturned.data;
+        this.selectedLocality = this.dataFromLocalityModal.selectedLocalityName;
+        this.selectedLocalityId = this.dataFromLocalityModal.selectedLocalityId;
+      }
+    });
+    return await modal.present();
   }
 }

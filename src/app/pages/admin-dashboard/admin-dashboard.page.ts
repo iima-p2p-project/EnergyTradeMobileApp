@@ -22,7 +22,9 @@ export class AdminDashboardPage implements OnInit {
   allBuyLeads: any;
   allSellLeads: any;
   userId: any;
-
+  buyLeadsCount: any;
+  sellLeadsCount: any;
+  
   constructor(private router: Router,
     private route: ActivatedRoute,
     public modal:ModalController,
@@ -63,12 +65,13 @@ export class AdminDashboardPage implements OnInit {
     })
   }
 
-  async cancelModal(nonTradeHour: any) {
+  async cancelModal(nonTradeHour: any , orderType: any) {
     let defg= await this.modal.create({
       component: CancelNonTradeHourPage,
       cssClass: 'cancel-custom-modal-css',
       componentProps: {
-        'nonTradeHourId': nonTradeHour.nonTradeHourId,
+        'orderId': nonTradeHour.nonTradeHourId,
+        'orderType': orderType
       }
     })
     return await defg.present();
@@ -117,6 +120,14 @@ export class AdminDashboardPage implements OnInit {
   showSellLeads() {
     this.router.navigate(['/total-sell-leads'], {
       queryParams: {
+      }
+    });
+  }
+
+  schedule() {
+    this.router.navigate(['/schedule'], {
+      queryParams: {
+        action: ACTION_CREATE
       }
     });
   }

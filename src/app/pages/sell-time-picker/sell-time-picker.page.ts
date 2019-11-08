@@ -5,7 +5,7 @@ import { IonDatetime, Platform, AlertController } from '@ionic/angular';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import * as moment from 'moment';
 import { TimeService } from 'src/app/services/time.service';
-import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
+import { USER_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-sell-time-picker',
@@ -40,6 +40,8 @@ export class SellTimePickerPage implements OnInit {
   deviceTypeId: any;
   inputsValidFlag = false;
 
+  sellOrderId: any;
+  action: any;
 
   constructor(private router: Router,
     private platform: Platform,
@@ -69,10 +71,24 @@ export class SellTimePickerPage implements OnInit {
 
   ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
-      this.power = params['powerToSell'];
-      this.sellerId = params['sellerId'];
-      this.userDeviceId = params['userDeviceId'];
-      this.deviceTypeId = params['deviceTypeId'];
+      this.action = params['action'];
+      if(this.action == ACTION_CREATE) {
+        this.power = params['powerToSell'];
+        this.sellerId = params['sellerId'];
+        this.userDeviceId = params['userDeviceId'];
+        this.deviceTypeId = params['deviceTypeId'];
+      }
+      if(this.action == ACTION_EDIT) {
+        this.sellOrderId = params['sellOrderId'];
+        this.startTime = params['startTime'];
+        this.endTime = params['endTime'];
+        this.power = params['powerToSell'];
+        this.sellerId = params['sellerId'];
+        this.userDeviceId = params['userDeviceId'];
+        this.deviceTypeId = params['deviceTypeId'];
+        this.getStartTimeDetails();
+        this.getEndTimeDetails();
+      }
       console.log('sell time picker user device id : ', this.userDeviceId);
       console.log('sell time picker device type id : ', this.deviceTypeId);
       console.log('sell time picker seller id : ', this.sellerId);
@@ -115,6 +131,8 @@ export class SellTimePickerPage implements OnInit {
     if (this.inputsValidFlag) {
       this.router.navigate(['/sell-rate-set'], {
         queryParams: {
+          action: this.action,
+          sellOrderId: this.sellOrderId,
           sellerId: this.sellerId,
           userDeviceId: this.userDeviceId,
           deviceTypeId: this.deviceTypeId,

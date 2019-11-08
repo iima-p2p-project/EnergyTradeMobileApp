@@ -58,6 +58,7 @@ export class CreateAccountPage implements OnInit {
   }
 
   continueToRegister() {
+    console.log('test');
     this.fullName = this.createAccountForm.get('fullName').value;
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
     this.otp = this.createAccountForm.get('otp').value;

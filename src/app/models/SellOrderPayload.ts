@@ -1,4 +1,5 @@
 export class SellOrderPayload{
+    sellOrderId?: any;
     sellerId?: any;
     deviceTypeId?: any;
     userDeviceId?: any;

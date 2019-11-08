@@ -4,6 +4,10 @@ import { IngressService } from 'src/app/services/ingress.service';
 import * as moment from 'moment';
 import { PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
+import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
+import { ModalController, NavController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-manage-orders',
@@ -29,7 +33,10 @@ export class ManageOrdersPage implements OnInit {
   constructor(private orderService: OrderService
     , private ingressService: IngressService
     , private cdr: ChangeDetectorRef
-    , private pickerCtrl: PickerController) { }
+    , private pickerCtrl: PickerController
+    , public modal:ModalController
+    , private router: Router
+    , private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -176,5 +183,32 @@ export class ManageOrdersPage implements OnInit {
       this.displayOrderList = this.allOrders.filter(order => order.device_type_name == this.energyTypeFilterKey);
     }
     );
+  }
+
+  editSellOrder(order: any) {
+    this.router.navigate(['/sell-time-picker'], {
+      queryParams: {
+        action: ACTION_EDIT,
+        sellOrderId: order.sell_order_id,
+        sellerId: this.userId,
+        userDeviceId: order.user_device_id,
+        deviceTypeId: order.device_type_id,
+        powerToSell: order.power_to_sell,
+        startTime: order.transfer_start_ts,
+        endTime: order.transfer_end_ts
+      }
+    });
+  }
+
+  async cancelModal(order: any , orderType: any) {
+    let defg= await this.modal.create({
+      component: CancelNonTradeHourPage,
+      cssClass: 'cancel-custom-modal-css',
+      componentProps: {
+        'orderId': this.getOrderId(order),
+        'orderType': orderType
+      }
+    })
+    return await defg.present();
   }
 }

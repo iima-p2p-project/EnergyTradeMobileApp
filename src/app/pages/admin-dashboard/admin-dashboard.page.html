@@ -56,7 +56,7 @@
                         <ion-col size="6">
                             <ion-button size="small" expand="full" fill="clear" 
                               style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
-                              (click)="cancelModal(nonTradeHour)">
+                              (click)="cancelModal(nonTradeHour, 'NONTRADEHOUR')">
                               CANCEL
                             </ion-button>
                         </ion-col>
@@ -73,7 +73,8 @@
         </ion-grid>
         <ion-row class="ion-text-center">
           <ion-col>
-            <ion-button shape="round" color="dark" style="width:70%;font-family:MMedium !important;" routerDirection="forward" routerLink="/schedule">
+            <ion-button shape="round" color="dark" style="width:70%;font-family:MMedium !important;" 
+            (click)="schedule()">
               SCHEDULE
             </ion-button>
           </ion-col>
