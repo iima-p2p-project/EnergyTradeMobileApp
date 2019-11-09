@@ -21,6 +21,9 @@ export class LoginPage implements OnInit {
   otp: string;
 
   userId: any;
+  stateId: any;
+  boardId: any;
+  localityId: any;
   userRole: any;
   userData: any;
   responseFromService: any;
@@ -70,12 +73,23 @@ export class LoginPage implements OnInit {
       if (this.responseFromService.response.key == 200) {
         console.log('login response : ' , this.responseFromService);
         this.userId = this.responseFromService.response.userId;
+        this.stateId = this.responseFromService.response.stateId;
+        this.boardId = this.responseFromService.response.boardId;
+        this.localityId = this.responseFromService.response.localityId;
         this.userRole = this.responseFromService.response.userRole;
         this.ingressService.setLoggedInUserId(this.userId);
+        this.ingressService.loggedInUserRole = this.userRole;
+        this.ingressService.loggedInUserStateId = this.stateId;
+        this.ingressService.loggedInUserLocalityId = this.localityId;
+        this.ingressService.loggedInUserBoardId = this.boardId;
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
           this.responseFromService = res;
           this.ingressService.setUserDevices(this.responseFromService.response.devices);
           this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
+          this.storage.set('LoggedInUserRole', this.userRole);
+          this.storage.set('LoggedInUserStateId', this.stateId);
+          this.storage.set('LoggedInUserLocalityId', this.localityId);
+          this.storage.set('LoggedInUserBoardId', this.boardId);
           this.storage.set('LoggedInUserId', this.userId).then(() => {
             this.ingressService.printStorageKeyValue('LoggedInUserId');
             this.ingressService.printStorageKeyValue('LoggedInUserDevices');

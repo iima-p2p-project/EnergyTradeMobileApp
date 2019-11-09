@@ -16,12 +16,17 @@ export class IngressService {
   verifyOtpUrl = INGRESS_URL + '/verifyOtp';
   getAllStateUrl = INGRESS_URL + '/getAllState';
   getStateBoardMappingUrl = INGRESS_URL + '/getStateBoardMapping';
+  getStateLocalityMappingUrl = INGRESS_URL + '/getStateLocalityMapping';
   registerUrl = INGRESS_URL + '/registerUser';
   addDeviceUrl = INGRESS_URL + '/addDevice';
   getUserDevicesUrl = INGRESS_URL + '/getUserDevices';
 
   loggedInUser: AllUser;
   loggedInUserId: string;
+  loggedInUserRole: string;
+  loggedInUserStateId: string;
+  loggedInUserBoardId: string;
+  loggedInUserLocalityId: string;
 
 
   userDevicesList: any;
@@ -100,6 +105,16 @@ export class IngressService {
     );
   }
 
+  getLocalityFromSelectedState(stateId: string) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.get(this.getStateLocalityMappingUrl + '/' + stateId
+      , options
+    );
+  }
+
   register(user: any) {
     console.log('register payload : ' , user);
     var options = {
@@ -172,6 +187,21 @@ export class IngressService {
     }
     console.log('user id token : ' , this.loggedInUserId);
     return this.loggedInUserId;
+  }
+
+  async getUserStateToken() {
+    console.log("get token");
+    if (!this.loggedInUserStateId) {
+      console.log("storage token");
+      await this.storage.ready();
+      const token = await this.storage.get('LoggedInUserStateId');
+      if (token) {
+        console.log("storage token recieved");
+        this.loggedInUserStateId = token;
+      }
+    }
+    console.log('user state token : ' , this.loggedInUserStateId);
+    return this.loggedInUserStateId;
   }
 
   async getUserDevicesToken() {

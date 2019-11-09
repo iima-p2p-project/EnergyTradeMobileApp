@@ -27,7 +27,7 @@ export class ForecastListPage implements OnInit {
         this.forecastService.getForecasts(this.userId).subscribe((res) => {
           this.resFromServer = res;
           console.log('forecast response : ' , this.resFromServer);
-          this.forecastList = this.resFromServer.allForecasts;
+          this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
         });
       }
     })

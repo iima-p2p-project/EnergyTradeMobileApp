@@ -3,5 +3,6 @@ export class NonTradeHourPayload{
     startTime?: string;
     endTime?: string;
     nonTradeReason?: string;
+    localityId?: string;
     location?: string;
 }

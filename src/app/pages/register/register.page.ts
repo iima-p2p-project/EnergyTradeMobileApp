@@ -144,6 +144,9 @@ export class RegisterPage implements OnInit {
   async openLocality_Modal() {
     const modal = await this.modalController.create({
       component: LocalityModalPage,
+      componentProps: {
+        'stateId': this.selectedStateId
+      }
     });
 
     modal.onDidDismiss().then((dataReturned) => {

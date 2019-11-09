@@ -22,6 +22,7 @@ export class AdminDashboardPage implements OnInit {
   allBuyLeads: any;
   allSellLeads: any;
   userId: any;
+  userStateId: any;
   buyLeadsCount: any;
   sellLeadsCount: any;
   
@@ -41,24 +42,28 @@ export class AdminDashboardPage implements OnInit {
   ionViewDidEnter() {
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
-      this.ingressService.loggedInUserId = this.userId;
       if (this.userId) {
-        this.adminService.getAllNonTradeHours(this.userId).subscribe((res) => {
-          this.resFromServer = res;
-          console.log('Non Trade Hours : ' , this.resFromServer);
-          this.nonTradeHourList = this.resFromServer.response.data;
-          this.adminService.nonTradeHoursList = this.nonTradeHourList;
-          this.adminService.getAllBuyLeads(this.userId).subscribe((res) => {
+        this.ingressService.loggedInUserId = this.userId;
+        this.ingressService.getUserStateToken().then((res) => {
+          this.userStateId = res;
+          this.ingressService.loggedInUserStateId = this.userStateId;
+          this.adminService.getAllNonTradeHours(this.userId).subscribe((res) => {
             this.resFromServer = res;
-            console.log('Buy Leads : ' , this.resFromServer);
-            this.allBuyLeads = this.resFromServer.response.response;
-            this.adminService.allBuyLeads = this.allBuyLeads;
-            this.adminService.getAllSellLeads(this.userId).subscribe((res) => {
+            console.log('Non Trade Hours : ', this.resFromServer);
+            this.nonTradeHourList = this.resFromServer.response.data;
+            this.adminService.nonTradeHoursList = this.nonTradeHourList;
+            this.adminService.getAllBuyLeads(this.userId).subscribe((res) => {
               this.resFromServer = res;
-              console.log('Sell Leads : ' , this.resFromServer);
-              this.allSellLeads = this.resFromServer.response.response;
-              this.adminService.allSellLeads = this.allSellLeads;
-            })
+              console.log('Buy Leads : ', this.resFromServer);
+              this.allBuyLeads = this.resFromServer.response.response;
+              this.adminService.allBuyLeads = this.allBuyLeads;
+              this.adminService.getAllSellLeads(this.userId).subscribe((res) => {
+                this.resFromServer = res;
+                console.log('Sell Leads : ', this.resFromServer);
+                this.allSellLeads = this.resFromServer.response.response;
+                this.adminService.allSellLeads = this.allSellLeads;
+              })
+            });
           });
         });
       }
@@ -93,6 +98,8 @@ export class AdminDashboardPage implements OnInit {
       queryParams: {
         action: ACTION_EDIT,
         nonTradeHourId: nonTradeHour.nonTradeHourId,
+        stateId: this.userStateId,
+        location: nonTradeHour.locationName,
         startTime: nonTradeHour.startTime,
         endTime: nonTradeHour.endTi8me
       }
@@ -127,7 +134,8 @@ export class AdminDashboardPage implements OnInit {
   schedule() {
     this.router.navigate(['/schedule'], {
       queryParams: {
-        action: ACTION_CREATE
+        action: ACTION_CREATE,
+        stateId: this.userStateId
       }
     });
   }
