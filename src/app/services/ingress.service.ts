@@ -85,7 +85,7 @@ export class IngressService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.post(this.getAllStateUrl
+    return this.httpClient.get(this.getAllStateUrl
       , options
     );
   }
@@ -95,12 +95,13 @@ export class IngressService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.post(this.getStateBoardMappingUrl + '/' + stateId
+    return this.httpClient.get(this.getStateBoardMappingUrl + '/' + stateId
       , options
     );
   }
 
   register(user: any) {
+    console.log('register payload : ' , user);
     var options = {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')

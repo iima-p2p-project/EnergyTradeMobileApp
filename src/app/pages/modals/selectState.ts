@@ -3,6 +3,7 @@ import { NavParams } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { AllState } from 'src/app/models/AllState';
 import { StateService } from 'src/app/services/state.service';
+import { IngressService } from 'src/app/services/ingress.service';
 
 @Component({
   selector: 'state-modal-page',
@@ -11,17 +12,22 @@ import { StateService } from 'src/app/services/state.service';
 export class StateModalPage {
 
   stateList: any;
-
   selectedState: string;
+  resFromService: any;
 
   constructor(private navP : NavParams 
     , public modalController: ModalController
-    , private stateService: StateService) {
+    , private stateService: StateService
+    , private ingressService: IngressService) {
   }
 
   ionViewDidEnter() {
-    this.stateList = this.stateService.getStateList();
-    console.log(this.stateList);
+    this.ingressService.getAllStates().subscribe((res => {
+      this.resFromService = res;
+      console.log('list of states from server : ' , this.resFromService);
+      this.stateList = this.resFromService.response;
+    }));
+    
   }
 
   dismiss() {

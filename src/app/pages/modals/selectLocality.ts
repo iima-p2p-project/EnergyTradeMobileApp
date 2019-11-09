@@ -3,6 +3,7 @@ import { NavParams } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { AllState } from 'src/app/models/AllState';
 import { StateService } from 'src/app/services/state.service';
+import { LocalityService } from 'src/app/services/locality.service';
 
 @Component({
   selector: 'locality-modal-page',
@@ -16,11 +17,12 @@ export class LocalityModalPage {
 
   constructor(private navP : NavParams 
     , public modalController: ModalController
-    , private stateService: StateService) {
+    , private stateService: StateService
+    , private localityService: LocalityService) {
   }
 
   ionViewDidEnter() {
-    this.localityList = this.stateService.getStateList();
+    this.localityList = this.localityService.getLocalityList();
     console.log(this.localityList);
   }
 

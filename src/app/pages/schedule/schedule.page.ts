@@ -6,7 +6,7 @@ import { NonTradeHourPayload } from 'src/app/models/NonTradeHourPayload';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
-import { LocalityModalPage } from './selectLocality';
+import { LocalityModalPage } from '../modals/selectLocality';
 import { ModalController } from '@ionic/angular';
 
 @Component({

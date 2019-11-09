@@ -8,9 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { StateModalPage } from '../app/pages/register/selectState';
-import { BoardModalPage } from '../app/pages/register/selectBoard';
-import { LocalityModalPage } from '../app/pages/schedule/selectLocality';
+import { StateModalPage } from './pages/modals/selectState';
+import { BoardModalPage } from './pages/modals/selectBoard';
+import { LocalityModalPage } from './pages/modals/selectLocality';
 
 import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
 import { BuyPostSuccessPageModule} from './pages/buy-post-success/buy-post-success.module';

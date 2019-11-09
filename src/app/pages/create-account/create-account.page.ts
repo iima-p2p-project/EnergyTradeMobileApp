@@ -58,14 +58,17 @@ export class CreateAccountPage implements OnInit {
   }
 
   continueToRegister() {
-    console.log('test');
     this.fullName = this.createAccountForm.get('fullName').value;
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
     this.otp = this.createAccountForm.get('otp').value;
+    console.log(this.fullName);
+    console.log(this.phoneNumber);
+    console.log(this.otp);
     if(ENABLE_SERVICES) {
       this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
         this.responseFromService = res;
-        if(this.responseFromService.response.key == 200) {
+        console.log('response from register service : ' , this.responseFromService.response.key);
+        if(this.responseFromService.response.key == 500) {
           this.userId=this.responseFromService.response.userId;
           this.router.navigate(['/register'], {
             queryParams: {
