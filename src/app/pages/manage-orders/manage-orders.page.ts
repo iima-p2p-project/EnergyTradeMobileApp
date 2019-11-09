@@ -97,25 +97,25 @@ export class ManageOrdersPage implements OnInit {
     this.displayOrderList = this.orderListUpdated;
     this.displayOrderList.sort((ts1, ts2) => {
       return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
-    })
+    });
     this.allOrders = this.orderListUpdated;
-    this.cancelledOrders = this.orderListUpdated.filter(order => order.active_status == '2');
-    this.futureOrders = this.orderListUpdated.filter(order => moment(order.transfer_start_ts).isAfter(moment.now()));
-    this.pastOrders = this.orderListUpdated.filter(order => moment(order.transfer_start_ts).isBefore(moment.now()));
+    this.cancelledOrders = this.orderListUpdated.filter(order => order.orderStatus == "cancelled");
+    this.futureOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isAfter(moment.now()));
+    this.pastOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isBefore(moment.now()));
   }
 
-  getOrderId(order: any) {
-    if (order.seller_id) {
-      this.orderTypeImageUrl = "assets/svg/sell (1).svg";
-      this.orderType = 'SELL';
-      return order.sell_order_id;
-    }
-    if (order.buyer_id) {
-      this.orderTypeImageUrl = "assets/svg/buy (1).svg";
-      this.orderType = 'BUY';
-      return order.contract_id;
-    }
-  }
+  // getOrderId(order: any) {
+  //   if (order.seller_id) {
+  //     this.orderTypeImageUrl = "assets/svg/sell (1).svg";
+  //     this.orderType = 'SELL';
+  //     return order.sell_order_id;
+  //   }
+  //   if (order.buyer_id) {
+  //     this.orderTypeImageUrl = "assets/svg/buy (1).svg";
+  //     this.orderType = 'BUY';
+  //     return order.contract_id;
+  //   }
+  // }
 
   formatTime(ts, type) {
     if (type == 't')
@@ -205,7 +205,7 @@ export class ManageOrdersPage implements OnInit {
       let col = await picker.getColumn('energyTypeOptions');
       this.energyTypeFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.energyTypeFilterKey);
-      this.displayOrderList = this.allOrders.filter(order => order.device_type_name == this.energyTypeFilterKey);
+      this.displayOrderList = this.allOrders.filter(order => order.deviceTypeName == this.energyTypeFilterKey);
     }
     );
   }
@@ -214,13 +214,13 @@ export class ManageOrdersPage implements OnInit {
     this.router.navigate(['/sell-time-picker'], {
       queryParams: {
         action: ACTION_EDIT,
-        sellOrderId: order.sell_order_id,
+        sellOrderId: order.sell_order_id, //has to be updated
         sellerId: this.userId,
-        userDeviceId: order.user_device_id,
-        deviceTypeId: order.device_type_id,
-        powerToSell: order.power_to_sell,
-        startTime: order.transfer_start_ts,
-        endTime: order.transfer_end_ts
+        userDeviceId: order.user_device_id, //has to be updated
+        deviceTypeId: order.device_type_id, // has to be updated
+        powerToSell: order.powerToSell,
+        startTime: order.transferStartTs,
+        endTime: order.transferEndTs
       }
     });
   }
@@ -230,7 +230,7 @@ export class ManageOrdersPage implements OnInit {
       component: CancelNonTradeHourPage,
       cssClass: 'cancel-custom-modal-css',
       componentProps: {
-        'orderId': this.getOrderId(order),
+        'orderId': order.orderId,
         'orderType': orderType
       }
     })
