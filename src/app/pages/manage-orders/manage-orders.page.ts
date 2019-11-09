@@ -46,11 +46,11 @@ export class ManageOrdersPage implements OnInit {
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
       if (this.userId) {
-        this.orderService.getAllOrdersAndContracts(this.userId).subscribe((res) => {
+        this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
           this.resFromServer = res;
-          this.orderList = this.resFromServer.ordersAndContracts;
+          //this.orderList = this.resFromServer.ordersAndContracts;
 
-          console.log("Orders List:", this.allOrders);
+          console.log("Orders List:", res);
           this.orderService.orderList = this.orderList;
           this.fineTuneOrderList();
         });

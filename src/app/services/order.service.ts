@@ -16,6 +16,7 @@ export class OrderService {
   cancelSellOrderUrl = ORDER_URL + 'updateSellOrder';
   cancelBuyOrderUrl = ORDER_URL + 'updateContractOrder';
   editSellOrderUrl = ORDER_URL + 'editSellOrder';
+  getAllOrdersByUserUrl = ORDER_URL + 'getAllOrdersByUser';
 
   orderList: any;
   sellerList: any;
@@ -126,15 +127,14 @@ export class OrderService {
     console.log('Sell Order List : ' , this.sellOrderList);
   }
 
-  getAllOrdersAndContracts(userId: any) {
-    console.log('getAllOrdersAndContracts user id : ' , userId);
+  getAllOrdersByUser(userId: any) {
+    console.log('getAllOrdersByUser user id : ' , userId);
     var options = {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.post(this.getAllOrdersAndContractsUrl
-      , {"userId": userId}
-      , options
+    return this.httpClient.get(this.getAllOrdersByUserUrl + '/' + userId,
+      options
     );
   }
 
