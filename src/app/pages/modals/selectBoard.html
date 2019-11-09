@@ -6,7 +6,7 @@
           <ion-icon name="arrow-back" class="iconLEFT" (click)="dismiss()"></ion-icon>
       </ion-buttons>
       <ion-title class="__title">
-          SELECT LOCALITY
+          SELECT BOARD
       </ion-title>
     </ion-toolbar>
   
@@ -18,15 +18,14 @@
     <div class="content-main">
 
         <div class="List_">
-            <div class="Label_GetLocation">
+            <!--<div class="Label_GetLocation">
                     <ion-icon name="navigate"></ion-icon>
                 <p class="P_">Current Location</p>
-            </div>
+            </div>-->
 
             <div class="Label_Locations">
-                <h3 class="Li_" *ngFor="let locality of localityList" (click)="selectLocality(locality)">{{locality.localityName}}</h3>
+                <h3 class="Li_" *ngFor="let board of boardList" (click)="selectBoard(board)">{{board.boardName}}</h3>
             </div>
-            
         </div>
 
         </div>

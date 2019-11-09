@@ -7,9 +7,9 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { RegisterPayload } from 'src/app/models/RegisterPayload';
 import { ENABLE_SERVICES } from 'src/app/environments/environments'
 import { ModalController } from '@ionic/angular';
-import { StateModalPage } from './selectState';
-import { LocalityModalPage } from './selectLocality';
-import { BoardModalPage } from './selectBoard';
+import { StateModalPage } from '../modals/selectState';
+import { LocalityModalPage } from '../modals/selectLocality';
+import { BoardModalPage } from '../modals/selectBoard';
 
 @Component({
   selector: 'app-register',
@@ -159,12 +159,18 @@ export class RegisterPage implements OnInit {
   async openBoard_Modal() {
     const modal = await this.modalController.create({
       component: BoardModalPage,
+      componentProps: {
+        'stateId': this.selectedStateId
+      }
     });
 
     modal.onDidDismiss().then((dataReturned) => {
       if (dataReturned !== null) {
         this.dataFromBoardModal = dataReturned.data;
         this.selectedBoard = this.dataFromBoardModal.selectedBoardName;
+        console.log('first index of : ' , this.selectedBoard.indexOf('('));
+        console.log('last index of : ' , this.selectedBoard.indexOf(')'));
+        this.selectedBoard = this.selectedBoard.substring(this.selectedBoard.indexOf('(')+1 , this.selectedBoard.indexOf(')'));
         this.selectedBoardId = this.dataFromBoardModal.selectedBoardId;
       }
     });
