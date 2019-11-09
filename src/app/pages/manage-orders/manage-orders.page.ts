@@ -29,12 +29,13 @@ export class ManageOrdersPage implements OnInit {
   displayOrderList;
   monthFilterKey;
   energyTypeFilterKey;
+  allOrdersAndContracts = [];
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
     , private cdr: ChangeDetectorRef
     , private pickerCtrl: PickerController
-    , public modal:ModalController
+    , public modal: ModalController
     , private router: Router
     , private route: ActivatedRoute) { }
 
@@ -50,8 +51,20 @@ export class ManageOrdersPage implements OnInit {
           this.resFromServer = res;
           //this.orderList = this.resFromServer.ordersAndContracts;
 
-          console.log("Orders List:", res);
-          this.orderService.orderList = this.orderList;
+          console.log("Orders List:", this.resFromServer.response);
+          this.orderService.orderList = this.resFromServer.response;
+          //combining orders and contracts
+          if (this.resFromServer.response.sellOrders) {
+            for (let i = 0; i < this.resFromServer.response.sellOrders.length; i++) {
+              this.allOrdersAndContracts.push(this.resFromServer.response.sellOrders[i]);
+            }
+          }
+          if (this.resFromServer.response.contracts) {
+            for (let i = 0; i < this.resFromServer.response.contracts.length; i++) {
+              this.allOrdersAndContracts.push(this.resFromServer.response.contracts[i]);
+            }
+          }
+          console.log("All Sell Orders and contracts: ", this.allOrdersAndContracts);
           this.fineTuneOrderList();
         });
       }
@@ -59,38 +72,50 @@ export class ManageOrdersPage implements OnInit {
   }
 
   fineTuneOrderList() {
-    for (var i = 0; i < this.orderList.length; i++) {
-      let obj = this.orderList[i];
-      if (obj.seller_id == this.userId) {
+    for (var i = 0; i < this.allOrdersAndContracts.length; i++) {
+      let obj = this.allOrdersAndContracts[i];
+      if (!obj.contractId) {
         obj.orderType = "sell";
-        obj.orderId = obj.sell_order_id;
-      } else if (obj.buyer_id == this.userId) {
+        obj.orderId = obj.sellOrderId;
+      } else if (obj.contractId) {
         obj.orderType = "buy";
-        obj.orderId = obj.contract_id;
+        obj.orderId = obj.contractId;
+        obj.powerToSell = obj.sellorder.powerToSell;
+        obj.totalAmount = obj.sellorder.totalAmount;
+        obj.deviceTypeName = obj.sellorder.deviceTypeName;
+        obj.transferStartTs = obj.sellorder.transferStartTs;
+        obj.transferEndTs = obj.sellorder.transferEndTs;
+
       }
-      obj.month = moment(obj.transfer_start_ts).format('M');
+      if (obj.orderType == "sell")
+        obj.month = moment(obj.transferStartTs).format('M');
+      else
+        obj.month = moment(obj.sellorder.transferStartTs).format('M');
       this.orderListUpdated.push(obj);
     }
     console.log("Updated orders list", this.orderListUpdated);
     this.displayOrderList = this.orderListUpdated;
+    this.displayOrderList.sort((ts1, ts2) => {
+      return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
+    });
     this.allOrders = this.orderListUpdated;
-    this.cancelledOrders = this.orderListUpdated.filter(order => order.active_status == '2');
-    this.futureOrders = this.orderListUpdated.filter(order => moment(order.transfer_start_ts).isAfter(moment.now()));
-    this.pastOrders = this.orderListUpdated.filter(order => moment(order.transfer_start_ts).isBefore(moment.now()));
+    this.cancelledOrders = this.orderListUpdated.filter(order => order.orderStatus == "cancelled");
+    this.futureOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isAfter(moment.now()));
+    this.pastOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isBefore(moment.now()));
   }
 
-  getOrderId(order: any) {
-    if (order.seller_id) {
-      this.orderTypeImageUrl = "assets/svg/sell (1).svg";
-      this.orderType = 'SELL';
-      return order.sell_order_id;
-    }
-    if (order.buyer_id) {
-      this.orderTypeImageUrl = "assets/svg/buy (1).svg";
-      this.orderType = 'BUY';
-      return order.contract_id;
-    }
-  }
+  // getOrderId(order: any) {
+  //   if (order.seller_id) {
+  //     this.orderTypeImageUrl = "assets/svg/sell (1).svg";
+  //     this.orderType = 'SELL';
+  //     return order.sell_order_id;
+  //   }
+  //   if (order.buyer_id) {
+  //     this.orderTypeImageUrl = "assets/svg/buy (1).svg";
+  //     this.orderType = 'BUY';
+  //     return order.contract_id;
+  //   }
+  // }
 
   formatTime(ts, type) {
     if (type == 't')
@@ -180,7 +205,7 @@ export class ManageOrdersPage implements OnInit {
       let col = await picker.getColumn('energyTypeOptions');
       this.energyTypeFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.energyTypeFilterKey);
-      this.displayOrderList = this.allOrders.filter(order => order.device_type_name == this.energyTypeFilterKey);
+      this.displayOrderList = this.allOrders.filter(order => order.deviceTypeName == this.energyTypeFilterKey);
     }
     );
   }
@@ -189,23 +214,23 @@ export class ManageOrdersPage implements OnInit {
     this.router.navigate(['/sell-time-picker'], {
       queryParams: {
         action: ACTION_EDIT,
-        sellOrderId: order.sell_order_id,
+        sellOrderId: order.sell_order_id, //has to be updated
         sellerId: this.userId,
-        userDeviceId: order.user_device_id,
-        deviceTypeId: order.device_type_id,
-        powerToSell: order.power_to_sell,
-        startTime: order.transfer_start_ts,
-        endTime: order.transfer_end_ts
+        userDeviceId: order.user_device_id, //has to be updated
+        deviceTypeId: order.device_type_id, // has to be updated
+        powerToSell: order.powerToSell,
+        startTime: order.transferStartTs,
+        endTime: order.transferEndTs
       }
     });
   }
 
-  async cancelModal(order: any , orderType: any) {
-    let defg= await this.modal.create({
+  async cancelModal(order: any, orderType: any) {
+    let defg = await this.modal.create({
       component: CancelNonTradeHourPage,
       cssClass: 'cancel-custom-modal-css',
       componentProps: {
-        'orderId': this.getOrderId(order),
+        'orderId': order.orderId,
         'orderType': orderType
       }
     })
