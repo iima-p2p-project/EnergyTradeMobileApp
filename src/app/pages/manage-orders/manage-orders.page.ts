@@ -95,6 +95,9 @@ export class ManageOrdersPage implements OnInit {
     }
     console.log("Updated orders list", this.orderListUpdated);
     this.displayOrderList = this.orderListUpdated;
+    this.displayOrderList.sort((ts1, ts2) => {
+      return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
+    })
     this.allOrders = this.orderListUpdated;
     this.cancelledOrders = this.orderListUpdated.filter(order => order.active_status == '2');
     this.futureOrders = this.orderListUpdated.filter(order => moment(order.transfer_start_ts).isAfter(moment.now()));
