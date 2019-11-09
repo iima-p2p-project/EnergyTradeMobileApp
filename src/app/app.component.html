@@ -32,13 +32,13 @@
         </ion-list>
         <ion-list>
          <ion-menu-toggle>
-          <ion-item style="padding-top:0.2em;" class="list-item" lines="none" routerLink="sell-power" routerDirection="forward">
+          <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToSell()">
             <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/sell (1).svg" slot="start"></ion-icon>
             <ion-label class="name-class">Sell Power</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item class="list-item" lines="none" routerLink="buy-power" routerDirection="forward">
+          <ion-item class="list-item" lines="none" (click)="navigateToBuy()">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/buy (1).svg" slot="start"></ion-icon>
               <ion-label class="name-class">Buy Power</ion-label>
           </ion-item>

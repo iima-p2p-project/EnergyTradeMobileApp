@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { INGRESS_URL, CONFIG_URL, TRADE_URL } from 'src/app/environments/environments';
 import { AllTimeslots } from 'src/app/models/AllTimeslots';
-import { start } from 'repl';
+//import { start } from 'repl';
 import * as moment from 'moment';
 
 @Injectable({

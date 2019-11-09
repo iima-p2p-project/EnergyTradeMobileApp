@@ -53,7 +53,22 @@ export class AppComponent {
     });
   }
 
+  navigateToSell() {
+    this.router.navigate(['/dashboard'], {
+      queryParams: {
+        tab: 'sell'
+      }
+    });
+  }
 
+  navigateToBuy() {
+    this.router.navigate(['/dashboard'], {
+      queryParams: {
+        tab: 'buy'
+      }
+    });
+  }
+  
   logout(){
     this.ingressService.logout();
   }

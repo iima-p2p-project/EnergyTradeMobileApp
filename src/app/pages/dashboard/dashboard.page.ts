@@ -14,6 +14,8 @@ import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 export class DashboardPage implements OnInit {
 
   selectedOption = 'sell';
+  checkSell: boolean = true;
+  checkBuy: boolean = false;
   showSolar: boolean = true;
   showGenerator: boolean = true;
   showEV: boolean = true;
@@ -61,6 +63,18 @@ export class DashboardPage implements OnInit {
   ionViewDidEnter() {
     this.route.queryParams.subscribe(params => {
       //this.userId = params['userId'];
+      if(params['tab']!=null) {
+        console.log('tab : ' , params['tab']);
+        this.selectedOption = params['tab'];
+        if(this.selectedOption=='sell') {
+          this.checkSell=true;
+          this.checkBuy=false;
+        }
+        if(this.selectedOption=='buy') {
+          this.checkSell=false;
+          this.checkBuy=true;
+        }
+      }
       this.ingressService.getUserIdToken().then((res) => {
         this.userId = res;
         this.ingressService.loggedInUserId = this.userId;
@@ -130,11 +144,17 @@ export class DashboardPage implements OnInit {
   segmentChanged($event) {
     // console.log($event.detail.value);
     this.selectedOption = $event.detail.value;
+    if(this.selectedOption=='sell') {
+      this.checkSell=true;
+      this.checkBuy=false;
+    }
+    if(this.selectedOption=='buy') {
+      this.checkSell=false;
+      this.checkBuy=true;
+    }
   }
 
   go() {
-
-
     if (this.selectedOption == 'sell') {
       this.sellOrderPayload.sellerId = this.userId;
       //this.sellOrderPayload.deviceId = this.userDeviceId;
