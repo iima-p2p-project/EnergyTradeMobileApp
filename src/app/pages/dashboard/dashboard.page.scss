@@ -94,7 +94,7 @@ ion-content{
     font-size:0.7em;
   }
   .bottom-right-icon{
-    text-align:right;
+    text-align:left;
     color:white;
   }
 
@@ -120,8 +120,10 @@ ion-content{
     color:black;
   }
   .number-big{
-    font-size:1em;
-    color:rgb(170, 170, 170);
+    font-size:1.6em;
+    color:rgb(2, 0, 119);
+    font-weight:800;
+    font-family:MMedium !important;
   }
 
   ion-button{
@@ -133,7 +135,7 @@ ion-content{
 .middle-row-left{
   color:white;
   font-family:MMedium !important;
-  padding-left:15px;
+  padding-left:1em;
   font-size:0.9em;
 }
 
