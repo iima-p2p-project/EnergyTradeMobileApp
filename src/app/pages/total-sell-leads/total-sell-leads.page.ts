@@ -16,7 +16,7 @@ export class TotalSellLeadsPage implements OnInit {
 
   allSellLeads: any;
   monthFilterKey;
-  displayLeads;
+  displayLeads: any;
 
   constructor(private router: Router
     , private route: ActivatedRoute
@@ -29,6 +29,7 @@ export class TotalSellLeadsPage implements OnInit {
 
   ionViewWillEnter() {
     this.allSellLeads = this.adminService.allSellLeads;
+    this.displayLeads = this.allSellLeads;
   }
 
   formatTime(ts, type) {
@@ -75,7 +76,7 @@ export class TotalSellLeadsPage implements OnInit {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.monthFilterKey);
-      this.displayLeads = this.allSellLeads.filter(order => moment(order.sellorder.transferStartTs).format('M') == this.monthFilterKey);
+      this.displayLeads = this.allSellLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
     }
     );
   }
