@@ -1,5 +1,5 @@
 ion-content{
-    // --background:#0048A8;
+    --background:#0048A8;
   
   }
 
@@ -9,10 +9,11 @@ ion-content{
   }
   
   .title-top{
-    padding-top:1em;
+    // padding-top:1em;
     color:white;
     text-align:center;
     font-size:1.2em;
+    // margin-left:-0.5em;
     font-family:MSemiBold !important;
   } 
   
@@ -44,6 +45,7 @@ ion-content{
       font-size:2.5em;
       font-family:MMedium !important;
       font-weight:600;
+    //   margin-right:-0.2em;
   }
 
   .small-font{

@@ -107,6 +107,7 @@ export class SellTimePickerPage implements OnInit {
         this.inputsValidFlag = false;
       } else {
         this.inputsValidFlag = true;
+        console.log("Start here");
       }
     }
   }
@@ -123,6 +124,7 @@ export class SellTimePickerPage implements OnInit {
         this.inputsValidFlag = false;
       } else {
         this.inputsValidFlag = true;
+        console.log("End here",this.inputsValidFlag);
       }
     }
   }

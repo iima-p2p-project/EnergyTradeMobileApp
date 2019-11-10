@@ -87,7 +87,7 @@
           <ion-col size="2" style="position:absolute;left:40%;">
               <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/arrow 2.svg"></ion-icon>
             </ion-col>
-          <ion-col size="5" style="position:absolute;right:-0.5em;">
+          <ion-col size="5" style="position:absolute;right:0px;">
               <ion-grid class='ion-text-right'>
                   <ion-row>
                     <ion-col class="font-start-end">
@@ -119,7 +119,7 @@
       </ion-grid>
       <ion-grid style="position:relative;top:110px;">
         <ion-row class='ion-text-center'>
-          <ion-col size="12" class='ion-text-center'>
+          <ion-col size="12" class='ion-text-center' style="margin-left:0.4em;">
             <span class="big-font grey-colour">
               {{duration}}
             </span>
@@ -128,19 +128,18 @@
             </span>
           </ion-col>
         </ion-row>
-        <ion-row class='ion-text-center' style="margin-top:-0.8em;margin-left:-0.5em;">
-            <ion-col class="bottom-small-font grey-colour ion-text-center" size="12">
+        <ion-row class='ion-text-center' style="margin-top:-0.8em;margin-left:-0.9em;">
+            <ion-col class="bottom-small-font grey-colour" size="12">
               DURATION
             </ion-col>
         </ion-row>
       </ion-grid>
       <div style="padding-top:90%;
       margin-left:auto;margin-right:auto;text-align:center;">
-              <ion-button *ngIf="duration==null" class="ion-text-center" disabled shape="round" style="font-family:MSemiBold;opacity:0.6;" 
-              routerDirection="forward" routerLink="/sell-rate-set" (click)="proceedToSetRate()">
+              <ion-button *ngIf="inputsValidFlag==false" class="ion-text-center" disabled shape="round" style="font-family:MSemiBold;opacity:0.6;">
                 PROCEED TO SET RATE
               </ion-button>
-              <ion-button *ngIf="duration!=null" class="ion-text-center" disabled shape="round" style="font-family:MSemiBold;" 
+              <ion-button *ngIf="inputsValidFlag==true" color="primary" class="ion-text-center" shape="round" style="font-family:MSemiBold;" 
               routerDirection="forward" routerLink="/sell-rate-set" (click)="proceedToSetRate()">
                 PROCEED TO SET RATE
               </ion-button>

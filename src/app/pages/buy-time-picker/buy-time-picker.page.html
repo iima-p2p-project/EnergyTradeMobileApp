@@ -1,32 +1,35 @@
 <ion-content>
+    <!-- <ion-grid> -->
         <ion-row>
             <ion-col class="menu-button" size="2">
-              <div style="margin-top:-0.7em;padding-top:1em;">
+              <div style="margin-top:-0.7em;">
                 <ion-back-button defaultHref="dashboard"></ion-back-button>
               </div>
             </ion-col>
-            <ion-col class="title-top" size="8">
+            <ion-col class="title-top" style="margin-left:-0.5em;" size="8">
               <div>BUY</div>
             </ion-col>
             <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;">
-                <div style="margin-top:-0.2em;padding-top:0.6em;">
+                <div style="margin-top:-0.2em;">
                   <ion-icon src="assets/svg/notifications.svg"></ion-icon>
                 </div>  
             </ion-col>
         </ion-row>
+      <!-- </ion-grid> -->
         <div style='position:absolute;z-index:1;bottom:-10%;left:0px;width:100%;height:100%;background-color:white;border-top-left-radius:30px;border-top-right-radius:30px;'>
           <ion-grid>
             <ion-row class='ion-text-center'>
-              <ion-col class='ion-text-center' offset="3" size='5' class="top-row-center">
+              <!-- <ion-col class='ion-text-center' offset="3" size='5' class="top-row-center"> -->
+              <ion-col class='ion-text-center' size='12' class="top-row-center ion-text-center">
                 <ion-icon src="assets/svg/solar.svg" style='padding-right:0.5em;'></ion-icon>
-                <span padding-left="20px" class='no-units'>{{unitMin}}-{{unitMax}}</span>     units
+                <span style='margin-left:"0px"' class='no-units'>{{unitMin}}-{{unitMax}}</span>     units
               </ion-col>
             </ion-row>
           </ion-grid>
           <div style="padding-top:0.3em;border-bottom:1px solid rgb(221, 221, 221);width:80%;margin-left:auto;margin-right:auto;"></div>
           <ion-grid>
             <ion-row class='ion-text-center'>
-              <ion-col size="5" style="position:absolute;left:1.4em;" *ngIf="screenMode=='small'">
+              <ion-col size="5" style="position:absolute;left:2em;" *ngIf="screenMode=='small'">
                 <ion-grid class='ion-text-left'>
                   <ion-row>
                     <ion-col class='font-start-end'>
@@ -92,7 +95,7 @@
                   <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/arrow 2.svg"></ion-icon>
                 </ion-col>
               <ion-col size="5" style="position:absolute;right:0px;">
-                  <ion-grid class='ion-text-left'>
+                  <ion-grid class='ion-text-right'>
                       <ion-row>
                         <ion-col class="font-start-end">
                           END TIME
@@ -125,7 +128,7 @@
           </ion-grid>
           <ion-grid style="position:relative;top:90px;">
             <ion-row class='ion-text-center'>
-              <ion-col size="12" class='ion-text-center'>
+              <ion-col size="12" class='ion-text-center' style="margin-left:0.4em;">
                 <span class="big-font grey-colour">
                   {{duration}}
                 </span>
@@ -134,7 +137,7 @@
                 </span>
               </ion-col>
             </ion-row>
-            <ion-row class='ion-text-center' style="margin-top:-0.5em;">
+            <ion-row class='ion-text-center' style="margin-top:-0.8em;margin-left:-0.9em;">
                 <ion-col class="bottom-small-font grey-colour">
                   DURATION
                 </ion-col>
@@ -159,10 +162,14 @@
 
           <div style="padding-top:25%;
           margin-left:auto;margin-right:auto;text-align:center;">
-                  <ion-button class="ion-text-center" shape="round" style="font-family:MSemiBold;opacity:0.6;width:70%;" 
+                  <ion-button *ngIf="inputsValidFlag==false" disabled class="ion-text-center" shape="round" style="font-family:MSemiBold;opacity:0.6;width:70%;height:3em;">
+                    SEARCH
+                  </ion-button>
+                  <ion-button color="primary" *ngIf="inputsValidFlag==true" class="ion-text-center" shape="round" style="font-family:MSemiBold;width:70%;height:3em;" 
                   routerDirection="forward" (click)="findSellers()">
                     SEARCH
                   </ion-button>
+
           </div>
 
           <div class="thumnails" style="padding-top:1em;">
@@ -241,7 +248,7 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
+<!-- <ion-content>
     <div class="psell-sec">
         <ion-grid>
             <ion-row>
@@ -267,7 +274,7 @@
                   <ion-row class="time-sec">
         
                     <ion-col class="stt-time" size="5" size-sm>
-                     
+                      -->
                           <!-- <label>START TIME<br>{{power}}</label><br> -->
                           <!-- <input class="time" type="time" name="usr_time"><span>AM</span> -->
                           <!-- <ion-item class="_DateTimePicker"> -->
@@ -282,7 +289,7 @@
                               <!-- <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime> -->
                             <!-- </ion-item> -->
                      
-                    </ion-col>
+                    <!-- </ion-col>
         
                     <ion-col size="2" class="trans-icn" size-sm align-self-center>
                         <ion-icon class="circle-icn2" name="arrow-dropleft-circle"></ion-icon>
@@ -290,7 +297,7 @@
         
                     <ion-col class="stt-time" size="5" size-sm>
                        
-                            <label>END TIME</label><br>
+                            <label>END TIME</label><br> -->
                             <!-- <input class="time" type="time" name="usr_time"><span>AM</span> -->
                             <!-- <ion-item class="_DateTimePicker"> -->
                                 <!-- <ion-datetime placeholder="DAY, DD MM" displayFormat="YYYY-MM-DDTHH:mm"></ion-datetime> -->
@@ -304,7 +311,7 @@
                                   </ion-row>   -->
                             <!-- </ion-item> -->
                       
-                    </ion-col>
+                    <!-- </ion-col>
                     
                   </ion-row>
                 </ion-grid>
@@ -313,7 +320,7 @@
                     <p>00:00 <span style="font-size:12px;font-weight:400;color:#9a9a9e;">Hrs</span></p>
                     <p class="sr-dur">DURATION</p>
                     <hr>
-                </div>
+                </div> -->
     
                 <!-- <ion-grid>
                     <ion-row class="unit-sec">
@@ -325,15 +332,15 @@
                       </ion-row>
                 </ion-grid> -->
 
-                <ion-grid>
+                <!-- <ion-grid>
                   <ion-row>
-                      <ion-col size="12" class="sl-btn" size-sm>
+                      <ion-col size="12" class="sl-btn" size-sm> -->
                         <!-- <ion-button class="srch-btn" shape="round" expand="full" (click)="submit()">SEARCH</ion-button> -->
-                      </ion-col>
+                      <!-- </ion-col>
                   </ion-row>
-                </ion-grid>
+                </ion-grid> -->
 
-                <ion-grid>
+                <!-- <ion-grid>
                   <ion-row class="ht-deal">
                     <ion-col size-sm>
                       <h5>HOT DEALS</h5>
@@ -357,10 +364,10 @@
                         </div>
                     </ion-col>
                   </ion-row>
-                </ion-grid>
+                </ion-grid> -->
     
              
             
-          </div>
-      </div>
+          <!-- </div>
+      </div> -->
 </ion-content>
