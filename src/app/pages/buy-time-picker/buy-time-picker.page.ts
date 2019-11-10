@@ -84,9 +84,9 @@ export class BuyTimePickerPage implements OnInit {
       this.duration = this.durationDetails.duration;
       if (this.duration == "INVALID") {
         console.log("Invalid Time range");
-        this.presentAlert("End Time cant be before start time");
+       // this.presentAlert("End Time cant be before start time");
         this.duration = "00:00";
-        this.inputsValidFlag = false;
+        this.inputsValidFlag = true;
       } else {
         this.inputsValidFlag = true;
       }
