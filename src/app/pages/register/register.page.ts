@@ -27,7 +27,7 @@ export class RegisterPage implements OnInit {
   otp: string;
 
   resFromService: any;
-  boards: any[]; 
+  boards: any[];
   states: any[];
 
   registeredUser: any;
@@ -42,9 +42,9 @@ export class RegisterPage implements OnInit {
   selectedBoard: string;
   selectedLocality: string;
 
-  selectedStateId: number;
-  selectedBoardId: number;
-  selectedLocalityId: number;
+  selectedStateId: any;
+  selectedBoardId: any;
+  selectedLocalityId: any;
 
 
   constructor(private ingressService: IngressService
@@ -52,17 +52,17 @@ export class RegisterPage implements OnInit {
     , private formBuilder: FormBuilder
     , private router: Router
     , private storage: Storage
-    , public modalController: ModalController) { 
+    , public modalController: ModalController) {
 
-      this.registerForm = this.formBuilder.group({
-        email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
-        //stateList: [null, Validators.required],
-        //boardList: [null, Validators.required],
-      });
-      this.selectedState = "";
-      this.selectedBoard = "";
-      this.selectedLocality = "";
-    }
+    this.registerForm = this.formBuilder.group({
+      email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      //stateList: [null, Validators.required],
+      //boardList: [null, Validators.required],
+    });
+    this.selectedState = "";
+    this.selectedBoard = "";
+    this.selectedLocality = "";
+  }
 
   ngOnInit() {
   }
@@ -89,16 +89,23 @@ export class RegisterPage implements OnInit {
     this.registerPayload.stateId = this.selectedStateId;
     this.registerPayload.localityId = this.selectedLocalityId;
     this.registerPayload.boardId = this.selectedBoardId;
-    if(ENABLE_SERVICES) {
+    if (ENABLE_SERVICES) {
       this.ingressService.register(this.registerPayload).subscribe((res) => {
-        console.log('register response : ' , res);
+        console.log('register response : ', res);
         this.resFromService = res;
-        if(this.resFromService.response.key == 200) {
+        if (this.resFromService.response.key == 200 || this.resFromService.response.key == 500) {
           console.log('check2');
           this.registeredUser = res;
-          this.storage.set('USER', this.registeredUser).then(() => {
+          this.ingressService.loggedInUserStateId = this.selectedStateId;
+          this.ingressService.loggedInUserLocalityId = this.selectedLocalityId;
+          this.ingressService.loggedInUserBoardId = this.selectedBoardId;
+          this.ingressService.loggedInUserLocalityName = this.selectedLocality;
+          this.storage.set('LoggedInUserStateId', this.selectedStateId);
+          this.storage.set('LoggedInUserLocalityId', this.selectedLocalityId);
+          this.storage.set('LoggedInUserLocalityName', this.selectedLocality);
+          this.storage.set('LoggedInUserBoardId', this.selectedBoardId).then(() => {
             this.ingressService.setLoggedInUser(this.registeredUser);
-            if(this.registeredUser != null) {
+            if (this.registeredUser != null) {
               this.ingressService.setLoggedInUserId(this.registeredUser.response.userId);
             }
             this.router.navigate(['/add-device'], {
@@ -158,7 +165,7 @@ export class RegisterPage implements OnInit {
     });
     return await modal.present();
   }
-  
+
   async openBoard_Modal() {
     const modal = await this.modalController.create({
       component: BoardModalPage,
@@ -171,9 +178,9 @@ export class RegisterPage implements OnInit {
       if (dataReturned !== null) {
         this.dataFromBoardModal = dataReturned.data;
         this.selectedBoard = this.dataFromBoardModal.selectedBoardName;
-        console.log('first index of : ' , this.selectedBoard.indexOf('('));
-        console.log('last index of : ' , this.selectedBoard.indexOf(')'));
-        this.selectedBoard = this.selectedBoard.substring(this.selectedBoard.indexOf('(')+1 , this.selectedBoard.indexOf(')'));
+        console.log('first index of : ', this.selectedBoard.indexOf('('));
+        console.log('last index of : ', this.selectedBoard.indexOf(')'));
+        this.selectedBoard = this.selectedBoard.substring(this.selectedBoard.indexOf('(') + 1, this.selectedBoard.indexOf(')'));
         this.selectedBoardId = this.dataFromBoardModal.selectedBoardId;
       }
     });

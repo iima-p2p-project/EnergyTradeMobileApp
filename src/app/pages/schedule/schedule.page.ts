@@ -54,7 +54,8 @@ export class SchedulePage implements OnInit {
       console.log('ACTION : ' , this.action);
       if(this.action==ACTION_EDIT) {
         this.adminStateId = params['stateId'];
-        this.location = params['location'];
+        this.location = params['localityName'];
+        this.selectedLocalityId = params['localityId'];
         this.startTime = params['startTime'];
         this.endTime = params['endTime'];
         this.nonTradeHourId = params['nonTradeHourId'];
@@ -90,10 +91,14 @@ export class SchedulePage implements OnInit {
 
   submit() {
     if(this.action==ACTION_EDIT) {
-      this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId;
+      if(this.ingressService.loggedInUserId!=null) {
+        this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId;
+      }  
       this.nonTradeHourPayload.startTime = this.timeService.startTime;
       this.nonTradeHourPayload.endTime = this.timeService.endTime;
-      this.nonTradeHourPayload.localityId = this.selectedLocalityId.toString();
+      if(this.selectedLocalityId!=null) {
+        this.nonTradeHourPayload.localityId = this.selectedLocalityId.toString();
+      }
       this.nonTradeHourPayload.location = this.location;
       this.nonTradeHourPayload.nonTradeReason = this.reason;
       this.adminService.editNonTradeHour(this.nonTradeHourPayload, this.nonTradeHourId).subscribe((res) => {
@@ -101,10 +106,14 @@ export class SchedulePage implements OnInit {
       }); 
     }
     if(this.action==ACTION_CREATE) {
-      this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId.toString();
+      if(this.ingressService.loggedInUserId!=null) {
+        this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId;
+      }  
       this.nonTradeHourPayload.startTime = this.timeService.startTime;
       this.nonTradeHourPayload.endTime = this.timeService.endTime;
-      this.nonTradeHourPayload.localityId = this.selectedLocalityId.toString();
+      if(this.selectedLocalityId!=null) {
+        this.nonTradeHourPayload.localityId = this.selectedLocalityId.toString();
+      }
       this.nonTradeHourPayload.location = this.location;
       this.nonTradeHourPayload.nonTradeReason = this.reason;
       this.adminService.createNonTradeHour(this.nonTradeHourPayload).subscribe((res) => {
@@ -114,6 +123,9 @@ export class SchedulePage implements OnInit {
   }
 
   async openLocality_Modal() {
+    if(this.action==ACTION_EDIT) {
+      return;
+    }
     const modal = await this.modalController.create({
       component: LocalityModalPage,
       componentProps: {

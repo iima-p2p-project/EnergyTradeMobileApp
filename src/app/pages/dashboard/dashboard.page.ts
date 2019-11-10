@@ -158,9 +158,11 @@ export class DashboardPage implements OnInit {
       return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
     })
     var i = 0;
-    while (i < 2) {
-      this.allOrders[i] = this.orderListUpdated[i];
-      i++;
+    if(this.orderListUpdated.length>0) {
+      while (i < 2) {
+        this.allOrders[i] = this.orderListUpdated[i];
+        i++;
+      }
     }
     console.log('Latest Transactions : ' , this.allOrders);
   }

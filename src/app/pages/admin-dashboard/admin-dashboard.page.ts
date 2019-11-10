@@ -99,7 +99,8 @@ export class AdminDashboardPage implements OnInit {
         action: ACTION_EDIT,
         nonTradeHourId: nonTradeHour.nonTradeHourId,
         stateId: this.userStateId,
-        location: nonTradeHour.locationName,
+        localityName: nonTradeHour.locationName,
+        localityId: nonTradeHour.localityId,
         startTime: nonTradeHour.startTime,
         endTime: nonTradeHour.endTi8me
       }

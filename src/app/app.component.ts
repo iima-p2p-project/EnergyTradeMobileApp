@@ -36,6 +36,10 @@ export class AppComponent {
     }
   ];
 
+  userId: any;
+  userName: any;
+  localityName: any;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -44,6 +48,17 @@ export class AppComponent {
     private ingressService: IngressService
   ) {
     this.initializeApp();
+  }
+
+  ionViewDidEnter() {
+    this.ingressService.getUserNameToken().then((res) => {
+      this.userName = res;
+      this.ingressService.loggedInUserName = this.userName;
+      this.ingressService.getUserLocalityNameToken().then((res) => {
+        this.localityName = res;
+        this.ingressService.loggedInUserLocalityName = this.localityName;
+      })
+    });
   }
 
   initializeApp() {
