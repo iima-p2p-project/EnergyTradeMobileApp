@@ -235,6 +235,20 @@ export class IngressService {
     return this.loggedInUserName;
   }
 
+  async getUserRoleToken() {
+    console.log("get token");
+    if (!this.loggedInUserRole) {
+      console.log("storage token");
+      await this.storage.ready();
+      const token = await this.storage.get('LoggedInUserRole');
+      if (token) {
+        console.log("storage token recieved");
+        this.loggedInUserName = token;
+      }
+    }
+    console.log('user role token : ' , this.loggedInUserRole);
+    return this.loggedInUserRole;
+  }
 
   async getUserDevicesToken() {
     console.log("get token");

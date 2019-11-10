@@ -22,6 +22,7 @@ export class AdminDashboardPage implements OnInit {
   allBuyLeads: any;
   allSellLeads: any;
   userId: any;
+  userRole: any;
   userStateId: any;
   buyLeadsCount: any;
   sellLeadsCount: any;
@@ -40,6 +41,15 @@ export class AdminDashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.ingressService.getUserRoleToken().then((res) => {
+      this.userRole = res;
+      if(this.userRole=='User') {
+        this.router.navigate(['/dashboard'], {
+          queryParams: {
+          }
+        }); 
+      }
+    })
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
       if (this.userId) {
