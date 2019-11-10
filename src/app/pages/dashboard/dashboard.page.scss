@@ -3,6 +3,10 @@ ion-content{
 
 }
 
+ion-input{
+  --placeholder-color:grey;
+}
+
 .menu-button{
   color:white;
   text-align: left;
@@ -16,7 +20,7 @@ ion-content{
 }
 
 .box-top{
-  height:150px;
+  height:17%;
   width:95%;
   background-color:rgba(3, 47, 141, 0.726);
   margin-left:auto;
@@ -81,6 +85,7 @@ ion-content{
     font-size:0.7em;
     font-family:MMedium !important;
     color:white;
+    margin-left:-0.5em;
   }
   .bottom-left-icon{
     color:white;
