@@ -14,11 +14,12 @@
         <ion-col>
           <ion-grid>
             <ion-row>
-              <ion-col size="3">
+              <!-- <ion-col size="3"> -->
                 <!-- <ion-icon zoom="2.0" slot="icon-only" src="assets/svg/solar copy.svg"></ion-icon> -->
-              </ion-col>
-              <ion-col size="5" class="order_details">
+              <!-- </ion-col> -->
+              <ion-col size="12" class="order_details" style="text-align:center;">
                 <span style="font-size:0.9em;">₹ </span>
+                <!-- <span class="bigger">123/-</span><br> -->
                 <span class="bigger">{{totalAmount}}/-</span><br>
                 <span class="smaller" style="margin-top:-1.5em;">Solar Power</span>
               </ion-col>
@@ -112,12 +113,14 @@
           </ion-list>
         </ion-col>
       </ion-row>
+      <div style="padding-top:0.3em;border-bottom:1px solid rgb(221, 221, 221);width:90%;margin-left:auto;margin-right:auto;"></div>
+
       <ion-button fill="clear" color="primary" style="text-transform:none;font-family:MSemiBold !important;font-size:0.7em;">
         ADD ANOTHER BANK ACCOUNT
       </ion-button>
 
       <div style="text-align:center;padding-top:30px;">
-        <ion-button shape="round" color="primary" style="width:80%;text-align:center;" (click)="createContract()">
+        <ion-button shape="round" color="primary" style="width:70%;text-align:center;font-family:MSemiBold !important;height:3.3em;" (click)="createContract()">
           CONFIRM PAYMENT
         </ion-button>
       </div>

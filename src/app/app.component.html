@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-split-pane>
+  <ion-split-pane (click)="getUserDetails()">
     <ion-menu type="overlay">
       <!-- <ion-header>
         <ion-toolbar>
@@ -16,13 +16,13 @@
             <ion-grid>
               <ion-row>
                 <ion-col class="name-class">
-                  Arjun Singh
+                  {{userName}}
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col class="location-class">
                   <ion-icon class="icon" name="pin"></ion-icon>
-                  Tarnaka
+                  {{localityName}}
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -73,6 +73,7 @@
               <ion-label class="name-class">Help</ion-label>
           </ion-item>
         </ion-menu-toggle>
+        <ion-menu-toggle><ion-item (click) = "logout()"><ion-icon name="log-out" slot="start"></ion-icon>Logout</ion-item></ion-menu-toggle>
         </ion-list>
         <!-- <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">

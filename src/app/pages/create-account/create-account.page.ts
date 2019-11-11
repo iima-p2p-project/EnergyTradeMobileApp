@@ -21,7 +21,10 @@ export class CreateAccountPage implements OnInit {
   phoneNumber: string;
   fullName: string;
   otp: string;
-
+  stateId: any;
+  boardId: any;
+  localityId: any;
+  userRole: any;
   showOTPFlag: boolean = false;
   user: any;
   userId: any;
@@ -64,21 +67,30 @@ export class CreateAccountPage implements OnInit {
     console.log(this.fullName);
     console.log(this.phoneNumber);
     console.log(this.otp);
-    if(ENABLE_SERVICES) {
+    if (ENABLE_SERVICES) {
       this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
         this.responseFromService = res;
-        console.log('response from register service : ' , this.responseFromService.response.key);
-        if(this.responseFromService.response.key == 500) {
-          this.userId=this.responseFromService.response.userId;
-          this.router.navigate(['/register'], {
-            queryParams: {
-              phoneNumber: this.phoneNumber,
-              fullName: this.fullName,
-              redirect: this.redirect
-            }
+        console.log('response from register service : ', this.responseFromService.response.key);
+        this.showToast(this.responseFromService.response.key);
+        if (this.responseFromService.response.key == 200) {
+          this.userId = this.responseFromService.response.userId;
+          this.userRole = this.responseFromService.response.userRole;
+          this.ingressService.setLoggedInUserId(this.userId);
+          this.ingressService.loggedInUserRole = this.userRole;
+          this.ingressService.loggedInUserName = this.fullName;
+          this.storage.set('LoggedInUserRole', this.userRole);
+          this.storage.set('LoggedInUserName', this.fullName);
+          this.storage.set('LoggedInUserId', this.userId).then(() => {
+            this.router.navigate(['/register'], {
+              queryParams: {
+                phoneNumber: this.phoneNumber,
+                fullName: this.fullName,
+                redirect: this.redirect
+              }
+            });
           });
         }
-        if(this.responseFromService.response.key == 300) {
+        if (this.responseFromService.response.key == 300) {
           console.log('OTP entered is incorrect');
         }
       });
@@ -91,7 +103,7 @@ export class CreateAccountPage implements OnInit {
           redirect: this.redirect
         }
       });
-    } 
+    }
   }
   
   enableOTPField() {
@@ -104,7 +116,7 @@ export class CreateAccountPage implements OnInit {
           if(this.responseFromService.response.key == 300) {
             this.showOTPFlag = false;
             console.log('User Already Exists. Please Login');
-            this.showToast();
+            this.showToast('User Already Exists. Please Login');
           }
           if(this.responseFromService.response.key == 200) {
             this.showOTPFlag = true;
@@ -114,9 +126,9 @@ export class CreateAccountPage implements OnInit {
     }
   }
 
-  async showToast() {
+  async showToast(message: string) {
     const toast7 = await this.toastCtrl.create({
-      message: 'User Already Exists. Please Login.',
+      message: message,
       duration: 3000,
     });
     toast7.present();

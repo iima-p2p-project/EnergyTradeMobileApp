@@ -44,6 +44,8 @@ export class ManageOrdersPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.allOrdersAndContracts=[];
+    this.orderListUpdated=[];
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
       if (this.userId) {
@@ -85,7 +87,6 @@ export class ManageOrdersPage implements OnInit {
         obj.deviceTypeName = obj.sellorder.deviceTypeName;
         obj.transferStartTs = obj.sellorder.transferStartTs;
         obj.transferEndTs = obj.sellorder.transferEndTs;
-
       }
       if (obj.orderType == "sell")
         obj.month = moment(obj.transferStartTs).format('M');

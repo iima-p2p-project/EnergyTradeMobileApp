@@ -24,8 +24,10 @@ export class LoginPage implements OnInit {
   stateId: any;
   boardId: any;
   localityId: any;
+  localityName: any;
   userRole: any;
   userData: any;
+  userName: any;
   responseFromService: any;
 
   showOTPFlag: boolean = false;
@@ -68,7 +70,7 @@ export class LoginPage implements OnInit {
       "loginMode": "P",
       "phoneNum": this.phoneNumber
     }
-    this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
+    this.ingressService.login(this.phoneNumber, this.otp).subscribe((res) => {
       this.responseFromService = res;
       if (this.responseFromService.response.key == 200) {
         console.log('login response : ' , this.responseFromService);
@@ -77,11 +79,15 @@ export class LoginPage implements OnInit {
         this.boardId = this.responseFromService.response.boardId;
         this.localityId = this.responseFromService.response.localityId;
         this.userRole = this.responseFromService.response.userRole;
+        this.localityName = this.responseFromService.response.localityName;
+        this.userName = this.responseFromService.response.userName;
         this.ingressService.setLoggedInUserId(this.userId);
         this.ingressService.loggedInUserRole = this.userRole;
         this.ingressService.loggedInUserStateId = this.stateId;
         this.ingressService.loggedInUserLocalityId = this.localityId;
         this.ingressService.loggedInUserBoardId = this.boardId;
+        this.ingressService.loggedInUserLocalityName = this.localityName;
+        this.ingressService.loggedInUserName = this.userName;
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
           this.responseFromService = res;
           this.ingressService.setUserDevices(this.responseFromService.response.devices);
@@ -90,6 +96,8 @@ export class LoginPage implements OnInit {
           this.storage.set('LoggedInUserStateId', this.stateId);
           this.storage.set('LoggedInUserLocalityId', this.localityId);
           this.storage.set('LoggedInUserBoardId', this.boardId);
+          this.storage.set('LoggedInUserLocalityName', this.localityName);
+          this.storage.set('LoggedInUserName', this.userName);
           this.storage.set('LoggedInUserId', this.userId).then(() => {
             this.ingressService.printStorageKeyValue('LoggedInUserId');
             this.ingressService.printStorageKeyValue('LoggedInUserDevices');
@@ -128,6 +136,7 @@ export class LoginPage implements OnInit {
           this.responseFromService = res;
           if(this.responseFromService.response.key == 200) {
             this.showOTPFlag = true;
+            this.loginForm.controls['otp'].setValue("");
           }
           if(this.responseFromService.response.key == 300) {
             this.showOTPFlag = false;

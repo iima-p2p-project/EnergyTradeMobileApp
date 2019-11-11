@@ -13,8 +13,7 @@ export class AdminService {
   editNonTradeHourUrl = ADMIN_URL + 'editNonTradeHour';
   cancelNonTradeHourUrl = ADMIN_URL + 'cancelNonTradeHour';
   getAllNonTradeHoursUrl = ADMIN_URL + 'getNonTradeHours';
-  getAllBuyLeadsUrl = ADMIN_URL + 'getAllContracts';
-  getAllSellLeadsUrl = ADMIN_URL + 'getAllSellOrders';
+  getAllTradeUrl = ADMIN_URL + 'getAllTrades';
 
   nonTradeHoursList: any;
   allBuyLeads: any;
@@ -72,24 +71,13 @@ export class AdminService {
     );
   }
 
-  getAllBuyLeads(userId: any) {
-    console.log('getAllBuyLeads user id : ' , userId);
-    var options = {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')
-    };
-    return this.httpClient.get(this.getAllBuyLeadsUrl
-      , options
-    );
-  }
-
-  getAllSellLeads(userId: any) {
+  getAllTrades(userId: any) {
     console.log('getAllSellLeads user id : ' , userId);
     var options = {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.get(this.getAllSellLeadsUrl
+    return this.httpClient.get(this.getAllTradeUrl
       , options
     );
   }

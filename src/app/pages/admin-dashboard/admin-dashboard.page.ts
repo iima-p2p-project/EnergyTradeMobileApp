@@ -22,6 +22,7 @@ export class AdminDashboardPage implements OnInit {
   allBuyLeads: any;
   allSellLeads: any;
   userId: any;
+  userRole: any;
   userStateId: any;
   buyLeadsCount: any;
   sellLeadsCount: any;
@@ -40,6 +41,15 @@ export class AdminDashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.ingressService.getUserRoleToken().then((res) => {
+      this.userRole = res;
+      if(this.userRole=='User') {
+        this.router.navigate(['/dashboard'], {
+          queryParams: {
+          }
+        }); 
+      }
+    })
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
       if (this.userId) {
@@ -52,17 +62,17 @@ export class AdminDashboardPage implements OnInit {
             console.log('Non Trade Hours : ', this.resFromServer);
             this.nonTradeHourList = this.resFromServer.response.data;
             this.adminService.nonTradeHoursList = this.nonTradeHourList;
-            this.adminService.getAllBuyLeads(this.userId).subscribe((res) => {
+            this.adminService.getAllTrades(this.userId).subscribe((res) => {
               this.resFromServer = res;
-              console.log('Buy Leads : ', this.resFromServer);
-              this.allBuyLeads = this.resFromServer.response.response;
+              console.log('Trade Leads : ', this.resFromServer);
+              this.allBuyLeads = this.resFromServer.response.contracts;
               this.adminService.allBuyLeads = this.allBuyLeads;
-              this.adminService.getAllSellLeads(this.userId).subscribe((res) => {
-                this.resFromServer = res;
-                console.log('Sell Leads : ', this.resFromServer);
-                this.allSellLeads = this.resFromServer.response.response;
-                this.adminService.allSellLeads = this.allSellLeads;
-              })
+              this.allSellLeads = this.resFromServer.response.sellOrders;
+              this.adminService.allSellLeads = this.allSellLeads;
+              this.sellLeadsCount = this.resFromServer.response.totalSellLeads;
+              this.adminService.sellLeadsCount = this.sellLeadsCount;
+              this.buyLeadsCount = this.resFromServer.response.totalBuyLeads;
+              this.adminService.buyLeadsCount = this.buyLeadsCount;
             });
           });
         });
@@ -99,7 +109,8 @@ export class AdminDashboardPage implements OnInit {
         action: ACTION_EDIT,
         nonTradeHourId: nonTradeHour.nonTradeHourId,
         stateId: this.userStateId,
-        location: nonTradeHour.locationName,
+        localityName: nonTradeHour.locationName,
+        localityId: nonTradeHour.localityId,
         startTime: nonTradeHour.startTime,
         endTime: nonTradeHour.endTi8me
       }

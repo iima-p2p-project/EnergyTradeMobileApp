@@ -29,28 +29,28 @@
               <ion-row style="margin-bottom:0.7em;">
                 <ion-col>
                   <div class="card-unit-number">
-                    {{buyLead.powerToSell}} Units
+                    {{buyLead.sellorder.powerToSell}} Units
                   </div>
                   <div class="card-id-number">
                     ID #{{buyLead.contractId}}
                   </div>
                 </ion-col>
                 <ion-col class="card-right">
-                  <ion-icon name="pin" class="icon"></ion-icon> Tarnaka
+                  <ion-icon name="pin" class="icon"></ion-icon> {{buyLead.sellorder.localityName}}
                 </ion-col>
               </ion-row>
               <ion-row class="card-bottom-line">
                 <ion-col size="3">
                   <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/ev (1).svg"></ion-icon>
-                  {{buyLead.deviceTypeName}}
+                  {{buyLead.sellorder.deviceTypeName}}
                 </ion-col>
                 <ion-col size="3">
                   <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/calendar.svg"></ion-icon>
-                  {{formatTime(buyLead.transferStartTs,'d')}}
+                  {{formatTime(buyLead.sellorder.transferStartTs,'d')}}
                 </ion-col>
                 <ion-col size="6">
                   <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                  {{formatTime(buyLead.transferStartTs,'t')}} - {{formatTime(buyLead.transferEndTs,'t')}}
+                  {{formatTime(buyLead.sellorder.transferStartTs,'t')}} - {{formatTime(buyLead.sellorder.transferEndTs,'t')}}
                 </ion-col>
               </ion-row>
             </ion-col>

@@ -1,120 +1,122 @@
 <ion-content>
-    <ion-row>
-        <ion-col class="menu-button" size="2">
-          <ion-menu-button></ion-menu-button>
-        </ion-col>
-        <ion-col class="title-top" size="8">
-          DASHBOARD
-        </ion-col>
-        <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;">
-          <ion-icon src="assets/svg/notifications.svg"></ion-icon>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top:1em;">
-          <ion-col size="6" class="middle-row-left">
-            Non-Trade Hours
-          </ion-col>
-          <ion-col offset="3" size="3" class="middle-row-right" routerDirection="forward" routerLink='/non-trade-hours'>
-            <ion-label>
-              View all
-              <ion-icon name="arrow-forward" slot="end"></ion-icon>
-            </ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-grid>
+  <ion-row>
+    <ion-col class="menu-button" size="2">
+      <ion-menu-button></ion-menu-button>
+    </ion-col>
+    <ion-col class="title-top" size="8">
+      DASHBOARD
+    </ion-col>
+    <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;">
+      <ion-icon src="assets/svg/notifications.svg"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row style="margin-top:1em;">
+    <ion-col size="6" class="middle-row-left">
+      Non-Trade Hours
+    </ion-col>
+    <!--<ion-col offset="3" size="3" class="middle-row-right" routerDirection="forward" routerLink='/non-trade-hours'>-->
+      <ion-col offset="3" size="3" class="middle-row-right">
+      <ion-label>
+        View all
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+      </ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-grid>
 
-            <!-- LINE 1 -->
-              <ion-row *ngFor="let nonTradeHour of nonTradeHourList">
-                  <ion-card class="card-center">
-                    <!-- <ion-card-content> -->
-                      <ion-grid class="content-style">
-                      <ion-row  style="margin-top:-0.5em;margin-bottom:0.7em;">
-                            <ion-col size="9">
-                              <div style="font-size:0.8em;">
-                                {{formatTime(nonTradeHour.startTime,'d')}}
-                              </div>
-                              <div class="card-unit-number">
-                                {{formatTime(nonTradeHour.startTime,'t')}} - {{formatTime(nonTradeHour.endTi8me,'t')}}
-                              </div>
-                            </ion-col>
-                            <ion-col class="card-price" size="3">
-                              <span style="font-size:1em;">{{getDuration(nonTradeHour.startTime,nonTradeHour.endTi8me)}}</span>
-                            </ion-col>
-                          </ion-row>
-                          <ion-row>
-                            <ion-col size="9" class="card-bottom-line-left">
-                              <i>"Thunderstorms in the area"</i>
-                            </ion-col>
-                            <ion-col class="card-bottom-line-right">
-                                <ion-icon name="pin"></ion-icon>
-                                {{nonTradeHour.locationName}}
-                            </ion-col>
-                          </ion-row>
-                        </ion-grid>
-                    <!-- </ion-card-content> -->
-                    <ion-row style="border-top:0.5px rgba(156, 156, 156, 0.685) solid;text-align:center;height:40px;">
-                        <ion-col size="6">
-                            <ion-button size="small" expand="full" fill="clear" 
-                              style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
-                              (click)="cancelModal(nonTradeHour, 'NONTRADEHOUR')">
-                              CANCEL
-                            </ion-button>
-                        </ion-col>
-                        <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)">
-                            <ion-button size="small" expand="full" fill="clear" 
-                              style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
-                              (click)="editNonTradeHours(nonTradeHour)">
-                              EDIT
-                            </ion-button>
-                        </ion-col>
-                      </ion-row>
-                  </ion-card>
-                </ion-row>
+    <!-- LINE 1 -->
+    <ion-row *ngFor="let nonTradeHour of nonTradeHourList">
+      <ion-card class="card-center">
+        <!-- <ion-card-content> -->
+        <ion-grid class="content-style">
+          <ion-row style="margin-top:-0.5em;margin-bottom:0.7em;">
+            <ion-col size="9">
+              <div style="font-size:0.8em;">
+                {{formatTime(nonTradeHour.startTime,'d')}}
+              </div>
+              <div class="card-unit-number">
+                {{formatTime(nonTradeHour.startTime,'t')}} - {{formatTime(nonTradeHour.endTi8me,'t')}}
+              </div>
+            </ion-col>
+            <ion-col class="card-price" size="3">
+              <span style="font-size:1em;">{{getDuration(nonTradeHour.startTime,nonTradeHour.endTi8me)}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="9" class="card-bottom-line-left">
+              <i>"Thunderstorms in the area"</i>
+            </ion-col>
+            <ion-col class="card-bottom-line-right">
+              <ion-icon name="pin"></ion-icon>
+              {{nonTradeHour.locationName}}
+            </ion-col>
+          </ion-row>
         </ion-grid>
-        <ion-row class="ion-text-center">
-          <ion-col>
-            <ion-button shape="round" color="dark" style="width:70%;font-family:MMedium !important;" 
-            (click)="schedule()">
-              SCHEDULE
+        <!-- </ion-card-content> -->
+        <ion-row style="border-top:0.5px rgba(156, 156, 156, 0.685) solid;text-align:center;height:40px;">
+          <ion-col size="6">
+            <ion-button size="small" expand="full" fill="clear"
+              style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
+              (click)="cancelModal(nonTradeHour, 'NONTRADEHOUR')">
+              CANCEL
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)">
+            <ion-button size="small" expand="full" fill="clear"
+              style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
+              (click)="editNonTradeHours(nonTradeHour)">
+              EDIT
             </ion-button>
           </ion-col>
         </ion-row>
-        <ion-card style="background-color:white;">
-          <!-- <ion-card-content> -->
-            <ion-grid>
-              <ion-row>
-                <ion-col size="6">
-                  <ion-row>
-                    <ion-col size="3" style="text-align:left;">
-                      <ion-icon style="zoom:2;" src="assets/svg/buy (1).svg"></ion-icon>
-                    </ion-col>
-                    <ion-col size="9" (click)="showBuyLeads()">
-                      <div style="font-size:0.7em;color:rgb(0, 0, 160);font-family:MMedium !important;">
-                        TOTAL BUY LEADS
-                      </div>
-                      <div style="font-family:MMedium !important;color:black;">
-                        125
-                      </div>
-                    </ion-col>
-                  </ion-row>
-                </ion-col>
-                <ion-col size="6" style="border-left:1px solid rgba(184, 180, 180, 0.452);">
-                    <ion-row>
-                        <ion-col size="3" style="text-align:left;">
-                          <ion-icon style="zoom:2;" src="assets/assets2/buy.svg"></ion-icon>
-                        </ion-col>
-                        <ion-col size="9" (click)="showSellLeads()">
-                          <div style="font-size:0.7em;color:rgb(0, 0, 160);font-family:MMedium !important;">
-                            TOTAL SELL LEADS
-                          </div>
-                          <div style="font-family:MMedium !important;color:black;">
-                            114
-                          </div>
-                        </ion-col>
-                      </ion-row>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          <!-- </ion-card-content> -->
-        </ion-card>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+<ion-footer class="the-footer">
+  <ion-row class="ion-text-center">
+    <ion-col>
+      <ion-button shape="round" color="dark" style="width:70%;font-family:MMedium !important;" (click)="schedule()">
+        SCHEDULE
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-card style="background-color:white;">
+    <!-- <ion-card-content> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="3" style="text-align:left;">
+              <ion-icon style="zoom:2;" src="assets/svg/buy (1).svg"></ion-icon>
+            </ion-col>
+            <ion-col size="9" (click)="showBuyLeads()">
+              <div style="font-size:0.7em;color:rgb(0, 0, 160);font-family:MMedium !important;">
+                TOTAL BUY LEADS
+              </div>
+              <div style="font-family:MMedium !important;color:black;">
+                {{buyLeadsCount}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6" style="border-left:1px solid rgba(184, 180, 180, 0.452);">
+          <ion-row>
+            <ion-col size="3" style="text-align:left;">
+              <ion-icon style="zoom:2;" src="assets/assets2/buy.svg"></ion-icon>
+            </ion-col>
+            <ion-col size="9" (click)="showSellLeads()">
+              <div style="font-size:0.7em;color:rgb(0, 0, 160);font-family:MMedium !important;">
+                TOTAL SELL LEADS
+              </div>
+              <div style="font-family:MMedium !important;color:black;">
+                {{sellLeadsCount}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- </ion-card-content> -->
+  </ion-card>
+</ion-footer>

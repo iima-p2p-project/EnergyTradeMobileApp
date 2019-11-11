@@ -5,6 +5,8 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
 import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
+import { OrderService } from 'src/app/services/order.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,25 +33,29 @@ export class DashboardPage implements OnInit {
   solarDeviceTypeId: any;
   generatorDeviceTypeId: any;
   evDeviceTypeId: any;
-
+  allOrders: any = [];
   deviceCapactiy: any = 100;
   deviceTypeId: any;
   userDeviceId: any;
-
+  displayOrderList;
   userDeviceList: any;
-
+  orderListUpdated: any = [];
   powerToSell: any;
   minPowerToBuy: any;
   maxPowerToBuy: any;
-
+  allOrdersAndContracts = [];
   sellOrderPayload: SellOrderPayload = {};
   buyOrderPayload: BuyOrderPayload = {};
-
+  resFromServer: any;
   userId: any;
+
+  index: number = 0;
+  length: number = 0;
 
   constructor(private router: Router
     , private route: ActivatedRoute
     , private nav: NavController
+    , private orderService: OrderService
     , private ingressService: IngressService
     , private alertController: AlertController) {
     this.showSolar = false;
@@ -61,23 +67,48 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.allOrdersAndContracts=[];
+    this.orderListUpdated=[];
+    this.allOrders=[];
+    this.index=0;
+    this.length=0;
     this.route.queryParams.subscribe(params => {
       //this.userId = params['userId'];
-      if(params['tab']!=null) {
-        console.log('tab : ' , params['tab']);
+      if (params['tab'] != null) {
+        console.log('tab : ', params['tab']);
         this.selectedOption = params['tab'];
-        if(this.selectedOption=='sell') {
-          this.checkSell=true;
-          this.checkBuy=false;
+        if (this.selectedOption == 'sell') {
+          this.checkSell = true;
+          this.checkBuy = false;
         }
-        if(this.selectedOption=='buy') {
-          this.checkSell=false;
-          this.checkBuy=true;
+        if (this.selectedOption == 'buy') {
+          this.checkSell = false;
+          this.checkBuy = true;
         }
       }
       this.ingressService.getUserIdToken().then((res) => {
         this.userId = res;
         this.ingressService.loggedInUserId = this.userId;
+        this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
+          this.resFromServer = res;
+          //this.orderList = this.resFromServer.ordersAndContracts;
+
+          console.log("Orders List:", this.resFromServer.response);
+          this.orderService.orderList = this.resFromServer.response;
+          //combining orders and contracts
+          if (this.resFromServer.response.sellOrders) {
+            for (let i = 0; i < this.resFromServer.response.sellOrders.length; i++) {
+              this.allOrdersAndContracts.push(this.resFromServer.response.sellOrders[i]);
+            }
+          }
+          if (this.resFromServer.response.contracts) {
+            for (let i = 0; i < this.resFromServer.response.contracts.length; i++) {
+              this.allOrdersAndContracts.push(this.resFromServer.response.contracts[i]);
+            }
+          }
+          console.log("All Sell Orders and contracts: ", this.allOrdersAndContracts);
+          this.fineTuneOrderList();
+        });
         this.ingressService.getUserDevicesToken().then((res) => {
           this.userDeviceList = res;
           if (this.userDeviceList != null) {
@@ -104,30 +135,46 @@ export class DashboardPage implements OnInit {
           }
         });
       });
-      // else {
-      //   if (params['showSolar'] == "true") {
-      //     this.showSolar = true;
-      //     this.solarCapacity = params['solarCapacity'];
-      //   }
-      //   else {
-      //     this.showSolar = false;
-      //   }
-      //   if (params['showGenerator'] == "true") {
-      //     this.showGenerator = true;
-      //     this.generatorCapacity = params['generatorCapacity'];
-      //   }
-      //   else {
-      //     this.showGenerator = false;
-      //   }
-      //   if (params['showEV'] == "true") {
-      //     this.showEV = true;
-      //     this.evCapacity = params['evCapacity'];
-      //   }
-      //   else {
-      //     this.showEV = false;
-      //   }
-      // }
     });
+  }
+
+  fineTuneOrderList() {
+    for (var i = 0; i < this.allOrdersAndContracts.length; i++) {
+      let obj = this.allOrdersAndContracts[i];
+      if (!obj.contractId) {
+        obj.orderType = "sell";
+        obj.orderId = obj.sellOrderId;
+      } else if (obj.contractId) {
+        obj.orderType = "buy";
+        obj.orderId = obj.contractId;
+        obj.powerToSell = obj.sellorder.powerToSell;
+        obj.totalAmount = obj.sellorder.totalAmount;
+        obj.deviceTypeName = obj.sellorder.deviceTypeName;
+        obj.transferStartTs = obj.sellorder.transferStartTs;
+        obj.transferEndTs = obj.sellorder.transferEndTs;
+      }
+      if (obj.orderType == "sell")
+        obj.month = moment(obj.transferStartTs).format('M');
+      else
+        obj.month = moment(obj.sellorder.transferStartTs).format('M');
+      this.orderListUpdated.push(obj);
+    }
+    console.log("Updated orders list", this.orderListUpdated);
+    this.displayOrderList = this.orderListUpdated;
+    this.displayOrderList.sort((ts1, ts2) => {
+      return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
+    })
+    if(this.orderListUpdated.length<2) {
+      this.length=this.orderListUpdated.length;
+    }
+    else {
+      this.length=2;
+    }
+    while (this.index < this.length) {
+      this.allOrders[this.index] = this.orderListUpdated[this.index];
+      this.index++;
+    }
+    console.log('Latest Transactions : ' , this.allOrders);
   }
 
   initiateSellFlow(sellFlowDetails: any) {
@@ -144,13 +191,13 @@ export class DashboardPage implements OnInit {
   segmentChanged($event) {
     // console.log($event.detail.value);
     this.selectedOption = $event.detail.value;
-    if(this.selectedOption=='sell') {
-      this.checkSell=true;
-      this.checkBuy=false;
+    if (this.selectedOption == 'sell') {
+      this.checkSell = true;
+      this.checkBuy = false;
     }
-    if(this.selectedOption=='buy') {
-      this.checkSell=false;
-      this.checkBuy=true;
+    if (this.selectedOption == 'buy') {
+      this.checkSell = false;
+      this.checkBuy = true;
     }
   }
 
@@ -203,11 +250,10 @@ export class DashboardPage implements OnInit {
     this.deviceCapactiy = this.solarCapacity;
 
     //TOGGLE TO CHANGE COLOURS
-    this.showSolar=this.toggleTrueFalse(this.showSolar);
-    if(this.showSolar==true)
-    {
-      this.showGenerator=false;
-      this.showEV=false
+    this.showSolar = this.toggleTrueFalse(this.showSolar);
+    if (this.showSolar == true) {
+      this.showGenerator = false;
+      this.showEV = false
     }
   }
 
@@ -217,11 +263,10 @@ export class DashboardPage implements OnInit {
     this.deviceCapactiy = this.generatorCapacity;
 
     //TOGGLE TO CHANGE COLOURS
-    this.showGenerator=this.toggleTrueFalse(this.showGenerator);
-    if(this.showGenerator==true)
-    {
-      this.showEV=false;
-      this.showSolar=false;
+    this.showGenerator = this.toggleTrueFalse(this.showGenerator);
+    if (this.showGenerator == true) {
+      this.showEV = false;
+      this.showSolar = false;
     }
   }
 
@@ -231,22 +276,18 @@ export class DashboardPage implements OnInit {
     this.deviceCapactiy = this.evCapacity;
 
     //TOGGLE TO CHANGE COLOURS
-    this.showEV=this.toggleTrueFalse(this.showEV);
-    if(this.showEV==true)
-    {
-      this.showSolar=false;
-      this.showGenerator=false;
+    this.showEV = this.toggleTrueFalse(this.showEV);
+    if (this.showEV == true) {
+      this.showSolar = false;
+      this.showGenerator = false;
     }
   }
 
-  toggleTrueFalse(what)
-  {
-    if(what==true)
-    {
+  toggleTrueFalse(what) {
+    if (what == true) {
       return false;
     }
-    else if(what==false)
-    {
+    else if (what == false) {
       return true;
     }
   }
@@ -262,6 +303,12 @@ export class DashboardPage implements OnInit {
 
   }
 
+  formatTime(ts, type) {
+    if (type == 't')
+      return moment(ts).format("hh:mm A");
+    else if (type == 'd')
+      return moment(ts).format("Do MMM");
+  }
 
   async presentAlert(alertmsg) {
 
@@ -272,5 +319,9 @@ export class DashboardPage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+  navigateToManageOrders() {
+    this.router.navigateByUrl('/manage-orders');
   }
 }

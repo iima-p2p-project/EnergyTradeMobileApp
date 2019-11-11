@@ -26,10 +26,7 @@ const routes: Routes = [
   { path: 'create-account', loadChildren: './pages/create-account/create-account.module#CreateAccountPageModule' },
   { path: 'otp', loadChildren: './pages/otp/otp.module#OtpPageModule' },
   { path: 'device-details', loadChildren: './pages/device-details/device-details.module#DeviceDetailsPageModule' },
-  { path: 'dashboard', 
-    loadChildren: 'src/app/pages/dashboard/dashboard.module#DashboardPageModule', 
-    // canActivate: [AuthGuard] ////disabled temporarily
-  },
+  { path: 'dashboard', loadChildren: 'src/app/pages/dashboard/dashboard.module#DashboardPageModule', canActivate: [AuthGuard] },
   { path: 'sell-time-picker', loadChildren: './pages/sell-time-picker/sell-time-picker.module#SellTimePickerPageModule' },
   { path: 'sell-rate-set', loadChildren: './pages/sell-rate-set/sell-rate-set.module#SellRateSetPageModule' },
   { path: 'buy-time-picker', loadChildren: './pages/buy-time-picker/buy-time-picker.module#BuyTimePickerPageModule' },
@@ -47,7 +44,7 @@ const routes: Routes = [
   { path: 'non-trade-hours', loadChildren: './pages/non-trade-hours/non-trade-hours.module#NonTradeHoursPageModule' },
   { path: 'cancel-non-trade-hour', loadChildren: './pages/cancel-non-trade-hour/cancel-non-trade-hour.module#CancelNonTradeHourPageModule' },
   { path: 'cancel-in-profile', loadChildren: './pages/cancel-in-profile/cancel-in-profile.module#CancelInProfilePageModule' },
-  { path: 'admin-dashboard', loadChildren: './pages/admin-dashboard/admin-dashboard.module#AdminDashboardPageModule' },
+  { path: 'admin-dashboard', loadChildren: './pages/admin-dashboard/admin-dashboard.module#AdminDashboardPageModule', canActivate: [AuthGuard] },
   { path: 'schedule', loadChildren: './pages/schedule/schedule.module#SchedulePageModule' },
   { path: 'admin-edit', loadChildren: './pages/admin-edit/admin-edit.module#AdminEditPageModule' },
   { path: 'modal-edit', loadChildren: './pages/modal-edit/modal-edit.module#ModalEditPageModule' }

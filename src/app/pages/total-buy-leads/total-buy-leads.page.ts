@@ -16,7 +16,7 @@ export class TotalBuyLeadsPage implements OnInit {
 
   allBuyLeads: any;
   monthFilterKey;
-  displayLeads;
+  displayLeads: any;
 
 
   constructor(private router: Router
@@ -81,7 +81,7 @@ export class TotalBuyLeadsPage implements OnInit {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.monthFilterKey);
-      this.displayLeads = this.allBuyLeads.filter(order => moment(order.sellorder.transferStartTs).format('M') == this.monthFilterKey);
+      this.displayLeads = this.allBuyLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
     }
     );
   }
