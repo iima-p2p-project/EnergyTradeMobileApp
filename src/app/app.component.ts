@@ -51,14 +51,6 @@ export class AppComponent {
   }
 
   ionViewDidEnter() {
-    this.ingressService.getUserNameToken().then((res) => {
-      this.userName = res;
-      this.ingressService.loggedInUserName = this.userName;
-      this.ingressService.getUserLocalityNameToken().then((res) => {
-        this.localityName = res;
-        this.ingressService.loggedInUserLocalityName = this.localityName;
-      })
-    });
   }
 
   initializeApp() {
@@ -86,5 +78,18 @@ export class AppComponent {
   
   logout(){
     this.ingressService.logout();
+  }
+
+  getUserDetails() {
+    this.ingressService.getUserNameToken().then((res) => {
+      console.log('app component user name : ' , res);
+      this.userName = res;
+      this.ingressService.loggedInUserName = this.userName;
+      this.ingressService.getUserLocalityNameToken().then((res) => {
+        console.log('app component locality name : ' , res);
+        this.localityName = res;
+        this.ingressService.loggedInUserLocalityName = this.localityName;
+      })
+    });
   }
 }

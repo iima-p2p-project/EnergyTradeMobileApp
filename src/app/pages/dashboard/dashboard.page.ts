@@ -49,6 +49,9 @@ export class DashboardPage implements OnInit {
   resFromServer: any;
   userId: any;
 
+  index: number = 0;
+  length: number = 0;
+
   constructor(private router: Router
     , private route: ActivatedRoute
     , private nav: NavController
@@ -64,6 +67,11 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.allOrdersAndContracts=[];
+    this.orderListUpdated=[];
+    this.allOrders=[];
+    this.index=0;
+    this.length=0;
     this.route.queryParams.subscribe(params => {
       //this.userId = params['userId'];
       if (params['tab'] != null) {
@@ -144,7 +152,6 @@ export class DashboardPage implements OnInit {
         obj.deviceTypeName = obj.sellorder.deviceTypeName;
         obj.transferStartTs = obj.sellorder.transferStartTs;
         obj.transferEndTs = obj.sellorder.transferEndTs;
-
       }
       if (obj.orderType == "sell")
         obj.month = moment(obj.transferStartTs).format('M');
@@ -157,12 +164,15 @@ export class DashboardPage implements OnInit {
     this.displayOrderList.sort((ts1, ts2) => {
       return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
     })
-    var i = 0;
-    if(this.orderListUpdated.length>0) {
-      while (i < 2) {
-        this.allOrders[i] = this.orderListUpdated[i];
-        i++;
-      }
+    if(this.orderListUpdated.length<2) {
+      this.length=this.orderListUpdated.length;
+    }
+    else {
+      this.length=2;
+    }
+    while (this.index < this.length) {
+      this.allOrders[this.index] = this.orderListUpdated[this.index];
+      this.index++;
     }
     console.log('Latest Transactions : ' , this.allOrders);
   }

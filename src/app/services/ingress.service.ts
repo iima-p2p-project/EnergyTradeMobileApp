@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class IngressService {
 
-  loginUrl = INGRESS_URL + '/login';
+  loginUrl = INGRESS_URL + '/loginUser';
   sendOtpUrl = INGRESS_URL + '/sendOtp';
   generateOtpUrl = INGRESS_URL + '/generateOtp';
   verifyOtpUrl = INGRESS_URL + '/verifyOtp';
@@ -36,15 +36,14 @@ export class IngressService {
     ,private storage: Storage
     ,private router: Router) { }
 
-  login(userDetails) {
-    console.log("Inside Login", userDetails);
+  login(phoneNumber: string, otp: string) {
     var options = {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
     //return { 'recordStatus' : 2 };
     return this.httpClient.post(this.loginUrl
-      , userDetails
+      , {"phone":phoneNumber,"otp":otp}
       , options
     );
   }
@@ -177,7 +176,7 @@ export class IngressService {
 
   async getUserIdToken() {
     console.log("get token");
-    if (!this.loggedInUser) {
+    if (!this.loggedInUserId) {
       console.log("storage token");
       await this.storage.ready();
       const token = await this.storage.get('LoggedInUserId');
@@ -243,7 +242,7 @@ export class IngressService {
       const token = await this.storage.get('LoggedInUserRole');
       if (token) {
         console.log("storage token recieved");
-        this.loggedInUserName = token;
+        this.loggedInUserRole = token;
       }
     }
     console.log('user role token : ' , this.loggedInUserRole);

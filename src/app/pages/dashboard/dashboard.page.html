@@ -210,7 +210,8 @@
       <ion-grid>
         <ion-row >
           <ion-col size="2" style="padding-left:1em;">
-            <ion-icon style="zoom:3;padding-top:0.2em;" src="assets/svg/buy (1).svg"></ion-icon>
+            <ion-icon style="zoom:3;" src="assets/svg/sell (1).svg" *ngIf="order.orderType == 'sell'"></ion-icon>
+              <ion-icon style="zoom:3;" src="assets/svg/buy (1).svg" *ngIf="order.orderType == 'buy'"></ion-icon>
           </ion-col>
           <ion-col size="10">
             <ion-grid>

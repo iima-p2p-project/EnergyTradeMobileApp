@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
       "loginMode": "P",
       "phoneNum": this.phoneNumber
     }
-    this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
+    this.ingressService.login(this.phoneNumber, this.otp).subscribe((res) => {
       this.responseFromService = res;
       if (this.responseFromService.response.key == 200) {
         console.log('login response : ' , this.responseFromService);
@@ -136,6 +136,7 @@ export class LoginPage implements OnInit {
           this.responseFromService = res;
           if(this.responseFromService.response.key == 200) {
             this.showOTPFlag = true;
+            this.loginForm.controls['otp'].setValue("");
           }
           if(this.responseFromService.response.key == 300) {
             this.showOTPFlag = false;

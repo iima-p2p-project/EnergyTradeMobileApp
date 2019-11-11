@@ -44,7 +44,7 @@ const routes: Routes = [
   { path: 'non-trade-hours', loadChildren: './pages/non-trade-hours/non-trade-hours.module#NonTradeHoursPageModule' },
   { path: 'cancel-non-trade-hour', loadChildren: './pages/cancel-non-trade-hour/cancel-non-trade-hour.module#CancelNonTradeHourPageModule' },
   { path: 'cancel-in-profile', loadChildren: './pages/cancel-in-profile/cancel-in-profile.module#CancelInProfilePageModule' },
-  { path: 'admin-dashboard', loadChildren: './pages/admin-dashboard/admin-dashboard.module#AdminDashboardPageModule' },
+  { path: 'admin-dashboard', loadChildren: './pages/admin-dashboard/admin-dashboard.module#AdminDashboardPageModule', canActivate: [AuthGuard] },
   { path: 'schedule', loadChildren: './pages/schedule/schedule.module#SchedulePageModule' },
   { path: 'admin-edit', loadChildren: './pages/admin-edit/admin-edit.module#AdminEditPageModule' },
   { path: 'modal-edit', loadChildren: './pages/modal-edit/modal-edit.module#ModalEditPageModule' }
