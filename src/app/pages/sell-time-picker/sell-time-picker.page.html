@@ -136,11 +136,11 @@
       </ion-grid>
       <div style="padding-top:90%;
       margin-left:auto;margin-right:auto;text-align:center;">
-              <ion-button *ngIf="duration==null" class="ion-text-center" disabled shape="round" style="font-family:MSemiBold;opacity:0.6;" 
+              <!-- <ion-button *ngIf="duration==null" class="ion-text-center" disabled shape="round" style="font-family:MSemiBold;opacity:0.6;" 
               routerDirection="forward" routerLink="/sell-rate-set" (click)="proceedToSetRate()">
                 PROCEED TO SET RATE
-              </ion-button>
-              <ion-button *ngIf="duration!=null" class="ion-text-center" disabled shape="round" style="font-family:MSemiBold;" 
+              </ion-button> -->
+              <ion-button class="ion-text-center" disabled="{{!inputsValidFlag}}" shape="round" style="font-family:MSemiBold;" 
               routerDirection="forward" routerLink="/sell-rate-set" (click)="proceedToSetRate()">
                 PROCEED TO SET RATE
               </ion-button>
