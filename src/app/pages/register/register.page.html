@@ -2,7 +2,7 @@
 
   <ion-toolbar class="_toolbar">
 
-    <ion-title class="__title">
+    <ion-title class="__title" style="font-family: MMedium !important;">
       CREATE ACCOUNT
     </ion-title>
   </ion-toolbar>
@@ -81,7 +81,7 @@
 
         <ion-row>
           <ion-col>
-            <ion-button type="submit" (click)="register()" [disabled]="!registerForm.valid">REGISTER
+            <ion-button (click)="register()" [disabled]="!registerForm.valid">REGISTER
             </ion-button>
           </ion-col>
         </ion-row>

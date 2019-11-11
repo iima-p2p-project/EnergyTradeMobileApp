@@ -47,7 +47,10 @@
             <p class="p__" >4 DIGIT OTP</p>
             <ion-input class="OTP_input" formControlName="otp" type="string"  ></ion-input>
 
-            <button class="Resend_OTP_btn">RESEND</button>
+            <!-- class="Resend_OTP_btn" -->
+            <ion-button fill="clear" style="margin-top:-0.1em;--border-radius:0px;font-family:MLight !important;--background:transparent;color:#0048A8;margin-left:-0.7em;" >
+              RESEND
+            </ion-button>
           </div>
       <div class="Message">
         <p class="p_message">By clicking Continue you are accepting to Sustain Impact <span class="Terms_"> Terms & Conditions</span></p>
@@ -56,7 +59,7 @@
 
       <ion-row>
           <ion-col>
-              <ion-button type="submit" (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
+              <ion-button (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
                 </ion-button>
           </ion-col>
         </ion-row>

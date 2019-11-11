@@ -1,7 +1,7 @@
 <ion-header class="_header">
   
   <ion-toolbar class="_toolbar">
-    <ion-title class="__title">
+    <ion-title class="__title" style='font-family:MMedium !important;'>
         SIGN IN
     </ion-title>
   </ion-toolbar>
@@ -34,7 +34,9 @@
 
     <ion-row>
         <ion-col>
-            <ion-button shape="round" type="submit" (click)="login()" [disabled]="!loginForm.valid">SIGN IN</ion-button>
+            <ion-button shape="round" (click)="login()" [disabled]="!loginForm.valid">
+              SIGN IN
+            </ion-button>
 
         </ion-col>
       </ion-row>

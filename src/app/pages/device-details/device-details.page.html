@@ -1,7 +1,7 @@
 <ion-header class="_header">
 
   <ion-toolbar class="_toolbar">
-    <ion-title class="__title">
+    <ion-title class="__title" style="font-family:MMedium !important;">
       ADD RESOURCES
     </ion-title>
   </ion-toolbar>
@@ -29,8 +29,15 @@
         </div>
 
         <p class="Input_X" *ngIf="showSolar">
-          <input formControlName="solar" class="_Input" size="17" type="string" placeholder="XX-XX">
-          <span class="Kwh">kWh</span>
+          <ion-row style="margin-top:-2em;">
+            <ion-col size="5">
+              <ion-input formControlName="solar" class="_Input" size="17" type="text" placeholder="XX-XX" style="width:100%;">
+              </ion-input>
+            </ion-col>
+            <ion-col style='margin-top:0.8em;margin-left:-0.5em;'>
+              <span class="Kwh">kWh</span>
+            </ion-col>
+          </ion-row>
         </p>
 
         <div class="Label_" *ngIf="showGenerator">
@@ -41,8 +48,15 @@
         </div>
 
         <p class="Input_X" *ngIf="showGenerator">
-          <input formControlName="generator" class="_Input" type="string" placeholder="XX-XX">
-          <span class="Kwh">kWh</span>
+            <ion-row style="margin-top:-2em;">
+              <ion-col size="5">
+                <ion-input formControlName="generator" class="_Input" type="text" placeholder="XX-XX" style="width:100%;">
+                </ion-input>
+              </ion-col>
+              <ion-col style='margin-top:0.8em;margin-left:-0.5em;'>
+                <span class="Kwh">kWh</span>
+              </ion-col>
+            </ion-row>
         </p>
 
         <div class="Label_" *ngIf="showEV">
@@ -53,14 +67,21 @@
         </div>
 
         <p class="Input_X" *ngIf="showEV">
-          <input formControlName="ev" class="_Input" type="string" placeholder="XX-XX">
-          <span class="Kwh">kWh</span>
+            <ion-row style="margin-top:-2em;">
+                <ion-col size="5">
+                  <ion-input formControlName="ev" class="_Input" type="text" placeholder="XX-XX" style="width:100%;">
+                  </ion-input>
+                </ion-col>
+                <ion-col style='margin-top:0.8em;margin-left:-0.5em;'>
+                  <span class="Kwh">kWh</span>
+                </ion-col>
+            </ion-row>
         </p>
       </div>
       <br /><br /><br /><br />
       <ion-row>
         <ion-col>
-          <ion-button type="submit" (click)="addDevice()">SAVE</ion-button>
+          <ion-button (click)="addDevice()">SAVE</ion-button>
         </ion-col>
       </ion-row>
     </form>
