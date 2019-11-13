@@ -71,7 +71,7 @@ export class CreateAccountPage implements OnInit {
       this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
         this.responseFromService = res;
         console.log('response from register service : ', this.responseFromService.response.key);
-        this.showToast(this.responseFromService.response.key);
+        //this.showToast(this.responseFromService.response.key);
         if (this.responseFromService.response.key == 200) {
           this.userId = this.responseFromService.response.userId;
           this.userRole = this.responseFromService.response.userRole;

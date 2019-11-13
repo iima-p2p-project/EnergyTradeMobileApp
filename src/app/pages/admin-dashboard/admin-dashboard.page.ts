@@ -24,8 +24,8 @@ export class AdminDashboardPage implements OnInit {
   userId: any;
   userRole: any;
   userStateId: any;
-  buyLeadsCount: any;
-  sellLeadsCount: any;
+  buyLeadsCount: any=0;
+  sellLeadsCount: any=0;
   
   constructor(private router: Router,
     private route: ActivatedRoute,
