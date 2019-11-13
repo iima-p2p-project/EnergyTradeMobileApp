@@ -65,14 +65,19 @@ export class BuyTimePickerPage implements OnInit {
     this.durationDetails = this.timeService.getStartTimeDetails(this.startTime, this.endTime, USER_ROLE);
     if (this.durationDetails != null) {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
-      this.duration = this.durationDetails.duration;
-      if (this.duration == "INVALID") {
-        console.log("Invalid Time range");
-        this.presentAlert("End Time cant be before start time");
+      if (this.durationDetails.duration) {
+        this.duration = this.durationDetails.duration.duration;
+        if (this.durationDetails.duration.durationTime <= 0) {
+          console.log("Invalid Time range");
+          this.presentAlert("End Time shall be after start time");
+          this.duration = "00:00";
+          this.inputsValidFlag = false;
+        } else {
+          this.inputsValidFlag = true;
+        }
+      }
+      else {
         this.duration = "00:00";
-        this.inputsValidFlag = false;
-      } else {
-        this.inputsValidFlag = true;
       }
     }
   }
@@ -81,21 +86,26 @@ export class BuyTimePickerPage implements OnInit {
     this.durationDetails = this.timeService.getEndTimeDetails(this.startTime, this.endTime, USER_ROLE);
     if (this.durationDetails != null) {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
-      this.duration = this.durationDetails.duration;
-      if (this.duration == "INVALID") {
-        console.log("Invalid Time range");
-       // this.presentAlert("End Time cant be before start time");
+      if (this.durationDetails.duration) {
+        this.duration = this.durationDetails.duration.duration;
+        if (this.durationDetails.duration.durationTime <= 0) {
+          console.log("Invalid Time range");
+          this.presentAlert("End Time shall be after start time");
+          this.duration = "00:00";
+          this.inputsValidFlag = false;
+        } else {
+          this.inputsValidFlag = true;
+        }
+      }
+      else {
         this.duration = "00:00";
-        this.inputsValidFlag = true;
-      } else {
-        this.inputsValidFlag = true;
       }
     }
   }
 
   findSellers() {
 
-    if (this.inputsValidFlag && this.budgetMin && this.budgetMax && this.budgetMax >= this.budgetMin) {
+    if (this.inputsValidFlag && this.budgetMin && this.budgetMax && +this.budgetMax >= +this.budgetMin) {
       // this.buyOrderPayload.unitMin = this.unitMin;
       // this.buyOrderPayload.unitMax = this.unitMax;
       // this.buyOrderPayload.startTime = this.startTime;

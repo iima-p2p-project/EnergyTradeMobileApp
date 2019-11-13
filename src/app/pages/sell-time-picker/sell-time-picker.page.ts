@@ -72,13 +72,13 @@ export class SellTimePickerPage implements OnInit {
   ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
-      if(this.action == ACTION_CREATE) {
+      if (this.action == ACTION_CREATE) {
         this.power = params['powerToSell'];
         this.sellerId = params['sellerId'];
         this.userDeviceId = params['userDeviceId'];
         this.deviceTypeId = params['deviceTypeId'];
       }
-      if(this.action == ACTION_EDIT) {
+      if (this.action == ACTION_EDIT) {
         this.sellOrderId = params['sellOrderId'];
         this.startTime = params['startTime'];
         this.endTime = params['endTime'];
@@ -99,15 +99,18 @@ export class SellTimePickerPage implements OnInit {
     this.durationDetails = this.timeService.getStartTimeDetails(this.startTime, this.endTime, USER_ROLE);
     if (this.durationDetails != null) {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
-      this.duration = this.durationDetails.duration;
-      if (this.duration == "INVALID") {
-        console.log("Invalid Time range");
-        this.presentAlert("End Time cant be before start time");
-        this.duration = "00:00";
-        this.inputsValidFlag = false;
+      if (this.durationDetails.duration) {
+        this.duration = this.durationDetails.duration.duration;
+        if (this.durationDetails.duration.durationTime <= 0) {
+          console.log("Invalid Time range");
+          this.presentAlert("End Time shall be after start time");
+          this.duration = "00:00";
+          this.inputsValidFlag = false;
+        } else {
+          this.inputsValidFlag = true;
+        }
       } else {
-        this.inputsValidFlag = true;
-        console.log("Start here");
+        this.duration = "00:00";
       }
     }
   }
@@ -116,16 +119,19 @@ export class SellTimePickerPage implements OnInit {
     this.durationDetails = this.timeService.getEndTimeDetails(this.startTime, this.endTime, USER_ROLE);
     if (this.durationDetails != null) {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
-      this.duration = this.durationDetails.duration;
-      if (this.duration == "INVALID") {
-        console.log("Invalid Time range");
-        //this.presentAlert("End Time cant be before start time");
-        this.duration = "00:00";
-        this.inputsValidFlag = true;
-      } else {
-        this.inputsValidFlag = true;
-        console.log("End here",this.inputsValidFlag);
+      if (this.durationDetails.duration) {
+        this.duration = this.durationDetails.duration.duration;
+        if (this.durationDetails.duration.durationTime <= 0) {
+          console.log("Invalid Time range");
+          this.presentAlert("End Time shall be after start time");
+          this.duration = "00:00";
+          this.inputsValidFlag = false;
+        } else {
+          this.inputsValidFlag = true;
+        }
       }
+    } else {
+      this.duration = "00:00";
     }
   }
 
