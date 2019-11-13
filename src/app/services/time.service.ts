@@ -49,41 +49,46 @@ export class TimeService {
     this.minDiff = Math.round(duration.asMinutes());
     this.durationInHours = Math.floor(this.minDiff / 60);
     this.durationInMins = this.minDiff % 60;
-    if (this.durationInMins > 0) {
-      if (parseInt(this.durationInHours) < 10) {
-        this.durationInHours = '0' + this.durationInHours;
-      }
-      if (parseInt(this.durationInMins) < 10) {
-        this.durationInMins = '0' + this.durationInMins;
-      }
 
-      this.duration = this.durationInHours + ":" + this.durationInMins;
-    } else {
-      this.duration = "INVALID";
+    if (parseInt(this.durationInHours) < 10) {
+      this.durationInHours = '0' + this.durationInHours;
     }
-    return this.duration;
+    if (parseInt(this.durationInMins) < 10) {
+      this.durationInMins = '0' + this.durationInMins;
+    }
+
+    this.duration = this.durationInHours + ":" + this.durationInMins;
+    return {
+      duration: this.duration
+      , durationTime: this.minDiff
+    }
   }
 
   getStartTimeDetails(startTime: string, endTime: string, userRole: string) {
+    let durationObject;
     this.startTime = startTime;
     this.startTimeDetails = moment(startTime).format('ddd, DD MMM');
     //console.log('start time display : ' , moment(startTime).format('hh:mm A'));
     this.startTimeDetails = this.startTimeDetails.toUpperCase();
     this.isStartTimeSelected = true;
     if (this.isStartTimeSelected && this.isEndTimeSelected) {
-      this.duration = this.getDuration(startTime, endTime, userRole);
+      durationObject = this.getDuration(startTime, endTime, userRole);
     }
-    return { startTimeDetails: this.startTimeDetails, duration: this.duration };
+    return {
+      startTimeDetails: this.startTimeDetails
+      , duration: durationObject
+    };
   }
 
   getEndTimeDetails(startTime: string, endTime: string, userRole: string) {
+    let durationObject;
     this.endTime = endTime;
     this.endTimeDetails = moment(endTime).format('ddd, DD MMM');
     this.endTimeDetails = this.endTimeDetails.toUpperCase();
     this.isEndTimeSelected = true;
     if (this.isStartTimeSelected && this.isEndTimeSelected) {
-      this.duration = this.getDuration(startTime, endTime, userRole);
+      durationObject = this.getDuration(startTime, endTime, userRole);
     }
-    return { endTimeDetails: this.endTimeDetails, duration: this.duration };
+    return { endTimeDetails: this.endTimeDetails, duration: durationObject };
   }
 }
