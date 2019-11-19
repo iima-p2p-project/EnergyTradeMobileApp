@@ -1,0 +1,78 @@
+ion-content{
+    --background:#0048A8;
+  
+  }
+
+  .customer-card{
+      width:99%;
+      background-color:white;
+      padding-top:0.6em;
+      padding-bottom:0.6em;
+  }
+
+  .menu-button{
+    color:white;
+    text-align: left;
+    margin-top:1em;
+  }
+
+  .title-top{
+    color:white;
+    text-align:center;
+    font-size:1.4em;
+    font-family:MSemiBold !important;
+    margin-top:1em;
+  }
+
+  .row-control{
+      margin-top:-10px;
+  }
+
+  .the-footer{
+    background-color:#0048A8;
+    color:white;
+    padding:0;
+  }
+
+  .bottom-footer{
+    border:rgba(173, 216, 230, 0.300) 0.5px solid;
+    padding:1em;
+    font-size:0.8em;
+    font-family:MSemiBold !important;
+    .icon{
+        display: inline-block;
+        vertical-align: middle;
+        zoom:1.2;
+        color:white;
+       }
+  }
+
+  .unit-name{
+    font-family:MMedium !important;
+    color:black;
+    font-size:1.1em;
+  }
+  .unit-id{
+    font-family:MLight !important;
+    color:black;
+    font-size:0.7em;
+    text-align:left;
+  }
+
+  .left-side-top{
+    font-family:MMedium !important;
+    font-size:0.8em;
+    text-align:right
+  }
+
+  .left-side-bottom{
+      font-size:0.6em;
+      text-align:right;
+      font-family:MMedium !important;
+      color:black;
+  }
+
+  .icon{
+    display: inline-block;
+    vertical-align: middle;
+   }
