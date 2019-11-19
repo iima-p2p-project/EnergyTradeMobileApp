@@ -105,6 +105,17 @@ ion-content{
           padding-top:1.6em;
       }
   }
+  .prediction{
+    vertical-align:middle;
+    text-align:left;
+    padding-top:1.6em;
+}
+
+  .card-price{
+    text-align:right;
+    font-family:MSemiBold!important;
+    color:black;
+}
 
   .card-bottom-top{
     z-index:2;
@@ -181,6 +192,12 @@ ion-content{
         color:white;
        }
   }
+  .icon{
+    display: inline-block;
+    vertical-align: middle;
+    // zoom:1.2;
+    color:white;
+   }
 
   .the-footer{
     background-color:#0048A8;
@@ -190,4 +207,53 @@ ion-content{
 
   .height-adjust{
       margin-top:-1.5em;
+  }
+
+  .bottom-row{
+    font-family:MMedium !important;
+    color:black;
+    font-size:0.7em;
+  }
+
+  .unit-id{
+    font-family:MLight !important;
+    color:black;
+    font-size:0.7em;
+    text-align:left;
+  }
+
+  .card-bottom{
+    --background:white;
+    width:99% !important;
+    margin-right:auto;
+    margin-left:auto;
+  
+    .unit-number{
+      font-family:MMedium !important;
+      color:black;
+      font-size:1.2em;
+    }
+    .unit-id{
+      font-family:MLight !important;
+      color:black;
+      font-size:0.7em;
+      text-align:right;
+    }
+    .bottom-row{
+      font-family:MMedium !important;
+      color:black;
+      font-size:0.7em;
+    }
+    .sell{
+      color:rgb(150, 150, 150);
+    }
+    .hyphen{
+      vertical-align: middle;
+      align-content: center;
+      text-align: center;
+      align-items: center;
+      align-self: center;
+      font-size: 10px;
+      font-weight: bold;
+    }
   }
