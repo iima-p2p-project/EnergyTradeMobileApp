@@ -67,11 +67,11 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.allOrdersAndContracts=[];
-    this.orderListUpdated=[];
-    this.allOrders=[];
-    this.index=0;
-    this.length=0;
+    this.allOrdersAndContracts = [];
+    this.orderListUpdated = [];
+    this.allOrders = [];
+    this.index = 0;
+    this.length = 0;
     this.route.queryParams.subscribe(params => {
       //this.userId = params['userId'];
       if (params['tab'] != null) {
@@ -164,17 +164,17 @@ export class DashboardPage implements OnInit {
     this.displayOrderList.sort((ts1, ts2) => {
       return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
     })
-    if(this.orderListUpdated.length<2) {
-      this.length=this.orderListUpdated.length;
+    if (this.orderListUpdated.length < 2) {
+      this.length = this.orderListUpdated.length;
     }
     else {
-      this.length=2;
+      this.length = 2;
     }
     while (this.index < this.length) {
       this.allOrders[this.index] = this.orderListUpdated[this.index];
       this.index++;
     }
-    console.log('Latest Transactions : ' , this.allOrders);
+    console.log('Latest Transactions : ', this.allOrders);
   }
 
   initiateSellFlow(sellFlowDetails: any) {
@@ -291,6 +291,7 @@ export class DashboardPage implements OnInit {
       return true;
     }
   }
+  
   powerInput(power) {
     console.log("Power input detected", power);
     if (this.deviceCapactiy && power)
@@ -300,7 +301,6 @@ export class DashboardPage implements OnInit {
       } else {
         this.powerToSell = power;
       }
-
   }
 
   formatTime(ts, type) {

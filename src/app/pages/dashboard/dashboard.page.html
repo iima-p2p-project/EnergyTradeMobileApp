@@ -147,24 +147,24 @@
           <ion-row *ngIf="selectedOption=='sell'">
             <ion-col size="3" style="margin-right:-0.3em;">
               <span class="number-big">
-                <ion-input placeholder="XXXX" [(ngModel)]="powerToSell" (ionInput)="powerInput($event.target.value)">
+                <ion-input placeholder="XXXX" [(ngModel)]="powerToSell" (ionInput)="powerInput($event.target.value)" type="number">
                 </ion-input>
               </span>
             </ion-col>
-            <ion-col size="9" style="margin-top:1.2em;padding-left:0px;color:black;font-family:MMedium !important;" *ngIf="selectedOption=='sell'">/ {{deviceCapactiy}}</ion-col>
+            <ion-col size="9" style="margin-top:0.8em;padding-left:0px;color:black;font-family:MMedium !important;" *ngIf="selectedOption=='sell'">/ {{deviceCapactiy}}</ion-col>
           </ion-row>
           <ion-row *ngIf="selectedOption=='buy'">
             <ion-col size="6">
               <span class="number-big">
                 <ion-row>
                   <ion-col size="5">
-                    <ion-input placeholder="XX" [(ngModel)]="minPowerToBuy"></ion-input>
+                    <ion-input placeholder="XX" [(ngModel)]="minPowerToBuy" type="number"></ion-input>
                   </ion-col>
                   <ion-col size="2" style="margin-top:0.5em;">
                     <ion-label class="hyphen">-</ion-label>
                   </ion-col>
                   <ion-col size="5">
-                    <ion-input placeholder="XX" [(ngModel)]="maxPowerToBuy"></ion-input>
+                    <ion-input placeholder="XX" [(ngModel)]="maxPowerToBuy" type="number"></ion-input>
                   </ion-col>
                 </ion-row>
               </span>

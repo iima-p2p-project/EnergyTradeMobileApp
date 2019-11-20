@@ -28,7 +28,7 @@
             <ion-row>
               <ion-col>
                 <ion-row>
-                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, YYYY hh:mm A"
+                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
                     [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()"></ion-datetime>
                   <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
@@ -55,7 +55,7 @@
             <ion-row>
               <ion-col>
                 <ion-row>
-                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, YYYY hh:mm A"
+                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
                     [(ngModel)]="endTime" (ionChange)="getEndTimeDetails()"></ion-datetime>
                   <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
@@ -118,7 +118,7 @@
       <ion-row style="margin-top:-0.5em;">
         <ion-col>
           <ion-item lines="none">
-            <ion-textarea style="border:1px solid rgba(190, 190, 190, 0.527);" [(ngModel)]="reason">
+            <ion-textarea style="padding-left:0.5em;border:1px solid rgba(190, 190, 190, 0.527);" [(ngModel)]="reason">
             </ion-textarea>
           </ion-item>
         </ion-col>

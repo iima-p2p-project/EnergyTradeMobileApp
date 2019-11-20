@@ -42,7 +42,7 @@
             <ion-row>
               <ion-col>
                 <ion-row>
-                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, YYYY hh:mm A"
+                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
                     [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()"></ion-datetime>
                   <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
@@ -69,7 +69,7 @@
             <ion-row>
               <ion-col>
                 <ion-row>
-                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, YYYY hh:mm A"
+                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
                     [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()"></ion-datetime>
                   <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
@@ -99,7 +99,7 @@
             <ion-row>
               <ion-col>
                 <ion-row>
-                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, YYYY hh:mm A"
+                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
                     [(ngModel)]="endTime" (ionChange)="getEndTimeDetails()"></ion-datetime>
                   <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
@@ -146,9 +146,9 @@
         <ion-col offset="1" size="5">
           <ion-item style="margin-left:-0.5em;margin-top:-0.6em;" class="number-big" lines="none">
             <ion-label style="font-size:0.7em;">₹</ion-label>
-            <ion-input class="budge_inp" placeholder="XXX" [(ngModel)]="budgetMin"></ion-input>
+            <ion-input class="budge_inp" placeholder="XXX" [(ngModel)]="budgetMin" type="number"></ion-input>
             <ion-label>-</ion-label>
-            <ion-input class="budge_inp" placeholder="XXX" [(ngModel)]="budgetMax"></ion-input>
+            <ion-input class="budge_inp" placeholder="XXX" [(ngModel)]="budgetMax" type="number"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
