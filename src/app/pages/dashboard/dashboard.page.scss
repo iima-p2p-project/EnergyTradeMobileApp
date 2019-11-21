@@ -173,12 +173,12 @@ ion-input{
     font-family:MLight !important;
     color:black;
     font-size:0.7em;
-    text-align:right;
+    text-align:left;
   }
   .bottom-row{
     font-family:MMedium !important;
     color:black;
-    font-size:0.7em;
+    font-size:0.6em;
   }
   .sell{
     color:rgb(150, 150, 150);
@@ -199,6 +199,9 @@ ion-input{
   vertical-align: middle;
  }
 
+ .redBox{
+   border: rgba(255, 0, 0, 0) 1px solid;
+ }
 
 
 // #63B508 — green

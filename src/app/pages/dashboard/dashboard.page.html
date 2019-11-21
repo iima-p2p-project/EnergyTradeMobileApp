@@ -151,7 +151,8 @@
                 </ion-input>
               </span>
             </ion-col>
-            <ion-col size="9" style="margin-top:1.2em;padding-left:0px;color:black;font-family:MMedium !important;" *ngIf="selectedOption=='sell'">/ {{deviceCapactiy}}</ion-col>
+            <ion-col size="9" style="margin-top:1.2em;padding-left:0px;color:black;font-family:MMedium !important;"
+              *ngIf="selectedOption=='sell'">/ {{deviceCapactiy}}</ion-col>
           </ion-row>
           <ion-row *ngIf="selectedOption=='buy'">
             <ion-col size="6">
@@ -172,10 +173,12 @@
           </ion-row>
           <ion-row>
             <ion-col size="5" *ngIf="selectedOption=='sell'">
-              <ion-button *ngIf="powerToSell==null || powerToSell<1" disabled shape="round" expand="full" style="font-size:1.2em;opacity:0.6;height:2.5em;" (click)="go()">
+              <ion-button *ngIf="powerToSell==null || powerToSell<1" disabled shape="round" expand="full"
+                style="font-size:1.2em;opacity:0.6;height:2.5em;" (click)="go()">
                 SELL
               </ion-button>
-              <ion-button *ngIf="powerToSell>0" shape="round" expand="full" style="font-size:1.2em;height:2.5em;" (click)="go()">
+              <ion-button *ngIf="powerToSell>0" shape="round" expand="full" style="font-size:1.2em;height:2.5em;"
+                (click)="go()">
                 SELL
               </ion-button>
             </ion-col>
@@ -205,27 +208,27 @@
       </ion-col>
     </ion-row>
 
-   
+
 
     <!-- PRODUCTION -->
-    <ion-card class="card-bottom" *ngFor="let order of allOrders" >
+    <ion-card class="card-bottom" *ngFor="let order of allOrders">
       <div style="position:absolute;background-color:#63B508;height:100%;width:8px;"></div>
       <ion-grid>
-        <ion-row >
+        <ion-row>
           <ion-col size="2" style="padding-left:1em;">
-            <ion-icon style="zoom:3;" src="assets/svg/sell (1).svg" *ngIf="order.orderType == 'sell'"></ion-icon>
-              <ion-icon style="zoom:3;" src="assets/svg/buy (1).svg" *ngIf="order.orderType == 'buy'"></ion-icon>
+            <ion-icon style="zoom:2.7;" src="assets/svg/sell (1).svg" *ngIf="order.orderType == 'sell'"></ion-icon>
+            <ion-icon style="zoom:2.7;" src="assets/svg/buy (1).svg" *ngIf="order.orderType == 'buy'"></ion-icon>
           </ion-col>
           <ion-col size="10">
             <ion-grid>
               <ion-row>
                 <ion-col size="8">
-                  <span class="unit-number">
+                  <div class="unit-number">
                     {{order?.powerToSell}} Units
-                  </span><br>
-                  <span class="unit-id">
+                  </div>
+                  <div class="unit-id">
                     ID #{{order?.orderId}}
-                  </span>
+                  </div>
                 </ion-col>
                 <ion-col size="4" class="unit-number" style="margin-right:-10px;">
                   <span style="font-size:0.7em;">₹ </span>
@@ -233,7 +236,7 @@
                   <strong>{{order?.totalAmount}}</strong>
                 </ion-col>
               </ion-row>
-              <!-- <ion-row>
+              <ion-row>
                 <ion-col size="3" class="bottom-row" style="font-family:MMedium !important;">
                   <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
                     *ngIf='order.device_type_name == "Solar"'></ion-icon>
@@ -242,50 +245,24 @@
                   <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/ev (1).svg"
                     *ngIf='order.device_type_name =="Electric Vehicle"'>
                   </ion-icon>
-                  <ion-label class="icon" style="margin-top:-0.2em;margin-left:0.5em;font-size:1.2em;" >
-                      {{order?.deviceTypeName}}
+                  <ion-label class="icon" style="margin-top:-0.2em;margin-left:0.5em;">
+                    {{order?.deviceTypeName}}
                   </ion-label>
                 </ion-col>
                 <ion-col size="3" class="bottom-row">
-                  <ion-label>
-                    <ion-icon src="assets/svg/calendar.svg" slot="start"></ion-icon>
+                  <ion-icon class="icon" src="assets/svg/calendar.svg"></ion-icon>
+                  <ion-label class="icon" style="padding-left:0.5em;">
                     {{formatTime(order?.transferStartTs,'d')}}
                   </ion-label>
                 </ion-col>
                 <ion-col size="6" class="bottom-row">
-                  <ion-label>
-                    <ion-icon src="assets/svg/timer.svg" slot="start"></ion-icon>
+                  <ion-icon class="icon" src="assets/svg/timer.svg"></ion-icon>
+                  <ion-label class="icon" style="padding-left:0.5em;">
                     {{formatTime(order?.transferStartTs,'t')}} - {{formatTime(order?.transferEndTs,'t')}}
                   </ion-label>
                 </ion-col>
-              </ion-row> -->
+              </ion-row>
             </ion-grid>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col offset="1" size="3" class="bottom-row" style="font-family:MMedium !important;">
-            <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
-                    *ngIf='order.device_type_name == "Solar"'></ion-icon>
-                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/generator (1).svg"
-                    *ngIf='order.device_type_name =="Generator"'></ion-icon>
-                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/ev (1).svg"
-                    *ngIf='order.device_type_name =="Electric Vehicle"'>
-                  </ion-icon>
-                  <ion-label class="icon" style="margin-top:-0.2em;margin-left:0.5em;font-size:1.2em;" >
-                      {{order?.deviceTypeName}}
-                  </ion-label>
-          </ion-col>
-          <ion-col size="3" class="bottom-row">
-            <ion-label>
-              <ion-icon src="assets/svg/calendar.svg" slot="start"></ion-icon>
-              {{formatTime(order?.transferStartTs,'d')}}
-            </ion-label>
-          </ion-col>
-          <ion-col size="5" class="bottom-row">
-            <ion-label>
-              <ion-icon src="assets/svg/timer.svg" slot="start"></ion-icon>
-              {{formatTime(order?.transferStartTs,'t')}} - {{formatTime(order?.transferEndTs,'t')}}
-            </ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -293,57 +270,57 @@
 
 
 
-     <!-- DEV -->
-     
+    <!-- DEV -->
+
     <ion-card class="card-bottom">
-        <div style="position:absolute;background-color:#63B508;height:100%;width:8px;"></div>
-        <ion-grid>
-          <ion-row >
-            <ion-col size="2" class="prediction">
-              <ion-icon style="zoom:3;" src="assets/svg/sell (1).svg"></ion-icon> 
-            </ion-col>
-            <ion-col size="10">
-              <ion-grid>
-                <ion-row>
-                  <ion-col size="8">
-                    <span class="unit-number">
-                      70 Units
-                    </span><br>
-                    <span class="unit-id">
-                      ID #123123123
-                    </span>
-                  </ion-col>
-                  <ion-col size="4" class="unit-number" style="margin-right:-10px;">
-                    <span style="font-size:0.7em;">₹ </span>
-                    <span style="width:10px;"></span>
-                    <strong>600</strong>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col offset="1" size="3" class="bottom-row" style="font-family:MMedium !important;">
-              <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"></ion-icon>
-              <ion-label class="icon" style="margin-top:-0.2em;margin-left:0.5em;font-size:1.2em; " >
-                  SOLAR
-              </ion-label>
-            </ion-col>
-            <ion-col size="3" class="bottom-row">
-              <ion-label>
-                <ion-icon src="assets/svg/calendar.svg" slot="start"></ion-icon>
-                10th Nov
-              </ion-label>
-            </ion-col>
-            <ion-col size="5" class="bottom-row">
-              <ion-label>
-                <ion-icon src="assets/svg/timer.svg" slot="start"></ion-icon>
-                10:00 AM - 11:00 AM
-              </ion-label>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
+      <div style="position:absolute;background-color:#63B508;height:100%;width:8px;"></div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2" class="prediction redBox">
+            <ion-icon style="zoom:2.7;" src="assets/svg/sell (1).svg"></ion-icon>
+          </ion-col>
+          <ion-col size="10" class="redBox">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="8" class="redBox">
+                  <div class="unit-number">
+                    70 Units
+                  </div>
+                  <div class="unit-id">
+                    ID #123123123
+                  </div>
+                </ion-col>
+                <ion-col size="4" class="unit-number redBox" style="margin-right:-10px;">
+                  <span style="font-size:0.7em;">₹ </span>
+                  <span style="width:10px;"></span>
+                  <strong>600.00</strong>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="3" class="bottom-row redBox" style="font-family:MMedium !important;">
+                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"></ion-icon>
+                  <ion-label class="icon" style="margin-top:-0.2em;margin-left:0.5em;">
+                    SOLAR
+                  </ion-label>
+                </ion-col>
+                <ion-col size="3" class="bottom-row redBox">
+                  <ion-icon src="assets/svg/calendar.svg" class="icon"></ion-icon>
+                  <ion-label class="icon" style="padding-left:0.5em;">
+                    10th Nov
+                  </ion-label>
+                </ion-col>
+                <ion-col size="6" class="bottom-row redBox">
+                  <ion-icon src="assets/svg/timer.svg" class="icon"></ion-icon>
+                  <ion-label class="icon" style="padding-left:0.5em;">
+                    10:00 AM - 11:00 AM
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
 
 
 
@@ -351,7 +328,7 @@
   </div>
 
 
-  
+
 
 
   <!-- <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
