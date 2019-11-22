@@ -1,6 +1,6 @@
 <ion-app>
-  <ion-split-pane> 
-      <!-- (click)="getUserDetails() -->
+  <ion-split-pane>
+    <!-- (click)="getUserDetails() -->
     <ion-menu type="overlay">
       <!-- <ion-header>
         <ion-toolbar>
@@ -10,72 +10,130 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle>
-          <ion-item style="padding-top:0.5em;" detail="true" lines="none" routerLink="profile" routerDirection="forward">
+            <ion-item style="padding-top:0.5em;" detail="true" lines="none" routerLink="profile"
+              routerDirection="forward">
               <ion-avatar slot="start" style="border:1px rgba(128, 128, 128, 0.486) solid;">
-                  <img src="assets/assets2/man.svg">
+                <img src="assets/assets2/man.svg">
               </ion-avatar>
-            <ion-grid>
-              <ion-row>
-                <ion-col class="name-class">
-                  {{userName}}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col class="location-class">
-                  <ion-icon class="icon" name="pin"></ion-icon>
-                  {{localityName}}
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="name-class">
+                    {{userName}}
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="location-class">
+                    <ion-icon class="icon" name="pin"></ion-icon>
+                    {{localityName}}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
           </ion-menu-toggle>
-          <div style="padding-top:1em;border-bottom:1px solid rgba(177, 177, 177, 0.7);width:100%;margin-left:auto;margin-right:auto;"></div>
+          <div
+            style="padding-top:1em;border-bottom:1px solid rgba(177, 177, 177, 0.7);width:100%;margin-left:auto;margin-right:auto;">
+          </div>
         </ion-list>
         <ion-list>
-         <ion-menu-toggle>
-          <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToSell()">
-            <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/sell (1).svg" slot="start"></ion-icon>
-            <ion-label class="name-class">Sell Power</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item class="list-item" lines="none" (click)="navigateToBuy()">
-              <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/buy (1).svg" slot="start"></ion-icon>
-              <ion-label class="name-class">Buy Power</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item class="list-item" lines="none" routerLink="manage-orders" routerDirection="forward">
+
+          <ion-menu-toggle>
+            <ion-item style="padding-top:0.2em;" class="list-item" lines="none">
+              <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/dashboard.svg"
+                slot="start"></ion-icon>
+              <ion-label class="name-class">Dashboard</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item style="padding-top:0.2em;" class="list-item" lines="none">
+              <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" name="people" slot="start">
+              </ion-icon>
+              <ion-label class="name-class">Customers</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item class="list-item" lines="none" (click)="navigateToBuy()">
+              <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/sell copy.svg"
+                slot="start"></ion-icon>
+              <ion-label class="name-class">Total Buy Leads</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToSell()">
+              <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
+                src="assets/svg/sell copy 6.svg" slot="start"></ion-icon>
+              <ion-label class="name-class">Total Sell Leads</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item style="padding-top:0.2em;" class="list-item" lines="none">
+              <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
+                src="assets/svg/add_resources.svg" slot="start"></ion-icon>
+              <ion-label class="name-class">Add Locations</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+              <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToSell()">
+                <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/settings.svg"
+                  slot="start"></ion-icon>
+                <ion-label class="name-class">Settings</ion-label>
+              </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+              <ion-item class="list-item" lines="none">
+                <ion-icon src="assets/svg/headset.svg" slot="start"></ion-icon>
+                <ion-label class="name-class">Help</ion-label>
+              </ion-item>
+          </ion-menu-toggle>
+
+
+<!-- 
+          <ion-menu-toggle>
+            <ion-item class="list-item" lines="none" routerLink="manage-orders" routerDirection="forward">
               <ion-icon src="assets/svg/boxlid.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Manage Orders</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item class="list-item" lines="none">
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item class="list-item" lines="none">
               <ion-icon src="assets/svg/wallet.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Wallet</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item class="list-item" lines="none">
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item class="list-item" lines="none">
               <ion-icon name="add-circle-outline" slot="start"></ion-icon>
               <ion-label class="name-class">Add Resources</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item class="list-item" lines="none">
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item class="list-item" lines="none">
               <ion-icon src="assets/svg/settings.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Settings</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item class="list-item" lines="none">
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item class="list-item" lines="none">
               <ion-icon src="assets/svg/headset.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Help</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle><ion-item (click) = "logout()"><ion-icon name="log-out" slot="start"></ion-icon>Logout</ion-item></ion-menu-toggle>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item (click)="logout()">
+              <ion-icon name="log-out" slot="start"></ion-icon>Logout
+            </ion-item>
+          </ion-menu-toggle> -->
+
         </ion-list>
+
+
+
+        
         <!-- <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
