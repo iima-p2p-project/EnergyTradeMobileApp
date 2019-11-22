@@ -150,4 +150,12 @@ export class AdminDashboardPage implements OnInit {
       }
     });
   }
+
+  viewAllCustomers() {
+    this.router.navigate(['/customers'], {
+      queryParams: {
+        userId: this.userStateId
+      }
+    });
+  }
 }

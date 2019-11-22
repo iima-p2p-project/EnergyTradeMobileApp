@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { CancelInProfilePage } from '../cancel-in-profile/cancel-in-profile.page';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 import * as moment from 'moment';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -33,12 +34,18 @@ export class ProfilePage implements OnInit {
   constructor(
     public modal:ModalController
     , private adminService: AdminService
+    , private route: ActivatedRoute
+    , private router: Router
   ) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.userId = params['userId'];
+      console.log('user id in customer page : ', this.userId);
+    });
     this.allUpcomingOrders = [];
     this.allCompletedOrders = [];
     this.adminService.getUserOrdersByAdmin(this.userId).subscribe((res) => {

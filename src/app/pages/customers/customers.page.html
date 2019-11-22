@@ -29,16 +29,16 @@
               </ion-col>
               <ion-col size="6">
                 <div class='unit-name'>
-                  customer.fullName
+                  {{customer.fullName}}
                 </div>
                 <div class="unit-id">
-                  ID# customer.userId
+                  ID# {{customer.userId}}
                 </div>
               </ion-col>
               <ion-col size="4" style="padding-top:0.7em;">
                 <div class="left-side-top">
                   <ion-icon name="pin" class="icon"></ion-icon>
-                  customer.localityName
+                  {{customer.localityName}}
                 </div>
                 <div class="left-side-bottom">
                   Total Orders: {{getTotalOrders(customer.sellOrderCount,customer.contractCounts)}}

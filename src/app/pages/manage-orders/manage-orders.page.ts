@@ -119,6 +119,7 @@ export class ManageOrdersPage implements OnInit {
   // }
 
   formatTime(ts, type) {
+    console.log('format time param : ' , ts);
     if (type == 't')
       return moment(ts).format("hh:mm A");
     else if (type == 'd')

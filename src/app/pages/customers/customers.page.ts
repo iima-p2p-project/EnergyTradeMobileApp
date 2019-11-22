@@ -22,8 +22,13 @@ export class CustomersPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.userId = params['userId'];
+      console.log('user id in customer page : ', this.userId);
+    });
     this.adminService.getUsersByAdmin(this.userId).subscribe((res) => {
       this.resFromService=res;
+      console.log('customers : ' , res);
       if(this.resFromService!=null) {
         this.customerList=this.resFromService.response.response;
         this.adminService.customerList=this.customerList;

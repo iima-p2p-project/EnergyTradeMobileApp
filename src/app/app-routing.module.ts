@@ -51,7 +51,7 @@ const routes: Routes = [
   { path: 'schedule', loadChildren: './pages/schedule/schedule.module#SchedulePageModule' },
   { path: 'admin-edit', loadChildren: './pages/admin-edit/admin-edit.module#AdminEditPageModule' },
   { path: 'modal-edit', loadChildren: './pages/modal-edit/modal-edit.module#ModalEditPageModule' },
-  { path: 'customers', loadChildren: './customers/customers.module#CustomersPageModule' }
+  { path: 'customers', loadChildren: './pages/customers/customers.module#CustomersPageModule' }
 ];
 
 @NgModule({
