@@ -5,6 +5,7 @@ import { CancelInProfilePage } from '../cancel-in-profile/cancel-in-profile.page
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,8 @@ export class ProfilePage implements OnInit {
   selectedOption='upcoming';
 
   userId: any;
+  userName: any;
+  userEmail: any;
   resFromServer: any;
   upcomingContracts: any[] = [];
   upcomingSellOrders: any[] = [];
@@ -25,8 +28,8 @@ export class ProfilePage implements OnInit {
   allUpcomingOrders: any[] = [];
   allCompletedOrders: any[] = [];
 
-  upcomingOrderListUpdated: any;
-  completedOrderListUpdated: any;
+  upcomingOrderListUpdated: any[] = [];
+  completedOrderListUpdated: any[] = [];
 
   displayUpcomingOrderList: any;
   displayCompletedOrderList: any;
@@ -53,6 +56,9 @@ export class ProfilePage implements OnInit {
       if (this.resFromServer) {
         console.log("User Orders List:", this.resFromServer.response);
         if(this.resFromServer.response!=null) {
+          this.userId = this.resFromServer.response.userId;
+          this.userName = this.resFromServer.response.userName;
+          this.userEmail = this.resFromServer.response.email;
           this.upcomingSellOrders = this.resFromServer.response.upcomingSellOrders;
           this.upcomingContracts = this.resFromServer.response.upcomingContracts;
           this.completedSellOrders = this.resFromServer.response.completedSellOrders;
@@ -96,6 +102,9 @@ export class ProfilePage implements OnInit {
         obj.orderId = obj.contractId;
         obj.transferStartTs = obj.sellorder.transferStartTs;
         obj.transferEndTs = obj.sellorder.transferEndTs;
+        obj.deviceTypeName = obj.sellorder.deviceTypeName;
+        obj.powerToSell = obj.sellorder.powerToSell;
+        obj.totalAmount = obj.sellorder.totalAmount;
       }
       if (obj.orderType == "sell")
         obj.month = moment(obj.transferStartTs).format('M');
@@ -119,6 +128,9 @@ export class ProfilePage implements OnInit {
         obj.orderId = obj.contractId;
         obj.transferStartTs = obj.sellorder.transferStartTs;
         obj.transferEndTs = obj.sellorder.transferEndTs;
+        obj.deviceTypeName = obj.sellorder.deviceTypeName;
+        obj.powerToSell = obj.sellorder.powerToSell;
+        obj.totalAmount = obj.sellorder.totalAmount;
       }
       if (obj.orderType == "sell")
         obj.month = moment(obj.transferStartTs).format('M');
@@ -131,6 +143,13 @@ export class ProfilePage implements OnInit {
     this.displayCompletedOrderList.sort((ts1, ts2) => {
       return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
     });
+  }
+
+  formatTime(ts, type) {
+    if (type == 't')
+      return moment(ts).format("hh:mm A");
+    else if (type == 'd')
+      return moment(ts).format("Do MMM");
   }
 
   segmentChanged($event)
@@ -149,4 +168,15 @@ export class ProfilePage implements OnInit {
     return await pqr.present();
   }
 
+  async cancelModal(order: any, orderType: any) {
+    let defg = await this.modal.create({
+      component: CancelNonTradeHourPage,
+      cssClass: 'cancel-custom-modal-css',
+      componentProps: {
+        'orderId': order.orderId,
+        'orderType': String(orderType).toUpperCase()
+      }
+    })
+    return await defg.present();
+  }
 }

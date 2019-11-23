@@ -14,7 +14,7 @@ export class OrderService {
   createContractUrl = TRADE_URL + '/createContract';
   getAllOrdersAndContractsUrl = TRADE_URL + '/getAllOrdersAndContracts';
   cancelSellOrderUrl = ORDER_URL + 'updateSellOrder';
-  cancelBuyOrderUrl = ORDER_URL + 'updateContractOrder';
+  cancelBuyOrderUrl = ORDER_URL + 'updateContract';
   editSellOrderUrl = ORDER_URL + 'editSellOrder';
   getAllOrdersByUserUrl = ORDER_URL + 'getAllOrdersByUser';
 
