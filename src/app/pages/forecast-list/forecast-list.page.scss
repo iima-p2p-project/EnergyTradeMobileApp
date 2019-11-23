@@ -1,38 +1,41 @@
-ion-content{
-    // --background:#0048A8;
-  
+ion-content {
+  // --background:#0048A8;
+
+}
+
+.grey-bg {
+  background-color: rgb(241, 241, 241);
+}
+
+.menu-button {
+  color: white;
+  text-align: left;
+}
+
+.title-top {
+  // padding-top:1em;
+  color: white;
+  text-align: center;
+  font-size: 1.5em;
+  font-family: MSemiBold !important;
+}
+
+.price-tables {
+  font-family: MMedium !important;
+
+  .small-font {
+    font-size: 0.6em;
+    padding-top: 0.7em;
+    padding-left: 1.8em;
   }
 
-  .grey-bg{
-    background-color:rgb(241, 241, 241);
+  .dt-list-text {
+    font-size: 0.6em;
+    padding-left: 2em;
   }
 
-  .menu-button{
-    color:white;
-    text-align: left;
+  .dt-unit-text {
+    font-size: 0.7em;
+    padding-left: 1.4em;
   }
-  
-  .title-top{
-    // padding-top:1em;
-    color:white;
-    text-align:center;
-    font-size:1.5em;
-    font-family:MSemiBold !important;
-  }
-
-  .price-tables{
-      font-family:MMedium !important;
-      .small-font{
-          font-size:0.6em;
-          padding-top:0.7em;
-          padding-left:1.8em;
-      }
-      .dt-list-text{
-          font-size:0.6em;
-          padding-left:2em;
-      }
-      .dt-unit-text{
-          font-size:0.7em;
-          padding-left:1.4em;
-      }
-  }
+}
