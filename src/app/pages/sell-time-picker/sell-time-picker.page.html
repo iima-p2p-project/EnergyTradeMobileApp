@@ -18,7 +18,9 @@
       <ion-grid>
         <ion-row class='ion-text-center'>
           <ion-col class='ion-text-center' size="12" class="top-row-center">
-            <ion-icon src="assets/svg/solar.svg" style='padding-right:0.5em;'></ion-icon>
+            <ion-icon src="assets/svg/solar.svg" style='padding-right:0.5em;' *ngIf="deviceTypeId=='1'"></ion-icon>
+            <ion-icon src="assets/svg/generator (1).svg" style='padding-right:0.5em;' *ngIf="deviceTypeId=='2'"></ion-icon>
+            <ion-icon src="assets/svg/ev (1).svg" style='padding-right:0.5em;' *ngIf="deviceTypeId=='3'"></ion-icon>
             <span class='no-units'>{{power}}</span> units
           </ion-col>
         </ion-row>

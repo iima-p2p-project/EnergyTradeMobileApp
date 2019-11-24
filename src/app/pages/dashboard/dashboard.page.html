@@ -106,31 +106,31 @@
           </ion-row>
           <ion-row>
             <ion-col size="3">
-              <ion-button *ngIf="showSolar==false" fill="outline" color="light" shape="round" size="small"
+              <ion-button *ngIf="showSolar==true && solarSelected==false" fill="outline" color="light" shape="round" size="small"
                 (click)="selectSolarDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/solar.svg" size="small"></ion-icon>
               </ion-button>
-              <ion-button *ngIf="showSolar==true" color="primary" shape="round" size="small"
+              <ion-button *ngIf="showSolar==true && solarSelected==true" color="primary" shape="round" size="small"
                 (click)="selectSolarDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/SolarLight.svg" size="small"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button fill="outline" *ngIf="showGenerator==false" color="light" shape="round" size="small"
+              <ion-button fill="outline" *ngIf="showGenerator==true && generatorSelected==false" color="light" shape="round" size="small"
                 (click)="selectGeneratorDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/generator (1).svg" size="small"></ion-icon>
               </ion-button>
-              <ion-button color="primary" *ngIf="showGenerator==true" shape="round" size="small"
+              <ion-button color="primary" *ngIf="showGenerator==true && generatorSelected==true" shape="round" size="small"
                 (click)="selectGeneratorDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/GeneratorLight.svg" size="small"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button *ngIf="showEV==false" fill="outline" color="light" shape="round" size="small"
+              <ion-button *ngIf="showEV==true && evSelected==false" fill="outline" color="light" shape="round" size="small"
                 (click)="selectEVDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/ev (1).svg" size="small"></ion-icon>
               </ion-button>
-              <ion-button *ngIf="showEV==true" color="primary" shape="round" size="small"
+              <ion-button *ngIf="showEV==true && evSelected==true" color="primary" shape="round" size="small"
                 (click)="selectEVDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/EVLight.svg" size="small"></ion-icon>
               </ion-button>
@@ -172,11 +172,11 @@
           </ion-row>
           <ion-row>
             <ion-col size="5" *ngIf="selectedOption=='sell'">
-              <ion-button *ngIf="powerToSell==null || powerToSell<1" disabled shape="round" expand="full"
+              <ion-button *ngIf="powerToSell==null || powerToSell<1 || !isDeviceSelectedForSell()" disabled shape="round" expand="full"
                 style="font-size:1.2em;opacity:0.6;height:2.5em;" (click)="go()">
                 SELL
               </ion-button>
-              <ion-button *ngIf="powerToSell>0" shape="round" expand="full" style="font-size:1.2em;height:2.5em;"
+              <ion-button *ngIf="powerToSell>0 && isDeviceSelectedForSell()" shape="round" expand="full" style="font-size:1.2em;height:2.5em;"
                 (click)="go()">
                 SELL
               </ion-button>

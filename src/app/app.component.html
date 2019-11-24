@@ -10,8 +10,7 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle>
-            <ion-item style="padding-top:0.5em;" detail="true" lines="none" routerLink="profile"
-              routerDirection="forward">
+            <ion-item style="padding-top:0.5em;" detail="true" lines="none" (click)="navigateToProfile()">
               <ion-avatar slot="start" style="border:1px rgba(128, 128, 128, 0.486) solid;">
                 <img src="assets/assets2/man.svg">
               </ion-avatar>
@@ -61,18 +60,18 @@
           </ion-menu-toggle>
 
           <ion-menu-toggle *ngIf='userRole == "User"'>
-            <ion-item class="list-item" lines="none" (click)="navigateToBuy()">
+            <ion-item class="list-item" lines="none" (click)="navigateToSell()">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/sell copy.svg"
                 slot="start"></ion-icon>
-              <ion-label class="name-class">Total Buy Leads</ion-label>
+              <ion-label class="name-class">Sell Power</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
           <ion-menu-toggle *ngIf='userRole == "User"'>
-            <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToSell()">
+            <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToBuy()">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
                 src="assets/svg/sell copy 6.svg" slot="start"></ion-icon>
-              <ion-label class="name-class">Total Sell Leads</ion-label>
+              <ion-label class="name-class">Buy Power</ion-label>
             </ion-item>
           </ion-menu-toggle>
 

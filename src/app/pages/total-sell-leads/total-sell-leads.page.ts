@@ -46,7 +46,7 @@ export class TotalSellLeadsPage implements OnInit {
   selectSellLead(sellLead: any) {
     this.router.navigate(['/profile'], {
       queryParams: {
-        userId: sellLead.userId
+        userId: sellLead.sellerId
       }
     });
   }

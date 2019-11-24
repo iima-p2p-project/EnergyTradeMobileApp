@@ -22,7 +22,9 @@
       <ion-row class='ion-text-center'>
         <!-- <ion-col class='ion-text-center' offset="3" size='5' class="top-row-center"> -->
         <ion-col class='ion-text-center' size='12' class="top-row-center ion-text-center">
-          <ion-icon src="assets/svg/solar.svg" style='padding-right:0.5em;'></ion-icon>
+          <ion-icon src="assets/svg/solar.svg" style='padding-right:0.5em;' *ngIf="deviceTypeId=='1'"></ion-icon>
+          <ion-icon src="assets/svg/generator (1).svg" style='padding-right:0.5em;' *ngIf="deviceTypeId=='2'"></ion-icon>
+          <ion-icon src="assets/svg/ev (1).svg" style='padding-right:0.5em;' *ngIf="deviceTypeId=='3'"></ion-icon>
           <span style='margin-left:"0px"' class='no-units'>{{unitMin}}-{{unitMax}}</span> units
         </ion-col>
       </ion-row>

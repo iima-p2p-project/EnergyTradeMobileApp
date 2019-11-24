@@ -118,4 +118,12 @@ export class AppComponent {
       });
     });
   }
+
+  navigateToProfile() {
+    this.router.navigate(['/profile'], {
+      queryParams: {
+        userId: this.userId
+      }
+    });
+  }
 }

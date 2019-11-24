@@ -82,7 +82,7 @@ export class AdminService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.get(this.getAllTradeUrl
+    return this.httpClient.get(this.getAllTradeUrl + '/' + userId
       , options
     );
   }

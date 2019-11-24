@@ -18,6 +18,7 @@ export class BuyTimePickerPage implements OnInit {
   screenWidth: any;
   buyOrderPayload: BuyOrderPayload = {};
   buyerId: any;
+  deviceTypeId: any;
 
   startTime: string;
   endTime: string;
@@ -56,6 +57,7 @@ export class BuyTimePickerPage implements OnInit {
       this.screenMode = "small";
     }
     this.route.queryParams.subscribe(params => {
+      this.deviceTypeId = params['deviceTypeId'];
       this.buyerId = params['buyerId'];
       this.unitMin = params['unitMin'];
       this.unitMax = params['unitMax'];

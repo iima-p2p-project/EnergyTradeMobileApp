@@ -57,7 +57,9 @@
 
       <ion-col size="2" style="position:absolute;left:40%;">
         <div>
-          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/solar copy.svg"></ion-icon>
+          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/solar copy.svg" *ngIf="deviceTypeId=='1'"></ion-icon>
+          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/solar copy.svg" *ngIf="deviceTypeId=='2'"></ion-icon>
+          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/solar copy.svg" *ngIf="deviceTypeId=='3'"></ion-icon>
         </div>
         <div style="margin-top:-1em;">
           <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/arrow 2.svg"></ion-icon>

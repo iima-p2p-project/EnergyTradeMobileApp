@@ -26,6 +26,8 @@ export class OrderDetailsPage implements OnInit {
   sellOrderId: any;
   buyerId: any;
 
+  deviceTypeName: any;
+
   resFromServer: any;
 
   constructor(private route: ActivatedRoute,
@@ -45,6 +47,7 @@ export class OrderDetailsPage implements OnInit {
       this.totalAmount = params['totalAmount'];
       this.ratePerUnit = params['ratePerUnit'];
       this.power = params['power'];
+      this.deviceTypeName = params['deviceTypeName'];
       this.startTime = params['startTime'];
       this.endTime = params['endTime'];
       this.date = params['date'];
