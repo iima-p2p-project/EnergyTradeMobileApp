@@ -30,27 +30,27 @@
               <ion-col size="4" class='ion-text-center' style="margin-left:-1.4em;">
                 <a class="icon-circle icon-circle-outline">
                   <ion-icon style="width:20px;height:20px;vertical-align: middle;padding-bottom:20px;" src="assets/svg/solar.svg"
-                    *ngIf='seller.device_type_id ==1'></ion-icon>
+                    *ngIf='seller.deviceTypeName=="Solar"'></ion-icon>
                   <ion-icon style="width:20px;height:20px;vertical-align: middle;padding-bottom:20px;"
-                    src="assets/svg/generator (1).svg" *ngIf='seller.device_type_id ==2'></ion-icon>
+                    src="assets/svg/generator (1).svg" *ngIf='seller.deviceTypeName=="Generator"'></ion-icon>
                   <ion-icon style="width:20px;height:20px;vertical-align: middle;padding-bottom:20px;" src="assets/svg/ev (1).svg"
-                    *ngIf='seller.device_type_id ==3'></ion-icon>
+                    *ngIf='seller.deviceTypeName=="EV"'></ion-icon>
                 </a>
                 <ion-row style="margin-top:-0.5em;">
                   <ion-col class="small-font-left" >
                     <ion-icon class="icon" name="pin" color="primary" style="padding-right:0.3em;"></ion-icon>
-                    Gachibowli
+                    {{seller.locationName}}
                   </ion-col>
                 </ion-row>
               </ion-col>
               <ion-col class="middle-card" size="5">
-                {{seller.power_to_sell}} Units
+                {{seller.powerToSell}} Units
                 <div class="small-font">
-                  ID #{{seller.sell_order_id}}
+                  ID #{{seller.sellOrderId}}
                 </div>
                 <div class="small-font-black" style="margin-top:-0.5em;">
                   <ion-icon style="zoom:1.2;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                  {{getFormattedTime(seller.transfer_start_ts)}} - {{getFormattedTime(seller.transfer_end_ts)}} 
+                  {{getFormattedTime(seller.transferStartTs)}} - {{getFormattedTime(seller.transferEndTs)}} 
                 </div>
               </ion-col>
               <ion-col size="3" class="right-card" style="margin-left:1em;">
@@ -58,10 +58,10 @@
                   ₹
                 </span>
                 <span class="bigger">
-                  {{seller.total_amount}}
+                  {{seller.totalAmount}}
                 </span>
                 <div class="smaller-grey">
-                  (Per Unit {{seller.rate_per_unit}}/-)
+                  (Per Unit {{seller.ratePerUnit}}/-)
                 </div>
               </ion-col>
             </ion-row>

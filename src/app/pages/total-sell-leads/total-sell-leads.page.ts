@@ -43,9 +43,10 @@ export class TotalSellLeadsPage implements OnInit {
     return this.timeService.getDuration(startTime, endTime, ADMIN_ROLE);
   }
 
-  selectSellLead() {
+  selectSellLead(sellLead: any) {
     this.router.navigate(['/profile'], {
       queryParams: {
+        userId: sellLead.userId
       }
     });
   }

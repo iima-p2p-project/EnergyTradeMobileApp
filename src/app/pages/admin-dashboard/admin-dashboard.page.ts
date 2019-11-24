@@ -100,7 +100,8 @@ export class AdminDashboardPage implements OnInit {
   }
 
   getDuration(startTime: string, endTime: string) {
-    return this.timeService.getDuration(startTime,endTime, ADMIN_ROLE);
+    console.log('Admin Dashboard Duration : ' , this.timeService.getDuration(startTime,endTime, ADMIN_ROLE));
+    return (this.timeService.getDuration(startTime,endTime, ADMIN_ROLE).durationTime)/60;
   }
 
   editNonTradeHours(nonTradeHour: any) {

@@ -19,6 +19,8 @@ export class CancelNonTradeHourPage implements OnInit {
     , public orderService: OrderService) {
       this.orderId = navParams.get('orderId');
       this.orderType = navParams.get('orderType'); 
+      console.log('order id : ' , this.orderId);
+      console.log('order type : ' , this.orderType);
     }
 
   ngOnInit() {
