@@ -1,8 +1,9 @@
 export class BuyOrderPayload{
-    unitMin?: number;
-    unitMax?: number;
-    startTime?: string;
-    endTime?: string;
-    budgetMin?: number;
-    budgetMax?: number;
+    deviceTypeId?: any;
+    minUnits?: number;
+    maxUnits?: number;
+    transferStartTs?: string;
+    transferEndTs?: string;
+    minAmount?: number;
+    maxAmount?: number;
 }

@@ -48,7 +48,7 @@ export class DashboardPage implements OnInit {
   buyOrderPayload: BuyOrderPayload = {};
   resFromServer: any;
   userId: any;
-
+  userLocation: any;
   index: number = 0;
   length: number = 0;
 
@@ -89,6 +89,10 @@ export class DashboardPage implements OnInit {
       this.ingressService.getUserIdToken().then((res) => {
         this.userId = res;
         this.ingressService.loggedInUserId = this.userId;
+        this.ingressService.getUserLocalityNameToken().then((res) => {
+          this.userLocation = res;
+          this.ingressService.loggedInUserLocalityName = this.userLocation;
+        });
         this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
           this.resFromServer = res;
           //this.orderList = this.resFromServer.ordersAndContracts;
@@ -228,8 +232,8 @@ export class DashboardPage implements OnInit {
         this.validInputsFlag = false;
       }
       if (this.validInputsFlag) {
-        this.buyOrderPayload.budgetMin = this.minPowerToBuy;
-        this.buyOrderPayload.budgetMax = this.maxPowerToBuy;
+        this.buyOrderPayload.minAmount = this.minPowerToBuy;
+        this.buyOrderPayload.maxAmount = this.maxPowerToBuy;
 
         console.log('dashboard : ', this.buyOrderPayload);
 

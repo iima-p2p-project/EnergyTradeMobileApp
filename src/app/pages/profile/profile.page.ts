@@ -19,6 +19,7 @@ export class ProfilePage implements OnInit {
   userId: any;
   userName: any;
   userEmail: any;
+  userLocation: any;
   resFromServer: any;
   upcomingContracts: any[] = [];
   upcomingSellOrders: any[] = [];
@@ -59,6 +60,7 @@ export class ProfilePage implements OnInit {
           this.userId = this.resFromServer.response.userId;
           this.userName = this.resFromServer.response.userName;
           this.userEmail = this.resFromServer.response.email;
+          this.userLocation = this.resFromServer.response.locationName;
           this.upcomingSellOrders = this.resFromServer.response.upcomingSellOrders;
           this.upcomingContracts = this.resFromServer.response.upcomingContracts;
           this.completedSellOrders = this.resFromServer.response.completedSellOrders;

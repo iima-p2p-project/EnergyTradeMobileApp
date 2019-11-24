@@ -16,7 +16,7 @@
     </ion-col>
     <!--<ion-col offset="3" size="3" class="middle-row-right" routerDirection="forward" routerLink='/non-trade-hours'>-->
       <ion-col offset="3" size="3" class="middle-row-right">
-      <ion-label (click)="viewAllCustomers()">
+      <ion-label>
         View all
         <ion-icon name="arrow-forward" slot="end"></ion-icon>
       </ion-label>
@@ -39,7 +39,7 @@
               </div>
             </ion-col>
             <ion-col class="card-price" size="3">
-              <span style="font-size:1em;">{{getDuration(nonTradeHour.startTime,nonTradeHour.endTi8me)}}</span>
+              <span style="font-size:1em;">{{getDuration(nonTradeHour.startTime,nonTradeHour.endTi8me)}} Hour</span>
             </ion-col>
           </ion-row>
           <ion-row>

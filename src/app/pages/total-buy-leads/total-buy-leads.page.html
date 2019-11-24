@@ -18,7 +18,7 @@
   <ion-grid>
 
     <!-- LINE 1 -->
-    <ion-row class="row-control" (click)="selectBuyLead()" *ngFor="let buyLead of displayLeads">
+    <ion-row class="row-control" (click)="selectBuyLead(buyLead)" *ngFor="let buyLead of displayLeads">
       <ion-card class="card-center">
         <ion-card-content>
           <ion-row style="margin-top:-0.5em;">

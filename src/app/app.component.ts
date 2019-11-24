@@ -38,6 +38,7 @@ export class AppComponent {
 
   userId: any;
   userName: any;
+  userRole: any;
   localityName: any;
 
   constructor(
@@ -57,6 +58,21 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+    });
+  }
+
+  navigateToAdminDashboard() {
+    this.router.navigate(['/admin-dashboard'], {
+      queryParams: {
+      }
+    });
+  }
+
+  navigateToCustomerList() {
+    this.router.navigate(['/customers'], {
+      queryParams: {
+        userId: this.userId
+      }
     });
   }
 
@@ -82,14 +98,24 @@ export class AppComponent {
 
   getUserDetails() {
     this.ingressService.getUserNameToken().then((res) => {
-      console.log('app component user name : ' , res);
-      this.userName = res;
-      this.ingressService.loggedInUserName = this.userName;
-      this.ingressService.getUserLocalityNameToken().then((res) => {
-        console.log('app component locality name : ' , res);
-        this.localityName = res;
-        this.ingressService.loggedInUserLocalityName = this.localityName;
-      })
+      console.log('app component user name : ', res);
+      this.userName=res;
+      this.ingressService.loggedInUserName=this.userName;
+      this.ingressService.getUserRoleToken().then((res) => {
+        console.log('app component user role : ', res);
+        this.userRole=res;
+        this.ingressService.loggedInUserRole=this.userRole;
+        this.ingressService.getUserLocalityNameToken().then((res) => {
+          console.log('app component locality name : ', res);
+          this.localityName = res;
+          this.ingressService.loggedInUserLocalityName = this.localityName;
+          this.ingressService.getUserIdToken().then((res) => {
+            console.log('app component user id : ', res);
+            this.userId=res;
+            this.ingressService.loggedInUserId=this.userId;
+          });
+        });
+      });
     });
   }
 }
