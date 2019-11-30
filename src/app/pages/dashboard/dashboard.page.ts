@@ -25,6 +25,10 @@ export class DashboardPage implements OnInit {
   generatorCapacity: string;
   evCapacity: string;
 
+  solarSelected: boolean=false;
+  generatorSelected: boolean=false;
+  evSelected: boolean=false;
+
   solarDeviceId: any;
   generatorDeviceId: any;
   evDeviceId: any;
@@ -48,7 +52,7 @@ export class DashboardPage implements OnInit {
   buyOrderPayload: BuyOrderPayload = {};
   resFromServer: any;
   userId: any;
-
+  userLocation: any;
   index: number = 0;
   length: number = 0;
 
@@ -67,11 +71,11 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.allOrdersAndContracts=[];
-    this.orderListUpdated=[];
-    this.allOrders=[];
-    this.index=0;
-    this.length=0;
+    this.allOrdersAndContracts = [];
+    this.orderListUpdated = [];
+    this.allOrders = [];
+    this.index = 0;
+    this.length = 0;
     this.route.queryParams.subscribe(params => {
       //this.userId = params['userId'];
       if (params['tab'] != null) {
@@ -89,6 +93,10 @@ export class DashboardPage implements OnInit {
       this.ingressService.getUserIdToken().then((res) => {
         this.userId = res;
         this.ingressService.loggedInUserId = this.userId;
+        this.ingressService.getUserLocalityNameToken().then((res) => {
+          this.userLocation = res;
+          this.ingressService.loggedInUserLocalityName = this.userLocation;
+        });
         this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
           this.resFromServer = res;
           //this.orderList = this.resFromServer.ordersAndContracts;
@@ -96,6 +104,7 @@ export class DashboardPage implements OnInit {
           console.log("Orders List:", this.resFromServer.response);
           this.orderService.orderList = this.resFromServer.response;
           //combining orders and contracts
+          this.allOrdersAndContracts=[];
           if (this.resFromServer.response.sellOrders) {
             for (let i = 0; i < this.resFromServer.response.sellOrders.length; i++) {
               this.allOrdersAndContracts.push(this.resFromServer.response.sellOrders[i]);
@@ -139,6 +148,7 @@ export class DashboardPage implements OnInit {
   }
 
   fineTuneOrderList() {
+    this.orderListUpdated=[];
     for (var i = 0; i < this.allOrdersAndContracts.length; i++) {
       let obj = this.allOrdersAndContracts[i];
       if (!obj.contractId) {
@@ -160,21 +170,23 @@ export class DashboardPage implements OnInit {
       this.orderListUpdated.push(obj);
     }
     console.log("Updated orders list", this.orderListUpdated);
+    this.displayOrderList=[];
     this.displayOrderList = this.orderListUpdated;
     this.displayOrderList.sort((ts1, ts2) => {
       return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
     })
-    if(this.orderListUpdated.length<2) {
-      this.length=this.orderListUpdated.length;
+    if (this.orderListUpdated.length < 2) {
+      this.length = this.orderListUpdated.length;
     }
     else {
-      this.length=2;
+      this.length = 2;
     }
+    this.allOrders=[];
     while (this.index < this.length) {
       this.allOrders[this.index] = this.orderListUpdated[this.index];
       this.index++;
     }
-    console.log('Latest Transactions : ' , this.allOrders);
+    console.log('Latest Transactions : ', this.allOrders);
   }
 
   initiateSellFlow(sellFlowDetails: any) {
@@ -189,6 +201,8 @@ export class DashboardPage implements OnInit {
   }
 
   segmentChanged($event) {
+    this.userDeviceId=null;
+    this.deviceTypeId=null;
     // console.log($event.detail.value);
     this.selectedOption = $event.detail.value;
     if (this.selectedOption == 'sell') {
@@ -220,7 +234,6 @@ export class DashboardPage implements OnInit {
       //this.nav.navigateForward('sell-time-picker');
     }
     else if (this.selectedOption == 'buy') {
-
       if (this.maxPowerToBuy > this.minPowerToBuy)
         this.validInputsFlag = true;
       else {
@@ -228,14 +241,15 @@ export class DashboardPage implements OnInit {
         this.validInputsFlag = false;
       }
       if (this.validInputsFlag) {
-        this.buyOrderPayload.budgetMin = this.minPowerToBuy;
-        this.buyOrderPayload.budgetMax = this.maxPowerToBuy;
+        this.buyOrderPayload.minAmount = this.minPowerToBuy;
+        this.buyOrderPayload.maxAmount = this.maxPowerToBuy;
 
         console.log('dashboard : ', this.buyOrderPayload);
 
         this.router.navigate(['/buy-time-picker'], {
           queryParams: {
             buyerId: this.userId,
+            deviceTypeId: this.deviceTypeId,
             unitMin: this.minPowerToBuy,
             unitMax: this.maxPowerToBuy
           }
@@ -250,10 +264,10 @@ export class DashboardPage implements OnInit {
     this.deviceCapactiy = this.solarCapacity;
 
     //TOGGLE TO CHANGE COLOURS
-    this.showSolar = this.toggleTrueFalse(this.showSolar);
-    if (this.showSolar == true) {
-      this.showGenerator = false;
-      this.showEV = false
+    this.solarSelected = this.toggleTrueFalse(this.solarSelected);
+    if (this.solarSelected == true) {
+      this.generatorSelected = false;
+      this.evSelected = false
     }
   }
 
@@ -263,10 +277,10 @@ export class DashboardPage implements OnInit {
     this.deviceCapactiy = this.generatorCapacity;
 
     //TOGGLE TO CHANGE COLOURS
-    this.showGenerator = this.toggleTrueFalse(this.showGenerator);
-    if (this.showGenerator == true) {
-      this.showEV = false;
-      this.showSolar = false;
+    this.generatorSelected = this.toggleTrueFalse(this.generatorSelected);
+    if (this.generatorSelected == true) {
+      this.solarSelected = false;
+      this.evSelected = false;
     }
   }
 
@@ -276,10 +290,10 @@ export class DashboardPage implements OnInit {
     this.deviceCapactiy = this.evCapacity;
 
     //TOGGLE TO CHANGE COLOURS
-    this.showEV = this.toggleTrueFalse(this.showEV);
-    if (this.showEV == true) {
-      this.showSolar = false;
-      this.showGenerator = false;
+    this.evSelected = this.toggleTrueFalse(this.evSelected);
+    if (this.evSelected == true) {
+      this.solarSelected = false;
+      this.generatorSelected = false;
     }
   }
 
@@ -291,6 +305,7 @@ export class DashboardPage implements OnInit {
       return true;
     }
   }
+  
   powerInput(power) {
     console.log("Power input detected", power);
     if (this.deviceCapactiy && power)
@@ -300,7 +315,6 @@ export class DashboardPage implements OnInit {
       } else {
         this.powerToSell = power;
       }
-
   }
 
   formatTime(ts, type) {
@@ -323,5 +337,14 @@ export class DashboardPage implements OnInit {
 
   navigateToManageOrders() {
     this.router.navigateByUrl('/manage-orders');
+  }
+
+  isDeviceSelectedForSell() {
+    console.log('check1');
+    if(this.solarSelected || this.generatorSelected || this.evSelected) {
+      console.log('check2');
+      return true;
+    }
+    return false; 
   }
 }

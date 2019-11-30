@@ -61,16 +61,17 @@ export class SellerListPage implements OnInit {
       this.budgetMin = params['budgetMin'];
       this.budgetMax = params['budgetMax'];
 
-      this.buyOrderPayload.unitMin = this.unitMin;
-      this.buyOrderPayload.unitMax = this.unitMax;
-      this.buyOrderPayload.startTime = this.startTime;
-      this.buyOrderPayload.endTime = this.endTime;
-      this.buyOrderPayload.budgetMin = this.budgetMin;
-      this.buyOrderPayload.budgetMax = this.budgetMax;
+      this.buyOrderPayload.deviceTypeId = 1;
+      this.buyOrderPayload.minUnits = this.unitMin;
+      this.buyOrderPayload.maxUnits = this.unitMax;
+      this.buyOrderPayload.transferStartTs = this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ':00';
+      this.buyOrderPayload.transferEndTs = this.endTime.substring(0, 10) + ' ' + this.endTime.substring(11, 16) + ':00';;
+      this.buyOrderPayload.minAmount = this.budgetMin;
+      this.buyOrderPayload.maxAmount = this.budgetMax;
       this.orderService.searchBuyLeads(this.buyOrderPayload).subscribe((res) => {
         this.resFromServer = res;
         if (this.resFromServer != null) {
-          this.sellerList = this.resFromServer.buyLeads;
+          this.sellerList = this.resFromServer.response.list;
           console.log("Sell Orders", this.sellerList);
           //adding filterd arrays
           this.displayedSellerList = this.sellerList;
@@ -102,14 +103,15 @@ export class SellerListPage implements OnInit {
 
     this.router.navigate(['/order-details'], {
       queryParams: {
-        sellOrderId: seller.sell_order_id,
+        sellOrderId: seller.sellOrderId,
         buyerId: this.buyerId,
-        totalAmount: seller.total_amount,
-        ratePerUnit: seller.rate_per_unit,
-        power: seller.power_to_sell,
-        startTime: this.getFormattedTime(seller.transfer_start_ts),
-        endTime: this.getFormattedTime(seller.transfer_end_ts),
-        date: this.getFormatteDate(seller.transfer_start_ts)
+        totalAmount: seller.totalAmount,
+        ratePerUnit: seller.ratePerUnit,
+        power: seller.powerToSell,
+        deviceTypeName: seller.deviceTypeName,
+        startTime: this.getFormattedTime(seller.transferStartTs),
+        endTime: this.getFormattedTime(seller.transferEndTs),
+        date: this.getFormatteDate(seller.transferStartTs)
       }
     });
   }

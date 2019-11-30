@@ -3,6 +3,7 @@ import { Order } from 'src/app/models/Order';
 import { IonDatetime } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { INGRESS_URL, CONFIG_URL, TRADE_URL, ORDER_URL, ADMIN_URL } from 'src/app/environments/environments';
+import { AllCustomer } from 'src/app/models/AllCustomer';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class AdminService {
   cancelNonTradeHourUrl = ADMIN_URL + 'cancelNonTradeHour';
   getAllNonTradeHoursUrl = ADMIN_URL + 'getNonTradeHours';
   getAllTradeUrl = ADMIN_URL + 'getAllTrades';
+  getUsersByAdminUrl = ADMIN_URL + 'getUSersByAdmin';
+  getUserOrdersByAdminUrl = ADMIN_URL + 'getUserOrdersByAdmin';
 
   nonTradeHoursList: any;
   allBuyLeads: any;
@@ -21,6 +24,8 @@ export class AdminService {
 
   buyLeadsCount: any;
   sellLeadsCount: any;
+
+  customerList: AllCustomer[] = [];
 
   constructor(private httpClient: HttpClient) { }
 
@@ -77,7 +82,29 @@ export class AdminService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.get(this.getAllTradeUrl
+    return this.httpClient.get(this.getAllTradeUrl + '/' + userId
+      , options
+    );
+  }
+
+  getUsersByAdmin(userId: any) {
+    console.log('getUsersByAdmin user id : ' , userId);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.get(this.getUsersByAdminUrl + '/' + userId
+      , options
+    );
+  }
+
+  getUserOrdersByAdmin(userId: any) {
+    console.log('getUserOrdersByAdmin user id : ' , userId);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.get(this.getUserOrdersByAdminUrl + '/' + userId
       , options
     );
   }

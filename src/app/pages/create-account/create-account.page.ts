@@ -71,7 +71,7 @@ export class CreateAccountPage implements OnInit {
       this.ingressService.verifyOtp(this.phoneNumber, this.otp).subscribe((res) => {
         this.responseFromService = res;
         console.log('response from register service : ', this.responseFromService.response.key);
-        this.showToast(this.responseFromService.response.key);
+        //this.showToast(this.responseFromService.response.key);
         if (this.responseFromService.response.key == 200) {
           this.userId = this.responseFromService.response.userId;
           this.userRole = this.responseFromService.response.userRole;
@@ -98,7 +98,7 @@ export class CreateAccountPage implements OnInit {
     else {
       this.router.navigate(['/register'], {
         queryParams: {
-          phoneNumber: this.phoneNumber,
+          phoneNumber: this.phoneNumber.toString(),
           fullName: this.fullName,
           redirect: this.redirect
         }
@@ -108,9 +108,9 @@ export class CreateAccountPage implements OnInit {
   
   enableOTPField() {
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
-    if(this.phoneNumber.length == 10) {
+    if(this.phoneNumber.toString().length == 10) {
       if(ENABLE_SERVICES) {
-        this.ingressService.sendOtp(this.phoneNumber).subscribe((res) => {
+        this.ingressService.sendOtp(this.phoneNumber.toString()).subscribe((res) => {
           this.responseFromService=res;
           console.log('server response from send otp : ' , res);
           if(this.responseFromService.response.key == 300) {

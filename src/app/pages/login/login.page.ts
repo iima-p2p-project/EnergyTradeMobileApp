@@ -68,7 +68,7 @@ export class LoginPage implements OnInit {
     this.otp = this.loginForm.get('otp').value;
     var verifyUserPayload = {
       "loginMode": "P",
-      "phoneNum": this.phoneNumber
+      "phoneNum": this.phoneNumber.toString()
     }
     this.ingressService.login(this.phoneNumber, this.otp).subscribe((res) => {
       this.responseFromService = res;
@@ -130,9 +130,9 @@ export class LoginPage implements OnInit {
 
   enableOTPField() {
     this.phoneNumber = this.loginForm.get('phoneNumber').value;
-    if(this.phoneNumber.length == 10) {
+    if(this.phoneNumber.toString().length == 10) {
       if(ENABLE_SERVICES) {
-        this.ingressService.generateOtp(this.phoneNumber).subscribe((res) => {
+        this.ingressService.generateOtp(this.phoneNumber.toString()).subscribe((res) => {
           this.responseFromService = res;
           if(this.responseFromService.response.key == 200) {
             this.showOTPFlag = true;

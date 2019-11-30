@@ -51,9 +51,13 @@ const routes: Routes = [
   { path: 'schedule', loadChildren: './pages/schedule/schedule.module#SchedulePageModule' },
   { path: 'admin-edit', loadChildren: './pages/admin-edit/admin-edit.module#AdminEditPageModule' },
   { path: 'modal-edit', loadChildren: './pages/modal-edit/modal-edit.module#ModalEditPageModule' },
+<<<<<<< HEAD
   { path: 'customers', loadChildren: './customers/customers.module#CustomersPageModule' },
   { path: 'forecast-empty', loadChildren: './forecast-empty/forecast-empty.module#ForecastEmptyPageModule' },
   { path: 'dashboard-empty', loadChildren: './dashboard-empty/dashboard-empty.module#DashboardEmptyPageModule' }
+=======
+  { path: 'customers', loadChildren: './pages/customers/customers.module#CustomersPageModule' }
+>>>>>>> ae9a8dde76fe286282a5f304ba1e2d1af169ac58
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 import { LocalityModalPage } from '../modals/selectLocality';
 import { ModalController, AlertController } from '@ionic/angular';
+import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
 
 @Component({
   selector: 'app-schedule',
@@ -123,6 +124,10 @@ export class SchedulePage implements OnInit {
   }
 
   submit() {
+    if(this.location==null) {
+      this.presentAlert('Enter Location');
+      return;
+    }
     if (this.action == ACTION_EDIT) {
       if (this.ingressService.loggedInUserId != null) {
         this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId;
@@ -137,6 +142,7 @@ export class SchedulePage implements OnInit {
       this.adminService.editNonTradeHour(this.nonTradeHourPayload, this.nonTradeHourId).subscribe((res) => {
         console.log('response from edit non trade hours service : ', res);
       });
+      this.presentModal();
     }
     if (this.action == ACTION_CREATE) {
       if (this.ingressService.loggedInUserId != null) {
@@ -152,6 +158,7 @@ export class SchedulePage implements OnInit {
       this.adminService.createNonTradeHour(this.nonTradeHourPayload).subscribe((res) => {
         console.log('response from create non trade hours service : ', res);
       });
+      this.presentModal();
     }
   }
 
@@ -184,5 +191,13 @@ export class SchedulePage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+  async presentModal(){
+    const myModal = await this.modalController.create({
+      component: SellPostSuccessPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await myModal.present();
   }
 }

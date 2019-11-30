@@ -24,8 +24,8 @@ export class AdminDashboardPage implements OnInit {
   userId: any;
   userRole: any;
   userStateId: any;
-  buyLeadsCount: any;
-  sellLeadsCount: any;
+  buyLeadsCount: any=0;
+  sellLeadsCount: any=0;
   
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -100,7 +100,8 @@ export class AdminDashboardPage implements OnInit {
   }
 
   getDuration(startTime: string, endTime: string) {
-    return this.timeService.getDuration(startTime,endTime, ADMIN_ROLE);
+    console.log('Admin Dashboard Duration : ' , this.timeService.getDuration(startTime,endTime, ADMIN_ROLE));
+    return (this.timeService.getDuration(startTime,endTime, ADMIN_ROLE).durationTime)/60;
   }
 
   editNonTradeHours(nonTradeHour: any) {
@@ -147,6 +148,14 @@ export class AdminDashboardPage implements OnInit {
       queryParams: {
         action: ACTION_CREATE,
         stateId: this.userStateId
+      }
+    });
+  }
+
+  viewAllCustomers() {
+    this.router.navigate(['/customers'], {
+      queryParams: {
+        userId: this.userStateId
       }
     });
   }

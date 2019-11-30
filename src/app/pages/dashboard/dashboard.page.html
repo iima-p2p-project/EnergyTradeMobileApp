@@ -68,7 +68,7 @@
                 <ion-icon name="pin" class="bottom-left-icon"></ion-icon>
               </ion-col>
               <ion-col size="8" class="bottom-left">
-                Tarnaka
+                {{userLocation}}
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -106,31 +106,31 @@
           </ion-row>
           <ion-row>
             <ion-col size="3">
-              <ion-button *ngIf="showSolar==false" fill="outline" color="light" shape="round" size="small"
+              <ion-button *ngIf="showSolar==true && solarSelected==false" fill="outline" color="light" shape="round" size="small"
                 (click)="selectSolarDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/solar.svg" size="small"></ion-icon>
               </ion-button>
-              <ion-button *ngIf="showSolar==true" color="primary" shape="round" size="small"
+              <ion-button *ngIf="showSolar==true && solarSelected==true" color="primary" shape="round" size="small"
                 (click)="selectSolarDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/SolarLight.svg" size="small"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button fill="outline" *ngIf="showGenerator==false" color="light" shape="round" size="small"
+              <ion-button fill="outline" *ngIf="showGenerator==true && generatorSelected==false" color="light" shape="round" size="small"
                 (click)="selectGeneratorDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/generator (1).svg" size="small"></ion-icon>
               </ion-button>
-              <ion-button color="primary" *ngIf="showGenerator==true" shape="round" size="small"
+              <ion-button color="primary" *ngIf="showGenerator==true && generatorSelected==true" shape="round" size="small"
                 (click)="selectGeneratorDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/GeneratorLight.svg" size="small"></ion-icon>
               </ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button *ngIf="showEV==false" fill="outline" color="light" shape="round" size="small"
+              <ion-button *ngIf="showEV==true && evSelected==false" fill="outline" color="light" shape="round" size="small"
                 (click)="selectEVDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/ev (1).svg" size="small"></ion-icon>
               </ion-button>
-              <ion-button *ngIf="showEV==true" color="primary" shape="round" size="small"
+              <ion-button *ngIf="showEV==true && evSelected==true" color="primary" shape="round" size="small"
                 (click)="selectEVDeviceToSellPower()">
                 <ion-icon slot="icon-only" src="assets/svg/EVLight.svg" size="small"></ion-icon>
               </ion-button>
@@ -147,25 +147,24 @@
           <ion-row *ngIf="selectedOption=='sell'">
             <ion-col size="3" style="margin-right:-0.3em;">
               <span class="number-big">
-                <ion-input placeholder="XXXX" [(ngModel)]="powerToSell" (ionInput)="powerInput($event.target.value)">
+                <ion-input placeholder="XXXX" [(ngModel)]="powerToSell" (ionInput)="powerInput($event.target.value)" type="number">
                 </ion-input>
               </span>
             </ion-col>
-            <ion-col size="9" style="margin-top:1.2em;padding-left:0px;color:black;font-family:MMedium !important;"
-              *ngIf="selectedOption=='sell'">/ {{deviceCapactiy}}</ion-col>
+            <ion-col size="9" style="margin-top:0.8em;padding-left:0px;color:black;font-family:MMedium !important;" *ngIf="selectedOption=='sell'">/ {{deviceCapactiy}}</ion-col>
           </ion-row>
           <ion-row *ngIf="selectedOption=='buy'">
             <ion-col size="6">
               <span class="number-big">
                 <ion-row>
                   <ion-col size="5">
-                    <ion-input placeholder="XX" [(ngModel)]="minPowerToBuy"></ion-input>
+                    <ion-input placeholder="XX" [(ngModel)]="minPowerToBuy" type="number"></ion-input>
                   </ion-col>
                   <ion-col size="2" style="margin-top:0.5em;">
                     <ion-label class="hyphen">-</ion-label>
                   </ion-col>
                   <ion-col size="5">
-                    <ion-input placeholder="XX" [(ngModel)]="maxPowerToBuy"></ion-input>
+                    <ion-input placeholder="XX" [(ngModel)]="maxPowerToBuy" type="number"></ion-input>
                   </ion-col>
                 </ion-row>
               </span>
@@ -173,11 +172,11 @@
           </ion-row>
           <ion-row>
             <ion-col size="5" *ngIf="selectedOption=='sell'">
-              <ion-button *ngIf="powerToSell==null || powerToSell<1" disabled shape="round" expand="full"
+              <ion-button *ngIf="powerToSell==null || powerToSell<1 || !isDeviceSelectedForSell()" disabled shape="round" expand="full"
                 style="font-size:1.2em;opacity:0.6;height:2.5em;" (click)="go()">
                 SELL
               </ion-button>
-              <ion-button *ngIf="powerToSell>0" shape="round" expand="full" style="font-size:1.2em;height:2.5em;"
+              <ion-button *ngIf="powerToSell>0 && isDeviceSelectedForSell()" shape="round" expand="full" style="font-size:1.2em;height:2.5em;"
                 (click)="go()">
                 SELL
               </ion-button>
@@ -271,7 +270,7 @@
 
 
     <!-- DEV -->
-
+<!-- 
     <ion-card class="card-bottom">
       <div style="position:absolute;background-color:#63B508;height:100%;width:8px;"></div>
       <ion-grid>
@@ -320,7 +319,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-card>
+    </ion-card> -->
 
 
 

@@ -1,0 +1,74 @@
+<ion-content>
+  <ion-row class="row-control">
+    <ion-col class="menu-button" size="2" style="margin-top:25px;">
+      <div>
+        <ion-menu-button></ion-menu-button>
+      </div>
+    </ion-col>
+    <ion-col class="title-top" size="8">
+      <div>CUSTOMERS</div>
+    </ion-col>
+    <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:25px;">
+      <ion-icon src="assets/svg/notifications.svg"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-searchbar show-cancel-button="focus" placeholder="Search for Customers"></ion-searchbar>
+  </ion-row>
+
+  <ion-grid>
+    <!-- START LINE 1 -->
+    <ion-row style="padding:0;margin-top:-0.8em;" (click)="selectCustomer(customer)"
+      *ngFor="let customer of displayCustomerList">
+      <ion-card class="customer-card">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="2">
+              <ion-avatar style="text-align:center;width:3em;height:3em;border:rgb(201, 198, 198) 1px solid;">
+                <img src="assets/assets2/man.svg">
+              </ion-avatar>
+            </ion-col>
+            <ion-col size="6">
+              <div class='unit-name'>
+                {{customer.fullName}}
+              </div>
+              <div class="unit-id">
+                ID# {{customer.userId}}
+              </div>
+            </ion-col>
+            <ion-col size="4" style="padding-top:0.7em;">
+              <div class="left-side-top">
+                <ion-icon name="pin" class="icon"></ion-icon>
+                {{customer.localityName}}
+              </div>
+              <div class="left-side-bottom">
+                Total Orders: {{getTotalOrders(customer.sellOrderCount,customer.contractCounts)}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-row>
+    <!-- END LINE 1 -->
+  </ion-grid>
+
+
+</ion-content>
+<ion-footer class="the-footer">
+  <ion-grid class="ion-text-center" style="padding:0;">
+    <ion-row>
+      <ion-col class="bottom-footer" (click)="filterByLocation()">
+        <ion-icon class="icon" name="pin"></ion-icon>
+        <span>
+          LOCATION
+        </span>
+      </ion-col>
+      <ion-col class="bottom-footer" (click)="filterByMonth()">
+        <ion-icon class="icon" name="calendar"></ion-icon>
+        <span>
+          MONTH
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
