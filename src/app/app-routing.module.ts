@@ -57,7 +57,9 @@ const routes: Routes = [
   { path: 'manage-orders-empty', loadChildren: './manage-orders-empty/manage-orders-empty.module#ManageOrdersEmptyPageModule' },
   { path: 'notifications-empty', loadChildren: './notifications-empty/notifications-empty.module#NotificationsEmptyPageModule' },
   { path: 'admin-dashboard-empty', loadChildren: './admin-dashboard-empty/admin-dashboard-empty.module#AdminDashboardEmptyPageModule' },
-  { path: 'connection-lost', loadChildren: './connection-lost/connection-lost.module#ConnectionLostPageModule' }
+  { path: 'connection-lost', loadChildren: './connection-lost/connection-lost.module#ConnectionLostPageModule' },
+  { path: 'something-went-wrong-blue', loadChildren: './something-went-wrong-blue/something-went-wrong-blue.module#SomethingWentWrongBluePageModule' },
+  { path: 'something-went-wrong-white', loadChildren: './something-went-wrong-white/something-went-wrong-white.module#SomethingWentWrongWhitePageModule' }
 ];
 
 @NgModule({
