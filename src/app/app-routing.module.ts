@@ -56,7 +56,8 @@ const routes: Routes = [
   { path: 'dashboard-empty', loadChildren: './dashboard-empty/dashboard-empty.module#DashboardEmptyPageModule' },
   { path: 'manage-orders-empty', loadChildren: './manage-orders-empty/manage-orders-empty.module#ManageOrdersEmptyPageModule' },
   { path: 'notifications-empty', loadChildren: './notifications-empty/notifications-empty.module#NotificationsEmptyPageModule' },
-  { path: 'admin-dashboard-empty', loadChildren: './admin-dashboard-empty/admin-dashboard-empty.module#AdminDashboardEmptyPageModule' }
+  { path: 'admin-dashboard-empty', loadChildren: './admin-dashboard-empty/admin-dashboard-empty.module#AdminDashboardEmptyPageModule' },
+  { path: 'connection-lost', loadChildren: './connection-lost/connection-lost.module#ConnectionLostPageModule' }
 ];
 
 @NgModule({
