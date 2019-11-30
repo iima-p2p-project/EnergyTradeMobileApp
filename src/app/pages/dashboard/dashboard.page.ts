@@ -38,7 +38,7 @@ export class DashboardPage implements OnInit {
   generatorDeviceTypeId: any;
   evDeviceTypeId: any;
   allOrders: any = [];
-  deviceCapactiy: any = 100;
+  deviceCapactiy: any = '';
   deviceTypeId: any;
   userDeviceId: any;
   displayOrderList;

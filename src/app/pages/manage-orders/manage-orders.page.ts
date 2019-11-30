@@ -156,7 +156,6 @@ export class ManageOrdersPage implements OnInit {
         this.displayOrderList = this.pastOrders;
       else
         this.displayOrderList = this.allOrders;
-
     }
     );
   }
@@ -186,7 +185,9 @@ export class ManageOrdersPage implements OnInit {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.monthFilterKey);
-      this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
+      if(!this.monthFilterKey) {
+        this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
+      }    
     }
     );
   }
@@ -207,7 +208,9 @@ export class ManageOrdersPage implements OnInit {
       let col = await picker.getColumn('energyTypeOptions');
       this.energyTypeFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.energyTypeFilterKey);
+      if(!this.monthFilterKey) {
       this.displayOrderList = this.allOrders.filter(order => order.deviceTypeName == this.energyTypeFilterKey);
+      }
     }
     );
   }
