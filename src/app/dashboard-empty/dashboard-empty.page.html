@@ -1,0 +1,246 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>DASHBOARD</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-row>
+    <ion-col class="menu-button" size="2">
+      <ion-menu-button></ion-menu-button>
+    </ion-col>
+    <ion-col class="title-top" size="8">
+      DASHBOARD
+    </ion-col>
+    <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;">
+      <ion-icon src="assets/svg/notifications.svg"></ion-icon>
+    </ion-col>
+  </ion-row>
+
+  <div class="box-top">
+    <ion-grid style="margin-left:0px;margin-right:0px;">
+      <ion-row>
+        <ion-col size="5" style="margin-left:-0.5em;">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="2" class="box-top-left-right">
+                <ion-icon style="zoom:2;" src="assets/svg/prediction (1).svg"></ion-icon>
+              </ion-col>
+              <ion-col size="10" class="box-top-left-right">
+                Today <br>
+                12:00 PM - 1:00 PM
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+        <ion-col offset="3" size="4">
+          <!-- EMPTY FORECAST DATA START -->
+          <ion-row>
+            <ion-col class="ion-text-center" offset="3" size="6">
+
+              <div style="background-color:rgba(65, 129, 212, 0.685) !important;border-radius:100%;height:3em;width:3em;">
+                <ion-icon style="zoom:1.2;margin-top:0.6em;" color="light" src="assets/svg/forecast.svg"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="12" class="ion-text-center" style="font-size:0.55em;color:white;font-family:MMedium !important;">
+                No Forecast data
+              </ion-col>
+          </ion-row>
+
+
+
+          <!-- EMPTY FORECAST DATA END -->
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top:-30px;">
+        <ion-col size="6" style='margin-left:-0.5em;'>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="2">
+                <ion-icon name="pin" class="bottom-left-icon"></ion-icon>
+              </ion-col>
+              <ion-col size="8" class="bottom-left">
+                Tarnaka
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+        <!-- <ion-col offset="1" size="5">
+          <ion-grid style="margin-right:-3em;">
+            <ion-row routerDirection="forward" routerLink="/forecast-list">
+              <ion-col size="8" class="bottom-right">
+                View forecast
+              </ion-col>
+              <ion-col size="3" class="bottom-right-icon">
+                <ion-icon name="arrow-forward" style="text-align:left;"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+
+    <ion-card class="card-middle buy">
+      <ion-card-content>
+        <ion-segment (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="sell" checked="{{checkSell}}">
+            <ion-label>Sell</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="buy" checked="{{checkBuy}}">
+            <ion-label>Buy</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <ion-grid>
+          <ion-row style="margin-top:1em;">
+            <ion-col class="small-title">
+              POWER SOURCE
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3">
+              <ion-button *ngIf="showSolar==false" fill="outline" color="light" shape="round" size="small"
+                (click)="selectSolarDeviceToSellPower()">
+                <ion-icon slot="icon-only" src="assets/svg/solar.svg" size="small"></ion-icon>
+              </ion-button>
+              <ion-button *ngIf="showSolar==true" color="primary" shape="round" size="small"
+                (click)="selectSolarDeviceToSellPower()">
+                <ion-icon slot="icon-only" src="assets/svg/SolarLight.svg" size="small"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button fill="outline" *ngIf="showGenerator==false" color="light" shape="round" size="small"
+                (click)="selectGeneratorDeviceToSellPower()">
+                <ion-icon slot="icon-only" src="assets/svg/generator (1).svg" size="small"></ion-icon>
+              </ion-button>
+              <ion-button color="primary" *ngIf="showGenerator==true" shape="round" size="small"
+                (click)="selectGeneratorDeviceToSellPower()">
+                <ion-icon slot="icon-only" src="assets/svg/GeneratorLight.svg" size="small"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button *ngIf="showEV==false" fill="outline" color="light" shape="round" size="small"
+                (click)="selectEVDeviceToSellPower()">
+                <ion-icon slot="icon-only" src="assets/svg/ev (1).svg" size="small"></ion-icon>
+              </ion-button>
+              <ion-button *ngIf="showEV==true" color="primary" shape="round" size="small"
+                (click)="selectEVDeviceToSellPower()">
+                <ion-icon slot="icon-only" src="assets/svg/EVLight.svg" size="small"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-top:1em;">
+            <ion-col class="small-title" *ngIf="selectedOption=='sell'">
+              POWER TO SELL (UNITS)
+            </ion-col>
+            <ion-col class="small-title" *ngIf="selectedOption=='buy'">
+              POWER TO BUY (UNITS)
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="selectedOption=='sell'">
+            <ion-col size="3" style="margin-right:-0.3em;">
+              <span class="number-big">
+                <ion-input placeholder="XXXX" [(ngModel)]="powerToSell" (ionInput)="powerInput($event.target.value)">
+                </ion-input>
+              </span>
+            </ion-col>
+            <ion-col size="9" style="margin-top:1.2em;padding-left:0px;color:black;font-family:MMedium !important;"
+              *ngIf="selectedOption=='sell'">/ {{deviceCapactiy}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="selectedOption=='buy'">
+            <ion-col size="6">
+              <span class="number-big">
+                <ion-row>
+                  <ion-col size="5">
+                    <ion-input placeholder="XX" [(ngModel)]="minPowerToBuy"></ion-input>
+                  </ion-col>
+                  <ion-col size="2" style="margin-top:0.5em;">
+                    <ion-label class="hyphen">-</ion-label>
+                  </ion-col>
+                  <ion-col size="5">
+                    <ion-input placeholder="XX" [(ngModel)]="maxPowerToBuy"></ion-input>
+                  </ion-col>
+                </ion-row>
+              </span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="5" *ngIf="selectedOption=='sell'">
+              <ion-button *ngIf="powerToSell==null || powerToSell<1" disabled shape="round" expand="full"
+                style="font-size:1.2em;opacity:0.6;height:2.5em;" (click)="go()">
+                SELL
+              </ion-button>
+              <ion-button *ngIf="powerToSell>0" shape="round" expand="full" style="font-size:1.2em;height:2.5em;"
+                (click)="go()">
+                SELL
+              </ion-button>
+            </ion-col>
+            <ion-col size="4" *ngIf="selectedOption=='buy'">
+              <ion-button *ngIf="minPowerToBuy==null || maxPowerToBuy==null || maxPowerToBuy<1" disabled shape="round"
+                expand="full" style="font-size:1.2em;opacity:0.6;" (click)="go()">
+                BUY
+              </ion-button>
+              <ion-button *ngIf="minPowerToBuy>-1 && maxPowerToBuy>0" shape="round" expand="full"
+                style="font-size:1.2em;" (click)="go()">
+                BUY
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <ion-row style="margin-top:1em;">
+      <ion-col size="6" class="middle-row-left">
+        Latest Transactions
+      </ion-col>
+      <ion-col offset="3" size="3" class="middle-row-right">
+        <ion-label (click)="navigateToManageOrders()">
+          View all
+          <ion-icon name="arrow-forward" slot="end"></ion-icon>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-grid>
+      
+
+      <!-- EMPTY LIST TRANSACTION START -->
+
+
+      <ion-row style="padding-top:1em;">
+        <ion-col offset="1" size="3">
+          <div style="background-color:rgba(65, 129, 212, 0.685) !important;border-radius:100%;height:4em;width:4em;">
+            <ion-icon style="zoom:2;margin-left:0.5em;margin-top:0.5em;" color="light" src="assets/svg/boxlid.svg"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="7" style="margin-top:10px;margin-left:-5px;">
+          <div style="font-size:0.9em;color:white;font-family:MMedium !important;">
+            <strong>
+              No transactions/Orders
+            </strong>
+          </div>
+          <p style="font-size:0.7em;color:white;font-family:MMedium !important;">
+            Stay tuned! Latest 2 transactions show up here.
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <!-- EMPTY LIST TRANSACTION END -->
+
+
+
+
+
+
+  </div>
+
+
+
+
+
+  <!-- <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
+    <br/><br/><br/><br/><br/><br/>
+    <app-buy (buyFlow)=initiateBuyFlow($event)></app-buy> -->
+</ion-content>
