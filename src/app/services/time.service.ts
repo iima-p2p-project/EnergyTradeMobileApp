@@ -35,12 +35,20 @@ export class TimeService {
         this.endTime = endTime.substring(0, 10) + ' ' + endTime.substring(11, 16) + ':00';
       }
     }
+    // if (userRole == USER_ROLE) {
+    //   if (this.startTime != null) {
+    //     this.startTime = startTime.substring(0, 17) + '00.000';
+    //   }
+    //   if (this.endTime != null) {
+    //     this.endTime = endTime.substring(0, 17) + '00.000';
+    //   }
+    // }
     if (userRole == USER_ROLE) {
       if (this.startTime != null) {
-        this.startTime = startTime.substring(0, 17) + '00.000';
+        this.startTime = startTime.substring(0, 10) + ' ' + startTime.substring(11, 16) + ':00';
       }
       if (this.endTime != null) {
-        this.endTime = endTime.substring(0, 17) + '00.000';
+        this.endTime = endTime.substring(0, 10) + ' ' + endTime.substring(11, 16) + ':00';
       }
     }
     var duration = moment.duration(moment(endTime).diff(moment(startTime)));
@@ -65,6 +73,8 @@ export class TimeService {
   }
 
   getStartTimeDetails(startTime: string, endTime: string, userRole: string) {
+    console.log('start time in getStartTimeDetails' , startTime);
+    console.log('end time in getStartTimeDetails' , endTime);
     let durationObject;
     this.startTime = startTime;
     this.startTimeDetails = moment(startTime).format('ddd, DD MMM');
@@ -81,6 +91,8 @@ export class TimeService {
   }
 
   getEndTimeDetails(startTime: string, endTime: string, userRole: string) {
+    console.log('start time in getEndTimeDetails' , startTime);
+    console.log('end time in getEndTimeDetails' , endTime);
     let durationObject;
     this.endTime = endTime;
     this.endTimeDetails = moment(endTime).format('ddd, DD MMM');

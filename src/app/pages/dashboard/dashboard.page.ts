@@ -76,6 +76,8 @@ export class DashboardPage implements OnInit {
     this.allOrders = [];
     this.index = 0;
     this.length = 0;
+    this.powerToSell='';
+    this.deviceCapactiy='';
     this.route.queryParams.subscribe(params => {
       //this.userId = params['userId'];
       if (params['tab'] != null) {
