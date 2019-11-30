@@ -84,7 +84,7 @@ ion-segment-button{
     background-color:white;
     width:93%;
     height:45px;
-    font-size:0.6em;
+    // font-size:0.6em;
     color:black;
     font-family: MMedium !important;
     padding:15px;
@@ -94,3 +94,9 @@ ion-segment-button{
       zoom:1.8;
      }
 }
+
+.bottom-row{
+    font-family:MMedium !important;
+    color:black;
+    font-size:0.6em;
+  }
