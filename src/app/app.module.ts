@@ -18,6 +18,7 @@ import { BuyPostSuccessPageModule} from './pages/buy-post-success/buy-post-succe
 import { CancelNonTradeHourPageModule } from './pages/cancel-non-trade-hour/cancel-non-trade-hour.module';
 import { CancelInProfilePageModule } from './pages/cancel-in-profile/cancel-in-profile.module';
 import { ModalEditPageModule } from './pages/modal-edit/modal-edit.module';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 @NgModule({
   declarations: [StateModalPage, BoardModalPage, LocalityModalPage, AppComponent],
@@ -37,6 +38,7 @@ import { ModalEditPageModule } from './pages/modal-edit/modal-edit.module';
   providers: [
     StatusBar,
     SplashScreen,
+    OneSignal,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

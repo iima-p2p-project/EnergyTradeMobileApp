@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { IngressService } from 'src/app/services/ingress.service';
 
@@ -25,14 +26,14 @@ export class AppComponent {
       icon: 'list'
     },
     {
-      title:'Admin Dashboard',
-      url:'/admin-dashboard',
-      icon:'people'
+      title: 'Admin Dashboard',
+      url: '/admin-dashboard',
+      icon: 'people'
     },
     {
-      title:'Profile',
-      url:'profile',
-      icon:'contact'
+      title: 'Profile',
+      url: 'profile',
+      icon: 'contact'
     }
   ];
 
@@ -46,7 +47,9 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private ingressService: IngressService
+    private ingressService: IngressService,
+    private oneSignal: OneSignal,
+    private alertCtrl: AlertController
   ) {
     this.initializeApp();
   }
@@ -54,10 +57,37 @@ export class AppComponent {
   ionViewDidEnter() {
   }
 
+  setupPushNotif() {
+    this.oneSignal.startInit('40d369cf-15d8-451a-b833-769df43de75d', '291065613968');
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
+
+
+    this.oneSignal.handleNotificationReceived().subscribe(data => {
+      //this.showAlert(data.payload.body);
+    });
+
+    this.oneSignal.handleNotificationOpened().subscribe((data) => {
+      this.showAlert(data.notification.payload.body);
+    });
+
+    this.oneSignal.endInit()
+  }
+
+  async showAlert(data) {
+
+    const alert = await this.alertCtrl.create({
+      header: data,
+      buttons: ["Ok"]
+    });
+    alert.present();
+
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.setupPushNotif();
     });
   }
 
@@ -91,28 +121,30 @@ export class AppComponent {
       }
     });
   }
-  
-  logout(){
+
+  logout() {
+    //removing onesignal notification identifier
+    this.oneSignal.removeExternalUserId();
     this.ingressService.logout();
   }
 
   getUserDetails() {
     this.ingressService.getUserNameToken().then((res) => {
       console.log('app component user name : ', res);
-      this.userName=res;
-      this.ingressService.loggedInUserName=this.userName;
+      this.userName = res;
+      this.ingressService.loggedInUserName = this.userName;
       this.ingressService.getUserRoleToken().then((res) => {
         console.log('app component user role : ', res);
-        this.userRole=res;
-        this.ingressService.loggedInUserRole=this.userRole;
+        this.userRole = res;
+        this.ingressService.loggedInUserRole = this.userRole;
         this.ingressService.getUserLocalityNameToken().then((res) => {
           console.log('app component locality name : ', res);
           this.localityName = res;
           this.ingressService.loggedInUserLocalityName = this.localityName;
           this.ingressService.getUserIdToken().then((res) => {
             console.log('app component user id : ', res);
-            this.userId=res;
-            this.ingressService.loggedInUserId=this.userId;
+            this.userId = res;
+            this.ingressService.loggedInUserId = this.userId;
           });
         });
       });

@@ -10,6 +10,7 @@ import { ModalController } from '@ionic/angular';
 import { StateModalPage } from '../modals/selectState';
 import { LocalityModalPage } from '../modals/selectLocality';
 import { BoardModalPage } from '../modals/selectBoard';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 @Component({
   selector: 'app-register',
@@ -52,7 +53,8 @@ export class RegisterPage implements OnInit {
     , private formBuilder: FormBuilder
     , private router: Router
     , private storage: Storage
-    , public modalController: ModalController) {
+    , public modalController: ModalController
+    , private oneSignal: OneSignal) {
 
     this.registerForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
@@ -107,6 +109,8 @@ export class RegisterPage implements OnInit {
             this.ingressService.setLoggedInUser(this.registeredUser);
             if (this.registeredUser != null) {
               this.ingressService.setLoggedInUserId(this.registeredUser.response.userId);
+              //setting up onesignal notification identifier
+              this.oneSignal.setExternalUserId(this.registeredUser.response.userId);
             }
             this.router.navigate(['/add-device'], {
               queryParams: {
