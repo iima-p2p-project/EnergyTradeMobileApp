@@ -54,7 +54,8 @@ const routes: Routes = [
   // { path: 'customers', loadChildren: './customers/customers.module#CustomersPageModule' },
   { path: 'forecast-empty', loadChildren: './forecast-empty/forecast-empty.module#ForecastEmptyPageModule' },
   { path: 'dashboard-empty', loadChildren: './dashboard-empty/dashboard-empty.module#DashboardEmptyPageModule' },
-  { path: 'manage-orders-empty', loadChildren: './manage-orders-empty/manage-orders-empty.module#ManageOrdersEmptyPageModule' }
+  { path: 'manage-orders-empty', loadChildren: './manage-orders-empty/manage-orders-empty.module#ManageOrdersEmptyPageModule' },
+  { path: 'notifications-empty', loadChildren: './notifications-empty/notifications-empty.module#NotificationsEmptyPageModule' }
 ];
 
 @NgModule({
