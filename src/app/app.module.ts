@@ -19,6 +19,12 @@ import { CancelNonTradeHourPageModule } from './pages/cancel-non-trade-hour/canc
 import { CancelInProfilePageModule } from './pages/cancel-in-profile/cancel-in-profile.module';
 import { ModalEditPageModule } from './pages/modal-edit/modal-edit.module';
 
+import { EndDateModalPageModule } from './end-date-modal/end-date-modal.module';
+import { InvalidInputModalPageModule } from './invalid-input-modal/invalid-input-modal.module';
+import { Error404ModalPageModule } from './error404-modal/error404-modal.module';
+import { NonTradeHoursAlertPageModule } from './non-trade-hours-alert/non-trade-hours-alert.module';
+
+
 @NgModule({
   declarations: [StateModalPage, BoardModalPage, LocalityModalPage, AppComponent],
   entryComponents: [StateModalPage, BoardModalPage, LocalityModalPage],
@@ -32,7 +38,11 @@ import { ModalEditPageModule } from './pages/modal-edit/modal-edit.module';
     BuyPostSuccessPageModule,
     CancelNonTradeHourPageModule,
     CancelInProfilePageModule,
-    ModalEditPageModule
+    ModalEditPageModule,
+    EndDateModalPageModule,
+    InvalidInputModalPageModule,
+    Error404ModalPageModule,
+    NonTradeHoursAlertPageModule
   ],
   providers: [
     StatusBar,

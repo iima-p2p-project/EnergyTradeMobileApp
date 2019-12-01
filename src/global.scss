@@ -67,6 +67,42 @@
   display: block;  
 }
 
+.end-date-modal-css .modal-wrapper {
+  height: 40%;
+  width:80%;
+  top: 25%;
+  border-radius:10px;
+  position: absolute; 
+  display: block;  
+}
+
+.none-trade-alert-modal-css .modal-wrapper {
+  height: 50%;
+  width:80%;
+  top: 25%;
+  border-radius:10px;
+  position: absolute; 
+  display: block;  
+}
+
+.invalid-input-modal-css .modal-wrapper{
+  height: 40%;
+  width:80%;
+  top: 25%;
+  border-radius:10px;
+  position: absolute; 
+  display: block;  
+}
+
+.error404-input-modal-css .modal-wrapper{
+  height: 40%;
+  width:80%;
+  top: 25%;
+  border-radius:10px;
+  position: absolute; 
+  display: block;  
+}
+
 
  .icon-circle, .icon-circle-large, .icon-circle-small{
   position: relative;
