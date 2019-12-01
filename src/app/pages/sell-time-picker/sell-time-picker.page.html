@@ -44,7 +44,8 @@
                       pickerFormat="MMM DD, hh:mm A"
                       style="margin-left:-0.7em;"
                       class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime" 
-                      (ionChange)="getStartTimeDetails()"></ion-datetime>
+                      (ionChange)="getStartTimeDetails()"
+                      minuteValues= "0,15,30,45"></ion-datetime>
                       <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                     </ion-row>
                   </ion-col>
@@ -73,7 +74,8 @@
                             pickerFormat="MMM DD, hh:mm A"
                             style="margin-left:-0.7em;"
                             class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime" 
-                            (ionChange)="getStartTimeDetails()"></ion-datetime>
+                            (ionChange)="getStartTimeDetails()"
+                            minuteValues= "0,15,30,45"></ion-datetime>
                             <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                           </ion-row>
                     </ion-col>
@@ -105,7 +107,8 @@
                         pickerFormat="MMM DD, hh:mm A"
                         style="margin-left:-0.7em;" 
                         class='font-start-end font-datetime-big grey-colour' [(ngModel)]="endTime" 
-                        (ionChange)="getEndTimeDetails()"></ion-datetime>
+                        (ionChange)="getEndTimeDetails()"
+                        minuteValues= "0,15,30,45"></ion-datetime>
                         <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                       </ion-row>
                       </ion-col>
