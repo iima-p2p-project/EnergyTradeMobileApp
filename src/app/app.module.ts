@@ -23,6 +23,9 @@ import { EndDateModalPageModule } from './end-date-modal/end-date-modal.module';
 import { InvalidInputModalPageModule } from './invalid-input-modal/invalid-input-modal.module';
 import { Error404ModalPageModule } from './error404-modal/error404-modal.module';
 import { NonTradeHoursAlertPageModule } from './non-trade-hours-alert/non-trade-hours-alert.module';
+import { CancelOrderModal1PageModule } from './cancel-order-modal1/cancel-order-modal1.module';
+import { CancelOrderModal2PageModule } from './cancel-order-modal2/cancel-order-modal2.module';
+
 
 
 @NgModule({
@@ -42,7 +45,10 @@ import { NonTradeHoursAlertPageModule } from './non-trade-hours-alert/non-trade-
     EndDateModalPageModule,
     InvalidInputModalPageModule,
     Error404ModalPageModule,
-    NonTradeHoursAlertPageModule
+    NonTradeHoursAlertPageModule,
+    CancelOrderModal1PageModule,
+    CancelOrderModal2PageModule
+    
   ],
   providers: [
     StatusBar,

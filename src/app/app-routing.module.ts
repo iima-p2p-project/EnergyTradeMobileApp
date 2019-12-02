@@ -65,6 +65,8 @@ const routes: Routes = [
   { path: 'invalid-input-modal', loadChildren: './invalid-input-modal/invalid-input-modal.module#InvalidInputModalPageModule' },
   { path: 'error404-modal', loadChildren: './error404-modal/error404-modal.module#Error404ModalPageModule' },
   { path: 'non-trade-hours-alert', loadChildren: './non-trade-hours-alert/non-trade-hours-alert.module#NonTradeHoursAlertPageModule' },
+  { path: 'cancel-order-modal1', loadChildren: './cancel-order-modal1/cancel-order-modal1.module#CancelOrderModal1PageModule' },
+  { path: 'cancel-order-modal2', loadChildren: './cancel-order-modal2/cancel-order-modal2.module#CancelOrderModal2PageModule' },
 ];
 
 @NgModule({

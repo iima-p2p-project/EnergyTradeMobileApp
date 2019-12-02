@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-non-trade-hours-alert',
-  templateUrl: './non-trade-hours-alert.page.html',
-  styleUrls: ['./non-trade-hours-alert.page.scss'],
+  selector: 'app-cancel-order-modal2',
+  templateUrl: './cancel-order-modal2.page.html',
+  styleUrls: ['./cancel-order-modal2.page.scss'],
 })
-export class NonTradeHoursAlertPage implements OnInit {
+export class CancelOrderModal2Page implements OnInit {
 
   constructor(
     public modal:ModalController
@@ -20,12 +20,12 @@ export class NonTradeHoursAlertPage implements OnInit {
     this.modal.dismiss();
   }
 
-  noAction()
+  yesAction()
   {
 
   }
 
-  yesAction()
+  noAction()
   {
     
   }
