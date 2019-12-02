@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
 import { IfStmt } from '@angular/compiler';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,8 @@ export class LoginPage implements OnInit {
     , private formBuilder: FormBuilder
     , private router: Router
     , private storage: Storage
-    , private toastCtrl: ToastController) {
+    , private toastCtrl: ToastController
+    , private oneSignal: OneSignal) {
 
     this.loginForm = this.formBuilder.group({
       phoneNumber: [null, Validators.compose([
@@ -73,7 +75,7 @@ export class LoginPage implements OnInit {
     this.ingressService.login(this.phoneNumber, this.otp).subscribe((res) => {
       this.responseFromService = res;
       if (this.responseFromService.response.key == 200) {
-        console.log('login response : ' , this.responseFromService);
+        console.log('login response : ', this.responseFromService);
         this.userId = this.responseFromService.response.userId;
         this.stateId = this.responseFromService.response.stateId;
         this.boardId = this.responseFromService.response.boardId;
@@ -81,6 +83,8 @@ export class LoginPage implements OnInit {
         this.userRole = this.responseFromService.response.userRole;
         this.localityName = this.responseFromService.response.localityName;
         this.userName = this.responseFromService.response.userName;
+        //setting user io for as notification identifier for onesignal
+        this.oneSignal.setExternalUserId(this.userId);
         this.ingressService.setLoggedInUserId(this.userId);
         this.ingressService.loggedInUserRole = this.userRole;
         this.ingressService.loggedInUserStateId = this.stateId;
@@ -101,7 +105,7 @@ export class LoginPage implements OnInit {
           this.storage.set('LoggedInUserId', this.userId).then(() => {
             this.ingressService.printStorageKeyValue('LoggedInUserId');
             this.ingressService.printStorageKeyValue('LoggedInUserDevices');
-            if(this.userRole == ADMIN_ROLE) {
+            if (this.userRole == ADMIN_ROLE) {
               this.router.navigate(['/admin-dashboard'], {
                 queryParams: {
                   userId: this.userId,
@@ -110,7 +114,7 @@ export class LoginPage implements OnInit {
                 }
               });
             }
-            if(this.userRole == USER_ROLE) {
+            if (this.userRole == USER_ROLE) {
               this.router.navigate(['/dashboard'], {
                 queryParams: {
                   userId: this.userId,
@@ -130,15 +134,15 @@ export class LoginPage implements OnInit {
 
   enableOTPField() {
     this.phoneNumber = this.loginForm.get('phoneNumber').value;
-    if(this.phoneNumber.toString().length == 10) {
-      if(ENABLE_SERVICES) {
+    if (this.phoneNumber.toString().length == 10) {
+      if (ENABLE_SERVICES) {
         this.ingressService.generateOtp(this.phoneNumber.toString()).subscribe((res) => {
           this.responseFromService = res;
-          if(this.responseFromService.response.key == 200) {
+          if (this.responseFromService.response.key == 200) {
             this.showOTPFlag = true;
             this.loginForm.controls['otp'].setValue("");
           }
-          if(this.responseFromService.response.key == 300) {
+          if (this.responseFromService.response.key == 300) {
             this.showOTPFlag = false;
             this.showToast();
             console.log('User does not exist. Please register.')
