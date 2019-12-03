@@ -58,7 +58,7 @@ export class AppComponent {
   }
 
   setupPushNotif() {
-    this.oneSignal.startInit('', '');
+    this.oneSignal.startInit('9b0a5ec6-e306-4aa7-9713-722d8ee1f47c', '701058302199');
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
 
 
