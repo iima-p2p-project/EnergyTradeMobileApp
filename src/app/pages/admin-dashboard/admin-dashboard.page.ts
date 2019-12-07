@@ -144,6 +144,7 @@ export class AdminDashboardPage implements OnInit {
   }
 
   schedule() {
+    console.log('schedule');
     this.router.navigate(['/schedule'], {
       queryParams: {
         action: ACTION_CREATE,

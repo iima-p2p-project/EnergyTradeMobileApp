@@ -20,7 +20,7 @@ export class SellerListPage implements OnInit {
   contractPayload: ContractPayload = {};
   buyerId: any;
 
-  sellerList: any;
+  sellerList: any[]=[];
   displayedSellerList: any;
   formattedTime: any;
   formattedDate: any;
@@ -40,6 +40,9 @@ export class SellerListPage implements OnInit {
   evSellOrders;
   genSellOrders;
   solarSellOrders;
+
+  searchCount: any;
+  searchDate: any;
 
   constructor(private timeService: TimeService,
     private orderService: OrderService,
@@ -79,6 +82,8 @@ export class SellerListPage implements OnInit {
           this.solarSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '1');
           this.genSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '2');
           this.orderService.sellerList = this.sellerList;
+          this.searchCount=this.sellerList.length;
+          this.searchDate=moment(this.startTime).format("Do MMM");
         }
       });
     });

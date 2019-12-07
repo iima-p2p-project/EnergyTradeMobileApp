@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
 import { IngressService } from 'src/app/services/ingress.service';
 import * as moment from 'moment';
-import { PickerController } from '@ionic/angular';
+import { PickerController, IonRefresher } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
 import { ModalController, NavController } from '@ionic/angular';
@@ -37,7 +37,8 @@ export class ManageOrdersPage implements OnInit {
     , private pickerCtrl: PickerController
     , public modal: ModalController
     , private router: Router
-    , private route: ActivatedRoute) { }
+    , private route: ActivatedRoute
+    , private navCtrl: NavController) { }
 
   ngOnInit() {
 
@@ -219,10 +220,10 @@ export class ManageOrdersPage implements OnInit {
     this.router.navigate(['/sell-time-picker'], {
       queryParams: {
         action: ACTION_EDIT,
-        sellOrderId: order.sell_order_id, //has to be updated
+        sellOrderId: order.sellOrderId, //has to be updated
         sellerId: this.userId,
-        userDeviceId: order.user_device_id, //has to be updated
-        deviceTypeId: order.device_type_id, // has to be updated
+        userDeviceId: order.userDeviceId, //has to be updated
+        deviceTypeId: order.deviceTypeName, // has to be updated
         powerToSell: order.powerToSell,
         startTime: order.transferStartTs,
         endTime: order.transferEndTs
@@ -238,7 +239,12 @@ export class ManageOrdersPage implements OnInit {
         'orderId': order.orderId,
         'orderType': orderType
       }
-    })
+    });
+    defg.onDidDismiss().then((dataReturned) => {
+      this.ionViewWillEnter();
+      if (dataReturned !== null) {
+      }
+    });
     return await defg.present();
   }
 }
