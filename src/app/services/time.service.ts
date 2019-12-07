@@ -45,10 +45,10 @@ export class TimeService {
     // }
     if (userRole == USER_ROLE) {
       if (this.startTime != null) {
-        this.startTime = startTime.substring(0, 10) + ' ' + startTime.substring(11, 16) + ':00';
+        this.startTime = this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ':00';
       }
       if (this.endTime != null) {
-        this.endTime = endTime.substring(0, 10) + ' ' + endTime.substring(11, 16) + ':00';
+        this.endTime = this.endTime.substring(0, 10) + ' ' + this.endTime.substring(11, 16) + ':00';
       }
     }
     var duration = moment.duration(moment(endTime).diff(moment(startTime)));
@@ -84,6 +84,7 @@ export class TimeService {
     if (this.isStartTimeSelected && this.isEndTimeSelected) {
       durationObject = this.getDuration(startTime, endTime, userRole);
     }
+    console.log('start time details : ' , this.startTimeDetails);
     return {
       startTimeDetails: this.startTimeDetails
       , duration: durationObject
@@ -101,6 +102,7 @@ export class TimeService {
     if (this.isStartTimeSelected && this.isEndTimeSelected) {
       durationObject = this.getDuration(startTime, endTime, userRole);
     }
+    console.log('end time details : ' , this.endTimeDetails);
     return { endTimeDetails: this.endTimeDetails, duration: durationObject };
   }
 }
