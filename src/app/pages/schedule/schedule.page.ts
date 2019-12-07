@@ -41,6 +41,7 @@ export class SchedulePage implements OnInit {
 
   inputsValidFlag = false;
 
+
   constructor(private timeService: TimeService
     , private ingressService: IngressService
     , private adminService: AdminService

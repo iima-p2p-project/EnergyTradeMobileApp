@@ -205,10 +205,17 @@
       </ion-row>
     </ion-grid>
      <div style="text-align:center;padding-top:2em;">
-      <ion-button class="opacity-light" shape="round" color="primary" disabled={{!inputsValidFlag}}
+
+      <ion-button shape="round" color="primary" *ngIf="btnLabel==null"
         style="width:70%;font-family:MMedium !important;" (click)="submit()">
         {{btnLabel}}
       </ion-button>
+
+      <ion-button shape="round" color="primary" disabled *ngIf="btnLabel"
+        style="width:70%;font-family:MMedium !important;" (click)="submit()">
+        {{btnLabel}}
+      </ion-button>
+
     </div>
   </div>
 
