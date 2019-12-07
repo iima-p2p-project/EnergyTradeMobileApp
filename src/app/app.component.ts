@@ -152,10 +152,12 @@ export class AppComponent {
   }
 
   navigateToProfile() {
-    this.router.navigate(['/profile'], {
-      queryParams: {
-        userId: this.userId
-      }
-    });
+    if(this.userRole == "User") {
+      this.router.navigate(['/profile'], {
+        queryParams: {
+          userId: this.userId
+        }
+      });
+    }
   }
 }

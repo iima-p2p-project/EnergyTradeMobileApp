@@ -33,8 +33,13 @@
             </ion-row>
           </ion-grid>
         </ion-col>
-        <ion-col size="7">
+
+        <!--DISABLE FORECAST-->
+
+
+        <!-- <ion-col size="7">
           <ion-grid style="margin-right:-5em;">
+
             <ion-row>
               <ion-col size="5" class="box-top-right-left">
                 Available Units
@@ -58,7 +63,29 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+        </ion-col> -->
+
+        <ion-col offset="3" size="4">
+          <!-- EMPTY FORECAST DATA START -->
+          <ion-row>
+            <ion-col class="ion-text-center" offset="3" size="6">
+
+              <div style="background-color:rgba(65, 129, 212, 0.685) !important;border-radius:100%;height:3em;width:3em;">
+                <ion-icon style="zoom:1.2;margin-top:0.6em;" color="light" src="assets/svg/forecast.svg"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="12" class="ion-text-center" style="font-size:0.55em;color:white;font-family:MMedium !important;">
+                No Forecast data
+              </ion-col>
+          </ion-row>
+
+
+
+          <!-- EMPTY FORECAST DATA END -->
         </ion-col>
+
       </ion-row>
       <ion-row style="margin-top:-30px;">
         <ion-col size="6" style='margin-left:-0.5em;'>
@@ -73,7 +100,9 @@
             </ion-row>
           </ion-grid>
         </ion-col>
-        <ion-col offset="1" size="5">
+        <!--DISABLE FORECAST-->
+
+        <!-- <ion-col offset="1" size="5">
           <ion-grid style="margin-right:-3em;">
             <ion-row routerDirection="forward" routerLink="/forecast-list">
               <ion-col size="8" class="bottom-right">
@@ -84,7 +113,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
 
@@ -267,7 +296,7 @@
       </ion-grid>
     </ion-card>
 
-    <ion-row style="padding-top:1em;" *ngIf="allOrders.length==0">
+    <ion-row style="padding-top:1em;" *ngIf="allOrders?.length==0">
       <ion-col offset="1" size="3">
         <div style="background-color:rgba(65, 129, 212, 0.685) !important;border-radius:100%;height:4em;width:4em;">
           <ion-icon style="zoom:2;margin-left:0.5em;margin-top:0.5em;" color="light" src="assets/svg/boxlid.svg"></ion-icon>

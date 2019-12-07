@@ -17,7 +17,7 @@
   <div
     style='position:absolute;z-index:1;bottom:0px;left:0px;width:100%;height:90%;background-color:white;border-top-left-radius:40px;border-top-right-radius:40px;'>
     <ion-grid>
-      <ion-row>
+      <!-- <ion-row>
         <ion-col size="5" style="position:absolute;left:1.4em;">
           <ion-grid class='ion-text-center'>
             <ion-row>
@@ -28,10 +28,11 @@
             <ion-row>
               <ion-col>
                 <ion-row>
-                  <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
+                    <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
-                    [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()"></ion-datetime>
-                  <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
+                    [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()"
+                    minuteValues= "0,15,30,45"></ion-datetime>
+                  
                 </ion-row>
               </ion-col>
             </ion-row>
@@ -47,7 +48,7 @@
               <ion-icon src="assets/svg/notifications.svg"></ion-icon>
             </div>  
         </ion-col>
-    </ion-row>
+    </ion-row> -->
     <div style='position:absolute;z-index:1;bottom:0px;left:0px;width:100%;height:90%;background-color:white;border-top-left-radius:40px;border-top-right-radius:40px;'>
       <ion-grid>
         <ion-row>
@@ -127,30 +128,29 @@
               <ion-col class="bottom-small-font grey-colour">
                 DURATION
               </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-row>
+          </ion-row>
+          <!-- <ion-row>
+            <ion-col>
+              <ion-row>
                   <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
                     [(ngModel)]="endTime" (ionChange)="getEndTimeDetails()"></ion-datetime>
-                  <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
-                </ion-row>
-              </ion-col>
-            </ion-row>
-            <ion-row style="margin-top:-0.5em;">
-              <ion-col>
-                <ion-item lines="none">
+                  
+              </ion-row>
+            </ion-col>
+          </ion-row> -->
+          <!-- <ion-row style="margin-top:-0.5em;">
+            <ion-col>
+              <ion-item lines="none">
                   <ion-textarea style="border:1px solid rgba(190, 190, 190, 0.527);" [(ngModel)]="reason">
                   </ion-textarea>
-                </ion-item>  
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
+              </ion-item>  
+            </ion-col>
+          </ion-row> -->
+      </ion-grid>
+      </div>
     </ion-grid>
-    <ion-grid style="position:relative;top:110px;">
+    <!-- <ion-grid style="position:relative;top:110px;">
       <ion-row class='ion-text-center'>
         <ion-col size="12" class='ion-text-center'>
           <span class="big-font grey-colour">
@@ -166,7 +166,7 @@
           DURATION
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
     <div
       style="padding-top:9em;border-bottom:1px solid rgb(221, 221, 221);width:80%;margin-left:auto;margin-right:auto;">
     </div>
@@ -203,11 +203,14 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <div style="text-align:center;padding-top:2em;">
+     <div style="text-align:center;padding-top:2em;">
       <ion-button class="opacity-light" shape="round" color="primary" disabled={{!inputsValidFlag}}
         style="width:70%;font-family:MMedium !important;" (click)="submit()">
         {{btnLabel}}
       </ion-button>
     </div>
   </div>
+
+
+
 </ion-content>

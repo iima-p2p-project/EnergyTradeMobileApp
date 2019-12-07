@@ -24,7 +24,7 @@
   </ion-row>
   <ion-grid>
 
-    <ion-grid style="position:relative;z-index:2;padding-top:10%;" *ngIf="nonTradeHourList.length==0">
+    <ion-grid style="position:relative;z-index:2;padding-top:10%;" *ngIf="nonTradeHourList?.length==0">
       <ion-row>
         <ion-col class="ion-text-center">
           <div
@@ -45,14 +45,14 @@
           All your scheduled non-trade hours will show up here. You can schedule one based on the weather conditions
         </ion-col>
       </ion-row>
-      <ion-row class="ion-text-center">
+      <!-- <ion-row class="ion-text-center">
         <ion-col>
           <ion-button shape="round" color="dark" style="width:70%;font-family:MMedium !important;height:40px;"
             (click)="schedule()">
             SCHEDULE
           </ion-button>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
     </ion-grid>
 
     <!-- LINE 1 -->

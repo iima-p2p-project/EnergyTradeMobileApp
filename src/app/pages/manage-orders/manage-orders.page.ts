@@ -223,7 +223,7 @@ export class ManageOrdersPage implements OnInit {
         sellOrderId: order.sellOrderId, //has to be updated
         sellerId: this.userId,
         userDeviceId: order.userDeviceId, //has to be updated
-        deviceTypeId: '1', // has to be updated
+        deviceTypeId: order.deviceTypeName, // has to be updated
         powerToSell: order.powerToSell,
         startTime: order.transferStartTs,
         endTime: order.transferEndTs
