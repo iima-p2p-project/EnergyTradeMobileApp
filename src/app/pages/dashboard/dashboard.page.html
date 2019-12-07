@@ -267,6 +267,23 @@
       </ion-grid>
     </ion-card>
 
+    <ion-row style="padding-top:1em;" *ngIf="allOrders.length==0">
+      <ion-col offset="1" size="3">
+        <div style="background-color:rgba(65, 129, 212, 0.685) !important;border-radius:100%;height:4em;width:4em;">
+          <ion-icon style="zoom:2;margin-left:0.5em;margin-top:0.5em;" color="light" src="assets/svg/boxlid.svg"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col size="7" style="margin-top:10px;margin-left:-5px;">
+        <div style="font-size:0.9em;color:white;font-family:MMedium !important;">
+          <strong>
+            No transactions/Orders
+          </strong>
+        </div>
+        <p style="font-size:0.7em;color:white;font-family:MMedium !important;">
+          Stay tuned! Latest 2 transactions show up here.
+        </p>
+      </ion-col>
+    </ion-row>
 
 
     <!-- DEV -->

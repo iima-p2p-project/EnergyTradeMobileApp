@@ -92,6 +92,8 @@ export class DashboardPage implements OnInit {
           this.checkBuy = true;
         }
       }
+    });
+      
       this.ingressService.getUserIdToken().then((res) => {
         this.userId = res;
         this.ingressService.loggedInUserId = this.userId;
@@ -145,7 +147,7 @@ export class DashboardPage implements OnInit {
             });
           }
         });
-      });
+      //});
     });
   }
 
@@ -184,6 +186,8 @@ export class DashboardPage implements OnInit {
       this.length = 2;
     }
     this.allOrders=[];
+    console.log('test index : ' , this.index);
+    console.log('test length : ' , this.length);
     while (this.index < this.length) {
       this.allOrders[this.index] = this.orderListUpdated[this.index];
       this.index++;
