@@ -206,12 +206,12 @@
     </ion-grid>
      <div style="text-align:center;padding-top:2em;">
 
-      <ion-button shape="round" color="primary" *ngIf="btnLabel==null"
+      <ion-button shape="round" color="primary" *ngIf="location!=null && reason!=null && reason!=''"
         style="width:70%;font-family:MMedium !important;" (click)="submit()">
         {{btnLabel}}
       </ion-button>
 
-      <ion-button shape="round" color="primary" disabled *ngIf="btnLabel"
+      <ion-button shape="round" color="primary" disabled *ngIf="location==null || reason==null || reason==''"
         style="width:70%;font-family:MMedium !important;" (click)="submit()">
         {{btnLabel}}
       </ion-button>
