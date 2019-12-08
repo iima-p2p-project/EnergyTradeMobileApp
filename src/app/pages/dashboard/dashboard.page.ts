@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { IngressService } from 'src/app/services/ingress.service';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
 import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 import { OrderService } from 'src/app/services/order.service';
 import * as moment from 'moment';
+import { InvalidInputModalPage } from 'src/app/invalid-input-modal/invalid-input-modal.page';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,6 +59,7 @@ export class DashboardPage implements OnInit {
 
   constructor(private router: Router
     , private route: ActivatedRoute
+    , private modal: ModalController
     , private nav: NavController
     , private orderService: OrderService
     , private ingressService: IngressService
@@ -243,7 +245,7 @@ export class DashboardPage implements OnInit {
       if (this.maxPowerToBuy > this.minPowerToBuy)
         this.validInputsFlag = true;
       else {
-        this.presentAlert("Max value cant be less than Min value.");
+        this.invalidInput("Minumum power to buy should be less than maximum power to buy.");
         this.validInputsFlag = false;
       }
       if (this.validInputsFlag) {
@@ -316,7 +318,8 @@ export class DashboardPage implements OnInit {
     console.log("Power input detected", power);
     if (this.deviceCapactiy && power)
       if (power > this.deviceCapactiy) {
-        this.presentAlert("You cant sell more than your device capacity.");
+        this.invalidInput("You cannot sell more than your device capacity.");
+        //this.presentAlert("You cant sell more than your device capacity.");
         this.powerToSell = 0;
       } else {
         this.powerToSell = power;
@@ -352,5 +355,16 @@ export class DashboardPage implements OnInit {
       return true;
     }
     return false; 
+  }
+
+  async invalidInput(errorDesc: any) {
+    let defg = await this.modal.create({
+      component: InvalidInputModalPage,
+      cssClass: 'input-field-validation-custom-modal-css',
+      componentProps: {
+        errorDescription: errorDesc
+      }
+    });
+    return await defg.present();
   }
 }

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { IonDatetime, Platform, AlertController } from '@ionic/angular';
+import { IonDatetime, Platform, AlertController, ModalController } from '@ionic/angular';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import * as moment from 'moment';
 import { TimeService } from 'src/app/services/time.service';
 import { USER_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
+import { InvalidInputModalPage } from 'src/app/invalid-input-modal/invalid-input-modal.page';
+import { EndDateModalPage } from 'src/app/end-date-modal/end-date-modal.page';
 
 @Component({
   selector: 'app-sell-time-picker',
@@ -48,6 +50,7 @@ export class SellTimePickerPage implements OnInit {
     private route: ActivatedRoute
     , private formBuilder: FormBuilder
     , private timeService: TimeService
+    , public modal: ModalController
     , private alertController: AlertController) {
 
     this.sellTimePickerForm = this.formBuilder.group({
@@ -105,7 +108,8 @@ export class SellTimePickerPage implements OnInit {
         this.duration = this.durationDetails.duration.duration;
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
-          this.presentAlert("End Time shall be after start time");
+          //this.presentAlert("End Time shall be after start time");
+          this.invalidDates();
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -125,7 +129,8 @@ export class SellTimePickerPage implements OnInit {
         this.duration = this.durationDetails.duration.duration;
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
-          this.presentAlert("End Time shall be after start time");
+          //this.presentAlert("End Time shall be after start time");
+          this.invalidDates();
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -153,7 +158,8 @@ export class SellTimePickerPage implements OnInit {
         }
       });
     } else {
-      this.presentAlert("Invalid Inputs");
+      //this.presentAlert("Invalid Inputs");
+      this.invalidInput();
     }
   }
 
@@ -166,6 +172,26 @@ export class SellTimePickerPage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+  async invalidInput() {
+    let defg = await this.modal.create({
+      component: InvalidInputModalPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+      }
+    });
+    return await defg.present();
+  }
+
+  async invalidDates() {
+    let defg = await this.modal.create({
+      component: EndDateModalPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+      }
+    });
+    return await defg.present();
   }
 }
 

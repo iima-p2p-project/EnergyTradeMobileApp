@@ -66,16 +66,16 @@
                 {{formatTime(nonTradeHour.startTime,'d')}}
               </div>
               <div class="card-unit-number">
-                {{formatTime(nonTradeHour.startTime,'t')}} - {{formatTime(nonTradeHour.endTi8me,'t')}}
+                {{formatTime(nonTradeHour.startTime,'t')}} - {{formatTime(nonTradeHour.endTime,'t')}}
               </div>
             </ion-col>
             <ion-col class="card-price" size="3">
-              <span style="font-size:1em;">{{getDuration(nonTradeHour.startTime,nonTradeHour.endTi8me)}} Hour</span>
+              <span style="font-size:1em;">{{getDuration(nonTradeHour.startTime,nonTradeHour.endTime)}} Hour</span>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="9" class="card-bottom-line-left">
-              <i>"Thunderstorms in the area"</i>
+              <i>"{{nonTradeHour.nonTradeReason}}"</i>
             </ion-col>
             <ion-col class="card-bottom-line-right">
               <ion-icon name="pin"></ion-icon>
@@ -84,15 +84,17 @@
           </ion-row>
         </ion-grid>
         <!-- </ion-card-content> -->
-        <ion-row style="border-top:0.5px rgba(156, 156, 156, 0.685) solid;text-align:center;height:40px;">
-          <ion-col size="6">
+        <ion-row style="border-top:0.5px rgba(156, 156, 156, 0.685) solid;text-align:center;height:40px;"
+        *ngIf="nonTradeHour.isEditable=='Y' || nonTradeHour.isCancellable=='Y'">
+          <ion-col size="6" *ngIf="nonTradeHour.isCancellable=='Y'">
             <ion-button size="small" expand="full" fill="clear"
               style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
               (click)="cancelModal(nonTradeHour, 'NONTRADEHOUR')">
               CANCEL
             </ion-button>
           </ion-col>
-          <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)">
+          <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)"
+          *ngIf="nonTradeHour.isEditable=='Y'">
             <ion-button size="small" expand="full" fill="clear"
               style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
               (click)="editNonTradeHours(nonTradeHour)">

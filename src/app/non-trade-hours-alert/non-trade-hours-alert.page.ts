@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
+import { AdminService } from 'src/app/services/admin.service';
+import { OrderService } from 'src/app/services/order.service';
+
 
 @Component({
   selector: 'app-non-trade-hours-alert',
@@ -8,26 +11,38 @@ import { ModalController } from '@ionic/angular';
 })
 export class NonTradeHoursAlertPage implements OnInit {
 
-  constructor(
+  @Input() orderId: any;
+  @Input() orderType: any;
+  @Input() orderPayload: any;
+
+  constructor(public navParams: NavParams,
     public modal:ModalController
-  ) { }
+    , public adminService: AdminService
+    , public orderService: OrderService
+  ) { 
+    this.orderId = navParams.get('orderId');
+    this.orderType = navParams.get('orderType'); 
+    this.orderPayload = navParams.get('orderPayload');
+    console.log('order id : ' , this.orderId);
+    console.log('order type : ' , this.orderType);
+  }
 
   ngOnInit() {
   }
 
-  close()
-  {
+  close(){
     this.modal.dismiss();
   }
 
-  noAction()
-  {
-
+  noAction() {
+    this.close();
   }
 
-  yesAction()
-  {
-    
+  yesAction() {
+    if(this.orderType == 'NONTRADEHOUR') {
+      this.adminService.editNonTradeHour(this.orderPayload, this.orderId).subscribe((res) => {
+        console.log('response from edit non trade hours service : ', res);
+      });
+    }
   }
-
 }

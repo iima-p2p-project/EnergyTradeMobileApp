@@ -67,6 +67,7 @@ const routes: Routes = [
   { path: 'non-trade-hours-alert', loadChildren: './non-trade-hours-alert/non-trade-hours-alert.module#NonTradeHoursAlertPageModule' },
   { path: 'cancel-order-modal1', loadChildren: './cancel-order-modal1/cancel-order-modal1.module#CancelOrderModal1PageModule' },
   { path: 'cancel-order-modal2', loadChildren: './cancel-order-modal2/cancel-order-modal2.module#CancelOrderModal2PageModule' },
+  { path: 'non-trade-post-success', loadChildren: './pages/non-trade-post-success/non-trade-post-success.module#NonTradePostSuccessPageModule' },
 ];
 
 @NgModule({

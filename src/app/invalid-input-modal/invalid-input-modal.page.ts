@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-invalid-input-modal',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvalidInputModalPage implements OnInit {
 
-  constructor() { }
+  @Input() errorDescription: any;
+
+  constructor(public modal:ModalController
+    , public navParams: NavParams) { 
+      this.errorDescription = navParams.get('errorDescription');
+  }
 
   ngOnInit() {
   }
 
+  close(){
+    this.modal.dismiss();
+  }
 }

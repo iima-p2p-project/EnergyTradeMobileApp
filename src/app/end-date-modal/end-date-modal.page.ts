@@ -15,9 +15,7 @@ export class EndDateModalPage implements OnInit {
   ngOnInit() {
   }
 
-  close()
-  {
+  close(){
     this.modal.dismiss();
   }
-
 }

@@ -66,10 +66,10 @@
                           <ion-datetime 
                           placeholder="_ _:_ _" 
                           displayFormat="hh:mm A"
-                          pickerFormat="MMM DD, YYYY hh:mm A"
+                          pickerFormat="MMM DD, hh:mm A"
                           style="margin-left:-0.7em;"
                           class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"
-                          (ionChange)="getStartTimeDetails()"></ion-datetime>
+                          (ionChange)="getStartTimeDetails()" minuteValues= "0,15,30,45"></ion-datetime>
                           <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
                         </ion-row>
                       </ion-col>
@@ -97,10 +97,10 @@
                         <ion-datetime 
                         placeholder="_ _:_ _" 
                         displayFormat="hh:mm A"
-                        pickerFormat="MMM DD, YYYY hh:mm A"
+                        pickerFormat="MMM DD, hh:mm A"
                         style="margin-left:-0.7em;" 
                         class='font-start-end font-datetime-big grey-colour' [(ngModel)]="endTime" 
-                        (ionChange)="getEndTimeDetails()"></ion-datetime>
+                        (ionChange)="getEndTimeDetails()" minuteValues= "0,15,30,45"></ion-datetime>
                         <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
                       </ion-row>
                       </ion-col>
@@ -206,7 +206,12 @@
     </ion-grid>
      <div style="text-align:center;padding-top:2em;">
       <ion-button class="opacity-light" shape="round" color="primary" disabled={{!inputsValidFlag}}
-        style="width:70%;font-family:MMedium !important;" (click)="submit()">
+        style="width:70%;font-family:MMedium !important;" (click)="submit()" *ngIf="!inputsValidFlag">
+        {{btnLabel}}
+      </ion-button>
+
+      <ion-button shape="round" color="primary" disabled={{!inputsValidFlag}}
+        style="width:70%;font-family:MMedium !important;" (click)="submit()" *ngIf="inputsValidFlag">
         {{btnLabel}}
       </ion-button>
     </div>

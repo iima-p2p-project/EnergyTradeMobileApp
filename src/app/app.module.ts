@@ -14,6 +14,7 @@ import { LocalityModalPage } from './pages/modals/selectLocality';
 
 import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
 import { BuyPostSuccessPageModule} from './pages/buy-post-success/buy-post-success.module';
+import { NonTradePostSuccessPageModule } from './pages/non-trade-post-success/non-trade-post-success.module';
 
 import { CancelNonTradeHourPageModule } from './pages/cancel-non-trade-hour/cancel-non-trade-hour.module';
 import { CancelInProfilePageModule } from './pages/cancel-in-profile/cancel-in-profile.module';
@@ -40,6 +41,7 @@ import { CancelOrderModal2PageModule } from './cancel-order-modal2/cancel-order-
     AppRoutingModule,
     SellPostSuccessPageModule,
     BuyPostSuccessPageModule,
+    NonTradePostSuccessPageModule,
     CancelNonTradeHourPageModule,
     CancelInProfilePageModule,
     ModalEditPageModule,

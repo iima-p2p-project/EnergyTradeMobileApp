@@ -48,7 +48,8 @@ export class TotalBuyLeadsPage implements OnInit {
   selectBuyLead(buyLead: any) {
     this.router.navigate(['/profile'], {
       queryParams: {
-        userId: buyLead.buyerId
+        userId: buyLead.buyerId,
+        flow: 'ADMIN'
       }
     });
   }

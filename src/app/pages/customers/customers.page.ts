@@ -50,7 +50,8 @@ export class CustomersPage implements OnInit {
   selectCustomer(customer: AllCustomer) {
     this.router.navigate(['/profile'], {
       queryParams: {
-        userId: customer.userId
+        userId: customer.userId,
+        flow: 'ADMIN'
       }
     });
   }

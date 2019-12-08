@@ -27,5 +27,4 @@ export class SellPostSuccessPage implements OnInit {
     this.close();
     this.nav.navigateForward('manage-orders');
   }
-
 }

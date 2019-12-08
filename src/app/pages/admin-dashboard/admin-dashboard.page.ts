@@ -86,9 +86,17 @@ export class AdminDashboardPage implements OnInit {
       cssClass: 'cancel-custom-modal-css',
       componentProps: {
         'orderId': nonTradeHour.nonTradeHourId,
-        'orderType': orderType
+        'orderType': orderType,
+        'orderStartTime': this.formatTime(nonTradeHour.startTime,'t'),
+        'orderEndTime': this.formatTime(nonTradeHour.endTime,'t'),
+        'orderDate': this.formatTime(nonTradeHour.startTime,'d')
       }
-    })
+    });
+    defg.onDidDismiss().then((dataReturned) => {
+      this.ionViewDidEnter();
+      if (dataReturned !== null) {
+      }
+    });
     return await defg.present();
   }
 
@@ -113,7 +121,7 @@ export class AdminDashboardPage implements OnInit {
         localityName: nonTradeHour.locationName,
         localityId: nonTradeHour.localityId,
         startTime: nonTradeHour.startTime,
-        endTime: nonTradeHour.endTi8me
+        endTime: nonTradeHour.endTime
       }
     });
   }

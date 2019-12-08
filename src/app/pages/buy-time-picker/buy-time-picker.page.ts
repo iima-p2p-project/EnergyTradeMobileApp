@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, ModalController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
 import { TimeService } from 'src/app/services/time.service';
 import { OrderService } from 'src/app/services/order.service';
 import { USER_ROLE } from 'src/app/environments/environments';
-
+import { InvalidInputModalPage } from 'src/app/invalid-input-modal/invalid-input-modal.page';
+import { EndDateModalPage } from 'src/app/end-date-modal/end-date-modal.page';
 
 @Component({
   selector: 'app-buy-time-picker',
@@ -44,6 +45,7 @@ export class BuyTimePickerPage implements OnInit {
     private timeService: TimeService,
     private orderService: OrderService,
     private router: Router,
+    public modal: ModalController,
     private alertController: AlertController
   ) { }
 
@@ -71,7 +73,8 @@ export class BuyTimePickerPage implements OnInit {
         this.duration = this.durationDetails.duration.duration;
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
-          this.presentAlert("End Time shall be after start time");
+          //this.presentAlert("End Time shall be after start time");
+          this.invalidDates();
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -92,7 +95,8 @@ export class BuyTimePickerPage implements OnInit {
         this.duration = this.durationDetails.duration.duration;
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
-          this.presentAlert("End Time shall be after start time");
+          //this.presentAlert("End Time shall be after start time");
+          this.invalidDates();
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -127,7 +131,8 @@ export class BuyTimePickerPage implements OnInit {
         }
       });
     } else {
-      this.presentAlert("Invalid Inputs. Cant proceed.")
+      //this.presentAlert("Invalid Inputs. Cant proceed.")
+      this.invalidInput();
     }
   }
 
@@ -142,5 +147,26 @@ export class BuyTimePickerPage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+  async invalidInput() {
+    let defg = await this.modal.create({
+      component: InvalidInputModalPage,
+      cssClass: 'input-field-validation-custom-modal-css',
+      componentProps: {
+        errorDescription: 'Please make sure you have entered values for all the input fields.'
+      }
+    });
+    return await defg.present();
+  }
+
+  async invalidDates() {
+    let defg = await this.modal.create({
+      component: EndDateModalPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+      }
+    });
+    return await defg.present();
   }
 }

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AdminService } from 'src/app/services/admin.service';
 import { CancelInProfilePage } from '../cancel-in-profile/cancel-in-profile.page';
+import { CancelOrderModal1Page } from 'src/app/cancel-order-modal1/cancel-order-modal1.page';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +16,7 @@ export class ProfilePage implements OnInit {
 
   selectedOption='upcoming';
 
+  flow: any;
   userId: any;
   userName: any;
   userEmail: any;
@@ -47,11 +48,14 @@ export class ProfilePage implements OnInit {
 
   ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
+      this.flow = params['flow'];
       this.userId = params['userId'];
       console.log('user id in customer page : ', this.userId);
     });
     this.allUpcomingOrders = [];
     this.allCompletedOrders = [];
+    this.upcomingOrderListUpdated = [];
+    this.completedOrderListUpdated = [];
     this.adminService.getUserOrdersByAdmin(this.userId).subscribe((res) => {
       this.resFromServer = res;
       if (this.resFromServer) {
@@ -170,15 +174,48 @@ export class ProfilePage implements OnInit {
     return await pqr.present();
   }
 
-  async cancelModal(order: any, orderType: any) {
+  cancelTrade(order: any, orderType: any) {
+    console.log('check1');
+    if(this.flow=='ADMIN') {
+      this.cancelModalAdmin(order, orderType);
+    }
+    if(this.flow=='USER') {
+      this.cancelModalUser(order, orderType);
+    }
+  }
+
+  async cancelModalAdmin(order: any, orderType: any) {
+    console.log('check2');
     let defg = await this.modal.create({
-      component: CancelNonTradeHourPage,
+      component: CancelInProfilePage,
+      cssClass: 'admin-cancel-custom-modal-css',
+      componentProps: {
+        'orderId': order.orderId,
+        'orderType': String(orderType).toUpperCase()
+      }
+    });
+    defg.onDidDismiss().then((dataReturned) => {
+      this.ionViewWillEnter();
+      if (dataReturned !== null) {
+      }
+    });
+    return await defg.present();
+  }
+
+  async cancelModalUser(order: any, orderType: any) {
+    let defg = await this.modal.create({
+      component: CancelOrderModal1Page,
       cssClass: 'cancel-custom-modal-css',
       componentProps: {
         'orderId': order.orderId,
         'orderType': String(orderType).toUpperCase()
       }
-    })
+    });
+    defg.onDidDismiss().then((dataReturned) => {
+      this.ionViewWillEnter();
+      if (dataReturned !== null) {
+      }
+    });
     return await defg.present();
   }
 }

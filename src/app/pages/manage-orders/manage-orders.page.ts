@@ -4,7 +4,7 @@ import { IngressService } from 'src/app/services/ingress.service';
 import * as moment from 'moment';
 import { PickerController, IonRefresher } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
-import { CancelNonTradeHourPage } from '../cancel-non-trade-hour/cancel-non-trade-hour.page';
+import { CancelOrderModal1Page } from 'src/app/cancel-order-modal1/cancel-order-modal1.page';
 import { ModalController, NavController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
@@ -233,7 +233,7 @@ export class ManageOrdersPage implements OnInit {
 
   async cancelModal(order: any, orderType: any) {
     let defg = await this.modal.create({
-      component: CancelNonTradeHourPage,
+      component: CancelOrderModal1Page,
       cssClass: 'cancel-custom-modal-css',
       componentProps: {
         'orderId': order.orderId,

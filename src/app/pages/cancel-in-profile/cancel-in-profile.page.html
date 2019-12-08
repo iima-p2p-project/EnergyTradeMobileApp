@@ -9,17 +9,17 @@
         </ion-row>
         <ion-row style="text-align:center;margin-top:-1em;">
           <ion-col>
-            <ion-icon style="zoom:2" src="assets/svg/calendar.svg"></ion-icon>
+            <ion-icon style="zoom:2" src="assets/svg/cancel.svg"></ion-icon>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col class="first-line">
-            Cancel Non-Trade Hour?
+            Cancel Trade?
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col class="second-line">
-            This will allow the customers to trade between 06:30 AM - 08:00 AM on 11 June
+            You are about to permanently cancel a confirmed order. Please provide a reason.
           </ion-col>
         </ion-row>
         <ion-row>
@@ -60,14 +60,15 @@
         </ion-row>
         <ion-row style="margin-top:-1em;">
             <ion-col style="text-align:center;padding-top:1em;">
-              <ion-button shape="round" color="primary" style="width:40%;font-family:MMedium !important;">
+              <ion-button shape="round" color="primary" (click)=noAction()
+              style="width:40%;font-family:MMedium !important;">
                 NO
               </ion-button>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="text-align:center;">
-              <ion-button fill="clear" color="primary" size="small">
+              <ion-button fill="clear" color="primary" size="small" (click)=yesAction()>
                 YES, I WANT TO CANCEL
               </ion-button>
             </ion-col>

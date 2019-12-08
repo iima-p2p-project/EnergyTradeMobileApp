@@ -12,6 +12,9 @@ export class CancelNonTradeHourPage implements OnInit {
 
   @Input() orderId: any;
   @Input() orderType: any;
+  @Input() orderStartTime: any;
+  @Input() orderEndTime: any;
+  @Input() orderDate: any;
 
   constructor(public navParams: NavParams
     , public modal:ModalController
@@ -19,6 +22,9 @@ export class CancelNonTradeHourPage implements OnInit {
     , public orderService: OrderService) {
       this.orderId = navParams.get('orderId');
       this.orderType = navParams.get('orderType'); 
+      this.orderStartTime = navParams.get('orderStartTime'); 
+      this.orderEndTime = navParams.get('orderEndTime'); 
+      this.orderDate = navParams.get('orderDate'); 
       console.log('order id : ' , this.orderId);
       console.log('order type : ' , this.orderType);
     }
@@ -50,7 +56,7 @@ export class CancelNonTradeHourPage implements OnInit {
     if(this.orderType == 'SELL') {
       this.orderService.cancelSellOrder(this.orderId).subscribe((res) => {
         console.log('response from cancel sell order service : ' , res);
-        this.close();
+        this.close(); 
       });
     }
   }

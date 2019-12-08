@@ -8,7 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 import { LocalityModalPage } from '../modals/selectLocality';
 import { ModalController, AlertController } from '@ionic/angular';
-import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
+import { NonTradePostSuccessPage } from '../non-trade-post-success/non-trade-post-success.page';
+import { NonTradeHoursAlertPage } from 'src/app/non-trade-hours-alert/non-trade-hours-alert.page';
+import { InvalidInputModalPage } from 'src/app/invalid-input-modal/invalid-input-modal.page';
+import { EndDateModalPage } from 'src/app/end-date-modal/end-date-modal.page';
 
 @Component({
   selector: 'app-schedule',
@@ -85,7 +88,8 @@ export class SchedulePage implements OnInit {
         this.duration = this.durationDetails.duration.duration;
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
-          this.presentAlert("End Time shall be after start time");
+          //this.presentAlert("End Time shall be after start time");
+          this.invalidDates();
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -103,16 +107,19 @@ export class SchedulePage implements OnInit {
   getEndTimeDetails() {
     this.durationDetails = this.timeService.getEndTimeDetails(this.startTime, this.endTime, ADMIN_ROLE);
     if (this.durationDetails != null) {
-      this.startTimeDetails = this.durationDetails.startTimeDetails;
+      this.endTimeDetails = this.durationDetails.endTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
-          this.presentAlert("End Time shall be after start time");
+          //this.presentAlert("End Time shall be after start time");
+          this.invalidDates();
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
-          this.inputsValidFlag = true;
+          if(this.endTime!=null) {
+            this.inputsValidFlag = true;
+          }
         }
       }
       else {
@@ -124,8 +131,9 @@ export class SchedulePage implements OnInit {
   }
 
   submit() {
-    if(this.location==null) {
-      this.presentAlert('Enter Location');
+    if(this.location==null || this.reason==null || this.reason==''  || this.reason==' ') {
+      //this.presentAlert('Enter Location');
+      this.invalidInput();
       return;
     }
     if (this.action == ACTION_EDIT) {
@@ -139,10 +147,7 @@ export class SchedulePage implements OnInit {
       }
       this.nonTradeHourPayload.location = this.location;
       this.nonTradeHourPayload.nonTradeReason = this.reason;
-      this.adminService.editNonTradeHour(this.nonTradeHourPayload, this.nonTradeHourId).subscribe((res) => {
-        console.log('response from edit non trade hours service : ', res);
-      });
-      this.presentModal();
+      this.presentEditSuccessModal(this.nonTradeHourId, this.nonTradeHourPayload);
     }
     if (this.action == ACTION_CREATE) {
       if (this.ingressService.loggedInUserId != null) {
@@ -158,7 +163,7 @@ export class SchedulePage implements OnInit {
       this.adminService.createNonTradeHour(this.nonTradeHourPayload).subscribe((res) => {
         console.log('response from create non trade hours service : ', res);
       });
-      this.presentModal();
+      this.presentCreateSuccessModal();
     }
   }
 
@@ -193,11 +198,45 @@ export class SchedulePage implements OnInit {
     await alert.present();
   }
 
-  async presentModal(){
+  async presentCreateSuccessModal(){
     const myModal = await this.modalController.create({
-      component: SellPostSuccessPage,
+      component: NonTradePostSuccessPage,
       cssClass: 'my-custom-modal-css'
     });
     return await myModal.present();
+  }
+
+  async presentEditSuccessModal(nonTradeHourId: any, nonTradeHourPayload: any){
+    const myModal = await this.modalController.create({
+      component: NonTradeHoursAlertPage,
+      cssClass: 'cancel-custom-modal-css',
+      componentProps: {
+        'orderId': nonTradeHourId,
+        'orderPayload' : nonTradeHourPayload,
+        'orderType': 'NONTRADEHOUR'
+      }
+    });
+    return await myModal.present();
+  }
+
+  async invalidInput() {
+    let defg = await this.modalController.create({
+      component: InvalidInputModalPage,
+      cssClass: 'input-field-validation-custom-modal-css',
+      componentProps: {
+        errorDescription: 'Please make sure you have entered values for all the input fields.'
+      }
+    });
+    return await defg.present();
+  }
+
+  async invalidDates() {
+    let defg = await this.modalController.create({
+      component: EndDateModalPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+      }
+    });
+    return await defg.present();
   }
 }

@@ -155,7 +155,8 @@ export class AppComponent {
     if(this.userRole == "User") {
       this.router.navigate(['/profile'], {
         queryParams: {
-          userId: this.userId
+          userId: this.userId,
+          flow: 'USER'
         }
       });
     }
