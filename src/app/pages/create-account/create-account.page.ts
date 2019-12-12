@@ -5,7 +5,7 @@ import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES } from 'src/app/environments/environments';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -35,7 +35,8 @@ export class CreateAccountPage implements OnInit {
     , private formBuilder: FormBuilder
     , private router: Router
     , private storage: Storage
-    , private toastCtrl: ToastController) {
+    , private toastCtrl: ToastController
+    , private menuController: MenuController) {
 
       this.createAccountForm = this.formBuilder.group({
         phoneNumber: [null, Validators.compose([
@@ -55,9 +56,14 @@ export class CreateAccountPage implements OnInit {
       this.phoneNumber = params['phoneNumber'];
       this.redirect = params['redirect'];
     });*/
+    this.menuController.swipeEnable(false);
     this.showOTPFlag = false;
     this.createAccountForm.controls['phoneNumber'].setValue("");
     this.createAccountForm.controls['fullName'].setValue("");
+  }
+
+  ionViewWillLeave() {
+    this.menuController.swipeEnable(true);
   }
 
   continueToRegister() {

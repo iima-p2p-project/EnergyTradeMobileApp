@@ -201,7 +201,7 @@ export class SchedulePage implements OnInit {
   async presentCreateSuccessModal(){
     const myModal = await this.modalController.create({
       component: NonTradePostSuccessPage,
-      cssClass: 'my-custom-modal-css'
+      cssClass: 'my-custom-modal-small-css'
     });
     return await myModal.present();
   }
@@ -209,11 +209,23 @@ export class SchedulePage implements OnInit {
   async presentEditSuccessModal(nonTradeHourId: any, nonTradeHourPayload: any){
     const myModal = await this.modalController.create({
       component: NonTradeHoursAlertPage,
-      cssClass: 'cancel-custom-modal-css',
+      cssClass: 'my-custom-modal-css',
       componentProps: {
         'orderId': nonTradeHourId,
         'orderPayload' : nonTradeHourPayload,
         'orderType': 'NONTRADEHOUR'
+      }
+    });
+    myModal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        if(dataReturned.data!==null) {
+          if(dataReturned.data.action=='YES'){
+            this.router.navigate(['/admin-dashboard'], {
+              queryParams: {
+              }
+            });
+          }
+        }
       }
     });
     return await myModal.present();

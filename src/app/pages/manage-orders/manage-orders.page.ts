@@ -223,7 +223,7 @@ export class ManageOrdersPage implements OnInit {
         sellOrderId: order.sellOrderId, //has to be updated
         sellerId: this.userId,
         userDeviceId: order.userDeviceId, //has to be updated
-        deviceTypeId: order.deviceTypeName, // has to be updated
+        deviceTypeId: order.deviceTypeId, // has to be updated
         powerToSell: order.powerToSell,
         startTime: order.transferStartTs,
         endTime: order.transferEndTs
@@ -234,7 +234,7 @@ export class ManageOrdersPage implements OnInit {
   async cancelModal(order: any, orderType: any) {
     let defg = await this.modal.create({
       component: CancelOrderModal1Page,
-      cssClass: 'cancel-custom-modal-css',
+      cssClass: 'my-custom-modal-css',
       componentProps: {
         'orderId': order.orderId,
         'orderType': orderType

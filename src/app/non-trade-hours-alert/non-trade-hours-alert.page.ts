@@ -30,18 +30,19 @@ export class NonTradeHoursAlertPage implements OnInit {
   ngOnInit() {
   }
 
-  close(){
-    this.modal.dismiss();
+  close(action: any){
+    this.modal.dismiss({action: action});
   }
 
   noAction() {
-    this.close();
+    this.close('NO');
   }
 
   yesAction() {
     if(this.orderType == 'NONTRADEHOUR') {
       this.adminService.editNonTradeHour(this.orderPayload, this.orderId).subscribe((res) => {
         console.log('response from edit non trade hours service : ', res);
+        this.close('YES');
       });
     }
   }

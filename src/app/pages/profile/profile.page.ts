@@ -205,7 +205,7 @@ export class ProfilePage implements OnInit {
   async cancelModalUser(order: any, orderType: any) {
     let defg = await this.modal.create({
       component: CancelOrderModal1Page,
-      cssClass: 'cancel-custom-modal-css',
+      cssClass: 'my-custom-modal-css',
       componentProps: {
         'orderId': order.orderId,
         'orderType': String(orderType).toUpperCase()

@@ -13,7 +13,8 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-searchbar show-cancel-button="focus" placeholder="Search for Customers"></ion-searchbar>
+    <ion-searchbar show-cancel-button="focus" placeholder="Search for Customers" 
+    [(ngModel)]="selectedCustomer" (ionChange)="searchCustomer()"></ion-searchbar>
   </ion-row>
 
   <ion-grid>

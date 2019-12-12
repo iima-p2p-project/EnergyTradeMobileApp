@@ -83,7 +83,7 @@ export class AdminDashboardPage implements OnInit {
   async cancelModal(nonTradeHour: any , orderType: any) {
     let defg= await this.modal.create({
       component: CancelNonTradeHourPage,
-      cssClass: 'cancel-custom-modal-css',
+      cssClass: 'my-custom-modal-css',
       componentProps: {
         'orderId': nonTradeHour.nonTradeHourId,
         'orderType': orderType,

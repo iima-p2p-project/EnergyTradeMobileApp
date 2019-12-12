@@ -35,6 +35,10 @@ export class CancelOrderModal1Page implements OnInit {
     this.modal.dismiss();
   }
 
+  noAction() {
+    this.close();
+  }
+
   yesAction() {
     if(this.orderType == 'BUY') {
       this.orderService.cancelBuyOrder(this.orderId).subscribe((res) => {

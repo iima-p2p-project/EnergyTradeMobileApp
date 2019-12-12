@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
@@ -40,7 +40,8 @@ export class LoginPage implements OnInit {
     , private router: Router
     , private storage: Storage
     , private toastCtrl: ToastController
-    , private oneSignal: OneSignal) {
+    , private oneSignal: OneSignal
+    , private menuController: MenuController) {
 
     this.loginForm = this.formBuilder.group({
       phoneNumber: [null, Validators.compose([
@@ -61,8 +62,13 @@ export class LoginPage implements OnInit {
       this.phoneNumber = params['phoneNumber'];
       this.redirect = params['redirect'];
     });*/
+    this.menuController.swipeEnable(false);
     this.showOTPFlag = false;
     this.loginForm.controls['phoneNumber'].setValue("");
+  }
+
+  ionViewWillLeave() {
+    this.menuController.swipeEnable(true);
   }
 
   login() {

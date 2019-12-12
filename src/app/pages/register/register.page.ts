@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { RegisterPayload } from 'src/app/models/RegisterPayload';
@@ -54,7 +54,8 @@ export class RegisterPage implements OnInit {
     , private router: Router
     , private storage: Storage
     , public modalController: ModalController
-    , private oneSignal: OneSignal) {
+    , private oneSignal: OneSignal
+    , private menuController: MenuController) {
 
     this.registerForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
@@ -70,11 +71,16 @@ export class RegisterPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.menuController.swipeEnable(false);
     this.route.queryParams.subscribe(params => {
       this.phoneNumber = params['phoneNumber'];
       this.fullName = params['fullName'];
       this.redirect = params['redirect'];
     });
+  }
+
+  ionViewWillLeave() {
+    this.menuController.swipeEnable(true);
   }
 
   getBoardsPostStateSelection() {

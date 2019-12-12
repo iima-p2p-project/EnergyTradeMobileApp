@@ -80,6 +80,12 @@ export class DashboardPage implements OnInit {
     this.length = 0;
     this.powerToSell='';
     this.deviceCapactiy='';
+    this.deviceTypeId='';
+    this.solarSelected=false;
+    this.generatorSelected=false;
+    this.evSelected=false;
+    this.minPowerToBuy='';
+    this.maxPowerToBuy='';
     this.route.queryParams.subscribe(params => {
       //this.userId = params['userId'];
       if (params['tab'] != null) {

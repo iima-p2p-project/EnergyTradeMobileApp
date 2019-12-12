@@ -131,7 +131,7 @@ export class SellRateSetPage implements OnInit {
   async presentModal(){
     const myModal = await this.modal.create({
       component: SellPostSuccessPage,
-      cssClass: 'my-custom-modal-css'
+      cssClass: 'my-custom-modal-small-css'
     });
     return await myModal.present();
   }

@@ -81,7 +81,7 @@ export class OrderDetailsPage implements OnInit {
   async presentModal() {
     const myModal = await this.modal.create({
       component: BuyPostSuccessPage,
-      cssClass: 'my-custom-modal-css'
+      cssClass: 'my-custom-modal-small-css'
     });
     return await myModal.present();
   }

@@ -29,10 +29,10 @@ export class TimeService {
   getDuration(startTime: string, endTime: string, userRole: string) {
     if (userRole == ADMIN_ROLE) {
       if (this.startTime != null) {
-        this.startTime = startTime.substring(0, 10) + ' ' + startTime.substring(11, 16) + ':00';
+        this.startTime = this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ':00';
       }
       if (this.endTime != null) {
-        this.endTime = endTime.substring(0, 10) + ' ' + endTime.substring(11, 16) + ':00';
+        this.endTime = this.endTime.substring(0, 10) + ' ' + this.endTime.substring(11, 16) + ':00';
       }
     }
     // if (userRole == USER_ROLE) {

@@ -18,6 +18,7 @@ export class CustomersPage implements OnInit {
   monthFilterKey;
   locationFilterKey;
   displayCustomerList;
+  selectedCustomer: any;
 
   constructor(private adminService: AdminService
     , private route: ActivatedRoute
@@ -113,6 +114,12 @@ export class CustomersPage implements OnInit {
       }
     }
     );
+  }
+
+  searchCustomer() {
+    if(this.selectedCustomer!=null) {
+      this.displayCustomerList = this.customerList.filter(customer => customer.fullName.includes(this.selectedCustomer));
+    }
   }
 }
 

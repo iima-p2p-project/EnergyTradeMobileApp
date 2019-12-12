@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder} from '@angular/forms';
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { AlertController, ToastController, MenuController } from '@ionic/angular';
 import { IngressService } from 'src/app/services/ingress.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class AddDevicePage implements OnInit {
     , private route: ActivatedRoute
     , private formBuilder: FormBuilder
     , private router: Router
-    , private storage: Storage) { 
+    , private storage: Storage
+    , private menuController: MenuController) { 
     this.addDeviceForm = this.formBuilder.group({
       solarFlag: [null, Validators.nullValidator],
       generatorFlag: [null, Validators.nullValidator],
@@ -40,10 +42,15 @@ export class AddDevicePage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.menuController.swipeEnable(false);
     this.route.queryParams.subscribe(params => {
       this.userId = params['userId'];
       this.redirect = params['redirect'];
     });
+  }
+  
+  ionViewWillLeave() {
+    this.menuController.swipeEnable(true);
   }
 
   skip() {
