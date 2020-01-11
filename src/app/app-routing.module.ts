@@ -68,6 +68,7 @@ const routes: Routes = [
   { path: 'cancel-order-modal1', loadChildren: './cancel-order-modal1/cancel-order-modal1.module#CancelOrderModal1PageModule' },
   { path: 'cancel-order-modal2', loadChildren: './cancel-order-modal2/cancel-order-modal2.module#CancelOrderModal2PageModule' },
   { path: 'non-trade-post-success', loadChildren: './pages/non-trade-post-success/non-trade-post-success.module#NonTradePostSuccessPageModule' },
+  { path: 'statement', loadChildren: './pages/statement/statement.module#StatementPageModule' },
 ];
 
 @NgModule({
