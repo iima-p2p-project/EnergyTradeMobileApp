@@ -25,7 +25,7 @@ export class DashboardPage implements OnInit {
   solarCapacity: string;
   generatorCapacity: string;
   evCapacity: string;
-
+  
   solarSelected: boolean=false;
   generatorSelected: boolean=false;
   evSelected: boolean=false;
@@ -56,6 +56,8 @@ export class DashboardPage implements OnInit {
   userLocation: any;
   index: number = 0;
   length: number = 0;
+
+  userHasOnlyLoad = false;
 
   constructor(private router: Router
     , private route: ActivatedRoute
@@ -132,7 +134,17 @@ export class DashboardPage implements OnInit {
         });
         this.ingressService.getUserDevicesToken().then((res) => {
           this.userDeviceList = res;
-          if (this.userDeviceList != null) {
+          if(this.userDeviceList==null) {
+            this.userHasOnlyLoad=true;
+            this.checkSell = false;
+            this.checkBuy = true;
+          }
+          else if(this.userDeviceList.length==0) {
+            this.userHasOnlyLoad=true;
+            this.checkSell = false;
+            this.checkBuy = true;
+          }
+          else {
             this.userDeviceList.forEach(element => {
               if (element.deviceTypeId == 1) {
                 this.solarDeviceId = element.userDeviceId;

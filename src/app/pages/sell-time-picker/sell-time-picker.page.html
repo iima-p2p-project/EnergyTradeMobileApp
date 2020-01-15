@@ -45,6 +45,7 @@
                       style="margin-left:-0.7em;"
                       class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime" 
                       (ionChange)="getStartTimeDetails()"
+                      [min]="currentTime"
                       minuteValues= "0,15,30,45"></ion-datetime>
                       <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                     </ion-row>
@@ -75,6 +76,7 @@
                             style="margin-left:-0.7em;"
                             class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime" 
                             (ionChange)="getStartTimeDetails()"
+                            [min]="currentTime"
                             minuteValues= "0,15,30,45"></ion-datetime>
                             <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                           </ion-row>
@@ -108,6 +110,7 @@
                         style="margin-left:-0.7em;" 
                         class='font-start-end font-datetime-big grey-colour' [(ngModel)]="endTime" 
                         (ionChange)="getEndTimeDetails()"
+                        [min]="currentTime"
                         minuteValues= "0,15,30,45"></ion-datetime>
                         <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                       </ion-row>

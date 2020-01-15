@@ -120,7 +120,7 @@
     <ion-card class="card-middle buy">
       <ion-card-content>
         <ion-segment (ionChange)="segmentChanged($event)">
-          <ion-segment-button value="sell" checked="{{checkSell}}">
+          <ion-segment-button value="sell" checked="{{checkSell}}" disabled="{{userHasOnlyLoad}}">
             <ion-label>Sell</ion-label>
           </ion-segment-button>
           <ion-segment-button value="buy" checked="{{checkBuy}}">

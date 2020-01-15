@@ -54,6 +54,10 @@ export class AddDevicePage implements OnInit {
   }
 
   skip() {
+    this.router.navigate(['/dashboard'], {
+      queryParams: {
+      }
+    });
   }
   
   next(){

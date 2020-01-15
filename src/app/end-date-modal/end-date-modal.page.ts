@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-end-date-modal',
@@ -8,9 +8,14 @@ import { ModalController } from '@ionic/angular';
 })
 export class EndDateModalPage implements OnInit {
 
+  @Input() errorMessage: any;
+
   constructor(
+    public navParams: NavParams,
     public modal:ModalController
-  ) { }
+  ) { 
+    this.errorMessage = navParams.get('errorMessage');
+  }
 
   ngOnInit() {
   }
