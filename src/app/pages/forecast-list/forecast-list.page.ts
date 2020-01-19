@@ -12,6 +12,12 @@ export class ForecastListPage implements OnInit {
   forecastList: any;
   userId: any;
 
+  power: number;
+  remainingPower: number; 
+  sellSolar: boolean=false;
+  sellGenerator: boolean=false;
+  sellEV: boolean=false;
+
   cssClassColor: any = "grey-bg";
   
   constructor(private forecastService: ForecastService
@@ -39,5 +45,25 @@ export class ForecastListPage implements OnInit {
   }
 
   sellForecast(forecast: any) {
+    this.power = this.remainingPower = forecast.power;
+    if (forecast.solar_power <= this.power) {
+      this.sellSolar = true;
+      this.remainingPower = forecast.power - forecast.solar_power;
+    }
+    if (this.remainingPower > 0) {
+      if (forecast.generator_power <= this.remainingPower) {
+        this.sellGenerator = true;
+        this.remainingPower = this.remainingPower - forecast.generator_power;
+      }
+      if (this.remainingPower > 0) {
+        if (forecast.ev_power <= this.remainingPower) {
+          this.sellEV = true;
+          this.remainingPower = this.remainingPower - forecast.ev_power;
+        }
+      }
+    }
+  }
+
+  buyForecast(forecast: any) {
   }
 }
