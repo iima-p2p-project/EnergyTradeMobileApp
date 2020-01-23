@@ -1,9 +1,146 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>statement</ion-title>
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      STATEMENT
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button disabled>
+        <ion-icon slot="icon-only" name="home" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-content">
+  <ion-grid class="ion-no-padding summary-grid">
 
+    <ion-row class="ion-padding-bottom">
+      <ion-col size="12" class="ion-no-padding filter-panel">
+        <div class="date-button date-width">
+          <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" [(ngModel)]="fromDate">
+          </ion-datetime>
+        </div>
+        <div class="divider">to</div>
+        <div class="date-button date-width">
+          <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" [(ngModel)]="toDate">
+          </ion-datetime>
+        </div>
+        <div class="divider">|</div>
+        <div class="date-button p-10">
+          <ion-icon name="download"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding card-div">
+      <ion-col size="6" class="border-right">
+        <div class="card-amount green">₹ 1960</div>
+        <div class="card-label">Total Earnings</div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="card-amount red">₹ 1480</div>
+        <div class="card-label ">Total Spent</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="ion-no-padding transaction-grid">
+    <ion-row class="list-row">
+      <ion-col size="2" class="ion-no-padding">
+        <div class="ion-text-center">
+          <img src="assets/svg/avtar.svg" alt="">
+        </div>
+        <div class="ion-text-center">
+          <img src="assets/svg/motor.svg" alt="">
+        </div>
+      </ion-col>
+      <ion-col size="7" class="ion-no-padding">
+        <div class="name">Arjun Singh</div>
+        <div class="date">10 Novemeber</div>
+        <div class="id">Transaction ID - 9241179653</div>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <div class="amount green">+ ₹ 230.00</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="list-row">
+      <ion-col size="2" class="ion-no-padding">
+        <div class="ion-text-center">
+          <img src="assets/svg/avtar.svg" alt="">
+        </div>
+        <div class="ion-text-center">
+          <img src="assets/svg/generator.svg" alt="">
+        </div>
+      </ion-col>
+      <ion-col size="7" class="ion-no-padding">
+        <div class="name">Arjun Singh</div>
+        <div class="date">10 Novemeber</div>
+        <div class="id">Transaction ID - 9241179653</div>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <div class="amount red">- ₹ 230.00</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="list-row">
+      <ion-col size="2" class="ion-no-padding">
+        <div class="ion-text-center">
+          <img src="assets/svg/avtar.svg" alt="">
+        </div>
+        <div class="ion-text-center">
+          <img src="assets/svg/solar.svg" alt="">
+        </div>
+      </ion-col>
+      <ion-col size="7" class="ion-no-padding">
+        <div class="name">Arjun Singh</div>
+        <div class="date">10 Novemeber</div>
+        <div class="id">Transaction ID - 9241179653</div>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <div class="amount green">+ ₹ 230.00</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="list-row">
+      <ion-col size="2" class="ion-no-padding">
+        <div class="ion-text-center">
+          <img src="assets/svg/avtar.svg" alt="">
+        </div>
+        <div class="ion-text-center">
+          <img src="assets/svg/motor.svg" alt="">
+        </div>
+      </ion-col>
+      <ion-col size="7" class="ion-no-padding">
+        <div class="name">Arjun Singh</div>
+        <div class="date">10 Novemeber</div>
+        <div class="id">Transaction ID - 9241179653</div>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <div class="amount red">- ₹ 230.00</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="list-row">
+      <ion-col size="2" class="ion-no-padding">
+        <div class="ion-text-center">
+          <img src="assets/svg/avtar.svg" alt="">
+        </div>
+        <div class="ion-text-center">
+          <img src="assets/svg/motor.svg" alt="">
+        </div>
+      </ion-col>
+      <ion-col size="7" class="ion-no-padding">
+        <div class="name">Arjun Singh</div>
+        <div class="date">10 Novemeber</div>
+        <div class="id">Transaction ID - 9241179653</div>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <div class="amount green">+ ₹ 230.00</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

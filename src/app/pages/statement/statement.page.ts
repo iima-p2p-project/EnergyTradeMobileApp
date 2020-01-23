@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatementPage implements OnInit {
 
+  fromDate: any = new Date().toISOString();
+  toDate: any = new Date().toISOString();
+
   constructor() { }
 
   ngOnInit() {
