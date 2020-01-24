@@ -17,6 +17,7 @@ export class OrderService {
   cancelBuyOrderUrl = ORDER_URL + 'updateContract';
   editSellOrderUrl = ORDER_URL + 'editSellOrder';
   getAllOrdersByUserUrl = ORDER_URL + 'getAllOrdersByUser';
+  getAllTradeByDateUrl = ORDER_URL + 'getTradesByDate';
 
   orderList: any;
   sellerList: any;
@@ -169,6 +170,18 @@ export class OrderService {
         .set('Content-Type', 'application/json')
     };
     return this.httpClient.post(this.editSellOrderUrl + '/' + sellOrderId
+      , payload
+      , options
+    );
+  }
+
+  getAllTradeByDate(payload: any, userId: any) {
+    console.log('editSellOrder payload : ' , payload);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.getAllTradeByDateUrl + '/' + userId
       , payload
       , options
     );

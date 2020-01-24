@@ -48,7 +48,7 @@ export class ForecastListPage implements OnInit {
     this.power = this.remainingPower = forecast.power;
     if (forecast.solar_power <= this.power) {
       this.sellSolar = true;
-      this.remainingPower = forecast.power - forecast.solar_power;
+      this.remainingPower = this.power - forecast.solar_power;
     }
     if (this.remainingPower > 0) {
       if (forecast.generator_power <= this.remainingPower) {

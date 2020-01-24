@@ -37,18 +37,18 @@
 
     <ion-row class="ion-padding card-div">
       <ion-col size="6" class="border-right">
-        <div class="card-amount green">₹ 1960</div>
+        <div class="card-amount green">₹ {{totalEarnings}}</div>
         <div class="card-label">Total Earnings</div>
       </ion-col>
       <ion-col size="6">
-        <div class="card-amount red">₹ 1480</div>
+        <div class="card-amount red">₹ {{totalSpent}}</div>
         <div class="card-label ">Total Spent</div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-grid class="ion-no-padding transaction-grid">
-    <ion-row class="list-row">
+    <ion-row class="list-row" *ngFor="let txn of txnList">
       <ion-col size="2" class="ion-no-padding">
         <div class="ion-text-center">
           <img src="assets/svg/avtar.svg" alt="">
@@ -58,89 +58,15 @@
         </div>
       </ion-col>
       <ion-col size="7" class="ion-no-padding">
-        <div class="name">Arjun Singh</div>
-        <div class="date">10 Novemeber</div>
-        <div class="id">Transaction ID - 9241179653</div>
+        <div class="name">{{txn.particpantName}}</div>
+        <div class="date">{{formatTime(txn.txnDate,'d')}}</div>
+        <div class="id">Transaction ID - {{txn.txnId}}</div>
       </ion-col>
       <ion-col size="3" class="ion-no-padding">
-        <div class="amount green">+ ₹ 230.00</div>
+        <div class="amount green" *ngIf="txn.txnType=='SELL'">+ ₹ {{txn.txnAmount}}</div>
+        <div class="amount red" *ngIf="txn.txnType=='BUY'">- ₹ {{txn.txnAmount}}</div>
       </ion-col>
     </ion-row>
 
-    <ion-row class="list-row">
-      <ion-col size="2" class="ion-no-padding">
-        <div class="ion-text-center">
-          <img src="assets/svg/avtar.svg" alt="">
-        </div>
-        <div class="ion-text-center">
-          <img src="assets/svg/generator.svg" alt="">
-        </div>
-      </ion-col>
-      <ion-col size="7" class="ion-no-padding">
-        <div class="name">Arjun Singh</div>
-        <div class="date">10 Novemeber</div>
-        <div class="id">Transaction ID - 9241179653</div>
-      </ion-col>
-      <ion-col size="3" class="ion-no-padding">
-        <div class="amount red">- ₹ 230.00</div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row class="list-row">
-      <ion-col size="2" class="ion-no-padding">
-        <div class="ion-text-center">
-          <img src="assets/svg/avtar.svg" alt="">
-        </div>
-        <div class="ion-text-center">
-          <img src="assets/svg/solar.svg" alt="">
-        </div>
-      </ion-col>
-      <ion-col size="7" class="ion-no-padding">
-        <div class="name">Arjun Singh</div>
-        <div class="date">10 Novemeber</div>
-        <div class="id">Transaction ID - 9241179653</div>
-      </ion-col>
-      <ion-col size="3" class="ion-no-padding">
-        <div class="amount green">+ ₹ 230.00</div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row class="list-row">
-      <ion-col size="2" class="ion-no-padding">
-        <div class="ion-text-center">
-          <img src="assets/svg/avtar.svg" alt="">
-        </div>
-        <div class="ion-text-center">
-          <img src="assets/svg/motor.svg" alt="">
-        </div>
-      </ion-col>
-      <ion-col size="7" class="ion-no-padding">
-        <div class="name">Arjun Singh</div>
-        <div class="date">10 Novemeber</div>
-        <div class="id">Transaction ID - 9241179653</div>
-      </ion-col>
-      <ion-col size="3" class="ion-no-padding">
-        <div class="amount red">- ₹ 230.00</div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row class="list-row">
-      <ion-col size="2" class="ion-no-padding">
-        <div class="ion-text-center">
-          <img src="assets/svg/avtar.svg" alt="">
-        </div>
-        <div class="ion-text-center">
-          <img src="assets/svg/motor.svg" alt="">
-        </div>
-      </ion-col>
-      <ion-col size="7" class="ion-no-padding">
-        <div class="name">Arjun Singh</div>
-        <div class="date">10 Novemeber</div>
-        <div class="id">Transaction ID - 9241179653</div>
-      </ion-col>
-      <ion-col size="3" class="ion-no-padding">
-        <div class="amount green">+ ₹ 230.00</div>
-      </ion-col>
-    </ion-row>
   </ion-grid>
 </ion-content>
