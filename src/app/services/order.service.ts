@@ -175,14 +175,15 @@ export class OrderService {
     );
   }
 
-  getAllTradeByDate(payload: any, userId: any) {
-    console.log('editSellOrder payload : ' , payload);
+  getAllTradeByDate(fromDate: any, toDate: any, userId: any) {
+    console.log('from date payload : ' , fromDate);
+    console.log('to date payload : ' , toDate);
     var options = {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.post(this.getAllTradeByDateUrl + '/' + userId
-      , payload
+    return this.httpClient.get(this.getAllTradeByDateUrl 
+      + '/' + userId + '/' + '2019-10-01' + '/' + '2020-01-19'
       , options
     );
   }

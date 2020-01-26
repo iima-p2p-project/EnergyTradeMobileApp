@@ -20,12 +20,14 @@
     <ion-row class="ion-padding-bottom">
       <ion-col size="12" class="ion-no-padding filter-panel">
         <div class="date-button date-width">
-          <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" [(ngModel)]="fromDate">
+          <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" 
+          (ionChange)="getFromDate()" [(ngModel)]="fromDate">
           </ion-datetime>
         </div>
         <div class="divider">to</div>
         <div class="date-button date-width">
-          <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" [(ngModel)]="toDate">
+          <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" 
+          (ionChange)="getToDate()"[(ngModel)]="toDate">
           </ion-datetime>
         </div>
         <div class="divider">|</div>
@@ -48,23 +50,25 @@
   </ion-grid>
 
   <ion-grid class="ion-no-padding transaction-grid">
-    <ion-row class="list-row" *ngFor="let txn of txnList">
+    <ion-row class="list-row" *ngFor="let txn of txnListFromServer">
       <ion-col size="2" class="ion-no-padding">
         <div class="ion-text-center">
           <img src="assets/svg/avtar.svg" alt="">
         </div>
         <div class="ion-text-center">
-          <img src="assets/svg/motor.svg" alt="">
+          <img src="assets/svg/solar.svg" alt="" *ngIf="txn.deviceTypeName=='Solar'">
+          <img src="assets/svg/generator (1).svg" alt="" *ngIf="txn.deviceTypeName=='Generator'">
+          <img src="assets/svg/ev (1).svg" alt="" *ngIf="txn.deviceTypeName=='EV'">
         </div>
       </ion-col>
       <ion-col size="7" class="ion-no-padding">
-        <div class="name">{{txn.particpantName}}</div>
-        <div class="date">{{formatTime(txn.txnDate,'d')}}</div>
-        <div class="id">Transaction ID - {{txn.txnId}}</div>
+        <div class="name">{{txn.participantName}}</div>
+        <div class="date">{{formatTime(txn.transferStartTs,'d')}}</div>
+        <div class="id">Transaction ID - {{txn.transactionId}}</div>
       </ion-col>
       <ion-col size="3" class="ion-no-padding">
-        <div class="amount green" *ngIf="txn.txnType=='SELL'">+ ₹ {{txn.txnAmount}}</div>
-        <div class="amount red" *ngIf="txn.txnType=='BUY'">- ₹ {{txn.txnAmount}}</div>
+        <div class="amount green" *ngIf="txn.type=='Sell-Order'">+ ₹ {{txn.totalAmount}}</div>
+        <div class="amount red" *ngIf="txn.type=='Buy-Order'">- ₹ {{txn.totalAmount}}</div>
       </ion-col>
     </ion-row>
 
