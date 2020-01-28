@@ -36,12 +36,12 @@ export class SellTimePickerPage implements OnInit {
   endTime: string;
   deviceName: string;
   // duration: string;
-  power: number;
+  power: number = 156;
   energy: number;
 
   sellerId: any;
   userDeviceId: any;
-  deviceTypeId: any;
+  deviceTypeId: any = 1;
   inputsValidFlag = false;
 
   sellOrderId: any;
@@ -101,14 +101,14 @@ export class SellTimePickerPage implements OnInit {
       console.log('sell time picker user device id : ', this.userDeviceId);
       console.log('sell time picker device type id : ', this.deviceTypeId);
       console.log('sell time picker seller id : ', this.sellerId);
-      this.currentTime=new Date().toISOString().substring(0,10);
-      console.log('current date : ' , new Date().toISOString());
-      console.log('current date : ' , this.currentTime);
+      this.currentTime = new Date().toISOString().substring(0, 10);
+      console.log('current date : ', new Date().toISOString());
+      console.log('current date : ', this.currentTime);
     });
   }
 
   getStartTimeDetails() {
-    if(this.timeService.getDuration(this.startTime, new Date().toISOString(), USER_ROLE).durationTime>0) {
+    if (this.timeService.getDuration(this.startTime, new Date().toISOString(), USER_ROLE).durationTime > 0) {
       this.invalidDates("Start time cannot be less than current time");
       this.duration = "00:00";
       this.inputsValidFlag = false;
@@ -127,10 +127,10 @@ export class SellTimePickerPage implements OnInit {
           this.inputsValidFlag = false;
         } else {
           this.inputsValidFlag = true;
-          this.durationInHours=this.durationDetails.duration.durationInHours;
-          this.durationInMins=this.durationDetails.duration.durationInMins;
-          this.totalNumberOfMins=60*this.durationInHours+this.durationInMins;
-          this.energy=(this.power*this.totalNumberOfMins)/60;
+          this.durationInHours = this.durationDetails.duration.durationInHours;
+          this.durationInMins = this.durationDetails.duration.durationInMins;
+          this.totalNumberOfMins = 60 * this.durationInHours + this.durationInMins;
+          this.energy = (this.power * this.totalNumberOfMins) / 60;
         }
       } else {
         this.duration = "00:00";
@@ -139,7 +139,7 @@ export class SellTimePickerPage implements OnInit {
   }
 
   getEndTimeDetails() {
-    if(this.timeService.getDuration(this.endTime, new Date().toISOString(), USER_ROLE).durationTime>0) {
+    if (this.timeService.getDuration(this.endTime, new Date().toISOString(), USER_ROLE).durationTime > 0) {
       this.invalidDates("End time cannot be less than current time");
       this.duration = "00:00";
       this.inputsValidFlag = false;
@@ -158,10 +158,10 @@ export class SellTimePickerPage implements OnInit {
           this.inputsValidFlag = false;
         } else {
           this.inputsValidFlag = true;
-          this.durationInHours=this.durationDetails.duration.durationInHours;
-          this.durationInMins=this.durationDetails.duration.durationInMins;
-          this.totalNumberOfMins=60*this.durationInHours+this.durationInMins;
-          this.energy=(this.power*this.totalNumberOfMins)/60;
+          this.durationInHours = this.durationDetails.duration.durationInHours;
+          this.durationInMins = this.durationDetails.duration.durationInMins;
+          this.totalNumberOfMins = 60 * this.durationInHours + this.durationInMins;
+          this.energy = (this.power * this.totalNumberOfMins) / 60;
         }
       }
     } else {
