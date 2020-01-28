@@ -59,6 +59,7 @@ export class RegisterPage implements OnInit {
 
     this.registerForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      usn: [null, Validators.required],
       //stateList: [null, Validators.required],
       //boardList: [null, Validators.required],
     });
@@ -93,7 +94,7 @@ export class RegisterPage implements OnInit {
   register() {
     this.registerPayload.phone = this.phoneNumber;
     this.registerPayload.fullName = this.fullName;
-    this.registerPayload.usn = this.registerForm.get('usn').value;
+    //this.registerPayload.usn = this.registerForm.get('usn').value;
     this.registerPayload.email = this.registerForm.get('email').value;
     this.registerPayload.stateId = this.selectedStateId;
     this.registerPayload.localityId = this.selectedLocalityId;
