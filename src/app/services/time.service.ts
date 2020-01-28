@@ -69,6 +69,8 @@ export class TimeService {
     return {
       duration: this.duration
       , durationTime: this.minDiff
+      , durationInHours: this.durationInHours
+      , durationInMins: this.durationInMins
     }
   }
 

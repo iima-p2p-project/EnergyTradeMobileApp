@@ -124,8 +124,12 @@ export class AppComponent {
 
   logout() {
     //removing onesignal notification identifier
-    this.oneSignal.removeExternalUserId();
+    // this.oneSignal.removeExternalUserId();
     this.ingressService.logout();
+    // this.router.navigate(['/statement'], {
+    //   queryParams: {
+    //   }
+    // });
   }
 
   getUserDetails() {

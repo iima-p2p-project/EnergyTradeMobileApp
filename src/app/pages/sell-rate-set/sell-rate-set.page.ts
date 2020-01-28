@@ -29,6 +29,7 @@ export class SellRateSetPage implements OnInit {
   totalAmount: any = "00.00";
   deviceName: string;
   duration: string;
+  energy: string;
   power: string;
   sellOrderId: any;
   action: any;
@@ -74,6 +75,7 @@ export class SellRateSetPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       this.sellOrderId = params['sellOrderId'];
+      this.energy = params['energy'];
       this.power = params['power'];
       this.sellerId = params['sellerId'];
       this.userDeviceId = params['userDeviceId'];
@@ -88,7 +90,7 @@ export class SellRateSetPage implements OnInit {
   }
 
   calculateTotalAmount() {
-    this.totalAmount = parseInt(this.rate) * parseInt(this.power);
+    this.totalAmount = parseInt(this.rate) * parseInt(this.energy);
   }
 
   async submit() {

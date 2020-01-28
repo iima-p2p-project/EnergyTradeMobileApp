@@ -15,62 +15,66 @@
 </ion-header>
 
 <ion-content class="ion-content">
-  <ion-grid class="ion-no-padding summary-grid">
+  <div id="export">
+    <ion-grid class="ion-no-padding summary-grid">
 
-    <ion-row class="ion-padding-bottom">
-      <ion-col size="12" class="ion-no-padding filter-panel">
-        <div class="date-button date-width">
-          <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" 
-          (ionChange)="getFromDate()" [(ngModel)]="fromDate">
-          </ion-datetime>
-        </div>
-        <div class="divider">to</div>
-        <div class="date-button date-width">
-          <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" 
-          (ionChange)="getToDate()"[(ngModel)]="toDate">
-          </ion-datetime>
-        </div>
-        <div class="divider">|</div>
-        <div class="date-button p-10">
-          <ion-icon name="download"></ion-icon>
-        </div>
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-padding-bottom">
+        <ion-col size="12" class="ion-no-padding filter-panel">
+          <div class="date-button date-width">
+            <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" (ionChange)="getFromDate()"
+              [(ngModel)]="fromDate">
+            </ion-datetime>
+          </div>
+          <div class="divider">to</div>
+          <div class="date-button date-width">
+            <ion-datetime class="p-10 ion-text-center" displayFormat="DD MMMM, YYYY" (ionChange)="getToDate()"
+              [(ngModel)]="toDate">
+            </ion-datetime>
+          </div>
+          <div class="divider">|</div>
+          <div class="date-button p-10">
+            <ion-icon name="download" (click)="createPdf()"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-padding card-div">
-      <ion-col size="6" class="border-right">
-        <div class="card-amount green">₹ {{totalEarnings}}</div>
-        <div class="card-label">Total Earnings</div>
-      </ion-col>
-      <ion-col size="6">
-        <div class="card-amount red">₹ {{totalSpent}}</div>
-        <div class="card-label ">Total Spent</div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 
-  <ion-grid class="ion-no-padding transaction-grid">
-    <ion-row class="list-row" *ngFor="let txn of txnListFromServer">
-      <ion-col size="2" class="ion-no-padding">
-        <div class="ion-text-center">
-          <img src="assets/svg/avtar.svg" alt="">
-        </div>
-        <div class="ion-text-center">
-          <img src="assets/svg/solar.svg" alt="" *ngIf="txn.deviceTypeName=='Solar'">
-          <img src="assets/svg/generator (1).svg" alt="" *ngIf="txn.deviceTypeName=='Generator'">
-          <img src="assets/svg/ev (1).svg" alt="" *ngIf="txn.deviceTypeName=='EV'">
-        </div>
-      </ion-col>
-      <ion-col size="7" class="ion-no-padding">
-        <div class="name">{{txn.participantName}}</div>
-        <div class="date">{{formatTime(txn.transferStartTs,'d')}}</div>
-        <div class="id">Transaction ID - {{txn.transactionId}}</div>
-      </ion-col>
-      <ion-col size="3" class="ion-no-padding">
-        <div class="amount green" *ngIf="txn.type=='Sell-Order'">+ ₹ {{txn.totalAmount}}</div>
-        <div class="amount red" *ngIf="txn.type=='Buy-Order'">- ₹ {{txn.totalAmount}}</div>
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-padding card-div">
+        <ion-col size="6" class="border-right">
+          <div class="card-amount green">₹ {{totalEarnings}}</div>
+          <div class="card-label">Total Earnings</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="card-amount red">₹ {{totalSpent}}</div>
+          <div class="card-label ">Total Spent</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  </ion-grid>
+    <ion-grid class="ion-no-padding transaction-grid">
+      <ion-row class="list-row" *ngFor="let txn of txnListFromServer">
+        <ion-col size="2" class="ion-no-padding">
+          <div class="ion-text-center">
+            <img src="assets/svg/avtar.svg" alt="">
+          </div>
+          <div class="ion-text-center">
+            <img src="assets/svg/solar.svg" alt="" *ngIf="txn.deviceTypeName=='Solar'">
+            <img src="assets/svg/generator (1).svg" alt="" *ngIf="txn.deviceTypeName=='Generator'">
+            <img src="assets/svg/ev (1).svg" alt=""
+              *ngIf="txn.deviceTypeName=='EVnpm install --save @ionic-native/file-opener@5.0.0-beta.21'">
+          </div>
+        </ion-col>
+        <ion-col size="7" class="ion-no-padding">
+          <div class="name">{{txn.participantName}}</div>
+          <div class="date">{{formatTime(txn.transferStartTs,'d')}}</div>
+          <div class="id">Transaction ID - {{txn.transactionId}}</div>
+        </ion-col>
+        <ion-col size="3" class="ion-no-padding">
+          <div class="amount green" *ngIf="txn.type=='Sell-Order'">+ ₹ {{txn.totalAmount}}</div>
+          <div class="amount red" *ngIf="txn.type=='Buy-Order'">- ₹ {{txn.totalAmount}}</div>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </div>
 </ion-content>

@@ -45,19 +45,19 @@
           [ngClass]="(i % 2 == 0) ? 'grey-bg' : ''">
           <ion-col size="4" class="dt-list-text">
               <div style="color:rgb(94, 93, 93)">Today</div>
-              <div>06:00 AM - 07:00 AM</div>
+              <div>{{formatTime(forecast.startTime)}} - {{formatTime(forecast.endTime)}}</div>
           </ion-col>
           <ion-col size="2" class="dt-unit-text">
-            {{getForecastPower(forecast)}}
+            {{forecast.power}}
           </ion-col>
           <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
             <div>
               <strong>
-                {{175.00}}
+                {{getTotalAmount(forecast.power, forecast.pricePerUnit)}}
               </strong>
             </div>
             <div>
-              (Per Unit 5/-)
+              (Per Unit {{forecast.pricePerUnit}}/-)
             </div>
           </ion-col>
           <ion-col size="2" style="margin-left:-1em;">

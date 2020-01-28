@@ -10,7 +10,7 @@ import * as moment from 'moment';
 })
 export class ForecastService {
 
-  getForecastsUrl = TRADE_URL + '/getForecasts';
+  getForecastsUrl = TRADE_URL + '/getForecastDetails';
 
   tsArr: AllTimeslots[] = [];
   timeslot: AllTimeslots = {};
@@ -23,8 +23,7 @@ export class ForecastService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.post(this.getForecastsUrl
-      , {"userId": userId}
+    return this.httpClient.post(this.getForecastsUrl + '/' + userId
       , options
     );
   }

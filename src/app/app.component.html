@@ -98,6 +98,13 @@
           </ion-menu-toggle>
 
           <ion-menu-toggle *ngIf='userRole == "User"'>
+            <ion-item class="list-item" lines="none" routerLink="statement" routerDirection="forward">
+              <ion-icon src="assets/svg/boxlid.svg" slot="start"></ion-icon>
+              <ion-label class="name-class">Monthly Statement</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item class="list-item" lines="none">
               <ion-icon src="assets/svg/wallet.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Wallet</ion-label>

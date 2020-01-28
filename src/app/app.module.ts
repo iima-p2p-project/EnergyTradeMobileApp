@@ -28,6 +28,16 @@ import { NonTradeHoursAlertPageModule } from './non-trade-hours-alert/non-trade-
 import { CancelOrderModal1PageModule } from './cancel-order-modal1/cancel-order-modal1.module';
 import { CancelOrderModal2PageModule } from './cancel-order-modal2/cancel-order-modal2.module';
 
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+//import { File, IWriteOptions } from '@ionic-native/file/ngx';
+
+import {  
+  FileTransfer,  
+  FileTransferObject  
+} from '@ionic-native/file-transfer/ngx';  
+import {  
+  File
+} from '@ionic-native/file/ngx';  
 
 
 @NgModule({
@@ -57,6 +67,10 @@ import { CancelOrderModal2PageModule } from './cancel-order-modal2/cancel-order-
     StatusBar,
     SplashScreen,
     OneSignal,
+    FileOpener,
+    FileTransfer,  
+    FileTransferObject,  
+    File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

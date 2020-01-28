@@ -20,8 +20,9 @@ export class SellTimePickerPage implements OnInit {
   screenMode: any;
   screenWidth: any;
 
-  durationInHours: any = '00';
-  durationInMins: any = '00';
+  totalNumberOfMins: number;
+  durationInHours: number;
+  durationInMins: number;
   durationDetails: any;
   duration: any = "00:00";
 
@@ -36,6 +37,7 @@ export class SellTimePickerPage implements OnInit {
   deviceName: string;
   // duration: string;
   power: number;
+  energy: number;
 
   sellerId: any;
   userDeviceId: any;
@@ -125,6 +127,10 @@ export class SellTimePickerPage implements OnInit {
           this.inputsValidFlag = false;
         } else {
           this.inputsValidFlag = true;
+          this.durationInHours=this.durationDetails.duration.durationInHours;
+          this.durationInMins=this.durationDetails.duration.durationInMins;
+          this.totalNumberOfMins=60*this.durationInHours+this.durationInMins;
+          this.energy=(this.power*this.totalNumberOfMins)/60;
         }
       } else {
         this.duration = "00:00";
@@ -152,6 +158,10 @@ export class SellTimePickerPage implements OnInit {
           this.inputsValidFlag = false;
         } else {
           this.inputsValidFlag = true;
+          this.durationInHours=this.durationDetails.duration.durationInHours;
+          this.durationInMins=this.durationDetails.duration.durationInMins;
+          this.totalNumberOfMins=60*this.durationInHours+this.durationInMins;
+          this.energy=(this.power*this.totalNumberOfMins)/60;
         }
       }
     } else {
@@ -169,6 +179,7 @@ export class SellTimePickerPage implements OnInit {
           userDeviceId: this.userDeviceId,
           deviceTypeId: this.deviceTypeId,
           power: this.power,
+          energy: this.energy,
           //duration: this.duration,
           //startTime: this.startTimeDetails,
           //endTime: this.endTimeDetails
