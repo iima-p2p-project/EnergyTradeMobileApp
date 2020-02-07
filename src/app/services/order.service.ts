@@ -9,6 +9,7 @@ import { INGRESS_URL, CONFIG_URL, TRADE_URL, ORDER_URL } from 'src/app/environme
 })
 export class OrderService {
 
+  createForecastSellOrdersUrl = TRADE_URL + '/createMultipleSellOrder';
   createSellOrderUrl = TRADE_URL + '/createSellOrder';
   searchBuyLeadsUrl = ORDER_URL + 'searchBuyLeads';
   createContractUrl = TRADE_URL + '/createContract';
@@ -86,6 +87,18 @@ export class OrderService {
     softdeleteflag: false}];
 
   constructor(private httpClient: HttpClient) { 
+  }
+
+  createSellOrdersFromForecast(orderDetails) {
+    console.log("Forecast Sell Order : ", orderDetails);
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.createForecastSellOrdersUrl
+      , {"listOfOrders": orderDetails}
+      , options
+    );
   }
 
   createSellOrder(orderDetails) {

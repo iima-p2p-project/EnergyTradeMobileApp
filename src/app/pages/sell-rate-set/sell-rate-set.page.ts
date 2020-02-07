@@ -9,7 +9,7 @@ import { OrderService} from 'src/app/services/order.service';
 import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
 import { TimeService } from 'src/app/services/time.service';
 import * as moment from 'moment';
-import { USER_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
+import { USER_ROLE, ACTION_CREATE, ACTION_EDIT, ACTION_FORECAST } from 'src/app/environments/environments';
 
 @Component({
   selector: 'app-sell-rate-set',
@@ -35,7 +35,17 @@ export class SellRateSetPage implements OnInit {
   action: any;
   rate: any;
 
+  sellSolar: boolean=false;
+  sellGenerator: boolean=false;
+  sellEV: boolean=false;
+
+  solarPowerToSell: number=0;
+  generatorPowerToSell: number=0;
+  evPowerToSell: number=0;
+
   sellOrderPayload: SellOrderPayload = {};
+
+  forecastSellDetails: SellOrderPayload[] = [];
 
   //Screenwidth
   screenWidth:any;
@@ -74,12 +84,28 @@ export class SellRateSetPage implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
-      this.sellOrderId = params['sellOrderId'];
-      this.energy = params['energy'];
-      this.power = params['power'];
-      this.sellerId = params['sellerId'];
-      this.userDeviceId = params['userDeviceId'];
-      this.deviceTypeId = params['deviceTypeId'];
+      if(this.action==ACTION_CREATE || this.action==ACTION_EDIT) {
+        this.sellOrderId = params['sellOrderId'];
+        this.energy = params['energy'];
+        this.power = params['power'];
+        this.sellerId = params['sellerId'];
+        this.userDeviceId = params['userDeviceId'];
+        this.deviceTypeId = params['deviceTypeId'];
+      }
+      if(this.action==ACTION_FORECAST) {
+        this.rate = params['pricePerUnit'];
+        this.sellerId = params['sellerId'];
+        this.sellSolar = params['sellSolar'];
+        this.sellGenerator = params['sellGenerator'];
+        this.sellEV = params['sellEV'];
+        this.solarPowerToSell = params['solarPowerToSell'];
+        this.generatorPowerToSell = params['generatorPowerToSell'];
+        this.evPowerToSell = params['evPowerToSell'];
+        this.power = this.energy = params['totalPowerToSell'];
+        this.totalAmount = (+this.evPowerToSell) * (+this.rate);
+        //this.startTime = moment(params['startTime']).format('hh:mm A');
+        //this.endTime = moment(params['endTime']).format('hh:mm A');
+      }
     });
 
     this.startTime = moment(this.timeService.startTime).format('hh:mm A');
@@ -122,6 +148,47 @@ export class SellRateSetPage implements OnInit {
       this.sellOrderPayload.ratePerUnit = this.rate;
       this.sellOrderPayload.totalAmount = this.totalAmount;
       this.orderService.editSellOrder(this.sellOrderPayload, this.sellOrderId).subscribe((data) => console.log(data));
+      this.orderService.printSellOrderList();
+      // this.router.navigate(['sell-post-success'], {
+      //   queryParams: {}
+      // });
+      this.presentModal();
+    }
+    if (this.action == ACTION_FORECAST) {
+      if(this.sellSolar) {
+        this.sellOrderPayload.deviceTypeId = 1;
+        this.sellOrderPayload.sellerId = this.sellerId;
+        this.sellOrderPayload.transferStartTs = this.startTime;
+        this.sellOrderPayload.transferEndTs = this.endTime;
+        this.sellOrderPayload.powerToSell = +this.solarPowerToSell;
+        this.sellOrderPayload.ratePerUnit = +this.rate;
+        this.sellOrderPayload.totalAmount = (+this.solarPowerToSell) * (+this.rate);
+        this.forecastSellDetails.push(this.sellOrderPayload);
+        this.sellOrderPayload = {};
+      }
+      if(this.sellGenerator) {
+        this.sellOrderPayload.deviceTypeId = 2;
+        this.sellOrderPayload.sellerId = this.sellerId;
+        this.sellOrderPayload.transferStartTs = this.startTime;
+        this.sellOrderPayload.transferEndTs = this.endTime;
+        this.sellOrderPayload.powerToSell = +this.generatorPowerToSell;
+        this.sellOrderPayload.ratePerUnit = +this.rate;
+        this.sellOrderPayload.totalAmount = (+this.generatorPowerToSell) * (+this.rate);
+        this.forecastSellDetails.push(this.sellOrderPayload);
+        this.sellOrderPayload = {};
+      }
+      if(this.sellEV) {
+        this.sellOrderPayload.deviceTypeId = 3;
+        this.sellOrderPayload.sellerId = this.sellerId;
+        this.sellOrderPayload.transferStartTs = this.startTime;
+        this.sellOrderPayload.transferEndTs = this.endTime;
+        this.sellOrderPayload.powerToSell = +this.evPowerToSell;
+        this.sellOrderPayload.ratePerUnit = +this.rate;
+        this.sellOrderPayload.totalAmount = (+this.evPowerToSell) * (+this.rate);
+        this.forecastSellDetails.push(this.sellOrderPayload);
+        this.sellOrderPayload = {};
+      }
+      this.orderService.createSellOrdersFromForecast(this.forecastSellDetails).subscribe( (data) => console.log(data));
       this.orderService.printSellOrderList();
       // this.router.navigate(['sell-post-success'], {
       //   queryParams: {}
