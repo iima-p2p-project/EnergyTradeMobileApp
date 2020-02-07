@@ -90,14 +90,30 @@ export class StatementPage implements OnInit {
   formatTradeList() {
     console.log('trade format: ');
     this.txnListFromServer.forEach(element => {
-      this.trade=element.transactionId + ' ' + element.participantName
-                  + ' ' + this.formatTime(element.transferStartTs,'d')
-                  + ' ' + element.deviceTypeName
-                  + ' ' + element.type
-                  + ' ' + element.totalAmount;
+      this.trade=element.transactionId + " " + element.participantName
+                  + " " + this.formatTime(element.transferStartTs,'d')
+                  + " " + element.deviceTypeName
+                  + " " + element.type
+                  + " " + element.totalAmount + '\n' + '\n';
       this.tradeList.push(this.trade);            
     });
 
+    this.tradeList.forEach(element => {
+      console.log('trade : ' , element);
+    })
+
+    // this.trade="<table><tr>";
+    // this.txnListFromServer.forEach(element => {
+    //   this.trade += "<td>" + element.transactionId + "</td>" 
+    //               + "<td>" + element.participantName + "</td>"
+    //               + "<td>" + this.formatTime(element.transferStartTs,'d') + "</td>"
+    //               + "<td>" + element.deviceTypeName + "</td>"
+    //               + "<td>" + element.type + "</td>"
+    //               + "<td>" + element.totalAmount + "</td>";
+    //   this.trade += "</tr><tr>";
+    //   //this.tradeList.push(this.trade);            
+    // });
+    // this.trade += "</tr></table>";
     this.tradeList.forEach(element => {
       console.log('trade : ' , element);
     })
@@ -279,7 +295,9 @@ export class StatementPage implements OnInit {
         { text: 'To', style: 'subheader' },
         { text: this.toDateFormatted },
  
-        { text: this.tradeList, style: 'story', margin: [0, 20, 0, 20] },
+        { text: " ", style: 'story', margin: [0, 0, 0, 20] },
+        { text: " ", style: 'story', margin: [0, 0, 0, 20] },
+        { text: this.tradeList, style: 'story', margin: [0, 0, 0, 20] },
  
         // {
         //   ul: [
@@ -301,7 +319,7 @@ export class StatementPage implements OnInit {
         },
         story: {
           italic: true,
-          alignment: 'center',
+          alignment: 'left',
           width: '50%',
         }
       }
@@ -317,9 +335,9 @@ export class StatementPage implements OnInit {
         var blob = new Blob([buffer], { type: 'application/pdf' });
  
         // Save the PDF to the data Directory of our App
-        this.file.writeFile(this.file.dataDirectory, 'test.pdf', blob, { replace: true }).then(fileEntry => {
+        this.file.writeFile(this.file.dataDirectory, 'statement.pdf', blob, { replace: true }).then(fileEntry => {
           // Open the PDf with the correct OS tools
-          this.fileOpener.open(this.file.dataDirectory + 'test.pdf', 'application/pdf');
+          this.fileOpener.open(this.file.dataDirectory + 'statement.pdf', 'application/pdf');
         })
       });
     //} else {
