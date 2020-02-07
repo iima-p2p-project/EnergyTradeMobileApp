@@ -1,9 +1,10 @@
 import { IonDatetime } from '@ionic/angular';
 
 export class AllTxns{
-    txnId?: any;
-    txnType?: string;
-    txnDate?: IonDatetime;
-    txnAmount?: number;
-    particpantName?: string;
+    Id?: any;
+    Name?: string;
+    Date?: string;
+    Device?: string;
+    Type?: string;
+    Amount?: string;
 }

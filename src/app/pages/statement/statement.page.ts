@@ -13,6 +13,7 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ng
 import { File } from '@ionic-native/file/ngx';
 import * as pdfmake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { stringify } from '@angular/compiler/src/util';
 pdfmake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -29,18 +30,20 @@ export class StatementPage implements OnInit {
   fromDate: string = moment().startOf('month').toISOString();
   toDate: string = moment().endOf('month').toISOString();
 
+  fromDatePlusOne: string = moment().startOf('month').add(1, 'days').toISOString();;
+
   fromDateFormatted: string;
   toDateFormatted: string;
 
   totalEarnings: number;
   totalSpent: number;
 
-  txnList: AllTxns[];
+  txnList: AllTxns[] = [];
   txnListFromServer: any;
 
-  txn: AllTxns={txnId: 1};
+  txn: AllTxns = { Id: 1 };
 
-  tradeList: String[]=[];
+  tradeList: String[] = [];
   trade: String;
 
   resFromServer: any;
@@ -64,7 +67,7 @@ export class StatementPage implements OnInit {
 
   ngOnInit() {
     if (this.fromDate != null) {
-      this.fromDateFormatted = this.fromDate.substring(0, 10);
+      this.fromDateFormatted = this.fromDatePlusOne.substring(0, 10);
     }
     if (this.toDate != null) {
       this.toDateFormatted = this.toDate.substring(0, 10);
@@ -90,16 +93,28 @@ export class StatementPage implements OnInit {
   formatTradeList() {
     console.log('trade format: ');
     this.txnListFromServer.forEach(element => {
-      this.trade=element.transactionId + " " + element.participantName
-                  + " " + this.formatTime(element.transferStartTs,'d')
-                  + " " + element.deviceTypeName
-                  + " " + element.type
-                  + " " + element.totalAmount + '\n' + '\n';
-      this.tradeList.push(this.trade);            
+
+      this.txn.Id = element.transactionId;
+      this.txn.Name =  element.participantName;
+      this.txn.Date = this.formatTime(element.transferStartTs, 'd');
+      this.txn.Device = element.deviceTypeName;
+      this.txn.Type = element.type;
+      this.txn.Amount = element.totalAmount;
+
+      this.txnList.push(this.txn);
+
+      this.txn={};
+
+      this.trade = element.transactionId + " " + element.participantName
+        + " " + this.formatTime(element.transferStartTs, 'd')
+        + " " + element.deviceTypeName
+        + " " + element.type
+        + " " + element.totalAmount + '\n' + '\n';
+      this.tradeList.push(this.trade);
     });
 
     this.tradeList.forEach(element => {
-      console.log('trade : ' , element);
+      console.log('trade : ', element);
     })
 
     // this.trade="<table><tr>";
@@ -115,8 +130,12 @@ export class StatementPage implements OnInit {
     // });
     // this.trade += "</tr></table>";
     this.tradeList.forEach(element => {
-      console.log('trade : ' , element);
+      console.log('trade : ', element);
     })
+  }
+
+  formatObject() {
+
   }
 
   formatTime(ts, type) {
@@ -263,7 +282,7 @@ export class StatementPage implements OnInit {
   //     });  
   // } 
   download(doc) {
-    console.log('download');  
+    console.log('download');
     const url = 'a4.pdf';
     this.fileTransfer.download(doc, this.file.dataDirectory + 'a4.pdf').then((entry) => {
       console.log('download complete: ' + entry.toURL());
@@ -273,7 +292,7 @@ export class StatementPage implements OnInit {
   }
 
   pdfObj = null;
-  obj:any;
+  obj: any;
   //content = ["test1", "test2", "test3", "test4"];
 
   letterObj = {
@@ -283,23 +302,24 @@ export class StatementPage implements OnInit {
   }
 
   createPdf() {
-    console.log("CreatePdf() triggered")
+    console.log("CreatePdf() triggered");
     var docDefinition = {
       content: [
         { text: 'ENERGY TRADE STATEMENT', style: 'header' },
         // { text: new Date().toTimeString(), alignment: 'right' },
- 
+
         { text: 'From', style: 'subheader' },
         { text: this.fromDateFormatted },
- 
+
         { text: 'To', style: 'subheader' },
         { text: this.toDateFormatted },
- 
+
         { text: " ", style: 'story', margin: [0, 0, 0, 20] },
         { text: " ", style: 'story', margin: [0, 0, 0, 20] },
-        { text: this.tradeList, style: 'story', margin: [0, 0, 0, 20] },
- 
-        // {
+        { text: " ", style: 'story', margin: [0, 0, 0, 20] },
+        // { text: this.tradeList, style: 'story', margin: [0, 0, 0, 20] },
+        this.table(this.txnList, ['Trade Id', 'Trade Type', 'Participant Name', 'Trade Date', 'Trade Device', 'Total Amount'])
+                // {
         //   ul: [
         //     'Bacon',
         //     'Rips',
@@ -320,29 +340,145 @@ export class StatementPage implements OnInit {
         story: {
           italic: true,
           alignment: 'left',
-          width: '50%',
+          width: '80%',
         }
       }
-    }
+    };
+    // var docDefinition = {
+    //   content: [
+    //     {
+    //       layout: 'lightHorizontalLines', // optional
+    //       table: {
+    //         // headers are automatically repeated if the table spans over multiple pages
+    //         // you can declare how many rows should be treated as headers
+    //         headerRows: 1,
+    //         widths: ['*', 'auto', 100, '*'],
+
+    //         body: [
+    //           ['Transaction Id', 'Particapant Name', 'Transaction Date', 'Device Type', 'Transaction Type', 'Total Amount'],
+
+    //           ['Value 1', 'Value 2', 'Value 3', 'Value 4']
+    //         ]
+    //       }
+    //     }
+    //   ]
+    // };
+    // var docDefinition = {
+    //   content: [
+    //     this.formatList(this.tradeList)
+    //   ]
+    // };
+
+    // var docDefinition = {
+    //   content: [
+    //       //{ text: 'Dynamic parts', style: 'header' },
+    //       this.table(this.tradeList, ['transactionId', 'participantName', 'transferStartTs', 'deviceTypeName', 'type', 'totalAmount'])
+    //   ]
+    // };
     this.pdfObj = pdfmake.createPdf(docDefinition);
     this.downloadPdf();
+  }
+
+  formatList(tradeList) {
+    var printableList = [];
+    tradeList.forEach(trade => {
+      printableList.push({ text: 'Transaction Id', style: 'subheader' });
+      printableList.push({ text: trade.transactionId });
+      printableList.push({ text: 'Participant Name', style: 'subheader' });
+      printableList.push({ text: trade.participantName });
+      printableList.push({ text: 'Device Type', style: 'subheader' });
+      printableList.push({ text: trade.deviceTypeName });
+      printableList.push({ text: 'Transaction Type', style: 'subheader' });
+      printableList.push({ text: trade.type });
+      printableList.push({ text: 'Total Amount', style: 'subheader' });
+      printableList.push({ text: trade.totalAmount });
+    });
+    return printableList;
   }
 
   downloadPdf() {
     console.log("DownloadPdf() triggered")
     //if (this.platform.is('cordova')) {
-      this.pdfObj.getBuffer((buffer) => {
-        var blob = new Blob([buffer], { type: 'application/pdf' });
- 
-        // Save the PDF to the data Directory of our App
-        this.file.writeFile(this.file.dataDirectory, 'statement.pdf', blob, { replace: true }).then(fileEntry => {
-          // Open the PDf with the correct OS tools
-          this.fileOpener.open(this.file.dataDirectory + 'statement.pdf', 'application/pdf');
-        })
-      });
+    this.pdfObj.getBuffer((buffer) => {
+      var blob = new Blob([buffer], { type: 'application/pdf' });
+
+      // Save the PDF to the data Directory of our App
+      this.file.writeFile(this.file.dataDirectory, 'Statement.pdf', blob, { replace: true }).then(fileEntry => {
+        // Open the PDf with the correct OS tools
+        this.fileOpener.open(this.file.dataDirectory + 'Statement.pdf', 'application/pdf');
+      })
+    });
     //} else {
-      // On a browser simply use download!
-      //this.pdfObj.download();
+    // On a browser simply use download!
+    //this.pdfObj.download();
     //}
+  }
+
+  //   CreatePDF(IsInternetExplorer8OrLower) {
+
+  //     // create BytescoutPDF object instance
+  //     var pdf = new BytescoutPDF();
+
+  //     // set document properties: Title, subject, keywords, author name and creator name
+  //     pdf.propertiesSet("Sample document title", "Sample subject", "keyword1, keyword 2, keyword3", "Document Author Name", "Document Creator Name");
+
+  //     // add new page
+  //     pdf.pageAdd();
+
+  // 	pdf.textSetBoxPadding(3);
+
+  //     // set text box for first column
+  //     pdf.textSetBox(50, 50, 200, 200);
+  //     // draw a rectangle around it
+  //     pdf.graphicsDrawRectangle(50, 50, 200, 200);
+  //     // add text:
+  //     pdf.textAddToBox('café, communiqué, fête, fiancée, mêlée, émigré, pâté, protégé; First column', true);
+  //     pdf.textAddToBox('First column', true);
+  //     pdf.textAddToBox('First column', true);
+
+  //     // set text box for second column
+  //     pdf.textSetBox(250, 50, 200, 200);
+  //     // draw a rectangle around it
+  //     pdf.graphicsDrawRectangle(250, 50, 200, 200);
+  //     // add text:
+  //     pdf.textAddToBox('Second column', true);
+  //     pdf.textAddToBox('Second column', true);
+  //     pdf.textAddToBox('Second column', true);
+
+  //     // return BytescoutPDF object instance
+  //     return pdf;
+  // }
+
+  buildTableBody(data, columns) {
+    var body = [];
+    var col;
+    var key;
+
+    body.push(columns);
+
+    data.forEach(function (row) {
+      var dataRow = [];
+
+      columns.forEach(function (column) {
+        col=column.toString();
+        //key=col.substring(col.indexOf(" ")).trim();
+        console.log('col : ', col.substring(col.indexOf(" ")+1));
+        dataRow.push(row[col.substring(col.indexOf(" ")+1)].toString());
+      })
+
+      body.push(dataRow);
+    });
+
+    return body;
+  }
+
+  table(data, columns) {
+    return {
+      table: {
+        headerRows: 1,
+        width: 100,
+        body: this.buildTableBody(data, columns),
+      }
+    };
   }
 }

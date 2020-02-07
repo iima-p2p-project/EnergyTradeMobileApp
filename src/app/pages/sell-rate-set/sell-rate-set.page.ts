@@ -124,7 +124,7 @@ export class SellRateSetPage implements OnInit {
       this.sellOrderPayload.sellerId = this.sellerId;
       this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
       this.sellOrderPayload.userDeviceId = this.userDeviceId;
-      this.sellOrderPayload.powerToSell = +this.power;
+      this.sellOrderPayload.powerToSell = +this.energy;
       this.sellOrderPayload.transferStartTs = this.timeService.startTime;
       this.sellOrderPayload.transferEndTs = this.timeService.endTime;
       this.sellOrderPayload.ratePerUnit = this.rate;
@@ -140,7 +140,7 @@ export class SellRateSetPage implements OnInit {
       this.sellOrderPayload.sellerId = this.sellerId;
       this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
       this.sellOrderPayload.userDeviceId = this.userDeviceId;
-      this.sellOrderPayload.powerToSell = +this.power;
+      this.sellOrderPayload.powerToSell = +this.energy;
       //this.sellOrderPayload.transferStartTs = String(this.timeService.startTime).substring(0, String(this.timeService.startTime).length-4);
       //this.sellOrderPayload.transferEndTs = String(this.timeService.endTime).substring(0, String(this.timeService.endTime).length-4);
       this.sellOrderPayload.transferStartTs = this.timeService.startTime;

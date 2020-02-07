@@ -37,7 +37,7 @@ export class SellTimePickerPage implements OnInit {
   deviceName: string;
   // duration: string;
   power: number = 156;
-  energy: number;
+  energy: number = 0;
 
   sellerId: any;
   userDeviceId: any;
