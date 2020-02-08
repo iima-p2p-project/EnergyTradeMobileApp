@@ -45,7 +45,7 @@
           [ngClass]="(i % 2 == 0) ? 'grey-bg' : ''">
           <ion-col size="4" class="dt-list-text">
               <div style="color:rgb(94, 93, 93)">Today</div>
-              <div>{{formatTime(forecast.startTime)}} - {{formatTime(forecast.endTime)}}</div>
+              <div>{{formatTime(forecast.startTime, 't')}} - {{formatTime(forecast.endTime, 't')}}</div>
           </ion-col>
           <ion-col size="2" class="dt-unit-text">
             {{forecast.power}}
@@ -60,15 +60,15 @@
               (Per Unit {{forecast.pricePerUnit}}/-)
             </div>
           </ion-col>
-          <ion-col size="2" style="margin-left:-1em;">
+          <ion-col size="2" style="margin-left:-1em;" *ngIf='forecast.power>0'>
             <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" 
-            shape="round" color="primary" size="small" (click)="sellForecast(forecast)" *ngIf='power>0'>
+            shape="round" color="primary" size="small" (click)="sellForecast(forecast)">
               SELL
             </ion-button>
           </ion-col>
-          <ion-col size="2" style="margin-left:-1em;">
+          <ion-col size="2" style="margin-left:-1em;" *ngIf='forecast.power<0'>
             <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" 
-            shape="round" color="primary" size="small" (click)="buyForecast(forecast)" *ngIf='power>0'>
+            shape="round" color="primary" size="small" (click)="buyForecast(forecast)">
               BUY
             </ion-button>
           </ion-col>

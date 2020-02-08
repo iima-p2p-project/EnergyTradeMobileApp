@@ -14,11 +14,13 @@ import { USER_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/envi
 })
 export class ForecastListPage implements OnInit {
   resFromServer: any;
-  forecastList: any;
+  forecastList: any[] = [];
+  deviceList: any[] = [];
   userId: any;
 
   power: number;
   remainingPower: number; 
+
   sellSolar: boolean=false;
   sellGenerator: boolean=false;
   sellEV: boolean=false;
@@ -26,6 +28,10 @@ export class ForecastListPage implements OnInit {
   solarPowerToSell: number=0;
   generatorPowerToSell: number=0;
   evPowerToSell: number=0;
+
+  solarDeviceId: any;
+  generatorDeviceId: any;
+  evDeviceId: any;
 
   totalAmount: number=0;
 
@@ -48,7 +54,30 @@ export class ForecastListPage implements OnInit {
           this.resFromServer = res;
           console.log('forecast response : ' , this.resFromServer);
           //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
-          this.forecastList=this.resFromServer.allForecasts;
+          this.forecastList=this.resFromServer.response.listOfForecast;
+          console.log('forecast response : ' , this.forecastList);
+          if(this.forecastList!=null) {
+            this.forecastList.forEach(forecast => {
+              if(forecast!=null) {
+                this.deviceList=forecast.listOfUserDevices;
+                if(this.deviceList!=null) {
+                  this.deviceList.forEach(device => {
+                    if(device!=null) {
+                      if(device.deviceTypeId==1 && device.deviceTypeName=='Solar') {
+                        this.solarDeviceId=device.userDeviceId;
+                      }
+                      if(device.deviceTypeId==2 && device.deviceTypeName=='Generator') {
+                        this.generatorDeviceId=device.userDeviceId;
+                      }
+                      if(device.deviceTypeId==3 && device.deviceTypeName=='EV') {
+                        this.evDeviceId=device.userDeviceId;
+                      }
+                    }
+                  });
+                }
+              }
+            });
+          }
         });
       }
     })
@@ -61,22 +90,22 @@ export class ForecastListPage implements OnInit {
 
   sellForecast(forecast: any) {
     this.power = this.remainingPower = forecast.power;
-    if (forecast.solar_power <= this.power) {
+    if (forecast.solarPower <= this.power) {
       this.sellSolar = true;
-      this.solarPowerToSell=forecast.solar_power;
-      this.remainingPower = this.power - forecast.solar_power;
+      this.solarPowerToSell=forecast.solarPower;
+      this.remainingPower = this.power - forecast.solarPower;
     }
     if (this.remainingPower > 0) {
-      if (forecast.generator_power <= this.remainingPower) {
+      if (forecast.generatorPower <= this.remainingPower) {
         this.sellGenerator = true;
-        this.generatorPowerToSell=forecast.generator_power;
-        this.remainingPower = this.remainingPower - forecast.generator_power;
+        this.generatorPowerToSell=forecast.generatorPower;
+        this.remainingPower = this.remainingPower - forecast.generatorPower;
       }
       if (this.remainingPower > 0) {
-        if (forecast.ev_power <= this.remainingPower) {
+        if (forecast.evpower <= this.remainingPower) {
           this.sellEV = true;
-          this.evPowerToSell=forecast.ev_power;
-          this.remainingPower = this.remainingPower - forecast.ev_power;
+          this.evPowerToSell=forecast.evpower;
+          this.remainingPower = this.remainingPower - forecast.evpower;
         }
       }
     }
@@ -87,10 +116,13 @@ export class ForecastListPage implements OnInit {
         action: ACTION_FORECAST,
         sellerId: this.userId,
         sellSolar: this.sellSolar,
+        solarDeviceId: this.solarDeviceId,
         solarPowerToSell: this.solarPowerToSell,
         sellGenerator: this.sellGenerator,
+        generatorDeviceId: this.generatorDeviceId,
         generatorPowerToSell: this.generatorPowerToSell,
         sellEV: this.sellEV,
+        evDeviceId: this.evDeviceId,
         evPowerToSell: this.evPowerToSell,
         totalPowerToSell: this.power,
         pricePerUnit: forecast.pricePerUnit,
@@ -108,10 +140,10 @@ export class ForecastListPage implements OnInit {
       queryParams: {
         action: ACTION_FORECAST,
         buyerId: this.userId,
-        unitMin: this.power-10,
-        unitMax: this.power+10,
-        budgetMin: this.totalAmount-100,
-        budgetMax: this.totalAmount+100,
+        unitMin: forecast.power-10,
+        unitMax: forecast.power+10,
+        budgetMin: this.getTotalAmount(forecast.power, forecast.pricePerUnit)-100,
+        budgetMax: this.getTotalAmount(forecast.power, forecast.pricePerUnit)+100,
         startTime: forecast.startTime,
         endTime: forecast.endTime
       }
@@ -119,10 +151,14 @@ export class ForecastListPage implements OnInit {
   }
 
   formatTime(ts, type) {
-    if (type == 't')
-      return moment(ts).format("hh:mm A");
-    else if(type == 'd')
-    return moment(ts).format("Do MMM");
+    if(ts!=null) {
+      ts=ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
+      console.log('TSSSS : ' , ts);
+      if (type == 't')
+        return moment(ts).format("hh:mm A");
+      else if(type == 'd')
+      return moment(ts).format("Do MMM");
+    }
   }
 
   getTotalAmount(power: number, pricePerUnit: number) {

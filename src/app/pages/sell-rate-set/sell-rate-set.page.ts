@@ -43,6 +43,10 @@ export class SellRateSetPage implements OnInit {
   generatorPowerToSell: number=0;
   evPowerToSell: number=0;
 
+  solarDeviceId: any;
+  generatorDeviceId: any;
+  evDeviceId: any;
+
   sellOrderPayload: SellOrderPayload = {};
 
   forecastSellDetails: SellOrderPayload[] = [];
@@ -98,16 +102,21 @@ export class SellRateSetPage implements OnInit {
         this.sellSolar = params['sellSolar'];
         this.sellGenerator = params['sellGenerator'];
         this.sellEV = params['sellEV'];
+        this.solarDeviceId = params['solarDeviceId'];
+        this.generatorDeviceId = params['generatorDeviceId'];
+        this.evDeviceId = params['evDeviceId'];
         this.solarPowerToSell = params['solarPowerToSell'];
         this.generatorPowerToSell = params['generatorPowerToSell'];
         this.evPowerToSell = params['evPowerToSell'];
         this.power = this.energy = params['totalPowerToSell'];
         this.totalAmount = (+this.evPowerToSell) * (+this.rate);
+        console.log('solarDeviceId' , this.solarDeviceId);
+        console.log('generatorDeviceId' , this.generatorDeviceId);
+        console.log('evDeviceId' , this.evDeviceId);
         //this.startTime = moment(params['startTime']).format('hh:mm A');
         //this.endTime = moment(params['endTime']).format('hh:mm A');
       }
     });
-
     this.startTime = moment(this.timeService.startTime).format('hh:mm A');
     this.endTime = moment(this.timeService.endTime).format('hh:mm A');
     this.startTimeDetails = this.timeService.startTimeDetails;
@@ -156,10 +165,11 @@ export class SellRateSetPage implements OnInit {
     }
     if (this.action == ACTION_FORECAST) {
       if(this.sellSolar) {
-        this.sellOrderPayload.deviceTypeId = 1;
+        this.sellOrderPayload.deviceTypeId = "1";
         this.sellOrderPayload.sellerId = this.sellerId;
-        this.sellOrderPayload.transferStartTs = this.startTime;
-        this.sellOrderPayload.transferEndTs = this.endTime;
+        this.sellOrderPayload.userDeviceId = this.solarDeviceId;
+        this.sellOrderPayload.transferStartTs = this.timeService.startTime;
+        this.sellOrderPayload.transferEndTs = this.timeService.endTime;
         this.sellOrderPayload.powerToSell = +this.solarPowerToSell;
         this.sellOrderPayload.ratePerUnit = +this.rate;
         this.sellOrderPayload.totalAmount = (+this.solarPowerToSell) * (+this.rate);
@@ -167,10 +177,11 @@ export class SellRateSetPage implements OnInit {
         this.sellOrderPayload = {};
       }
       if(this.sellGenerator) {
-        this.sellOrderPayload.deviceTypeId = 2;
+        this.sellOrderPayload.deviceTypeId = "2";
         this.sellOrderPayload.sellerId = this.sellerId;
-        this.sellOrderPayload.transferStartTs = this.startTime;
-        this.sellOrderPayload.transferEndTs = this.endTime;
+        this.sellOrderPayload.userDeviceId = this.generatorDeviceId;
+        this.sellOrderPayload.transferStartTs = this.timeService.startTime;
+        this.sellOrderPayload.transferEndTs = this.timeService.endTime;
         this.sellOrderPayload.powerToSell = +this.generatorPowerToSell;
         this.sellOrderPayload.ratePerUnit = +this.rate;
         this.sellOrderPayload.totalAmount = (+this.generatorPowerToSell) * (+this.rate);
@@ -178,10 +189,11 @@ export class SellRateSetPage implements OnInit {
         this.sellOrderPayload = {};
       }
       if(this.sellEV) {
-        this.sellOrderPayload.deviceTypeId = 3;
+        this.sellOrderPayload.deviceTypeId = "3";
         this.sellOrderPayload.sellerId = this.sellerId;
-        this.sellOrderPayload.transferStartTs = this.startTime;
-        this.sellOrderPayload.transferEndTs = this.endTime;
+        this.sellOrderPayload.userDeviceId = this.evDeviceId;
+        this.sellOrderPayload.transferStartTs = this.timeService.startTime;
+        this.sellOrderPayload.transferEndTs = this.timeService.endTime;
         this.sellOrderPayload.powerToSell = +this.evPowerToSell;
         this.sellOrderPayload.ratePerUnit = +this.rate;
         this.sellOrderPayload.totalAmount = (+this.evPowerToSell) * (+this.rate);

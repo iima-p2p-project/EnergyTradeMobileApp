@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { INGRESS_URL, CONFIG_URL, TRADE_URL } from 'src/app/environments/environments';
+import { INGRESS_URL, CONFIG_URL, TRADE_URL, ORDER_URL, FORECAST_URL } from 'src/app/environments/environments';
 import { AllTimeslots } from 'src/app/models/AllTimeslots';
 //import { start } from 'repl';
 import * as moment from 'moment';
@@ -10,7 +10,7 @@ import * as moment from 'moment';
 })
 export class ForecastService {
 
-  getForecastsUrl = TRADE_URL + '/getForecastDetails';
+  getForecastsUrl = FORECAST_URL + '/getForecastDetails';
 
   tsArr: AllTimeslots[] = [];
   timeslot: AllTimeslots = {};
@@ -23,7 +23,7 @@ export class ForecastService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.post(this.getForecastsUrl + '/' + userId
+    return this.httpClient.get(this.getForecastsUrl + '/' + userId
       , options
     );
   }
