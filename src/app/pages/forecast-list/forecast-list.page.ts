@@ -50,35 +50,37 @@ export class ForecastListPage implements OnInit {
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
       if(this.userId) {
-        this.forecastService.getForecasts(this.userId).subscribe((res) => {
-          this.resFromServer = res;
-          console.log('forecast response : ' , this.resFromServer);
-          //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
-          this.forecastList=this.resFromServer.response.listOfForecast;
-          console.log('forecast response : ' , this.forecastList);
-          if(this.forecastList!=null) {
-            this.forecastList.forEach(forecast => {
-              if(forecast!=null) {
-                this.deviceList=forecast.listOfUserDevices;
-                if(this.deviceList!=null) {
-                  this.deviceList.forEach(device => {
-                    if(device!=null) {
-                      if(device.deviceTypeId==1 && device.deviceTypeName=='Solar') {
-                        this.solarDeviceId=device.userDeviceId;
-                      }
-                      if(device.deviceTypeId==2 && device.deviceTypeName=='Generator') {
-                        this.generatorDeviceId=device.userDeviceId;
-                      }
-                      if(device.deviceTypeId==3 && device.deviceTypeName=='EV') {
-                        this.evDeviceId=device.userDeviceId;
-                      }
-                    }
-                  });
-                }
-              }
-            });
-          }
-        });
+        // this.forecastService.getForecasts(this.userId).subscribe((res) => {
+        //   this.resFromServer = res;
+        //   console.log('forecast response : ' , this.resFromServer);
+        //   //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
+        //   this.forecastList=this.resFromServer.response.listOfForecast;
+        //   console.log('forecast response : ' , this.forecastList);
+        //   if(this.forecastList!=null) {
+        //     this.forecastList.forEach(forecast => {
+        //       if(forecast!=null) {
+        //         this.deviceList=forecast.listOfUserDevices;
+        //         if(this.deviceList!=null) {
+        //           this.deviceList.forEach(device => {
+        //             if(device!=null) {
+        //               if(device.deviceTypeId==1 && device.deviceTypeName=='Solar') {
+        //                 this.solarDeviceId=device.userDeviceId;
+        //               }
+        //               if(device.deviceTypeId==2 && device.deviceTypeName=='Generator') {
+        //                 this.generatorDeviceId=device.userDeviceId;
+        //               }
+        //               if(device.deviceTypeId==3 && device.deviceTypeName=='EV') {
+        //                 this.evDeviceId=device.userDeviceId;
+        //               }
+        //             }
+        //           });
+        //         }
+        //       }
+        //     });
+        //   }
+        // });
+        this.forecastList=this.forecastService.forecastList;
+        this.deviceList=this.forecastService.deviceList;
       }
     })
   }

@@ -47,6 +47,8 @@ export class SellTimePickerPage implements OnInit {
   sellOrderId: any;
   action: any;
 
+  callerPage: string;
+
   currentTime: any;
 
   constructor(private router: Router,
@@ -84,6 +86,13 @@ export class SellTimePickerPage implements OnInit {
         this.sellerId = params['sellerId'];
         this.userDeviceId = params['userDeviceId'];
         this.deviceTypeId = params['deviceTypeId'];
+        this.callerPage = params['callerPage'];
+        if(this.callerPage=='dashboard') {
+          this.timeService.startTime=null;
+          this.timeService.endTime=null;
+          this.timeService.isStartTimeSelected=false;
+          this.timeService.isEndTimeSelected=false;
+        }
       }
       if (this.action == ACTION_EDIT) {
         this.sellOrderId = params['sellOrderId'];
@@ -119,6 +128,7 @@ export class SellTimePickerPage implements OnInit {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
+        console.log('duration object in start time : ' , this.durationDetails);
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
@@ -129,7 +139,8 @@ export class SellTimePickerPage implements OnInit {
           this.inputsValidFlag = true;
           this.durationInHours = this.durationDetails.duration.durationInHours;
           this.durationInMins = this.durationDetails.duration.durationInMins;
-          this.totalNumberOfMins = 60 * this.durationInHours + this.durationInMins;
+          //this.totalNumberOfMins = 60 * this.durationInHours + this.durationInMins;
+          this.totalNumberOfMins = (60 * +this.durationInHours) + (+this.durationInMins);
           this.energy = (this.power * this.totalNumberOfMins) / 60;
         }
       } else {
@@ -150,6 +161,7 @@ export class SellTimePickerPage implements OnInit {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
+        console.log('duration object in end time : ' , this.durationDetails);
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
@@ -160,7 +172,7 @@ export class SellTimePickerPage implements OnInit {
           this.inputsValidFlag = true;
           this.durationInHours = this.durationDetails.duration.durationInHours;
           this.durationInMins = this.durationDetails.duration.durationInMins;
-          this.totalNumberOfMins = 60 * this.durationInHours + this.durationInMins;
+          this.totalNumberOfMins = (60 * +this.durationInHours) + (+this.durationInMins);
           this.energy = (this.power * this.totalNumberOfMins) / 60;
         }
       }

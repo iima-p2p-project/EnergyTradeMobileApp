@@ -8,6 +8,7 @@ import { ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 import { OrderService } from 'src/app/services/order.service';
 import * as moment from 'moment';
 import { InvalidInputModalPage } from 'src/app/invalid-input-modal/invalid-input-modal.page';
+import { ForecastService } from 'src/app/services/forecast.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,7 +58,18 @@ export class DashboardPage implements OnInit {
   index: number = 0;
   length: number = 0;
 
+  forecastList: any[] = [];
+  deviceList: any[] = [];
+
   userHasOnlyLoad = false;
+
+  upcomingForecast: any;
+  upcomingForecastPower: any;
+  upcomingForecastPrice: any;
+  upcomingForecastStartTime: any;
+  upcomingForecastEndTime: any;
+
+  forecastLen: number;
 
   constructor(private router: Router
     , private route: ActivatedRoute
@@ -65,7 +77,8 @@ export class DashboardPage implements OnInit {
     , private nav: NavController
     , private orderService: OrderService
     , private ingressService: IngressService
-    , private alertController: AlertController) {
+    , private alertController: AlertController
+    , private forecastService: ForecastService) {
     this.showSolar = false;
     this.showGenerator = false;
     this.showEV = false;
@@ -168,6 +181,45 @@ export class DashboardPage implements OnInit {
           }
         });
       //});
+      if(this.userId) {
+        this.forecastService.getForecasts(this.userId).subscribe((res) => {
+          this.resFromServer = res;
+          console.log('forecast response : ' , this.resFromServer);
+          //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
+          this.forecastList=this.resFromServer.response.listOfForecast;
+          this.forecastService.forecastList=this.forecastList;
+          console.log('forecast response : ' , this.forecastList);
+          if(this.forecastList!=null) {
+            this.upcomingForecast=this.forecastList[0];
+            this.upcomingForecastStartTime=this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
+            this.upcomingForecastEndTime=this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
+            this.upcomingForecastPower=this.upcomingForecast.power;
+            this.upcomingForecastPrice=this.upcomingForecast.pricePerUnit;
+            this.forecastLen=this.forecastList.length;
+            this.forecastList.forEach(forecast => {
+              if(forecast!=null) {
+                this.deviceList=forecast.listOfUserDevices;
+                this.forecastService.deviceList=this.deviceList;
+                if(this.deviceList!=null) {
+                  this.deviceList.forEach(device => {
+                    if(device!=null) {
+                      if(device.deviceTypeId==1 && device.deviceTypeName=='Solar') {
+                        this.solarDeviceId=device.userDeviceId;
+                      }
+                      if(device.deviceTypeId==2 && device.deviceTypeName=='Generator') {
+                        this.generatorDeviceId=device.userDeviceId;
+                      }
+                      if(device.deviceTypeId==3 && device.deviceTypeName=='EV') {
+                        this.evDeviceId=device.userDeviceId;
+                      }
+                    }
+                  });
+                }
+              }
+            });
+          }
+        });
+      }
     });
   }
 
@@ -249,6 +301,7 @@ export class DashboardPage implements OnInit {
       console.log('user id from dashboard : ', this.userId);
       this.router.navigate(['/sell-time-picker'], {
         queryParams: {
+          callerPage: 'dashboard',
           action: ACTION_CREATE,
           sellerId: this.userId,
           userDeviceId: this.userDeviceId,
@@ -274,6 +327,7 @@ export class DashboardPage implements OnInit {
 
         this.router.navigate(['/buy-time-picker'], {
           queryParams: {
+            callerPage: 'dashboard',
             buyerId: this.userId,
             deviceTypeId: this.deviceTypeId,
             unitMin: this.minPowerToBuy,
@@ -345,6 +399,14 @@ export class DashboardPage implements OnInit {
   }
 
   formatTime(ts, type) {
+    if (type == 't')
+      return moment(ts).format("hh:mm A");
+    else if (type == 'd')
+      return moment(ts).format("Do MMM");
+  }
+
+  formatTimeForForecast(ts, type) {
+    ts=ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
     if (type == 't')
       return moment(ts).format("hh:mm A");
     else if (type == 'd')

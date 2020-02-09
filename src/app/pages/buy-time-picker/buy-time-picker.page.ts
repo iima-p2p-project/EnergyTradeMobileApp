@@ -38,6 +38,7 @@ export class BuyTimePickerPage implements OnInit {
   startTimeDetails: any = "DAY,DD MM";
   endTimeDetails: any = "DAY,DD MM";
   inputsValidFlag = false;
+  callerPage: string;
 
   constructor(
     public platform: Platform,
@@ -63,6 +64,13 @@ export class BuyTimePickerPage implements OnInit {
       this.buyerId = params['buyerId'];
       this.unitMin = params['unitMin'];
       this.unitMax = params['unitMax'];
+      this.callerPage = params['callerPage'];
+      if (this.callerPage == 'dashboard') {
+        this.timeService.startTime = null;
+        this.timeService.endTime = null;
+        this.timeService.isStartTimeSelected = false;
+        this.timeService.isEndTimeSelected = false;
+      }
     });
   }
   getStartTimeDetails() {

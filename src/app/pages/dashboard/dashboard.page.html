@@ -28,7 +28,7 @@
               </ion-col>
               <ion-col size="10" class="box-top-left-right">
                 Today <br>
-                12:00 PM - 1:00 PM
+                {{upcomingForecastStartTime}} - {{upcomingForecastEndTime}}
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -37,7 +37,7 @@
         <!--DISABLE FORECAST-->
 
 
-        <!-- <ion-col size="7">
+        <ion-col size="7" *ngIf="forecastLen>0">
           <ion-grid style="margin-right:-5em;">
 
             <ion-row>
@@ -53,19 +53,19 @@
             </ion-row>
             <ion-row style="margin-top:-0.5em;margin-right:-1em;">
               <ion-col size="5" class="box-center-right-left">
-                50
+                {{upcomingForecastPower}}
               </ion-col>
               <ion-col size="1" class="box-center-right-center" style="margin-left:-20px;">
                 -
               </ion-col>
               <ion-col size="6" class="box-center-right-right">
-                175
+                {{upcomingForecastPrice}}
               </ion-col>
             </ion-row>
           </ion-grid>
-        </ion-col> -->
+        </ion-col>
 
-        <ion-col offset="3" size="4">
+        <ion-col offset="3" size="4" *ngIf="forecastLen==0">
           <!-- EMPTY FORECAST DATA START -->
           <ion-row>
             <ion-col class="ion-text-center" offset="3" size="6">

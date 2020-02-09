@@ -15,6 +15,9 @@ export class ForecastService {
   tsArr: AllTimeslots[] = [];
   timeslot: AllTimeslots = {};
 
+  forecastList: any[] = [];
+  deviceList: any[] = [];
+
   constructor(private httpClient: HttpClient) {}
 
   getForecasts(userId: any) {

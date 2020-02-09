@@ -69,6 +69,8 @@ const routes: Routes = [
   { path: 'cancel-order-modal2', loadChildren: './cancel-order-modal2/cancel-order-modal2.module#CancelOrderModal2PageModule' },
   { path: 'non-trade-post-success', loadChildren: './pages/non-trade-post-success/non-trade-post-success.module#NonTradePostSuccessPageModule' },
   { path: 'statement', loadChildren: './pages/statement/statement.module#StatementPageModule' },
+  { path: 'customer-register', loadChildren: './DR/pages/customer-register/customer-register.module#CustomerRegisterPageModule' },
+  { path: 'customer-dashboard', loadChildren: './DR/pages/customer-dashboard/customer-dashboard.module#CustomerDashboardPageModule' },
 ];
 
 @NgModule({

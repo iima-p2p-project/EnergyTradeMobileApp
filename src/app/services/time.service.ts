@@ -51,6 +51,10 @@ export class TimeService {
         this.endTime = this.endTime.substring(0, 10) + ' ' + this.endTime.substring(11, 16) + ':00';
       }
     }
+
+    console.log('start time inside time service get duration : ' , this.startTime);
+    console.log('end time inside time service get duration : ' , this.endTime);
+
     var duration = moment.duration(moment(endTime).diff(moment(startTime)));
     this.dayDiff = duration.asDays();
     this.hourDiff = duration.asHours();

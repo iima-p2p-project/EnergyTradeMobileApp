@@ -32,6 +32,7 @@ export class SchedulePage implements OnInit {
   location: any;
   reason: any;
   action: any;
+  callerPage: string;
 
   btnLabel: any;
   header: any;
@@ -75,6 +76,13 @@ export class SchedulePage implements OnInit {
         this.adminStateId = params['stateId'];
         this.btnLabel = 'SCHEDULE';
         this.header = 'SCHEDULE';
+        this.callerPage = params['callerPage'];
+        if(this.callerPage=='admin-dashboard') {
+          this.timeService.startTime=null;
+          this.timeService.endTime=null;
+          this.timeService.isStartTimeSelected=false;
+          this.timeService.isEndTimeSelected=false;
+        }
       }
       console.log('state id : ', this.adminStateId);
     });
@@ -86,6 +94,7 @@ export class SchedulePage implements OnInit {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
+        console.log('duration object in start time : ' , this.durationDetails);
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
@@ -110,6 +119,7 @@ export class SchedulePage implements OnInit {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
+        console.log('duration object in start time : ' , this.durationDetails);
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
