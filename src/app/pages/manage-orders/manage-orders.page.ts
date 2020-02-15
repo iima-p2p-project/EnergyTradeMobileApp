@@ -186,10 +186,11 @@ export class ManageOrdersPage implements OnInit {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.monthFilterKey);
-      console.log('order : ' , this.allOrders); 
-      if(!this.monthFilterKey) {
-        this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
-      }    
+      console.log('order : ' , this.allOrders);
+      this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
+      // if(!this.monthFilterKey) {
+      //   this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
+      // }    
     }
     );
   }
@@ -199,7 +200,7 @@ export class ManageOrdersPage implements OnInit {
       buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
       columns: [{
         name: "energyTypeOptions",
-        options: [{ text: "EV", value: "Electric Vehicle" }
+        options: [{ text: "Electric Vehicle (EV)", value: "EV" }
           , { text: "Solar", value: "Solar" }
           , { text: "Generator", value: "Generator" }]
       }]

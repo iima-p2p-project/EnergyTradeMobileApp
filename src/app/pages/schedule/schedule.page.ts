@@ -77,7 +77,7 @@ export class SchedulePage implements OnInit {
         this.btnLabel = 'SCHEDULE';
         this.header = 'SCHEDULE';
         this.callerPage = params['callerPage'];
-        if(this.callerPage=='admin-dashboard') {
+        if(this.startTime==null && this.endTime==null) {
           this.timeService.startTime=null;
           this.timeService.endTime=null;
           this.timeService.isStartTimeSelected=false;

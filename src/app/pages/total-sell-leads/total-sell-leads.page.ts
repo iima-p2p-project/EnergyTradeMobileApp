@@ -17,6 +17,8 @@ export class TotalSellLeadsPage implements OnInit {
   allSellLeads: any;
   monthFilterKey;
   displayLeads: any;
+  locationFilterKey: any;
+  selectedLead: any;
 
   constructor(private router: Router
     , private route: ActivatedRoute
@@ -52,6 +54,12 @@ export class TotalSellLeadsPage implements OnInit {
     });
   }
 
+  selectLead() {
+    if(this.selectedLead!=null) {
+      this.displayLeads = this.allSellLeads.filter(sellLead => sellLead.sellOrderId == this.selectedLead);
+    }
+  }
+
   async filterByMonth() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
@@ -77,9 +85,33 @@ export class TotalSellLeadsPage implements OnInit {
     picker.onDidDismiss().then(async data => {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
-      console.log("Filter Key:", this.monthFilterKey);
       this.displayLeads = this.allSellLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
     }
     );
+  }
+
+  async filterByLocation() {
+    console.log("Apply Location Filter");
+    let opts: PickerOptions = {
+      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      columns: [{
+        name: "monthOptions",
+        options: [{ text: "Tarnaka", value: "Tarnaka" }
+          , { text: "Lingampalli", value: "Lingampalli" }
+          , { text: "All", value: "All" }
+        ]
+      }]
+    }
+    let picker = await this.pickerCtrl.create(opts)
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('monthOptions');
+      this.locationFilterKey = col.options[col.selectedIndex].value;
+      if (this.locationFilterKey != 'All') {
+        this.displayLeads = this.allSellLeads.filter(order => order.localityName == this.locationFilterKey);
+      } else {
+        this.displayLeads = this.allSellLeads;
+      }
+    });
   }
 }

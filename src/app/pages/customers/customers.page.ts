@@ -82,8 +82,8 @@ export class CustomersPage implements OnInit {
     picker.onDidDismiss().then(async data => {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
-      console.log("Filter Key:", this.monthFilterKey);
-      //this.displayLeads = this.allBuyLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
+      console.log("customer : ", this.customerList);
+      //this.displayCustomerList = this.customerList.filter(customer => moment(customer.transferStartTs).format('M') == this.monthFilterKey);
     }
     );
   }
