@@ -40,6 +40,7 @@ export class AppComponent {
   userId: any;
   userName: any;
   userRole: any;
+  userType: any = 1;
   localityName: any;
 
   constructor(
@@ -156,7 +157,7 @@ export class AppComponent {
   }
 
   navigateToProfile() {
-    if(this.userRole == "User") {
+    if (this.userRole == "User") {
       this.router.navigate(['/profile'], {
         queryParams: {
           userId: this.userId,
