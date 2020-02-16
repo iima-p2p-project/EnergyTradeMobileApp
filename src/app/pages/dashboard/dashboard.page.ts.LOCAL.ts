@@ -54,7 +54,7 @@ export class DashboardPage implements OnInit {
   buyOrderPayload: BuyOrderPayload = {};
   resFromServer: any;
   userId: any;
-  userLocation: any;
+  userLocation: any = 'Surat';
   index: number = 0;
   length: number = 0;
 
@@ -64,10 +64,10 @@ export class DashboardPage implements OnInit {
   userHasOnlyLoad = false;
 
   upcomingForecast: any;
-  upcomingForecastPower: any;
-  upcomingForecastPrice: any;
-  upcomingForecastStartTime: any;
-  upcomingForecastEndTime: any;
+  upcomingForecastPower: any = 50;
+  upcomingForecastPrice: any = 10;
+  upcomingForecastStartTime: any = '12:00 AM';
+  upcomingForecastEndTime: any = '12:00 AM';
 
   forecastLen: number;
 
@@ -187,7 +187,7 @@ export class DashboardPage implements OnInit {
           console.log('forecast response : ', this.resFromServer);
           //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
           this.forecastList = this.resFromServer.response.listOfForecast;
-          //this.forecastService.forecastList=this.forecastList;
+          this.forecastService.forecastList = this.forecastList;
           console.log('forecast response : ', this.forecastList);
           if (this.forecastList != null) {
             this.upcomingForecast = this.forecastList[0];
@@ -204,23 +204,19 @@ export class DashboardPage implements OnInit {
                   this.deviceList.forEach(device => {
                     if (device != null) {
                       if (device.deviceTypeId == 1 && device.deviceTypeName == 'Solar') {
-                        //this.solarDeviceId=device.userDeviceId;
-                        forecast.solarDeviceId = device.userDeviceId;
+                        this.solarDeviceId = device.userDeviceId;
                       }
                       if (device.deviceTypeId == 2 && device.deviceTypeName == 'Generator') {
-                        //this.generatorDeviceId=device.userDeviceId;
-                        forecast.generatorDeviceId = device.userDeviceId;
+                        this.generatorDeviceId = device.userDeviceId;
                       }
                       if (device.deviceTypeId == 3 && device.deviceTypeName == 'EV') {
-                        //this.evDeviceId=device.userDeviceId;
-                        forecast.evDeviceId = device.userDeviceId;
+                        this.evDeviceId = device.userDeviceId;
                       }
                     }
                   });
                 }
               }
             });
-            this.forecastService.forecastList = this.forecastList;
           }
         });
       }

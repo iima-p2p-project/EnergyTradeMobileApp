@@ -13,7 +13,8 @@
     </ion-col>
   </ion-row>
 
-  <ion-searchbar style="font-family:MMedium !important;" placeholder="Search for ID" animated></ion-searchbar>
+  <ion-searchbar style="font-family:MMedium !important;" placeholder="Search for ID" animated
+  [(ngModel)]="selectedLead" (ionChange)="selectLead()"></ion-searchbar>
 
   <ion-grid>
     <!-- LINE 2 -->
@@ -68,7 +69,7 @@
 <ion-footer class="the-footer">
   <ion-grid class="ion-text-center" style="padding:0;">
     <ion-row>
-      <ion-col class="bottom-footer">
+      <ion-col class="bottom-footer" (click)="filterByLocation()">
         <!-- <ion-button expand="full"> -->
         <ion-icon name="pin" class="icon"></ion-icon>
         LOCATION

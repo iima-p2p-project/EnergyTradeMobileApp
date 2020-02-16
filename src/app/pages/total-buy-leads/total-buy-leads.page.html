@@ -13,7 +13,8 @@
     </ion-col>
   </ion-row>
 
-  <ion-searchbar style="font-family:MMedium !important;" placeholder="Search for ID" animated></ion-searchbar>
+  <ion-searchbar style="font-family:MMedium !important;" placeholder="Search for ID" animated
+  [(ngModel)]="selectedLead" (ionChange)="selectLead()"></ion-searchbar>
 
   <ion-grid>
 

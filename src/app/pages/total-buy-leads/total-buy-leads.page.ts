@@ -17,6 +17,8 @@ export class TotalBuyLeadsPage implements OnInit {
   allBuyLeads: any;
   monthFilterKey;
   displayLeads: any;
+  locationFilterKey: any;
+  selectedLead: any;
 
 
   constructor(private router: Router
@@ -54,9 +56,6 @@ export class TotalBuyLeadsPage implements OnInit {
     });
   }
 
-  filterByLocation() {
-    console.log("Filter by location");
-  }
   async filterByMonth() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
@@ -82,9 +81,39 @@ export class TotalBuyLeadsPage implements OnInit {
     picker.onDidDismiss().then(async data => {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
-      console.log("Filter Key:", this.monthFilterKey);
       this.displayLeads = this.allBuyLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
     }
     );
+  }
+
+  async filterByLocation() {
+    console.log("Apply Location Filter");
+    let opts: PickerOptions = {
+      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      columns: [{
+        name: "monthOptions",
+        options: [{ text: "Tarnaka", value: "Tarnaka" }
+          , { text: "Lingampalli", value: "Lingampalli" }
+          , { text: "All", value: "All" }
+        ]
+      }]
+    }
+    let picker = await this.pickerCtrl.create(opts)
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('monthOptions');
+      this.locationFilterKey = col.options[col.selectedIndex].value;
+      if (this.locationFilterKey != 'All') {
+        this.displayLeads = this.allBuyLeads.filter(order => order.sellorder.localityName == this.locationFilterKey);
+      } else {
+        this.displayLeads = this.allBuyLeads;
+      }
+    });
+  }
+
+  selectLead() {
+    if(this.selectedLead!=null) {
+      this.displayLeads = this.allBuyLeads.filter(buyLead => buyLead.contractId == this.selectedLead);
+    }
   }
 }

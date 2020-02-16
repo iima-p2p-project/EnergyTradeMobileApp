@@ -79,6 +79,7 @@ export class SellTimePickerPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.callerPage='';
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       if (this.action == ACTION_CREATE) {
@@ -86,8 +87,10 @@ export class SellTimePickerPage implements OnInit {
         this.sellerId = params['sellerId'];
         this.userDeviceId = params['userDeviceId'];
         this.deviceTypeId = params['deviceTypeId'];
+        console.log("caller page inside oninit 1 : " , this.callerPage);
         this.callerPage = params['callerPage'];
-        if(this.callerPage=='dashboard') {
+        console.log("caller page inside oninit 2 : " , this.callerPage);
+        if(this.startTime==null && this.endTime==null) {
           this.timeService.startTime=null;
           this.timeService.endTime=null;
           this.timeService.isStartTimeSelected=false;
@@ -182,6 +185,7 @@ export class SellTimePickerPage implements OnInit {
   }
 
   proceedToSetRate() {
+    this.callerPage='';
     if (this.inputsValidFlag) {
       this.router.navigate(['/sell-rate-set'], {
         queryParams: {

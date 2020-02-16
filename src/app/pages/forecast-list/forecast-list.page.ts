@@ -29,6 +29,10 @@ export class ForecastListPage implements OnInit {
   generatorPowerToSell: number=0;
   evPowerToSell: number=0;
 
+  solarEnergyToSell: number=0;
+  generatorEnergyToSell: number=0;
+  evEnergyToSell: number=0;
+
   solarDeviceId: any;
   generatorDeviceId: any;
   evDeviceId: any;
@@ -91,22 +95,26 @@ export class ForecastListPage implements OnInit {
   }
 
   sellForecast(forecast: any) {
+    console.log('forecast sell : ' , forecast);
     this.power = this.remainingPower = forecast.power;
     if (forecast.solarPower <= this.power) {
       this.sellSolar = true;
       this.solarPowerToSell=forecast.solarPower;
+      this.solarEnergyToSell=this.solarPowerToSell;
       this.remainingPower = this.power - forecast.solarPower;
     }
     if (this.remainingPower > 0) {
       if (forecast.generatorPower <= this.remainingPower) {
         this.sellGenerator = true;
         this.generatorPowerToSell=forecast.generatorPower;
+        this.generatorEnergyToSell=this.generatorPowerToSell;
         this.remainingPower = this.remainingPower - forecast.generatorPower;
       }
       if (this.remainingPower > 0) {
         if (forecast.evpower <= this.remainingPower) {
           this.sellEV = true;
           this.evPowerToSell=forecast.evpower;
+          this.evEnergyToSell=this.evPowerToSell;
           this.remainingPower = this.remainingPower - forecast.evpower;
         }
       }
@@ -118,14 +126,17 @@ export class ForecastListPage implements OnInit {
         action: ACTION_FORECAST,
         sellerId: this.userId,
         sellSolar: this.sellSolar,
-        solarDeviceId: this.solarDeviceId,
+        solarDeviceId: forecast.solarDeviceId,
         solarPowerToSell: this.solarPowerToSell,
+        solarEnergyToSell: this.solarEnergyToSell,
         sellGenerator: this.sellGenerator,
-        generatorDeviceId: this.generatorDeviceId,
+        generatorDeviceId: forecast.generatorDeviceId,
         generatorPowerToSell: this.generatorPowerToSell,
+        generatorEnergyToSell: this.generatorEnergyToSell,
         sellEV: this.sellEV,
-        evDeviceId: this.evDeviceId,
+        evDeviceId: forecast.evDeviceId,
         evPowerToSell: this.evPowerToSell,
+        evEnergyToSell: this.evEnergyToSell,
         totalPowerToSell: this.power,
         pricePerUnit: forecast.pricePerUnit,
         startTime: forecast.startTime,

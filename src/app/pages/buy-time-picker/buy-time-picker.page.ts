@@ -65,7 +65,7 @@ export class BuyTimePickerPage implements OnInit {
       this.unitMin = params['unitMin'];
       this.unitMax = params['unitMax'];
       this.callerPage = params['callerPage'];
-      if (this.callerPage == 'dashboard') {
+      if (this.startTime==null && this.endTime==null) {
         this.timeService.startTime = null;
         this.timeService.endTime = null;
         this.timeService.isStartTimeSelected = false;
