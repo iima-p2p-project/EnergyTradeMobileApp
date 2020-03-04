@@ -41,6 +41,7 @@
     "dom-to-image": "^2.6.0",
     "jspdf": "^1.5.3",
     "moment": "^2.24.0",
+    "ng-http-loader": "^6.0.1",
     "onesignal-cordova-plugin": "2.7.0",
     "pdfmake": "^0.1.63",
     "rxjs": "~6.5.1",

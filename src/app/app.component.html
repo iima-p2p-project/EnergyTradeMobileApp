@@ -1,6 +1,6 @@
 <ion-app>
-  <ion-split-pane (click)="getUserDetails()"> 
-      <!-- (click)="getUserDetails() -->
+  <ion-split-pane (click)="getUserDetails()">
+    <!-- (click)="getUserDetails() -->
     <ion-menu type="overlay">
       <!-- <ion-header>
         <ion-toolbar>
@@ -142,7 +142,7 @@
 
 
 
-        
+
         <!-- <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
@@ -158,4 +158,5 @@
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
+  <ng-http-loader ></ng-http-loader>
 </ion-app>

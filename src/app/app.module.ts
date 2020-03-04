@@ -29,6 +29,7 @@ import { CancelOrderModal1PageModule } from './cancel-order-modal1/cancel-order-
 import { CancelOrderModal2PageModule } from './cancel-order-modal2/cancel-order-modal2.module';
 
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 //import { File, IWriteOptions } from '@ionic-native/file/ngx';
 
 import {  
@@ -60,7 +61,8 @@ import {
     Error404ModalPageModule,
     NonTradeHoursAlertPageModule,
     CancelOrderModal1PageModule,
-    CancelOrderModal2PageModule
+    CancelOrderModal2PageModule,
+    NgHttpLoaderModule.forRoot()
     
   ],
   providers: [
