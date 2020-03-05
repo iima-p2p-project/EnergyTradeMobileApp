@@ -10,9 +10,9 @@ import { INGRESS_URL, CONFIG_URL, TRADE_URL, ORDER_URL } from 'src/app/environme
 export class OrderService {
 
   createForecastSellOrdersUrl = ORDER_URL + 'createMultipleSellOrder';
-  createSellOrderUrl = TRADE_URL + '/createSellOrder';
+  createSellOrderUrl = ORDER_URL + 'createSellOrder';
   searchBuyLeadsUrl = ORDER_URL + 'searchBuyLeads';
-  createContractUrl = TRADE_URL + '/createContract';
+  createContractUrl = ORDER_URL + 'createContract';
   getAllOrdersAndContractsUrl = TRADE_URL + '/getAllOrdersAndContracts';
   cancelSellOrderUrl = ORDER_URL + 'updateSellOrder';
   cancelBuyOrderUrl = ORDER_URL + 'updateContract';

@@ -78,7 +78,7 @@ export class CreateAccountPage implements OnInit {
         this.responseFromService = res;
         console.log('response from register service : ', this.responseFromService.response.key);
         //this.showToast(this.responseFromService.response.key);
-        if (this.responseFromService.response.key == 200) {
+        if (this.responseFromService.response.key ==200) {
           this.userId = this.responseFromService.response.userId;
           this.userRole = this.responseFromService.response.userRole;
           this.ingressService.setLoggedInUserId(this.userId);
@@ -124,7 +124,7 @@ export class CreateAccountPage implements OnInit {
             console.log('User Already Exists. Please Login');
             this.showToast('User Already Exists. Please Login');
           }
-          if(this.responseFromService.response.key == 200) {
+          if(/*this.responseFromService.response.key == 200*/ true) {
             this.showOTPFlag = true;
           }
         });

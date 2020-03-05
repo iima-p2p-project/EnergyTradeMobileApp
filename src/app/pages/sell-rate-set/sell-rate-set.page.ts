@@ -140,7 +140,8 @@ export class SellRateSetPage implements OnInit {
       this.sellOrderPayload.sellerId = this.sellerId;
       this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
       this.sellOrderPayload.userDeviceId = this.userDeviceId;
-      this.sellOrderPayload.powerToSell = +this.energy;
+      this.sellOrderPayload.powerToSell = +this.power;
+      this.sellOrderPayload.energy = this.energy;
       this.sellOrderPayload.transferStartTs = this.timeService.startTime;
       this.sellOrderPayload.transferEndTs = this.timeService.endTime;
       this.sellOrderPayload.ratePerUnit = this.rate;
@@ -156,7 +157,8 @@ export class SellRateSetPage implements OnInit {
       this.sellOrderPayload.sellerId = this.sellerId;
       this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
       this.sellOrderPayload.userDeviceId = this.userDeviceId;
-      this.sellOrderPayload.powerToSell = +this.energy;
+      this.sellOrderPayload.powerToSell = +this.power;
+      this.sellOrderPayload.energy = this.energy;
       //this.sellOrderPayload.transferStartTs = String(this.timeService.startTime).substring(0, String(this.timeService.startTime).length-4);
       //this.sellOrderPayload.transferEndTs = String(this.timeService.endTime).substring(0, String(this.timeService.endTime).length-4);
       this.sellOrderPayload.transferStartTs = this.timeService.startTime;
@@ -178,7 +180,7 @@ export class SellRateSetPage implements OnInit {
         this.sellOrderPayload.transferStartTs = this.timeService.startTime;
         this.sellOrderPayload.transferEndTs = this.timeService.endTime;
         this.sellOrderPayload.powerToSell = +this.solarPowerToSell;
-        this.sellOrderPayload.energy = +this.solarEnergyToSell;
+        this.sellOrderPayload.energy = this.solarEnergyToSell.toString();
         this.sellOrderPayload.ratePerUnit = +this.rate;
         this.sellOrderPayload.totalAmount = (+this.solarPowerToSell) * (+this.rate);
         this.forecastSellDetails.push(this.sellOrderPayload);
@@ -191,7 +193,7 @@ export class SellRateSetPage implements OnInit {
         this.sellOrderPayload.transferStartTs = this.timeService.startTime;
         this.sellOrderPayload.transferEndTs = this.timeService.endTime;
         this.sellOrderPayload.powerToSell = +this.generatorPowerToSell;
-        this.sellOrderPayload.energy = +this.generatorEnergyToSell;
+        this.sellOrderPayload.energy = this.generatorEnergyToSell.toString();
         this.sellOrderPayload.ratePerUnit = +this.rate;
         this.sellOrderPayload.totalAmount = (+this.generatorPowerToSell) * (+this.rate);
         this.forecastSellDetails.push(this.sellOrderPayload);
@@ -204,7 +206,7 @@ export class SellRateSetPage implements OnInit {
         this.sellOrderPayload.transferStartTs = this.timeService.startTime;
         this.sellOrderPayload.transferEndTs = this.timeService.endTime;
         this.sellOrderPayload.powerToSell = +this.evPowerToSell;
-        this.sellOrderPayload.energy = +this.evEnergyToSell;
+        this.sellOrderPayload.energy = this.evEnergyToSell.toString();
         this.sellOrderPayload.ratePerUnit = +this.rate;
         this.sellOrderPayload.totalAmount = (+this.evPowerToSell) * (+this.rate);
         this.forecastSellDetails.push(this.sellOrderPayload);
