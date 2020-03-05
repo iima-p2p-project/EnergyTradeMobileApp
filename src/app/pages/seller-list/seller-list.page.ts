@@ -113,6 +113,7 @@ export class SellerListPage implements OnInit {
         totalAmount: seller.totalAmount,
         ratePerUnit: seller.ratePerUnit,
         power: seller.powerToSell,
+        energy: seller.energy,
         deviceTypeName: seller.deviceTypeName,
         startTime: this.getFormattedTime(seller.transferStartTs),
         endTime: this.getFormattedTime(seller.transferEndTs),

@@ -82,6 +82,8 @@ export class DashboardPage implements OnInit {
     this.showSolar = false;
     this.showGenerator = false;
     this.showEV = false;
+    this.forecastList=[];
+    this.forecastLen=0;
   }
 
   ngOnInit() {

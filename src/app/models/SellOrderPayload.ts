@@ -8,5 +8,5 @@ export class SellOrderPayload{
     transferEndTs?: string;
     ratePerUnit?: number;
     totalAmount?: number;
-    energy?: number;
+    energy?: string;
 }
