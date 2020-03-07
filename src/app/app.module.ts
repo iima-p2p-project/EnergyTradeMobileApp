@@ -69,10 +69,8 @@ import { DeletePumpsModalPageModule } from './modals/delete-pumps-modal/delete-p
     EditEventModalPageModule,
     WithdrawEventModalPageModule,
     EditBidModalPageModule,
-    DeletePumpsModalPageModule
-    CancelOrderModal2PageModule,
+    DeletePumpsModalPageModule,
     NgHttpLoaderModule.forRoot()
-    
   ],
   providers: [
     StatusBar,
