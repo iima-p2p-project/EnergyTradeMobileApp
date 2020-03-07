@@ -29,6 +29,7 @@ import { CancelOrderModal1PageModule } from './cancel-order-modal1/cancel-order-
 import { CancelOrderModal2PageModule } from './cancel-order-modal2/cancel-order-modal2.module';
 
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 //import { File, IWriteOptions } from '@ionic-native/file/ngx';
 
 import {  
@@ -69,6 +70,9 @@ import { DeletePumpsModalPageModule } from './modals/delete-pumps-modal/delete-p
     WithdrawEventModalPageModule,
     EditBidModalPageModule,
     DeletePumpsModalPageModule
+    CancelOrderModal2PageModule,
+    NgHttpLoaderModule.forRoot()
+    
   ],
   providers: [
     StatusBar,

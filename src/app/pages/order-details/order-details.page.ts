@@ -20,6 +20,7 @@ export class OrderDetailsPage implements OnInit {
   ratePerUnit: number;
   startTime: string;
   endTime: string;
+  energy: any;
   power: any;
   date: string;
 
@@ -47,6 +48,7 @@ export class OrderDetailsPage implements OnInit {
       this.totalAmount = params['totalAmount'];
       this.ratePerUnit = params['ratePerUnit'];
       this.power = params['power'];
+      this.energy = params['energy'];
       this.deviceTypeName = params['deviceTypeName'];
       this.startTime = params['startTime'];
       this.endTime = params['endTime'];
@@ -69,8 +71,11 @@ export class OrderDetailsPage implements OnInit {
   }
 
   createContract() {
+    console.log('coronavirus');
     this.contractPayload.sellOrderId = this.sellOrderId;
     this.contractPayload.buyerId = this.buyerId;
+    this.contractPayload.energy = 10;
+    console.log('create contract payload : ', this.contractPayload);
     this.orderService.createContract(this.contractPayload).subscribe((res) => {
       this.resFromServer = res;
       console.log('create contract response : ', this.resFromServer);
