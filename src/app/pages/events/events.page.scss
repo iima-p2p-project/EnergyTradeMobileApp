@@ -1,0 +1,63 @@
+ion-content {
+    --background: var(--ion-color-primary);
+    font-family: MMedium;
+}
+
+.header {
+    font-family: MMedium;
+    font-size: 14px;
+
+    .title {
+        font-family: MMedium;
+        font-size: 16px;
+    }
+
+    .icon {
+        font-size: 1.5em;
+    }
+}
+
+.total-earning {
+    background: #003c8e;
+    color: white;
+
+    .earning {
+        font-size: 2.5em;
+    }
+
+    .description {
+        font-size: 10px;
+        margin-top: -5px;
+    }
+}
+
+.title {
+    font-family: MMedium;
+    font-size: 16px;
+    color: white;
+}
+
+.event-list-item {
+    background-color: white;
+    padding: 0 15px;
+    border-radius: 5px;
+
+    .event-date {
+        font-size: 16px;
+        font-family: MMedium;
+    }
+
+    .event-detail {
+        font-size: 10px;
+        font-family: MMedium;
+        line-height: 0;
+    }
+
+    .view-event {
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        color: var(--ion-color-primary);
+        font-size: 12px;
+        font-family: MSemiBold;
+    }
+}

@@ -38,6 +38,10 @@ import {
 import {  
   File
 } from '@ionic-native/file/ngx';  
+import { EditEventModalPageModule } from './modals/edit-event-modal/edit-event-modal.module';
+import { WithdrawEventModalPageModule } from './modals/withdraw-event-modal/withdraw-event-modal.module';
+import { EditBidModalPageModule } from './modals/edit-bid-modal/edit-bid-modal.module';
+import { DeletePumpsModalPageModule } from './modals/delete-pumps-modal/delete-pumps-modal.module';
 
 
 @NgModule({
@@ -60,8 +64,11 @@ import {
     Error404ModalPageModule,
     NonTradeHoursAlertPageModule,
     CancelOrderModal1PageModule,
-    CancelOrderModal2PageModule
-    
+    CancelOrderModal2PageModule,
+    EditEventModalPageModule,
+    WithdrawEventModalPageModule,
+    EditBidModalPageModule,
+    DeletePumpsModalPageModule
   ],
   providers: [
     StatusBar,

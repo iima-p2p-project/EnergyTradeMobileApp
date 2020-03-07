@@ -1,0 +1,38 @@
+<ion-content>
+  <ion-grid class="p-0">
+    <ion-row>
+      <ion-col class="p-0 d-flex justify-content-end">
+        <ion-icon class="btn-close" name="close" (click)="close()"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="px-4 header">
+        Edit Event <br> 09:00 AM - 09:15 AM
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="px-4 description">
+        You can select/deselect available appliences that are available in the above time slot. Appliences that are
+        selected below used in events.
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="p-3">
+        <ion-chip class="border event-chip active">
+          <ion-label>Solar</ion-label>
+        </ion-chip>
+        <ion-chip class="border event-chip">
+          <ion-label>Machinery</ion-label>
+        </ion-chip>
+       </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="p-0 pt-2 text-center">
+        <ion-button class="btn-modal" shape="round">UPDATE</ion-button>
+      </ion-col>
+      <ion-col size="12" class="p-0 pb-2 text-center">
+        <ion-button class="btn-modal" fill="clear">CLOSE</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
