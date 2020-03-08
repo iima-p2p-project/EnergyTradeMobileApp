@@ -76,10 +76,11 @@ const routes: Routes = [
   { path: 'events', loadChildren: './pages/events/events.module#EventsPageModule' },
   { path: 'event-details', loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule' },
   { path: 'event-detail-edit', loadChildren: './pages/event-detail-edit/event-detail-edit.module#EventDetailEditPageModule' },
-  { path: 'add-assets', loadChildren: './pages/add-assets/add-assets.module#AddAssetsPageModule' },  { path: 'delete-pumps-modal', loadChildren: './modals/delete-pumps-modal/delete-pumps-modal.module#DeletePumpsModalPageModule' },
+  { path: 'add-assets', loadChildren: './pages/add-assets/add-assets.module#AddAssetsPageModule' },
   { path: 'edit-event-modal', loadChildren: './modals/edit-event-modal/edit-event-modal.module#EditEventModalPageModule' },
   { path: 'withdraw-event-modal', loadChildren: './modals/withdraw-event-modal/withdraw-event-modal.module#WithdrawEventModalPageModule' },
   { path: 'edit-bid-modal', loadChildren: './modals/edit-bid-modal/edit-bid-modal.module#EditBidModalPageModule' },
+  { path: 'delete-modal', loadChildren: './modals/delete-modal/delete-modal.module#DeleteModalPageModule' },
 
 
 ];

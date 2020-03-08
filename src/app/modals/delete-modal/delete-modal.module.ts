@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DeletePumpsModalPage } from './delete-pumps-modal.page';
+import { DeleteModalPage } from './delete-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DeletePumpsModalPage
+    component: DeleteModalPage
   }
 ];
 
@@ -21,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DeletePumpsModalPage]
+  declarations: [DeleteModalPage]
 })
-export class DeletePumpsModalPageModule {}
+export class DeleteModalPageModule {}

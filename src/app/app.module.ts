@@ -42,7 +42,7 @@ import {
 import { EditEventModalPageModule } from './modals/edit-event-modal/edit-event-modal.module';
 import { WithdrawEventModalPageModule } from './modals/withdraw-event-modal/withdraw-event-modal.module';
 import { EditBidModalPageModule } from './modals/edit-bid-modal/edit-bid-modal.module';
-import { DeletePumpsModalPageModule } from './modals/delete-pumps-modal/delete-pumps-modal.module';
+import { DeleteModalPageModule } from './modals/delete-modal/delete-modal.module';
 
 
 @NgModule({
@@ -69,7 +69,7 @@ import { DeletePumpsModalPageModule } from './modals/delete-pumps-modal/delete-p
     EditEventModalPageModule,
     WithdrawEventModalPageModule,
     EditBidModalPageModule,
-    DeletePumpsModalPageModule,
+    DeleteModalPageModule,
     NgHttpLoaderModule.forRoot()
   ],
   providers: [

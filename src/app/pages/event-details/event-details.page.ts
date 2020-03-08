@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { EditEventModalPage } from 'src/app/modals/edit-event-modal/edit-event-modal.page';
 import { WithdrawEventModalPage } from 'src/app/modals/withdraw-event-modal/withdraw-event-modal.page';
 import { EditBidModalPage } from 'src/app/modals/edit-bid-modal/edit-bid-modal.page';
-import { DeletePumpsModalPage } from 'src/app/modals/delete-pumps-modal/delete-pumps-modal.page';
+import { DeleteModalPage } from 'src/app/modals/delete-modal/delete-modal.page';
 
 @Component({
   selector: 'app-event-details',
@@ -52,9 +52,10 @@ export class EventDetailsPage implements OnInit {
 
   async deletePumps() {
     let defg = await this.modal.create({
-      component: DeletePumpsModalPage,
-      cssClass: 'delete-pumps-modal-css',
+      component: DeleteModalPage,
+      cssClass: 'delete-modal-css',
       componentProps: {
+        assetName: '123'
       }
     });
     return await defg.present();

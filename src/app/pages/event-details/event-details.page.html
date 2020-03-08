@@ -14,7 +14,7 @@
   </ion-toolbar>
   <div size="12" class="description pb-3 text-center">
     <b>26th Oct, 2019</b>
-    <div class="px-3 d-flex justify-content-between event-detail">
+    <div class="px-3 pt-2 d-flex justify-content-between event-detail">
       <div class="d-flex align-items-center">
         <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;9:00 AM - 9:15 AM
       </div>
@@ -70,7 +70,7 @@
             <div class="w-50 pl-3 text-left"> ₹ 225.00 (±3%)</div>
           </div>
           <div class="d-flex align-items-center border-top btn-event">
-            <div class="w-50 p-2 text-center border-right" (click)="editBid()">EDIT</div>
+            <div class="w-50 p-2 text-center border-right" (click)="editEvent()">EDIT</div>
             <div class="w-50 p-2 text-center" (click)="deletePumps()">WITHDRAW</div>
           </div>
         </div>
@@ -108,10 +108,12 @@
             <div class="w-50 pr-3 text-right border-right">150kW (±3%)</div>
             <div class="w-50 pl-3 text-left"> ₹ 225.00 (±3%)</div>
           </div>
-          <div class="d-flex align-items-center border-top btn-event">
-            <div class="w-50 p-2 text-center border-right" (click)="editEvent()">EDIT</div>
-            <div class="w-50 p-2 text-center" (click)="withdrawEvent()">WITHDRAW</div>
+          <div class="d-flex align-items-center justify-content-around border-top">
+            <div class="py-2 text-center bid-description">Proposed counter bid - <b>625 paise/kwh</b> </div>
+            <div class="py-2 text-center btn-event" (click)="editBid()">EDIT</div>
+            <div class="py-2 text-center btn-event" (click)="withdrawEvent()">WITHDRAW</div>
           </div>
+
         </div>
       </ion-col>
     </ion-row>

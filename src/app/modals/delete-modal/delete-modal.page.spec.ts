@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeletePumpsModalPage } from './delete-pumps-modal.page';
+import { DeleteModalPage } from './delete-modal.page';
 
-describe('DeletePumpsModalPage', () => {
-  let component: DeletePumpsModalPage;
-  let fixture: ComponentFixture<DeletePumpsModalPage>;
+describe('DeleteModalPage', () => {
+  let component: DeleteModalPage;
+  let fixture: ComponentFixture<DeleteModalPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeletePumpsModalPage ],
+      declarations: [ DeleteModalPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeletePumpsModalPage);
+    fixture = TestBed.createComponent(DeleteModalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
