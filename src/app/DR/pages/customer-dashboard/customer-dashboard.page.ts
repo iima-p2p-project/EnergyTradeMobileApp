@@ -18,5 +18,8 @@ export class CustomerDashboardPage implements OnInit {
   showEventSetDetails(eventId){
     this.router.navigateByUrl('/event-set-details');
   }
+  showNotifications(){
+    this.router.navigateByUrl('/notifications');    
+  }
 
 }
