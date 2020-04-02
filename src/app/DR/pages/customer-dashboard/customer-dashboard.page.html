@@ -1,4 +1,4 @@
-<ion-header no-border>
+<!-- <ion-header no-border>
   <ion-toolbar color="primary">
     <ion-row class="ion-align-items-center">
       <ion-col class="menu-button ion-no-padding" size="2">
@@ -14,14 +14,29 @@
       </ion-col>
     </ion-row>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
+
+
+
 <ion-content>
+  <ion-row>
+    <ion-col class="menu-button" size="2">
+      <ion-menu-button></ion-menu-button>
+    </ion-col>
+    <ion-col class="title-top" size="8">
+      DASHBOARD
+    </ion-col>
+    <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;">
+      <ion-icon src="assets/svg/notifications.svg"></ion-icon>
+    </ion-col>
+  </ion-row>
+
   <ion-grid>
     <ion-row>
       <ion-col size="9" class="p-0 pl-1 d-flex align-items-center title">
         Published DR Event Sets (04)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
       </ion-col>
-      <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all ">
+      <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all " (click)="viewAllEventSets()">
         View All &nbsp;&nbsp;<ion-icon name="arrow-forward"></ion-icon>
       </ion-col>
     </ion-row>
@@ -52,7 +67,7 @@
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" class="text-center view-event">
+      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
         View Events
       </ion-col>
     </ion-row>
@@ -72,7 +87,7 @@
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" class="text-center view-event">
+      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
         View Events
       </ion-col>
     </ion-row>
@@ -101,7 +116,7 @@
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" class="text-center view-event">
+      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
         View Events
       </ion-col>
     </ion-row>

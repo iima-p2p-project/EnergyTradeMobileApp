@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
@@ -50,7 +50,8 @@ export class AppComponent {
     private router: Router,
     private ingressService: IngressService,
     private oneSignal: OneSignal,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private menu: MenuController
   ) {
     this.initializeApp();
   }
@@ -164,6 +165,18 @@ export class AppComponent {
           flow: 'USER'
         }
       });
+    }
+  }
+
+  changePersona(persona) {
+    if (persona == 'dr') {
+      this.userType = 2;
+      this.router.navigateByUrl('/customer-dashboard');
+      this.menu.close();
+    } else {
+      this.userType = 1;
+      this.router.navigateByUrl('/dashboard');
+      this.menu.close();
     }
   }
 }

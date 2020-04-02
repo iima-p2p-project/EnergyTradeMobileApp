@@ -80,7 +80,9 @@ const routes: Routes = [
   { path: 'edit-event-modal', loadChildren: './modals/edit-event-modal/edit-event-modal.module#EditEventModalPageModule' },
   { path: 'withdraw-event-modal', loadChildren: './modals/withdraw-event-modal/withdraw-event-modal.module#WithdrawEventModalPageModule' },
   { path: 'edit-bid-modal', loadChildren: './modals/edit-bid-modal/edit-bid-modal.module#EditBidModalPageModule' },
-  { path: 'delete-modal', loadChildren: './modals/delete-modal/delete-modal.module#DeleteModalPageModule' },
+  { path: 'delete-modal', loadChildren: './modals/delete-modal/delete-modal.module#DeleteModalPageModule' },  { path: 'all-dr-event-sets', loadChildren: './DR/pages/all-dr-event-sets/all-dr-event-sets.module#AllDrEventSetsPageModule' },
+  { path: 'event-set-details', loadChildren: './DR/pages/event-set-details/event-set-details.module#EventSetDetailsPageModule' },
+
 
 
 ];
