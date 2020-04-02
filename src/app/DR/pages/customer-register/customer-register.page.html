@@ -1,9 +1,92 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>customer-register</ion-title>
+<ion-header no-border *ngIf="userType">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      CREATE ACCOUNT
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="logo-div" *ngIf="!userType">
+    <img src="assets/svg/Splash Screen_Icon.svg" alt="">
+  </div>
+  <div class='option-div' *ngIf="!userType">
+    <ion-grid style="padding: 50px;">
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">Choose one to Start your registration</ion-col>
+      </ion-row>
+      <ion-row style="padding: 30px;">
+        <ion-col size="12" class="btn-card" (click)="userType=1">
+          <img src="assets/svg/P2PB.svg" class="btn-image" alt="">
+          Peer - Peer
+        </ion-col>
+      </ion-row>
+      <ion-row style="padding:0 30px;">
+        <ion-col size="12" class="btn-card" (click)="userType=1">
+          <img src="assets/svg/DRB.png" class="btn-image" alt="">
+          Demand Response
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class='content-div' *ngIf="userType">
+    <div class="shadow-div"></div>
+    <div class="div-form">
+      <div class="form-detail">
+        <p class="heading">CONTRACT ACCOUNT</p>
+        <ion-input class="form-control-input" type="number" (ionChange)="enableOTPField()"> </ion-input>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Company Name</p>
+        <p class="detail"> M S Instt Of Human</p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Type Activity</p>
+        <p class="detail"> Mental Hospital </p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Division</p>
+        <p class="detail">Engtr </p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Mete Number</p>
+        <p class="detail">6454:5455 </p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">SL (KW)</p>
+        <p class="detail"> 24,550</p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Billed Mus Fy 17-18</p>
+        <p class="detail"> 284.36</p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Company Address</p>
+        <p class="detail"> 41,hahjashjahj, aasdaaahd dfsdfsdfsd sdfsdfsdfsdf sdfsdfsdfsdf</p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Customer Name</p>
+        <p class="detail"> Johm Doe</p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Contact Number</p>
+        <p class="detail"> 8888888888</p>
+      </div>
+      <div class="form-detail">
+        <p class="heading">Email Address</p>
+        <p class="detail"> kamlesh.singh@gmail.com</p>
+      </div>
+    </div>
+    <div class="div-next-btn" style="text-align:center;">
+      <ion-button class="ion-text-center" shape="round" style="font-family:MSemiBold;width: 150px;height: 40px;">
+        NEXT
+      </ion-button>
+    </div>
+
+    <div class="div-sign-in" style="text-align:center;">
+      <div class="sign-in-text">Already have an account ? <b> SIGN IN </b></div>
+    </div>
+  </div>
+
 
 </ion-content>
