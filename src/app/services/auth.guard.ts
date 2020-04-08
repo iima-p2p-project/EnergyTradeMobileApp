@@ -7,7 +7,7 @@ import { IngressService } from './ingress.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate{
+export class AuthGuard implements CanActivate {
   constructor(private router: Router
     , private storage: Storage
     , private ingressService: IngressService) { }
@@ -18,11 +18,7 @@ export class AuthGuard implements CanActivate{
       console.log(this.ingressService.getUserIdToken());
       return true;
     }
-    this.router.navigate(['/create-account'], {
-      queryParams: {
-        redirect: state.url
-      }
-    });
+    this.router.navigate(['/choose-user-type']);
     return false;
   }
 }

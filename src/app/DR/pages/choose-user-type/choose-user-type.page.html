@@ -1,0 +1,32 @@
+<ion-header no-border *ngIf="userType">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      CREATE ACCOUNT
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="logo-div" *ngIf="!userType">
+    <img src="assets/svg/Splash Screen_Icon.svg" alt="">
+  </div>
+  <div class='option-div' *ngIf="!userType">
+    <ion-grid style="padding: 50px;">
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">Choose one to Start your registration</ion-col>
+      </ion-row>
+      <ion-row style="padding: 30px;">
+        <ion-col size="12" class="btn-card" (click)="selectUserType('p2p')">
+          <img src="assets/svg/P2PB.svg" class="btn-image" alt="">
+          Peer - Peer
+        </ion-col>
+      </ion-row>
+      <ion-row style="padding:0 30px;">
+        <ion-col size="12" class="btn-card" (click)="selectUserType('dr')">
+          <img src="assets/svg/DRB.png" class="btn-image" alt="">
+          Demand Response
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

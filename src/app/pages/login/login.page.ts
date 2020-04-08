@@ -167,7 +167,7 @@ export class LoginPage implements OnInit {
   }
 
   redirectToRegister() {
-    this.router.navigate(['/create-account'], {
+    this.router.navigate(['/choose-user-type'], {
       queryParams: {}
     });
   }
