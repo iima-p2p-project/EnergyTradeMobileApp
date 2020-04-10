@@ -1,5 +1,4 @@
 ion-content {
-    // --background: var(--ion-color-primary);
     --ion-font-family: MMedium;
 }
 
@@ -17,7 +16,7 @@ ion-content {
     }
 
     .description {
-        font-size: 12px;
+        font-size: 10px;
         background-color: var(--ion-color-primary);
         color: white;
     }
@@ -31,6 +30,22 @@ ion-content {
         font-size: 16px;
     }
 
+    .status {
+        font-size: 10px;
+        padding: 3px 10px;
+        border-radius: 1em;
+        color: white;
+        height: 20px;
+
+        &.sceduled {
+            background-color: var(--ion-color-primary);
+        }
+
+        &.counter-bid {
+            background-color: #8e5c31;
+        }
+    }
+
     .event-detail {
         font-size: 10px;
         line-height: 0;
@@ -39,6 +54,7 @@ ion-content {
     .event-chip {
         background-color: white;
         color: var(--ion-color-primary);
+        opacity: 0.5;
 
         &.active {
             background-color: var(--ion-color-primary);
@@ -55,13 +71,7 @@ ion-content {
         font-size: 12px;
     }
 
-    .submit {
+    .bid-description {
         font-size: 10px;
-        background-color: #e5f5d4;
-    }
-
-    .in-progress {
-        font-size: 10px;
-        background-color: #fffac3;
     }
 }

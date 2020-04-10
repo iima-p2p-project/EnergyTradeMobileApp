@@ -69,8 +69,29 @@ export class CustomerDashboardPage implements OnInit {
   viewAllEventSets() {
     this.router.navigateByUrl('/all-dr-event-sets');
   }
-  showEventSetDetails(eventId) {
-    this.router.navigateByUrl('/event-set-details');
+  showEventSetDetails(eventSet, type) {
+    if (type == "scheduled") {
+      this.router.navigate(['/scheduled-event-set-details'], {
+        queryParams: {
+          eventSetId: eventSet.eventSetId,
+          caller: "/customer-dashboard",
+          evenSetName: eventSet.eventSetName,
+          maxMinPower: this.findMaxAndMinPower(eventSet),
+          maxMinPrice: this.findMaxAndMinPrice(eventSet)
+        }
+      });
+
+    } else if (type == "published") {
+      this.router.navigate(['/event-set-details'], {
+        queryParams: {
+          eventSetId: eventSet.eventSetId,
+          caller: "/customer-dashboard",
+          evenSetName: eventSet.eventSetName,
+          maxMinPower: this.findMaxAndMinPower(eventSet),
+          maxMinPrice: this.findMaxAndMinPrice(eventSet)
+        }
+      });
+    }
   }
   showNotifications() {
     this.router.navigateByUrl('/notifications');

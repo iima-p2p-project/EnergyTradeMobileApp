@@ -12,6 +12,9 @@ export class DRCustomerService {
 
   getEventSetsForCustomerUrl = DR_URL + '/getEventSetsForCustomer';
   getEventsForCustomerAndEventSetUrl = DR_URL + '/getEventsForCustomerAndEventSet';
+  participateInEventUrl = DR_URL + '/participateInEvent';
+  withdrawFromEventUrl = DR_URL + '/withdrawFromEvent';
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -54,11 +57,39 @@ export class DRCustomerService {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     };
-    return this.httpClient.post(this.updateDrCustomerDetailsUrl
-      , { "eventSetId": eventSetId, "customerId": customerId }
+    return this.httpClient.post(this.getEventsForCustomerAndEventSetUrl
+      , { "eventSetId": +eventSetId, "customerId": +customerId }
       , options
     );
   }
 
+  participateInEvent(eventId, userId, committedPower, devices) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.participateInEventUrl
+      , {
+        "userId": +userId,
+        "eventId": +eventId,
+        "committedPower": committedPower,
+        "devices": devices
+      }
+      , options
+    );
+  }
 
+  withdrawFromEvent(eventId, userId) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.withdrawFromEventUrl
+      , {
+        "userId": +userId,
+        "eventId": +eventId
+      }
+      , options
+    );
+  }
 }
