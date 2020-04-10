@@ -26,7 +26,8 @@
     <ion-col class="title-top" size="8">
       DASHBOARD
     </ion-col>
-    <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;" (click)="showNotifications()">
+    <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;"
+      (click)="showNotifications()">
       <ion-icon src="assets/svg/notifications.svg"></ion-icon>
     </ion-col>
   </ion-row>
@@ -34,14 +35,16 @@
   <ion-grid>
     <ion-row>
       <ion-col size="9" class="p-0 pl-1 d-flex align-items-center title">
-        Published DR Event Sets (04)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
+        Published DR Event Sets ({{eventSetsWithPublishedEvents?.length}})&nbsp;<ion-icon
+          name="information-circle-outline"></ion-icon>
       </ion-col>
-      <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all " (click)="viewAllEventSets()">
+      <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all "
+        (click)="viewAllEventSets()">
         View All &nbsp;&nbsp;<ion-icon name="arrow-forward"></ion-icon>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="eventSetsWithPublishedEvents?.length==0">
       <ion-col size="12">
         <div class="empty-event-list rounded">
           <div class="text-center p-3">
@@ -53,17 +56,17 @@
     </ion-row>
 
     <ion-row class="event-list-item mt-1">
-      <ion-col size="12" class="p-0 py-2">
-        <div class="event-date">27 Oct, 2019</div>
+      <ion-col size="12" class="p-0 py-2" *ngFor="let eventset of eventSetsWithPublishedEvents">
+        <div class="event-date">{{formatTime(eventset?.createdTs)}}</div>
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;5 Dr Events
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
           </div>
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;900KW-1100KW
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;{{findMaxAndMinPower(eventset)}}
           </div>
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;600-1124 Paise/KWH
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;{{findMaxAndMinPrice(eventset)}}
           </div>
         </div>
       </ion-col>
@@ -72,7 +75,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row class="event-list-item mt-1">
+    <!-- <ion-row class="event-list-item mt-1">
       <ion-col size="12" class="p-0 py-2">
         <div class="event-date">27 Oct, 2019</div>
         <div class="d-flex justify-content-between event-detail">
@@ -90,7 +93,7 @@
       <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
         View Events
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
 
   </ion-grid>
@@ -98,21 +101,22 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="p-0 pl-1 d-flex align-items-center title">
-        Scheduled DR Event Sets (01)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
+        Scheduled DR Event Sets ({{eventSetsWithScheduledEvents?.length}})&nbsp;<ion-icon
+          name="information-circle-outline"></ion-icon>
       </ion-col>
     </ion-row>
-    <ion-row class="event-list-item mt-1">
+    <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
       <ion-col size="12" class="p-0 py-2">
-        <div class="event-date">27 Oct, 2019</div>
+        <div class="event-date">{{formatTime(eventset?.createdTs)}}</div>
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;5 Dr Events
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
           </div>
           <div class="d-flex align-items-center">
-            Scheduled: 01
+            Scheduled: {{countScheduled(eventset)}}
           </div>
           <div class="d-flex align-items-center">
-            Counter Bid: 01
+            Counter Bid: {{countCounterBids(eventset)}}
           </div>
         </div>
       </ion-col>

@@ -91,6 +91,7 @@ export class CreateDrUserAccountPage implements OnInit {
         this.storage.set('LoggedInUserRole', this.userRole);
         this.storage.set('LoggedInUserName', this.fullName);
         this.storage.set('LoggedInUserId', this.userId).then(() => {
+          this.ingressService.loggedInUserId = this.userId;
           this.drCustomerService.updateDrCustomerDetails(this.fullName, this.phoneNumber, this.drContractNumber).subscribe((res: any) => {
             if (res.response.key == "200") {
               this.router.navigateByUrl("/customer-dashboard");

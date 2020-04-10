@@ -135,8 +135,9 @@ export class AppComponent {
   }
 
   getUserDetails() {
-    this.ingressService.getUserNameToken().then((res) => {
+    this.ingressService.getUserNameToken().then((res:any) => {
       console.log('app component user name : ', res);
+      this.ingressService.setLoggedInUser(res);
       this.userName = res;
       this.ingressService.loggedInUserName = this.userName;
       this.ingressService.getUserRoleToken().then((res) => {
