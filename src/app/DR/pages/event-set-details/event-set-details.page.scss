@@ -43,6 +43,12 @@ ion-content {
         &.active {
             background-color: var(--ion-color-primary);
             color: white;
+            opacity: 1;
+        }
+        &.inactive {
+            background-color: var(--ion-color-primary);
+            color: white;
+            opacity: 0.5;
         }
     }
 

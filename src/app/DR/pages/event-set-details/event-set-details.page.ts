@@ -32,6 +32,7 @@ export class EventSetDetailsPage implements OnInit {
   eventSetName;
   publishedEvents;
 
+
   selectedDevices = {};
   selectedDeviceIds;
   deviceChipCss = "border event-chip active";
@@ -60,43 +61,54 @@ export class EventSetDetailsPage implements OnInit {
   }
 
   preSelectDevices(events, devices) {
-    let i = 0;
+    let i, j = 0;
     for (i = 0; i < events.length; i++) {
+      let commitedPower = 0
       let eventId = events[i].eventId;
-      this.selectedDevices[eventId] = devices;
+
+      this.selectedDevices[eventId] = { "devices": devices };
+
+      for (j = 0; j < devices.length; j++) {
+        commitedPower += devices[j].deviceCapacity;
+      }
+      this.selectedDevices[eventId].commitedPower = commitedPower;
     }
+
     //console.log("Selected Devices", this.selectedDevices);
   }
   toggleDeviceSelection(eventId, device) {
-    let presentDeviceArray = this.selectedDevices[eventId].slice();
+    let presentDeviceArray = this.selectedDevices[eventId].devices.slice();
     let i = 0;
     let flag = false;
     for (i = 0; i < presentDeviceArray.length; i++) {
       if (presentDeviceArray[i].drDeviceId == device.drDeviceId) {
-        presentDeviceArray.splice(i,1);
+        this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower - device.deviceCapacity;
+
+        presentDeviceArray.splice(i, 1);
         flag = true;
         break;
       }
     }
     if (!flag) {
+      this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
+
       presentDeviceArray.push(device);
     }
-    this.selectedDevices[eventId] = presentDeviceArray;
+    this.selectedDevices[eventId].devices = presentDeviceArray;
     console.log("Updated device selecttion", this.selectedDevices);
   }
 
-  // chipCssCheck(device) {
-  //   let i = 0;
-  //   for (let i = 0; i < this.allCustomerDevices.length; i++) {
-  //     if (this.selectedDevices[i].drDeviceId == device.drDeviceId) {
-  //       return true;
-  //     }
-  //   }
-  //   if (i == this.allCustomerDevices.length) {
-  //     return false;
-  //   }
+  chipCssCheck(eventId, device) {
 
-  // }
+    let deviceArray = this.selectedDevices[eventId].devices;
+    let i = 0;
+    for (let i = 0; i < deviceArray.length; i++) {
+      if (deviceArray[i].drDeviceId == device.drDeviceId) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 
 

@@ -42,7 +42,8 @@
           </div>
           <div class="px-2">
             <div class="border-bottom py-2">
-              <ion-chip class="border event-chip active" *ngFor="let device of allCustomerDevices"
+              <ion-chip *ngFor="let device of allCustomerDevices"
+                [ngClass]="chipCssCheck(event?.eventId, device) ? 'border event-chip active':'border event-chip inactive'"
                 (click)="toggleDeviceSelection(event?.eventId,device)">
                 <ion-label>{{device.drDeviceName}}</ion-label>
               </ion-chip>
@@ -52,8 +53,10 @@
             </div>
           </div>
           <div class="p-1 d-flex align-items-center event-rate">
-            <div class="w-50 pr-3 text-right border-right">{{event.eventCustomerDetails.committedPower}} (±3%)</div>
-            <div class="w-50 pl-3 text-left"> ₹ {{event.eventCustomerDetails.bidPrice}}.00 (±3%)</div>
+            <div class="w-50 pr-3 text-right border-right">{{selectedDevices[event.eventId].commitedPower}} KW (±3%)
+            </div>
+            <div class="w-50 pl-3 text-left"> ₹ {{(event.expectedPrice *
+              selectedDevices[event.eventId].commitedPower)/100}} (±3%)</div>
           </div>
           <div class="d-flex align-items-center border-top btn-event">
             <div class="w-50 p-2 text-center border-right">Counter Bid</div>
