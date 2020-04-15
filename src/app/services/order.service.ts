@@ -196,7 +196,7 @@ export class OrderService {
         .set('Content-Type', 'application/json')
     };
     return this.httpClient.get(this.getAllTradeByDateUrl 
-      + '/' + userId + '/' + '2019-10-01' + '/' + '2020-01-19'
+      + '/' + userId + '/' + fromDate + '/' + toDate
       , options
     );
   }

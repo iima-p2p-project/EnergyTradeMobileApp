@@ -71,7 +71,6 @@ export class OrderDetailsPage implements OnInit {
   }
 
   createContract() {
-    console.log('coronavirus');
     this.contractPayload.sellOrderId = this.sellOrderId;
     this.contractPayload.buyerId = this.buyerId;
     this.contractPayload.energy = 10;
