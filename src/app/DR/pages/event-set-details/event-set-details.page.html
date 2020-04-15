@@ -58,9 +58,28 @@
             <div class="w-50 pl-3 text-left"> ₹ {{(event.expectedPrice *
               selectedDevices[event.eventId].commitedPower)/100}} (±3%)</div>
           </div>
-          <div class="d-flex align-items-center border-top btn-event">
-            <div class="w-50 p-2 text-center border-right">Counter Bid</div>
-            <div class="w-50 p-2 text-center">Participate</div>
+          <div class="d-flex align-items-center justify-content-around border-top submit"
+            *ngIf="selectedDevices[event.eventId].status == 'participated'">
+            <div class="py-2 text-center">You have agreed to participate</div>
+            <!-- <div class="py-2 text-center btn-event"
+              (click)="editEvent(event.eventId,'participate',event.eventStartTime,event.eventEndTime)">EDIT</div>
+            <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-around border-top in-progress"
+            *ngIf="selectedDevices[event.eventId].status == 'counterbid'">
+            <div class="py-2 text-center">Proposed counter bid - <b>{{selectedDevices[event.eventId].counterBidAmount}}
+                paise/kwh</b> </div>
+            <!-- <div class="py-2 text-center btn-event" (click)="editEvent(event.eventId,'counterbid')">EDIT</div>
+            <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div> -->
+          </div>
+          <div class="d-flex align-items-center border-top btn-event"
+            *ngIf="selectedDevices[event.eventId].status == 'published'">
+            <div class="w-50 p-2 text-center border-right"
+              (click)="counterBid(event.eventId,event.eventStartTime,event.eventEndTime,event.expectedPrice)">Counter
+              Bid</div>
+            <div class="w-50 p-2 text-center"
+              (click)="participateInEvent(event.eventId,selectedDevices[event.eventId].commitedPower,selectedDevices[event.eventId].devices)">
+              Participate</div>
           </div>
         </div>
       </ion-col>

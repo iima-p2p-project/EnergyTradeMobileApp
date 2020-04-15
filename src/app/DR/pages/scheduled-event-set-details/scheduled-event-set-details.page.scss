@@ -60,6 +60,11 @@ ion-content {
             background-color: var(--ion-color-primary);
             color: white;
         }
+        &.inactive {
+            background-color: var(--ion-color-primary);
+            color: white;
+            opacity: 0.5;
+        }
     }
 
     .event-rate {

@@ -42,7 +42,8 @@
         <div class="event-list-item rounded">
           <div class="px-3 py-2 d-flex justify-content-between">
             <div class="">{{event.eventName}}</div>
-            <div class="status sceduled">{{event.eventStatus}}</div>
+            <div class="status sceduled">{{getEventCustomerStatus(event.eventCustomerDetails.eventCustomerStatus)}}
+            </div>
           </div>
           <div class="px-3 d-flex justify-content-between event-detail">
             <div class="d-flex align-items-center">
@@ -58,20 +59,22 @@
           </div>
           <div class="px-2">
             <div class="border-bottom py-2">
-              <ion-chip class="border event-chip active">
-                <ion-label>Solar</ion-label>
-              </ion-chip>
-              <ion-chip class="border event-chip active">
-                <ion-label>Machinery</ion-label>
+              <ion-chip *ngFor="let device of event.eventCustomerDetails.mappedDevices"
+                class='border event-chip inactive'>
+                <ion-label>{{device.drDeviceName}}</ion-label>
               </ion-chip>
             </div>
           </div>
-          <div class="p-1 d-flex align-items-center event-rate">
-            <div class="w-50 pr-3 text-right border-right">{{event.eventCustomerDetails.committedPower}}KW (±3%)</div>
-            <div class="w-50 pl-3 text-left"> ₹ {{event.eventCustomerDetails.bidPrice}} (±3%)</div>
+          <div class=" p-1 d-flex align-items-center event-rate">
+            <div class="w-50 pr-3 text-right border-right">{{event.eventCustomerDetails.committedPower}}KW (±3%)
+            </div>
+            <div class="w-50 pl-3 text-left"> ₹ {{event.eventCustomerDetails.committedPower * event.expectedPrice/100}}
+              (±3%)</div>
           </div>
           <div class="d-flex align-items-center border-top btn-event">
-            <div class="w-50 p-2 text-center border-right" (click)="editEvent()">EDIT</div>
+            <div class="w-50 p-2 text-center border-right"
+              (click)="editEvent(event.eventId, 'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)">
+              EDIT</div>
             <div class="w-50 p-2 text-center" (click)="deletePumps()">WITHDRAW</div>
           </div>
         </div>

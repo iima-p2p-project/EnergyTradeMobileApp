@@ -50,16 +50,21 @@ export class EventSetDetailsPage implements OnInit {
       //this.userId= this.ingressService.loggedInUserId;
       this.userId = 48;
       //get event set events
-      this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
-        this.allEvents = res.response.events;
-        this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2)
-        this.allCustomerDevices = res.response.allCustomerDevices;
-        this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
-        this.maxMinTime = this.findMaxMinTime();
-      });
+      this.getEvents();
+
     });
   }
 
+
+  getEvents() {
+    this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
+      this.allEvents = res.response.events;
+      this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2)
+      this.allCustomerDevices = res.response.allCustomerDevices;
+      this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
+      this.maxMinTime = this.findMaxMinTime();
+    });
+  }
   preSelectDevices(events, devices) {
     let i, j = 0;
     for (i = 0; i < events.length; i++) {
@@ -67,6 +72,8 @@ export class EventSetDetailsPage implements OnInit {
       let eventId = events[i].eventId;
 
       this.selectedDevices[eventId] = { "devices": devices };
+      this.selectedDevices[eventId].status = "published";
+      this.selectedDevices[eventId].counterBidAmount = 0;
 
       for (j = 0; j < devices.length; j++) {
         commitedPower += devices[j].deviceCapacity;
@@ -128,4 +135,120 @@ export class EventSetDetailsPage implements OnInit {
   formatTime(eventTime) {
     return moment.utc(eventTime).format("hh:mm a");
   }
+
+
+  participateInEvent(eventId, committedPower, selectedDevices) {
+    let deviceArray = [];
+    for (let i = 0; i < selectedDevices.length; i++) {
+      deviceArray.push(selectedDevices[i].drDeviceId);
+    }
+    this.drCustomerService.participateInEvent(eventId, this.userId, committedPower, deviceArray).subscribe((res: any) => {
+      if (res.response.message != "Success") {
+        console.log("Something went wrong in participating in event");
+      } else {
+        this.selectedDevices[eventId].status = "participated";
+        //this.getEvents();
+      }
+    });
+  }
+
+  // counterBidInEvent(eventId, committedPower, selectedDevices) {
+  //   let deviceArray = [];
+  //   for (let i = 0; i < selectedDevices.length; i++) {
+  //     deviceArray.push(selectedDevices[i].drDeviceId);
+  //   }
+  //   this.drCustomerService.participateInEvent(eventId, this.userId, committedPower, deviceArray).subscribe((res: any) => {
+  //     if (res.response.message != "Success") {
+  //       console.log("Something went wrong in participating in event");
+  //     } else {
+  //       this.selectedDevices[eventId].status = "counterbid";
+  //       //this.getEvents();
+  //     }
+  //   });
+  // }
+
+
+  async counterBid(eventId, startTime, endTime, expectedPrice) {
+    let editEventModal = await this.modal.create({
+      component: EditBidModalPage,
+      cssClass: 'edit-bid-modal-css',
+      componentProps: {
+        params: {
+          eventId: eventId,
+          userId: this.userId,
+          devices: this.selectedDevices[eventId].devices,
+          commitedPower: this.selectedDevices[eventId].commitedPower,
+          timeRange: moment(startTime).format("hh:mm A") + " - " + moment(endTime).format("hh:mm A"),
+          expectedPrice: expectedPrice,
+          type: 'counterbid'
+        }
+      }
+    });
+    editEventModal.onWillDismiss().then((data: any) => {
+      this.selectedDevices[eventId].status = "counterbid";
+      this.selectedDevices[eventId].counterBidAmount = data.data.bid;
+    });
+    return await editEventModal.present();
+  }
+
+
+  // async editEvent(eventId, type, startTime, endTime) {
+
+
+  //   let editEventModal = await this.modal.create({
+  //     component: EditEventModalPage,
+  //     cssClass: 'edit-event-modal-css',
+  //     componentProps: {
+  //       params: {
+  //         eventId: eventId,
+  //         userId: this.userId,
+  //         type: type,
+  //         counterBidAmount: this.selectedDevices[eventId].counterBidAmount,
+  //         committedPower: this.selectedDevices[eventId].commitedPower,
+  //         devies: this.selectedDevices[eventId].devices,
+  //         timeRange: moment(startTime).format("hh:mm A") + " - " + moment(endTime).format("hh:mm A"),
+
+  //       }
+  //     }
+  //   });
+
+  //   let counterBidModal = await this.modal.create({
+  //     component: EditBidModalPage,
+  //     cssClass: 'edit-bid-modal-css',
+  //     componentProps: {
+  //       params: {
+  //         eventId: eventId,
+  //         userId: this.userId,
+  //         devices: this.selectedDevices[eventId].devices,
+  //         commitedPower: this.selectedDevices[eventId].commitedPower,
+  //         counterBidAmount: this.selectedDevices[eventId].counterBidAmount,
+  //         timeRange: moment(startTime).format("hh:mm A") + " - " + moment(endTime).format("hh:mm A"),
+  //         type: 'editCounterBid'
+  //       }
+  //     }
+  //   });
+  //   counterBidModal.onWillDismiss().then(async (data: any) => {
+      
+    
+  //   });
+
+  //   if(type == "participate"){
+  //     return await editEventModal.present();
+  //   }else{
+  //     return await counterBidModal.present();
+  //   }
+    
+  // }
+
+  // async withdrawEvent(eventId) {
+  //   let withdrawEventModal = await this.modal.create({
+  //     component: WithdrawEventModalPage,
+  //     cssClass: 'withdraw-event-modal-css',
+  //     componentProps: {
+  //     }
+  //   });
+  //   return await withdrawEventModal.present();
+  // }
+
 }
+

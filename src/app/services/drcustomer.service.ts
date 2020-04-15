@@ -14,6 +14,9 @@ export class DRCustomerService {
   getEventsForCustomerAndEventSetUrl = DR_URL + '/getEventsForCustomerAndEventSet';
   participateInEventUrl = DR_URL + '/participateInEvent';
   withdrawFromEventUrl = DR_URL + '/withdrawFromEvent';
+  counterbidInEventUrl = DR_URL + '/counterbidInEvent';
+  updateEventCommitmentsUrl = DR_URL + '/updateEventCommitments';
+
 
 
   constructor(private httpClient: HttpClient) { }
@@ -72,7 +75,7 @@ export class DRCustomerService {
       , {
         "userId": +userId,
         "eventId": +eventId,
-        "committedPower": committedPower,
+        "committedPower": "" + committedPower,
         "devices": devices
       }
       , options
@@ -88,6 +91,40 @@ export class DRCustomerService {
       , {
         "userId": +userId,
         "eventId": +eventId
+      }
+      , options
+    );
+  }
+
+  counterBidToEvent(eventId, userId, committedPower, counterBidAmount, devices) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.counterbidInEventUrl
+      , {
+        "userId": userId,
+        "eventId": eventId,
+        "committedPower": "" + committedPower,
+        "counterBidAmount": "" + counterBidAmount,
+        "devices": devices
+      }
+      , options
+    );
+  }
+
+  updateEventCommitments(eventId, userId, updatedCommitedPower, updatedCounterBidAmount, devices) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.updateEventCommitmentsUrl
+      , {
+        "userId": userId,
+        "eventId": eventId,
+        "updatedCommitedPower": "" + updatedCommitedPower,
+        "updatedCounterBidAmount": "" + updatedCounterBidAmount,
+        "updatedDeviceList": devices
       }
       , options
     );

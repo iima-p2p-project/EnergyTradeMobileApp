@@ -47,17 +47,22 @@ export class ScheduledEventSetDetailsPage implements OnInit {
       //this.userId= this.ingressService.loggedInUserId;
       this.userId = 48;
       //get event set events
-      this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
-        this.allEvents = res.response.events;
-        this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 3
-          || event.eventCustomerDetails.eventCustomerStatus == 4
-          || event.eventCustomerDetails.eventCustomerStatus == 5);
-        console.log("scheduledEvents", this.scheduledEvents);
-        this.allCustomerDevices = res.response.allCustomerDevices;
-        console.log(this.allCustomerDevices);
-        console.log(this.allEvents);
-        this.maxMinTime = this.findMaxMinTime();
-      });
+      this.getEvents();
+
+    });
+  }
+
+  getEvents() {
+    this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
+      this.allEvents = res.response.events;
+      this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 3
+        || event.eventCustomerDetails.eventCustomerStatus == 4
+        || event.eventCustomerDetails.eventCustomerStatus == 5);
+      console.log("scheduledEvents", this.scheduledEvents);
+      this.allCustomerDevices = res.response.allCustomerDevices;
+      console.log(this.allCustomerDevices);
+      console.log(this.allEvents);
+      this.maxMinTime = this.findMaxMinTime();
     });
   }
 
@@ -76,12 +81,24 @@ export class ScheduledEventSetDetailsPage implements OnInit {
 
 
 
-  async editEvent() {
+  async editEvent(eventId, type, mappedDevices, startTime, endTime) {
     let editEventModal = await this.modal.create({
       component: EditEventModalPage,
       cssClass: 'edit-event-modal-css',
       componentProps: {
+        params: {
+          allDevices: this.allCustomerDevices,
+          selectedDevices: mappedDevices,
+          timeRange: moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A"),
+          eventId,
+          type,
+          userId: this.userId
+        }
       }
+    });
+
+    editEventModal.onWillDismiss().then((data: any) => {
+      this.getEvents();
     });
     return await editEventModal.present();
   }
@@ -124,6 +141,18 @@ export class ScheduledEventSetDetailsPage implements OnInit {
 
   formatTime(eventTime) {
     return moment.utc(eventTime).format("hh:mm a");
+  }
+
+  getEventCustomerStatus(status) {
+    switch (status) {
+      case 1: return "Draft";
+      case 2: return "Notified"
+      case 3: return "Scheduled"
+      case 4: return "CounterBid"
+      case 5: return "Accepted"
+      case 6: return "Rejected"
+      case 7: return "Withdrawn"
+    }
   }
 
 }
