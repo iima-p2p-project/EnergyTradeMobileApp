@@ -33,7 +33,10 @@ export class EditEventModalPage implements OnInit {
         if (res.response.message != "Success")
           console.log("Something went wrong in edit event");
         else
-          this.modal.dismiss();
+          this.modal.dismiss({
+            selectedDevices: this.selectedDevices,
+            committedPower: this.committedPower
+          });
 
       });
 

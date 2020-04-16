@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { DRCustomerService } from 'src/app/services/drcustomer.service';
 
 @Component({
   selector: 'app-withdraw-event-modal',
@@ -8,9 +9,26 @@ import { ModalController } from '@ionic/angular';
 })
 export class WithdrawEventModalPage implements OnInit {
 
-  constructor(public modal: ModalController) { }
+  constructor(public modal: ModalController
+    , private drCustomerService: DRCustomerService) { }
+
+  @Input() params;
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+
+  }
+  withdrawFromEvent() {
+
+    this.drCustomerService.withdrawFromEvent(this.params.eventId, this.params.userId).subscribe((res: any) => {
+      if (res.response.message != "Success")
+        console.log("Something went wrong in withdraw event");
+      else
+        this.modal.dismiss();
+    })
+
+
   }
 
   close() {

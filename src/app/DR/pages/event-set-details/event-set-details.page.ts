@@ -55,7 +55,6 @@ export class EventSetDetailsPage implements OnInit {
     });
   }
 
-
   getEvents() {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
@@ -64,6 +63,22 @@ export class EventSetDetailsPage implements OnInit {
       this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
       this.maxMinTime = this.findMaxMinTime();
     });
+
+
+  }
+
+  refreshEvents(refreshEvent) {
+    this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
+      this.allEvents = res.response.events;
+      this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2)
+      this.allCustomerDevices = res.response.allCustomerDevices;
+      this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
+      this.maxMinTime = this.findMaxMinTime();
+    });
+
+    setTimeout(() => {
+      refreshEvent.target.complete();
+    }, 1000);
   }
   preSelectDevices(events, devices) {
     let i, j = 0;
@@ -185,70 +200,63 @@ export class EventSetDetailsPage implements OnInit {
       }
     });
     editEventModal.onWillDismiss().then((data: any) => {
-      this.selectedDevices[eventId].status = "counterbid";
-      this.selectedDevices[eventId].counterBidAmount = data.data.bid;
+      if (data.data.type == 'bid') {
+        this.selectedDevices[eventId].status = "counterbid";
+        this.selectedDevices[eventId].counterBidAmount = data.data.bid;
+      }
     });
     return await editEventModal.present();
   }
 
 
-  // async editEvent(eventId, type, startTime, endTime) {
+  async editEvent(eventId, type, startTime, endTime) {
 
 
-  //   let editEventModal = await this.modal.create({
-  //     component: EditEventModalPage,
-  //     cssClass: 'edit-event-modal-css',
-  //     componentProps: {
-  //       params: {
-  //         eventId: eventId,
-  //         userId: this.userId,
-  //         type: type,
-  //         counterBidAmount: this.selectedDevices[eventId].counterBidAmount,
-  //         committedPower: this.selectedDevices[eventId].commitedPower,
-  //         devies: this.selectedDevices[eventId].devices,
-  //         timeRange: moment(startTime).format("hh:mm A") + " - " + moment(endTime).format("hh:mm A"),
+    let editEventModal = await this.modal.create({
+      component: EditEventModalPage,
+      cssClass: 'edit-event-modal-css',
+      componentProps: {
+        params: {
+          eventId: eventId,
+          userId: this.userId,
+          type: type,
+          // counterBidAmount: this.selectedDevices[eventId].counterBidAmount,
+          allDevices: this.allCustomerDevices,
+          committedPower: this.selectedDevices[eventId].commitedPower,
+          selectedDevices: this.selectedDevices[eventId].devices,
+          timeRange: moment(startTime).format("hh:mm A") + " - " + moment(endTime).format("hh:mm A"),
 
-  //       }
-  //     }
-  //   });
+        }
+      }
+    });
 
-  //   let counterBidModal = await this.modal.create({
-  //     component: EditBidModalPage,
-  //     cssClass: 'edit-bid-modal-css',
-  //     componentProps: {
-  //       params: {
-  //         eventId: eventId,
-  //         userId: this.userId,
-  //         devices: this.selectedDevices[eventId].devices,
-  //         commitedPower: this.selectedDevices[eventId].commitedPower,
-  //         counterBidAmount: this.selectedDevices[eventId].counterBidAmount,
-  //         timeRange: moment(startTime).format("hh:mm A") + " - " + moment(endTime).format("hh:mm A"),
-  //         type: 'editCounterBid'
-  //       }
-  //     }
-  //   });
-  //   counterBidModal.onWillDismiss().then(async (data: any) => {
-      
-    
-  //   });
+    editEventModal.onDidDismiss().then((data: any) => {
+      this.selectedDevices[eventId].commitedPower = data.data.committedPower;
+      this.selectedDevices[eventId].devices = data.data.selectedDevices;
+    })
+    return await editEventModal.present();
 
-  //   if(type == "participate"){
-  //     return await editEventModal.present();
-  //   }else{
-  //     return await counterBidModal.present();
-  //   }
-    
-  // }
+  }
 
-  // async withdrawEvent(eventId) {
-  //   let withdrawEventModal = await this.modal.create({
-  //     component: WithdrawEventModalPage,
-  //     cssClass: 'withdraw-event-modal-css',
-  //     componentProps: {
-  //     }
-  //   });
-  //   return await withdrawEventModal.present();
-  // }
+  async withdrawFromEvent(eventId, startTime, endTime) {
+    let withdrawEventModal = await this.modal.create({
+      component: WithdrawEventModalPage,
+      cssClass: 'withdraw-event-modal-css',
+      componentProps: {
+        params: {
+          eventId,
+          userId: this.userId,
+          timeRange: moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A")
+        }
+      }
+    });
+
+    withdrawEventModal.onDidDismiss().then((data: any) => {
+      this.getEvents();
+    })
+    return await withdrawEventModal.present();
+  }
+
 
 }
 

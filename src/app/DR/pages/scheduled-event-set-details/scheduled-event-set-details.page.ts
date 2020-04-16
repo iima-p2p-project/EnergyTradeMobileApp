@@ -66,6 +66,25 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     });
   }
 
+  refreshEvents(refreshEvent) {
+    this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
+      this.allEvents = res.response.events;
+      this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 3
+        || event.eventCustomerDetails.eventCustomerStatus == 4
+        || event.eventCustomerDetails.eventCustomerStatus == 5);
+      console.log("scheduledEvents", this.scheduledEvents);
+      this.allCustomerDevices = res.response.allCustomerDevices;
+      console.log(this.allCustomerDevices);
+      console.log(this.allEvents);
+      this.maxMinTime = this.findMaxMinTime();
+    });
+    setTimeout(() => {
+      refreshEvent.target.complete();
+    }, 1000);
+  }
+
+  
+
   findMaxMinTime() {
     let maxTime = moment.utc(this.allEvents[0].eventEndTime);
     let minTime = moment.utc(this.allEvents[0].eventStartTime);
@@ -104,25 +123,30 @@ export class ScheduledEventSetDetailsPage implements OnInit {
   }
 
 
-  async withdrawEvent() {
+  async withdrawEvent(eventId, startTime, endTime) {
     let withdrawEventModal = await this.modal.create({
       component: WithdrawEventModalPage,
       cssClass: 'withdraw-event-modal-css',
       componentProps: {
+        params: {
+          eventId,
+          userId: this.userId,
+          timeRange: moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A")
+        }
       }
     });
     return await withdrawEventModal.present();
   }
 
-  async editBid() {
-    let editEventModal = await this.modal.create({
-      component: EditBidModalPage,
-      cssClass: 'edit-bid-modal-css',
-      componentProps: {
-      }
-    });
-    return await editEventModal.present();
-  }
+  // async editBid() {
+  //   let editEventModal = await this.modal.create({
+  //     component: EditBidModalPage,
+  //     cssClass: 'edit-bid-modal-css',
+  //     componentProps: {
+  //     }
+  //   });
+  //   return await editEventModal.present();
+  // }
 
   async deletePumps() {
     let deletePumpsModal = await this.modal.create({

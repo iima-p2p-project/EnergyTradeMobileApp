@@ -11,7 +11,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="header"> Withdraw <br> 09:30 AM - 09:45 AM Event?</ion-col>
+      <ion-col class="header"> Withdraw <br> {{params.timeRange}}?</ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="description">
@@ -20,8 +20,8 @@
       </ion-col>
     </ion-row>
     <ion-row class="border-top">
-      <ion-col class="btn-modal border-right"> NO </ion-col>
-      <ion-col class="btn-modal"> YES, WITHDRAW</ion-col>
+      <ion-col class="btn-modal border-right" (click)="close()"> NO </ion-col>
+      <ion-col class="btn-modal" (click)="withdrawFromEvent()"> YES, WITHDRAW</ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

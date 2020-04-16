@@ -31,6 +31,9 @@
 
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refreshEvents($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-grid>
     <ion-row class="mt-3">
       <ion-col size="12" class="p-0 pl-3 d-flex align-items-center title">
@@ -42,7 +45,8 @@
         <div class="event-list-item rounded">
           <div class="px-3 py-2 d-flex justify-content-between">
             <div class="">{{event.eventName}}</div>
-            <div class="status sceduled">{{getEventCustomerStatus(event.eventCustomerDetails.eventCustomerStatus)}}
+            <div [ngClass]="event.eventCustomerDetails.eventCustomerStatus==3? 'status sceduled':'status counter-bid'">
+              {{getEventCustomerStatus(event.eventCustomerDetails.eventCustomerStatus)}}
             </div>
           </div>
           <div class="px-3 d-flex justify-content-between event-detail">
@@ -75,7 +79,8 @@
             <div class="w-50 p-2 text-center border-right"
               (click)="editEvent(event.eventId, 'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)">
               EDIT</div>
-            <div class="w-50 p-2 text-center" (click)="deletePumps()">WITHDRAW</div>
+            <div class="w-50 p-2 text-center"
+              (click)="withdrawEvent(event.eventId,event.eventStartTime,event.eventEndTime)">WITHDRAW</div>
           </div>
         </div>
       </ion-col>

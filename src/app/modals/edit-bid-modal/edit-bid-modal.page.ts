@@ -39,8 +39,8 @@ export class EditBidModalPage implements OnInit {
 
   }
 
-  close() {
-    this.modal.dismiss();
+  close(type) {
+    this.modal.dismiss({type});
   }
 
   async counterBidInEvent() {
@@ -62,7 +62,8 @@ export class EditBidModalPage implements OnInit {
             console.log("Something went wrong in counter bid");
           } else {
             this.modal.dismiss({
-              bid: this.yourBid
+              bid: this.yourBid,
+              type:'bid'
             });
           }
         })
