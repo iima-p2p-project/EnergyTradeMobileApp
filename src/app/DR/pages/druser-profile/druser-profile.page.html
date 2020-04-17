@@ -1,0 +1,71 @@
+<ion-header no-border class="header">
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="home"></ion-back-button>
+  </ion-buttons>
+  <div class="d-flex align-items-center justify-content-center mt-n1">
+    <div class="pr-2">
+      <ion-avatar slot="start" style="border:1px rgba(128, 128, 128, 0.486) solid;">
+        <img src="assets/assets2/man.svg">
+      </ion-avatar>
+    </div>
+    <div>
+      <b class="name">Arjun Singh</b>
+      <div class="view py-1">View Profile</div>
+    </div>
+  </div>
+  <div class="p-3 d-flex justify-content-around description">
+    <div class="d-flex align-items-center">
+      <ion-icon class="pr-1" name="pin"></ion-icon>&nbsp;Tarnaka
+    </div>
+    <div class="d-flex align-items-center">
+      <ion-icon class="pr-1" name="card"></ion-icon>&nbsp;111111111
+    </div>
+    <div class="d-flex align-items-center">
+      <ion-icon class="pr-1" name="call"></ion-icon>&nbsp;2121212121
+    </div>
+  </div>
+</ion-header>
+<ion-content>
+  <ion-grid class="asset-list px-2">
+    <ion-row class="header-row mt-1 px-1">
+      <ion-col size="9" class="p-0 pl-1 d-flex align-items-center title">
+        Avaiable Energy Assets (04)
+      </ion-col>
+      <ion-col size="3" class="p-0 d-flex align-items-center justify-content-end btn-add">
+        <b (click)="goToAssets()">Add New</b>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border rounded mt-2 assest-item">
+      <ion-col size="7" class="pl-3 py-2">
+        <b>EV</b>
+      </ion-col>
+      <ion-col size="5" class="pr-3 py-2 d-flex align-items-center justify-content-end">
+        <ion-icon src="assets/svg/energy-2.svg"></ion-icon>&nbsp;60 KW (±3%)
+      </ion-col>
+    </ion-row>
+    <ion-row class="border rounded mt-2 assest-item">
+      <ion-col size="7" class="pl-3 py-2">
+        <b>EV</b>
+      </ion-col>
+      <ion-col size="5" class="pr-3 py-2 d-flex align-items-center justify-content-end">
+        <ion-icon src="assets/svg/energy-2.svg"></ion-icon>&nbsp;60 KW (±3%)
+      </ion-col>
+    </ion-row>
+    <ion-row class="border rounded mt-2 assest-item">
+      <ion-col size="7" class="pl-3 py-2">
+        <b>EV</b>
+      </ion-col>
+      <ion-col size="5" class="pr-3 py-2 d-flex align-items-center justify-content-end">
+        <ion-icon src="assets/svg/energy-2.svg"></ion-icon>&nbsp;60 KW (±3%)
+      </ion-col>
+    </ion-row>
+    <ion-row class="border rounded mt-2 assest-item">
+      <ion-col size="7" class="pl-3 py-2">
+        <b>EV</b>
+      </ion-col>
+      <ion-col size="5" class="pr-3 py-2 d-flex align-items-center justify-content-end">
+        <ion-icon src="assets/svg/energy-2.svg"></ion-icon>&nbsp;60 KW (±3%)
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -85,6 +85,8 @@ const routes: Routes = [
   { path: 'event-set-details', loadChildren: './DR/pages/event-set-details/event-set-details.module#EventSetDetailsPageModule' },
   { path: 'choose-user-type', loadChildren: './DR/pages/choose-user-type/choose-user-type.module#ChooseUserTypePageModule' },
   { path: 'create-dr-user-account', loadChildren: './DR/pages/create-dr-user-account/create-dr-user-account.module#CreateDrUserAccountPageModule' },  { path: 'scheduled-event-set-details', loadChildren: './DR/pages/scheduled-event-set-details/scheduled-event-set-details.module#ScheduledEventSetDetailsPageModule' },
+  { path: 'druser-profile', loadChildren: './DR/pages/druser-profile/druser-profile.module#DRUserProfilePageModule' },
+  { path: 'add-drasset', loadChildren: './DR/pages/add-drasset/add-drasset.module#AddDRAssetPageModule' },
 
 
 
