@@ -87,6 +87,7 @@ export class CreateAccountPage implements OnInit {
           this.storage.set('LoggedInUserRole', this.userRole);
           this.storage.set('LoggedInUserName', this.fullName);
           this.storage.set('LoggedInUserId', this.userId).then(() => {
+            this.ingressService.loggedInUserId = this.userId;
             this.router.navigate(['/register'], {
               queryParams: {
                 phoneNumber: this.phoneNumber,

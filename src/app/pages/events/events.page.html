@@ -1,0 +1,132 @@
+<ion-header no-border class="header">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center title">
+      DR Events
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon src="assets/svg/notifications.svg" class="icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar placeholder="Search for events"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <div class="total-earning rounded px-2 pb-2 d-flex justify-content-between">
+          <div>
+            <div class="d-flex align-items-center">₹ <span class="earning pl-2"> 1940.00</span></div>
+            <div class="text-center description">Total Earnings (24 events)</div>
+          </div>
+          <div class="d-flex align-items-end">
+            <ion-icon src="assets/svg/forecast-data.svg" style="font-size: 50px;color: white;"></ion-icon>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" class="p-0 pl-1 pt-1 d-flex align-items-center title">
+        Published DR Event Sets (01)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="event-list-item mt-1">
+      <ion-col size="12" class="p-0 py-2">
+        <div class="event-date">27 Oct, 2019</div>
+        <div class="d-flex justify-content-between event-detail">
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;5 Dr Events
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;900KW-1100KW
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;600-1124 Paise/KWH
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="text-center view-event" (click)="viewEvent()">
+        View Events
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="event-list-item mt-1">
+      <ion-col size="12" class="p-0 py-2">
+        <div class="event-date">27 Oct, 2019</div>
+        <div class="d-flex justify-content-between event-detail">
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;5 Dr Events
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;900KW-1100KW
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;600-1124 Paise/KWH
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="text-center view-event">
+        View Events
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" class="p-0 pl-1 pt-1 d-flex align-items-center title">
+        Scheduled DR Event Sets (01)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="event-list-item mt-1">
+      <ion-col size="12" class="p-0 py-2">
+        <div class="event-date">27 Oct, 2019</div>
+        <div class="d-flex justify-content-between event-detail">
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;5 Dr Events
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;900KW-1100KW
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;600-1124 Paise/KWH
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="text-center view-event">
+        View Events
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" class="p-0 pl-1 pt-1 d-flex align-items-center title">
+        Completed DR Event Sets (01)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="event-list-item mt-1">
+      <ion-col size="12" class="p-0 py-2">
+        <div class="event-date">27 Oct, 2019</div>
+        <div class="d-flex justify-content-between event-detail">
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;5 Dr Events
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;900KW-1100KW
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;600-1124 Paise/KWH
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="text-center view-event">
+        View Events
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

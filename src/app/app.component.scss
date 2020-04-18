@@ -1,21 +1,44 @@
-.name-class{
+.name-class {
     // font-weight:600;
-    font-family:MMedium !important;
+    font-family: MMedium !important;
 }
 
-.location-class{
-    font-size:0.7em;
-    margin-top:-1em;
-    color:grey;
-    font-family:MLight !important;
+.location-class {
+    font-size: 0.7em;
+    margin-top: -1em;
+    color: grey;
+    font-family: MLight !important;
 }
 
-.icon{
+.icon {
     display: inline-block;
     vertical-align: middle;
-    color:grey;
-   }
+    color: grey;
+}
 
-.list-item{
-    padding-bottom:1em;
+.list-item {
+    padding-bottom: 1em;
+}
+
+.top-btn {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    line-height: 15px;
+    padding: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+
+    .btn-image {
+        height: 25px;
+        margin: 0 10px;
+        fill: white;
+    }
+
+}
+
+.btn-active {
+    background-color: var(--ion-color-primary);
+    color: white;
 }

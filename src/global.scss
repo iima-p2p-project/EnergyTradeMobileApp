@@ -26,154 +26,196 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @font-face {
-    font-family: 'Gotham';
-    src: url('./assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+  font-family: 'Gotham';
+  src: url('./assets/fonts/Montserrat-Regular.woff2') format('woff2'),
 
-  }
-
-  @font-face {
-    font-family: 'Montserrat';
-    src: url('./assets/fonts/Montserrat-Regular.woff2') format('woff2'),
 }
-  
-  .p{
-    font-family: Gotham !important;
-  }
 
-  .my-custom-modal-small-css .modal-wrapper {
-    height: 35%;
-    width:80%;
-    top: 25%;
-    border-radius:10px;
-    position: absolute; 
-    display: block;  
- }
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+}
 
-  .my-custom-modal-css .modal-wrapper {
-    height: 40%;
-    width:80%;
-    top: 25%;
-    border-radius:10px;
-    position: absolute; 
-    display: block;  
- }
+.p {
+  font-family: Gotham !important;
+}
 
- .cancel-custom-modal-css .modal-wrapper {
-  height: 50%;
-  width:80%;
+.my-custom-modal-small-css .modal-wrapper {
+  height: 35%;
+  width: 80%;
   top: 25%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
+}
+
+.my-custom-modal-css .modal-wrapper {
+  height: 40%;
+  width: 80%;
+  top: 25%;
+  border-radius: 10px;
+  position: absolute;
+  display: block;
+}
+
+.cancel-custom-modal-css .modal-wrapper {
+  height: 50%;
+  width: 80%;
+  top: 25%;
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
 .input-field-validation-custom-modal-css .modal-wrapper {
   height: 40%;
-  width:80%;
+  width: 80%;
   top: 25%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
 .admin-cancel-custom-modal-css .modal-wrapper {
   height: 65%;
-  width:80%;
+  width: 80%;
   top: 25%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
 .cancelx-custom-modal-css .modal-wrapper {
   height: 75%;
-  width:80%;
+  width: 80%;
   top: 15%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
 .end-date-modal-css .modal-wrapper {
   height: 50%;
-  width:80%;
+  width: 80%;
   top: 25%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
 .none-trade-alert-modal-css .modal-wrapper {
   height: 50%;
-  width:80%;
+  width: 80%;
   top: 25%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
 .cancel-alert-modal-css .modal-wrapper {
   height: 50%;
-  width:80%;
+  width: 80%;
   top: 25%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
-.invalid-input-modal-css .modal-wrapper{
+.invalid-input-modal-css .modal-wrapper {
   height: 40%;
-  width:80%;
+  width: 80%;
   top: 25%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
-.error404-input-modal-css .modal-wrapper{
+.error404-input-modal-css .modal-wrapper {
   height: 40%;
-  width:80%;
+  width: 80%;
   top: 25%;
-  border-radius:10px;
-  position: absolute; 
-  display: block;  
+  border-radius: 10px;
+  position: absolute;
+  display: block;
+}
+
+.edit-event-modal-css .modal-wrapper {
+  height: 330px;
+  width: 300px;
+  top: 25%;
+  border-radius: 10px;
+  position: absolute;
+  display: block;
+}
+
+.withdraw-event-modal-css .modal-wrapper {
+  height: 245px;
+  width: 300px;
+  top: 25%;
+  border-radius: 10px;
+  position: absolute;
+  display: block;
+}
+
+.edit-bid-modal-css .modal-wrapper {
+  height: 400px;
+  width: 300px;
+  top: 25%;
+  border-radius: 10px;
+  position: absolute;
+  display: block;
+}
+
+.delete-modal-css .modal-wrapper {
+  height: 250px;
+  width: 300px;
+  top: 25%;
+  border-radius: 10px;
+  position: absolute;
+  display: block;
 }
 
 
- .icon-circle, .icon-circle-large, .icon-circle-small{
+.icon-circle,
+.icon-circle-large,
+.icon-circle-small {
   position: relative;
   display: inline-block;
   margin: -1px;
   /*padding: 16px;*/
-  
-  
-  width: 40px; /* 60*/
-	height: 40px; 
-  font-size:40px; 
-  
-  -moz-border-radius:50%;
-  -webkit-border-radius:50%;
-	border-radius: 50%;
-  
-	
-  
+
+
+  width: 40px;
+  /* 60*/
+  height: 40px;
+  font-size: 40px;
+
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+
+
+
   border: 1px solid #ebebeb;
- 
-  background: grey; /*#ececec;ebebeb*/
+
+  background: grey;
+  /*#ececec;ebebeb*/
   color: #fff;
-  
-  text-align:center;
+
+  text-align: center;
   /*vertical-align: middle;*/
 }
 
 .icon-circle-large {
   width: 100px;
   height: 100px;
-  font-size: 64px; /* 64, originally 60 */
+  font-size: 64px;
+  /* 64, originally 60 */
   padding: 16px;
-  
-  
+
+
 }
+
 .icon-circle-small {
   width: 24px;
   height: 24px;
@@ -184,10 +226,10 @@
 /*.icon-circle i, .icon-circle-small i, .icon-circle-large i { vertical-align: middle; }*/
 
 .icon-circle-outline {
-   border: 1px solid rgb(187, 187, 187);
-   background: transparent;
-   color: rgb(187, 187, 187);
-   /*color: #8a6de9;*/
+  border: 1px solid rgb(187, 187, 187);
+  background: transparent;
+  color: rgb(187, 187, 187);
+  /*color: #8a6de9;*/
 }
 
 // .icon-circle-outline i {  }
@@ -201,15 +243,15 @@
 
 
 .item-icon-circle {
-   -moz-border-radius:50%;
-  -webkit-border-radius:50%;
-	border-radius: 50%;
-	width: 100px;
-	height: 100px; 
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
   /* width and height can be anything, as long as they're equal */
-  
-  text-align:center;
-  color:white;
+
+  text-align: center;
+  color: white;
   /* font size here wont work */
 
 }
@@ -217,20 +259,22 @@
 .item-icon-circle i {
   /*text-align:center;
   color:white;*/
-   /*margin: 0px auto;
+  /*margin: 0px auto;
   padding: 0px;
   display:block;*/
-  font-size:60px;
+  font-size: 60px;
 }
 
 
 
-	
-
-body {font-family: Roboto, Helvetica, Arial, sans-serif;}
 
 
-	
+body {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+
 
 
 
@@ -245,20 +289,20 @@ body {font-family: Roboto, Helvetica, Arial, sans-serif;}
 */
 
 .bg-circle-alt {
-  -moz-border-radius:50%;
-  -webkit-border-radius:50%;
-	border-radius: 50%;
-	width: 100px;
-	height: 100px; 
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
 }
 
-.dot{
+.dot {
   height: 6px;
   width: 6px;
-  background-color:red;
+  background-color: red;
   border-radius: 50%;
   display: inline-block;
-  margin-bottom:0.5em;
+  margin-bottom: 0.5em;
 }
 
 .searchbar-input {

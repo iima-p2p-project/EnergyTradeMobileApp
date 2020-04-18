@@ -26,10 +26,10 @@ export class DashboardPage implements OnInit {
   solarCapacity: string;
   generatorCapacity: string;
   evCapacity: string;
-  
-  solarSelected: boolean=false;
-  generatorSelected: boolean=false;
-  evSelected: boolean=false;
+
+  solarSelected: boolean = false;
+  generatorSelected: boolean = false;
+  evSelected: boolean = false;
 
   solarDeviceId: any;
   generatorDeviceId: any;
@@ -124,70 +124,70 @@ export class DashboardPage implements OnInit {
         }
       }
     });
-      
-      this.ingressService.getUserIdToken().then((res) => {
-        this.userId = res;
-        this.ingressService.loggedInUserId = this.userId;
-        this.ingressService.getUserLocalityNameToken().then((res) => {
-          this.userLocation = res;
-          this.ingressService.loggedInUserLocalityName = this.userLocation;
-        });
-        this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
-          this.resFromServer = res;
-          //this.orderList = this.resFromServer.ordersAndContracts;
 
-          console.log("Orders List:", this.resFromServer.response);
-          this.orderService.orderList = this.resFromServer.response;
-          //combining orders and contracts
-          this.allOrdersAndContracts=[];
-          if (this.resFromServer.response.sellOrders) {
-            for (let i = 0; i < this.resFromServer.response.sellOrders.length; i++) {
-              this.allOrdersAndContracts.push(this.resFromServer.response.sellOrders[i]);
+    this.ingressService.getUserIdToken().then((res) => {
+      this.userId = res;
+      this.ingressService.loggedInUserId = this.userId;
+      this.ingressService.getUserLocalityNameToken().then((res) => {
+        this.userLocation = res;
+        this.ingressService.loggedInUserLocalityName = this.userLocation;
+      });
+      this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
+        this.resFromServer = res;
+        //this.orderList = this.resFromServer.ordersAndContracts;
+
+        console.log("Orders List:", this.resFromServer.response);
+        this.orderService.orderList = this.resFromServer.response;
+        //combining orders and contracts
+        this.allOrdersAndContracts = [];
+        if (this.resFromServer.response.sellOrders) {
+          for (let i = 0; i < this.resFromServer.response.sellOrders.length; i++) {
+            this.allOrdersAndContracts.push(this.resFromServer.response.sellOrders[i]);
+          }
+        }
+        if (this.resFromServer.response.contracts) {
+          for (let i = 0; i < this.resFromServer.response.contracts.length; i++) {
+            this.allOrdersAndContracts.push(this.resFromServer.response.contracts[i]);
+          }
+        }
+        console.log("All Sell Orders and contracts: ", this.allOrdersAndContracts);
+        this.fineTuneOrderList();
+      });
+      this.ingressService.getUserDevicesToken().then((res) => {
+        this.userDeviceList = res;
+        if (this.userDeviceList == null) {
+          this.userHasOnlyLoad = true;
+          this.checkSell = false;
+          this.checkBuy = true;
+        }
+        else if (this.userDeviceList.length == 0) {
+          this.userHasOnlyLoad = true;
+          this.checkSell = false;
+          this.checkBuy = true;
+        }
+        else {
+          this.userDeviceList.forEach(element => {
+            if (element.deviceTypeId == 1) {
+              this.solarDeviceId = element.userDeviceId;
+              this.solarDeviceTypeId = element.deviceTypeId;
+              this.showSolar = true;
+              this.solarCapacity = element.capacity;
             }
-          }
-          if (this.resFromServer.response.contracts) {
-            for (let i = 0; i < this.resFromServer.response.contracts.length; i++) {
-              this.allOrdersAndContracts.push(this.resFromServer.response.contracts[i]);
+            if (element.deviceTypeId == 2) {
+              this.generatorDeviceId = element.userDeviceId;
+              this.generatorDeviceTypeId = element.deviceTypeId;
+              this.showGenerator = true;
+              this.generatorCapacity = element.capacity;
             }
-          }
-          console.log("All Sell Orders and contracts: ", this.allOrdersAndContracts);
-          this.fineTuneOrderList();
-        });
-        this.ingressService.getUserDevicesToken().then((res) => {
-          this.userDeviceList = res;
-          if(this.userDeviceList==null) {
-            this.userHasOnlyLoad=true;
-            this.checkSell = false;
-            this.checkBuy = true;
-          }
-          else if(this.userDeviceList.length==0) {
-            this.userHasOnlyLoad=true;
-            this.checkSell = false;
-            this.checkBuy = true;
-          }
-          else {
-            this.userDeviceList.forEach(element => {
-              if (element.deviceTypeId == 1) {
-                this.solarDeviceId = element.userDeviceId;
-                this.solarDeviceTypeId = element.deviceTypeId;
-                this.showSolar = true;
-                this.solarCapacity = element.capacity;
-              }
-              if (element.deviceTypeId == 2) {
-                this.generatorDeviceId = element.userDeviceId;
-                this.generatorDeviceTypeId = element.deviceTypeId;
-                this.showGenerator = true;
-                this.generatorCapacity = element.capacity;
-              }
-              if (element.deviceTypeId == 3) {
-                this.evDeviceId = element.userDeviceId;
-                this.evDeviceTypeId = element.deviceTypeId;
-                this.showEV = true;
-                this.evCapacity = element.capacity;
-              }
-            });
-          }
-        });
+            if (element.deviceTypeId == 3) {
+              this.evDeviceId = element.userDeviceId;
+              this.evDeviceTypeId = element.deviceTypeId;
+              this.showEV = true;
+              this.evCapacity = element.capacity;
+            }
+          });
+        }
+      });
       //});
       if(this.userId) {
         if(!this.forecastService.forecastFetched) {
@@ -245,7 +245,7 @@ export class DashboardPage implements OnInit {
   }
 
   fineTuneOrderList() {
-    this.orderListUpdated=[];
+    this.orderListUpdated = [];
     for (var i = 0; i < this.allOrdersAndContracts.length; i++) {
       let obj = this.allOrdersAndContracts[i];
       if (!obj.contractId) {
@@ -267,7 +267,7 @@ export class DashboardPage implements OnInit {
       this.orderListUpdated.push(obj);
     }
     console.log("Updated orders list", this.orderListUpdated);
-    this.displayOrderList=[];
+    this.displayOrderList = [];
     this.displayOrderList = this.orderListUpdated;
     this.displayOrderList.sort((ts1, ts2) => {
       return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
@@ -278,9 +278,9 @@ export class DashboardPage implements OnInit {
     else {
       this.length = 2;
     }
-    this.allOrders=[];
-    console.log('test index : ' , this.index);
-    console.log('test length : ' , this.length);
+    this.allOrders = [];
+    console.log('test index : ', this.index);
+    console.log('test length : ', this.length);
     while (this.index < this.length) {
       this.allOrders[this.index] = this.orderListUpdated[this.index];
       this.index++;
@@ -300,8 +300,8 @@ export class DashboardPage implements OnInit {
   }
 
   segmentChanged($event) {
-    this.userDeviceId=null;
-    this.deviceTypeId=null;
+    this.userDeviceId = null;
+    this.deviceTypeId = null;
     // console.log($event.detail.value);
     this.selectedOption = $event.detail.value;
     if (this.selectedOption == 'sell') {
@@ -406,7 +406,7 @@ export class DashboardPage implements OnInit {
       return true;
     }
   }
-  
+
   powerInput(power) {
     console.log("Power input detected", power);
     if (this.deviceCapactiy && power)
@@ -453,11 +453,11 @@ export class DashboardPage implements OnInit {
 
   isDeviceSelectedForSell() {
     console.log('check1');
-    if(this.solarSelected || this.generatorSelected || this.evSelected) {
+    if (this.solarSelected || this.generatorSelected || this.evSelected) {
       console.log('check2');
       return true;
     }
-    return false; 
+    return false;
   }
 
   async invalidInput(errorDesc: any) {
