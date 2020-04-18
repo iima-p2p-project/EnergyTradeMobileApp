@@ -20,7 +20,7 @@ export class BuyTimePickerPage implements OnInit {
   buyOrderPayload: BuyOrderPayload = {};
   buyerId: any;
   deviceTypeId: any;
-
+  currentTime: any;
   startTime: string;
   endTime: string;
 
@@ -29,6 +29,9 @@ export class BuyTimePickerPage implements OnInit {
 
   unitMin: any;
   unitMax: any;
+
+  startTimeFormatted: string;
+  endTimeFormatted: string;
 
   durationInHours: any = '00';
   durationInMins: any = '00';
@@ -72,9 +75,17 @@ export class BuyTimePickerPage implements OnInit {
         this.timeService.isEndTimeSelected = false;
       }
     });
+    this.currentTime = new Date().toISOString().substring(0, 10);
   }
   getStartTimeDetails() {
-    this.durationDetails = this.timeService.getStartTimeDetails(this.startTime, this.endTime, USER_ROLE);
+    this.formatTime(this.startTime, 's');
+    if (this.timeService.getDuration(this.startTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
+      this.invalidDates("Please select a future time.");
+      this.duration = "00:00";
+      this.inputsValidFlag = false;
+      return;
+    }
+    this.durationDetails = this.timeService.getStartTimeDetails(this.startTimeFormatted, this.endTimeFormatted, USER_ROLE);
     if (this.durationDetails != null) {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       if (this.durationDetails.duration) {
@@ -82,7 +93,7 @@ export class BuyTimePickerPage implements OnInit {
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
-          this.invalidDates();
+          this.invalidDates("Start time cannot be more than end time");
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -96,7 +107,14 @@ export class BuyTimePickerPage implements OnInit {
   }
 
   getEndTimeDetails() {
-    this.durationDetails = this.timeService.getEndTimeDetails(this.startTime, this.endTime, USER_ROLE);
+    this.formatTime(this.endTime, 'e');
+    if (this.timeService.getDuration(this.endTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
+      this.invalidDates("Please select a future time.");
+      this.duration = "00:00";
+      this.inputsValidFlag = false;
+      return;
+    }
+    this.durationDetails = this.timeService.getEndTimeDetails(this.startTimeFormatted, this.endTimeFormatted, USER_ROLE);
     if (this.durationDetails != null) {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       if (this.durationDetails.duration) {
@@ -104,7 +122,7 @@ export class BuyTimePickerPage implements OnInit {
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
-          this.invalidDates();
+          this.invalidDates("Start time cannot be more than end time");
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -168,13 +186,26 @@ export class BuyTimePickerPage implements OnInit {
     return await defg.present();
   }
 
-  async invalidDates() {
+  async invalidDates(message: string) {
     let defg = await this.modal.create({
       component: EndDateModalPage,
       cssClass: 'my-custom-modal-css',
       componentProps: {
+        errorMessage: message
       }
     });
     return await defg.present();
+  }
+
+  formatTime(time, tag) {
+    if (time != null) {
+      time = time.substring(0, 10) + ' ' + time.substring(11, 16) + ':00';
+    }
+    if(tag=='s') {
+      this.startTimeFormatted=time;
+    }
+    if(tag=='e') {
+      this.endTimeFormatted=time;
+    }
   }
 }

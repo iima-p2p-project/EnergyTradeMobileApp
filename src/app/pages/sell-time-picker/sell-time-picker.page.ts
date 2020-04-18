@@ -39,6 +39,9 @@ export class SellTimePickerPage implements OnInit {
   power: number = 156;
   energy: number = 0;
 
+  startTimeFormatted: string;
+  endTimeFormatted: string;
+
   sellerId: any;
   userDeviceId: any;
   deviceTypeId: any = 1;
@@ -79,6 +82,8 @@ export class SellTimePickerPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.startTimeFormatted='';
+    this.endTimeFormatted='';
     this.callerPage='';
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
@@ -120,13 +125,14 @@ export class SellTimePickerPage implements OnInit {
   }
 
   getStartTimeDetails() {
-    if (this.timeService.getDuration(this.startTime, new Date().toISOString(), USER_ROLE).durationTime > 0) {
-      this.invalidDates("Start time cannot be less than current time");
+    this.formatTime(this.startTime, 's');
+    if (this.timeService.getDuration(this.startTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
+      this.invalidDates("Please select a future time.");
       this.duration = "00:00";
       this.inputsValidFlag = false;
       return;
     }
-    this.durationDetails = this.timeService.getStartTimeDetails(this.startTime, this.endTime, USER_ROLE);
+    this.durationDetails = this.timeService.getStartTimeDetails(this.startTimeFormatted, this.endTimeFormatted, USER_ROLE);
     if (this.durationDetails != null) {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       if (this.durationDetails.duration) {
@@ -153,13 +159,14 @@ export class SellTimePickerPage implements OnInit {
   }
 
   getEndTimeDetails() {
-    if (this.timeService.getDuration(this.endTime, new Date().toISOString(), USER_ROLE).durationTime > 0) {
-      this.invalidDates("End time cannot be less than current time");
+    this.formatTime(this.endTime, 'e');
+    if (this.timeService.getDuration(this.endTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
+      this.invalidDates("Please select a future time.");
       this.duration = "00:00";
       this.inputsValidFlag = false;
       return;
     }
-    this.durationDetails = this.timeService.getEndTimeDetails(this.startTime, this.endTime, USER_ROLE);
+    this.durationDetails = this.timeService.getEndTimeDetails(this.startTimeFormatted, this.endTimeFormatted, USER_ROLE);
     if (this.durationDetails != null) {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       if (this.durationDetails.duration) {
@@ -237,6 +244,18 @@ export class SellTimePickerPage implements OnInit {
       }
     });
     return await defg.present();
+  }
+
+  formatTime(time, tag) {
+    if (time != null) {
+      time = time.substring(0, 10) + ' ' + time.substring(11, 16) + ':00';
+    }
+    if(tag=='s') {
+      this.startTimeFormatted=time;
+    }
+    if(tag=='e') {
+      this.endTimeFormatted=time;
+    }
   }
 }
 
