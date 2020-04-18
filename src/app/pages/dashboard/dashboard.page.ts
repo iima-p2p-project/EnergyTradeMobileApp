@@ -20,9 +20,9 @@ export class DashboardPage implements OnInit {
   selectedOption = 'sell';
   checkSell: boolean = true;
   checkBuy: boolean = false;
-  showSolar: boolean = true;
-  showGenerator: boolean = true;
-  showEV: boolean = true;
+  showSolar: boolean = false;
+  showGenerator: boolean = false;
+  showEV: boolean = false;
   solarCapacity: string;
   generatorCapacity: string;
   evCapacity: string;
@@ -90,6 +90,9 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    if(new Date().toISOString().substring(0,10) != this.forecastService.lastForecastFetchedDate) {
+      this.forecastService.forecastFetched = false;
+    }
     this.allOrdersAndContracts = [];
     this.orderListUpdated = [];
     this.allOrders = [];
@@ -101,6 +104,9 @@ export class DashboardPage implements OnInit {
     this.solarSelected=false;
     this.generatorSelected=false;
     this.evSelected=false;
+    this.showSolar=false;
+    this.showGenerator=false;
+    this.showEV=false;
     this.minPowerToBuy='';
     this.maxPowerToBuy='';
     this.route.queryParams.subscribe(params => {
@@ -184,47 +190,56 @@ export class DashboardPage implements OnInit {
         });
       //});
       if(this.userId) {
-        this.forecastService.getForecasts(this.userId).subscribe((res) => {
-          this.resFromServer = res;
-          console.log('forecast response : ' , this.resFromServer);
-          //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
-          this.forecastList=this.resFromServer.response.listOfForecast;
-          //this.forecastService.forecastList=this.forecastList;
-          console.log('forecast response : ' , this.forecastList);
-          if(this.forecastList!=null) {
-            this.upcomingForecast=this.forecastList[0];
-            this.upcomingForecastStartTime=this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
-            this.upcomingForecastEndTime=this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
-            this.upcomingForecastPower=this.upcomingForecast.power;
-            this.upcomingForecastPrice=this.upcomingForecast.pricePerUnit;
-            this.forecastLen=this.forecastList.length;
-            this.forecastList.forEach(forecast => {
-              if(forecast!=null) {
-                this.deviceList=forecast.listOfUserDevices;
-                this.forecastService.deviceList=this.deviceList;
-                if(this.deviceList!=null) {
-                  this.deviceList.forEach(device => {
-                    if(device!=null) {
-                      if(device.deviceTypeId==1 && device.deviceTypeName=='Solar') {
-                        //this.solarDeviceId=device.userDeviceId;
-                        forecast.solarDeviceId=device.userDeviceId;
+        if(!this.forecastService.forecastFetched) {
+          this.forecastService.forecastList=[];
+          this.forecastService.formattedForecastList=[];
+          this.forecastService.getForecasts(this.userId).subscribe((res) => {
+            this.resFromServer = res;
+            console.log('forecast response : ' , this.resFromServer);
+            //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
+            this.forecastList=this.resFromServer.response.listOfForecast;
+            //this.forecastService.forecastList=this.forecastList;
+            console.log('forecast response 123 : ' , this.forecastList);
+            if(this.forecastList!=null) {
+              console.log('not null check');
+              this.upcomingForecast=this.forecastList[0];
+              console.log('upcoming forecast : ' , this.upcomingForecast);
+              this.upcomingForecastStartTime=this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
+              this.upcomingForecastEndTime=this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
+              this.upcomingForecastPower=this.upcomingForecast.power;
+              this.upcomingForecastPrice=this.upcomingForecast.pricePerUnit;
+              this.forecastLen=this.forecastList.length;
+              this.forecastList.forEach(forecast => {
+                if(forecast!=null) {
+                  this.deviceList=forecast.listOfUserDevices;
+                  this.forecastService.deviceList=this.deviceList;
+                  if(this.deviceList!=null) {
+                    this.deviceList.forEach(device => {
+                      if(device!=null) {
+                        if(device.deviceTypeId==1 && device.deviceTypeName=='Solar') {
+                          //this.solarDeviceId=device.userDeviceId;
+                          forecast.solarDeviceId=device.userDeviceId;
+                        }
+                        if(device.deviceTypeId==2 && device.deviceTypeName=='ExternalGenerator') {
+                          //this.generatorDeviceId=device.userDeviceId;
+                          forecast.generatorDeviceId=device.userDeviceId;
+                        }
+                        if(device.deviceTypeId==3 && device.deviceTypeName=='EV') {
+                          //this.evDeviceId=device.userDeviceId;
+                          forecast.evDeviceId=device.userDeviceId;
+                        }
                       }
-                      if(device.deviceTypeId==2 && device.deviceTypeName=='Generator') {
-                        //this.generatorDeviceId=device.userDeviceId;
-                        forecast.generatorDeviceId=device.userDeviceId;
-                      }
-                      if(device.deviceTypeId==3 && device.deviceTypeName=='EV') {
-                        //this.evDeviceId=device.userDeviceId;
-                        forecast.evDeviceId=device.userDeviceId;
-                      }
-                    }
-                  });
+                    });
+                  }
                 }
-              }
-            });
-            this.forecastService.forecastList=this.forecastList;
-          }
-        });
+              });
+              this.forecastService.forecastList=this.forecastList;
+              this.forecastService.formatForecastData(this.forecastService.forecastList);
+            }
+          });
+          this.forecastService.lastForecastFetchedDate = new Date().toISOString().substring(0,10);
+          this.forecastService.forecastFetched = true;
+        }
       }
     });
   }
@@ -412,11 +427,13 @@ export class DashboardPage implements OnInit {
   }
 
   formatTimeForForecast(ts, type) {
-    ts=ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
-    if (type == 't')
-      return moment(ts).format("hh:mm A");
-    else if (type == 'd')
-      return moment(ts).format("Do MMM");
+    if(ts!=null) {
+      ts=ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
+      if (type == 't')
+        return moment(ts).format("hh:mm A");
+      else if (type == 'd')
+        return moment(ts).format("Do MMM");
+    }
   }
 
   async presentAlert(alertmsg) {

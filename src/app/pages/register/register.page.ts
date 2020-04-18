@@ -94,7 +94,7 @@ export class RegisterPage implements OnInit {
   register() {
     this.registerPayload.phone = this.phoneNumber;
     this.registerPayload.fullName = this.fullName;
-    this.registerPayload.usn = this.registerForm.get('usn').value;
+    this.registerPayload.uniqueServiceNumber = this.registerForm.get('usn').value;
     this.registerPayload.email = this.registerForm.get('email').value;
     this.registerPayload.stateId = this.selectedStateId;
     this.registerPayload.localityId = this.selectedLocalityId;

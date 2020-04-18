@@ -1,7 +1,7 @@
 export class RegisterPayload{
     phone?: string;
     fullName?: string;
-    usn?: String;
+    uniqueServiceNumber?: String;
     email?: string;
     stateId?: number;
     localityId?: number;

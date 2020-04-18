@@ -28,11 +28,11 @@ export class TimeService {
 
   getDuration(startTime: string, endTime: string, userRole: string) {
     if (userRole == ADMIN_ROLE) {
-      if (this.startTime != null) {
-        this.startTime = this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ':00';
+      if (startTime != null) {
+        this.startTime = startTime.substring(0, 10) + ' ' + startTime.substring(11, 16) + ':00';
       }
-      if (this.endTime != null) {
-        this.endTime = this.endTime.substring(0, 10) + ' ' + this.endTime.substring(11, 16) + ':00';
+      if (endTime != null) {
+        this.endTime = endTime.substring(0, 10) + ' ' + endTime.substring(11, 16) + ':00';
       }
     }
     // if (userRole == USER_ROLE) {
@@ -44,11 +44,11 @@ export class TimeService {
     //   }
     // }
     if (userRole == USER_ROLE) {
-      if (this.startTime != null) {
-        this.startTime = this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ':00';
+      if (startTime != null) {
+        this.startTime = startTime.substring(0, 10) + ' ' + startTime.substring(11, 16) + ':00';
       }
-      if (this.endTime != null) {
-        this.endTime = this.endTime.substring(0, 10) + ' ' + this.endTime.substring(11, 16) + ':00';
+      if (endTime != null) {
+        this.endTime = endTime.substring(0, 10) + ' ' + endTime.substring(11, 16) + ':00';
       }
     }
 
@@ -61,6 +61,12 @@ export class TimeService {
     this.minDiff = Math.round(duration.asMinutes());
     this.durationInHours = Math.floor(this.minDiff / 60);
     this.durationInMins = this.minDiff % 60;
+
+    console.log('dayDiff : ' , this.dayDiff);
+    console.log('hourDiff : ' , this.hourDiff);
+    console.log('minDiff : ' , this.minDiff);
+    console.log('durationInHours : ' , this.durationInHours);
+    console.log('durationInMins : ' , this.durationInMins);
 
     if (parseInt(this.durationInHours) < 10) {
       this.durationInHours = '0' + this.durationInHours;
@@ -83,7 +89,7 @@ export class TimeService {
     console.log('end time in getStartTimeDetails' , endTime);
     let durationObject;
     this.startTime = startTime;
-    this.startTimeDetails = moment(startTime).format('ddd, DD MMM');
+    this.startTimeDetails = moment.utc(startTime).format('ddd, DD MMM');
     //console.log('start time display : ' , moment(startTime).format('hh:mm A'));
     this.startTimeDetails = this.startTimeDetails.toUpperCase();
     this.isStartTimeSelected = true;
@@ -102,7 +108,7 @@ export class TimeService {
     console.log('end time in getEndTimeDetails' , endTime);
     let durationObject;
     this.endTime = endTime;
-    this.endTimeDetails = moment(endTime).format('ddd, DD MMM');
+    this.endTimeDetails = moment.utc(endTime).format('ddd, DD MMM');
     this.endTimeDetails = this.endTimeDetails.toUpperCase();
     this.isEndTimeSelected = true;
     if (this.isStartTimeSelected && this.isEndTimeSelected) {

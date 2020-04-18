@@ -68,6 +68,7 @@
                           displayFormat="hh:mm A"
                           pickerFormat="MMM DD, hh:mm A"
                           style="margin-left:-0.7em;"
+                          [min]="currentTime"
                           class='font-start-end font-datetime-big grey-colour' [(ngModel)]="startTime"
                           (ionChange)="getStartTimeDetails()" minuteValues= "0,15,30,45"></ion-datetime>
                           <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
@@ -99,6 +100,7 @@
                         displayFormat="hh:mm A"
                         pickerFormat="MMM DD, hh:mm A"
                         style="margin-left:-0.7em;" 
+                        [min]="currentTime"
                         class='font-start-end font-datetime-big grey-colour' [(ngModel)]="endTime" 
                         (ionChange)="getEndTimeDetails()" minuteValues= "0,15,30,45"></ion-datetime>
                         <!--<span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span>-->
