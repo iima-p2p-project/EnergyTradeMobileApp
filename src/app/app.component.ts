@@ -39,9 +39,10 @@ export class AppComponent {
 
   userId: any;
   userName: any;
-  userRole: any;
-  userType: any = 1;
+  userRole: any = "Admin"
+  userType: any = 2;
   localityName: any;
+  selectedUserPersona = "DR";
 
   constructor(
     private platform: Platform,
@@ -135,14 +136,14 @@ export class AppComponent {
   }
 
   getUserDetails() {
-    this.ingressService.getUserNameToken().then((res:any) => {
+    this.ingressService.getUserNameToken().then((res: any) => {
       console.log('app component user name : ', res);
       this.ingressService.setLoggedInUser(res);
       this.userName = res;
       this.ingressService.loggedInUserName = this.userName;
       this.ingressService.getUserRoleToken().then((res) => {
         console.log('app component user role : ', res);
-        this.userRole = res;
+       // this.userRole = res;
         this.ingressService.loggedInUserRole = this.userRole;
         this.ingressService.getUserLocalityNameToken().then((res) => {
           console.log('app component locality name : ', res);
@@ -159,25 +160,42 @@ export class AppComponent {
   }
 
   navigateToProfile() {
-    if (this.userRole == "User") {
+
+    if (this.selectedUserPersona == "P2P") {
       this.router.navigate(['/profile'], {
         queryParams: {
           userId: this.userId,
           flow: 'USER'
         }
       });
+    } else if (this.selectedUserPersona == "DR") {
+      this.router.navigate(['druser-profile'], {
+        queryParams: {
+          userId: this.userId,
+          flow: 'DRCustomer'
+        }
+      });
+
     }
   }
 
   changePersona(persona) {
     if (persona == 'dr') {
-      this.userType = 2;
+      this.selectedUserPersona = "DR";
       this.router.navigateByUrl('/customer-dashboard');
       this.menu.close();
     } else {
-      this.userType = 1;
+      this.selectedUserPersona = "P2P";
       this.router.navigateByUrl('/dashboard');
       this.menu.close();
     }
+  }
+
+  navigateToDRDashboard() {
+
+  }
+
+  navigateToAllDREvents() {
+
   }
 }
