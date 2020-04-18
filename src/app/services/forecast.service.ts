@@ -10,7 +10,7 @@ import * as moment from 'moment';
 })
 export class ForecastService {
 
-  getForecastsUrl = FORECAST_URL + '/getForecastDetails';
+  getForecastsUrl = FORECAST_URL + 'getForecastDetails';
 
   tsArr: AllTimeslots[] = [];
   timeslot: AllTimeslots = {};
@@ -18,7 +18,15 @@ export class ForecastService {
   forecastList: any[] = [];
   deviceList: any[] = [];
 
-  constructor(private httpClient: HttpClient) {}
+  formattedForecastList: any[] = [];
+  forecast: any = {};
+
+  lastForecastFetchedDate: string='';
+  forecastFetched=false;
+
+  constructor(private httpClient: HttpClient) {
+    this.formattedForecastList = [];
+  }
 
   getForecasts(userId: any) {
     console.log('getForecasts user id : ' , userId);
@@ -36,21 +44,94 @@ export class ForecastService {
       return;
     }
     var i=0;
+    console.log('forecast list from forecast page length : ' , forecastList.length);
     while(i<forecastList.length) {
       var k=0;
       var power=0;
+      var solarPower=0;
+      var generatorPower=0;
+      var evpower=0;
+      var userLoad=0;
+      var price=0;
+      var startTime='';
+      var endTime='';
+      var userId='';
+      var userName='';
+      var forecastDate='';
+      var solarDeviceId='';
+      var generatorDeviceId='';
+      var evDeviceId='';
+      solarDeviceId = forecastList[i].solarDeviceId;
+      generatorDeviceId = forecastList[i].generatorDeviceId;
+      evDeviceId = forecastList[i].evDeviceId;
       while(k<4) {
+        if(forecastList[i]==null) {
+          return;
+        }
+        if(k==0) {
+          startTime = forecastList[i].startTime;
+          forecastDate = forecastList[i].forecastDate;
+          userId = forecastList[i].userId;
+          userName = forecastList[i].userName;
+        }
+        if(k==3) {
+          endTime = forecastList[i].endTime;
+        }
         power = power + this.getForecastPower(forecastList[i]);
+        solarPower = solarPower + forecastList[i].solarPower;
+        generatorPower = generatorPower + forecastList[i].generatorPower;
+        evpower = evpower + forecastList[i].evpower;
+        userLoad = userLoad + forecastList[i].userLoad;
+        price = price + forecastList[i].pricePerUnit;
         i++;
         k++;
       }
-      this.insertTimeSlotData(i/4, power, forecastList[i/4].forecast_date);
+      
+      this.insertFormattedForecastData(startTime, endTime, forecastDate, power/4, price/4, 
+        userId, userName, solarPower/4, evpower/4, generatorPower/4, userLoad/4,
+        solarDeviceId, generatorDeviceId, evDeviceId);
     }
+    console.log('forecast list from forecast page formatted : ' , this.formattedForecastList);
   }
 
+  insertFormattedForecastData(startTime: string, endTime: string, forecastDate: string, 
+    power: number, pricePerUnit: any, userId: any, userName: string, solarPower: number, 
+    evpower: number, generatorPower: number, userLoad: number,
+    solarDeviceId: any, generatorDeviceId: any, evDeviceId: any) {
+      this.forecast.userId = userId;
+      this.forecast.userName = userName;
+      this.forecast.startTime = startTime;
+      this.forecast.endTime = endTime;
+      this.forecast.forecastDate = forecastDate;
+      if(pricePerUnit!=null) {
+        this.forecast.pricePerUnit = +pricePerUnit.toFixed(2);
+      }
+      if(power!=null) {
+        this.forecast.power = +power.toFixed(2);
+      }
+      if(solarPower!=null) {
+        this.forecast.solarPower = +solarPower.toFixed(2);
+      }
+      if(evpower!=null) {
+        this.forecast.evpower = +evpower.toFixed(2);
+      }
+      if(generatorPower!=null) {
+        this.forecast.generatorPower = +generatorPower.toFixed(2);
+      }
+      if(userLoad!=null) {
+        this.forecast.userLoad = +userLoad.toFixed(2);
+      }
+      this.forecast.solarDeviceId = solarDeviceId;
+      this.forecast.generatorDeviceId = generatorDeviceId;
+      this.forecast.evDeviceId = evDeviceId;
+      this.formattedForecastList.push(this.forecast);
+      this.forecast = {};
+    }
+
   getForecastPower(forecast: any) {
-    var powerAvailable = forecast.solar_power + forecast.generator_power + forecast.ev_power;
-    return (powerAvailable - forecast.user_load);
+    console.log('forecast list from forecast page each forecast : ' , forecast);
+    var powerAvailable = forecast.solarPower + forecast.generatorPower + forecast.evpower;
+    return (powerAvailable - forecast.userLoad);
   }
 
   insertTimeSlotData(tsId: number, power: number , date: string) {
@@ -74,11 +155,11 @@ export class ForecastService {
     }
     if(((dayTimeslot-1)%12)==0) {
       this.timeslot.tsStartTimeMeridiem = 'AM';
-      this.timeslot.tsStartTimeMeridiem = 'AM';
+      this.timeslot.tsEndTimeMeridiem = 'AM';
     }
     if(((dayTimeslot-1)%12)==1) {
       this.timeslot.tsStartTimeMeridiem = 'PM';
-      this.timeslot.tsStartTimeMeridiem = 'PM';
+      this.timeslot.tsEndTimeMeridiem = 'PM';
     }
     if(today.toISOString() == date) {
       this.timeslot.date = 'Today';

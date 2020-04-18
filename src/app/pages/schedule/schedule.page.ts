@@ -5,7 +5,7 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { NonTradeHourPayload } from 'src/app/models/NonTradeHourPayload';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
+import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT, USER_ROLE  } from 'src/app/environments/environments';
 import { LocalityModalPage } from '../modals/selectLocality';
 import { ModalController, AlertController } from '@ionic/angular';
 import { NonTradePostSuccessPage } from '../non-trade-post-success/non-trade-post-success.page';
@@ -36,6 +36,10 @@ export class SchedulePage implements OnInit {
 
   btnLabel: any;
   header: any;
+  currentTime: any;
+
+  startTimeFormatted: string;
+  endTimeFormatted: string;
 
   dataFromLocalityModal: any;
   selectedLocality: string;
@@ -57,6 +61,8 @@ export class SchedulePage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.startTimeFormatted='';
+    this.endTimeFormatted='';
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       console.log('ACTION : ', this.action);
@@ -67,6 +73,7 @@ export class SchedulePage implements OnInit {
         this.startTime = params['startTime'];
         this.endTime = params['endTime'];
         this.nonTradeHourId = params['nonTradeHourId'];
+        this.reason = params['nonTradeReason'];
         this.getStartTimeDetails();
         this.getEndTimeDetails();
         this.btnLabel = 'UPDATE CHANGES';
@@ -85,11 +92,19 @@ export class SchedulePage implements OnInit {
         }
       }
       console.log('state id : ', this.adminStateId);
+      this.currentTime = new Date().toISOString().substring(0, 10);
     });
   }
 
   getStartTimeDetails() {
-    this.durationDetails = this.timeService.getStartTimeDetails(this.startTime, this.endTime, ADMIN_ROLE);
+    this.formatTime(this.startTime, 's');
+    if (this.timeService.getDuration(this.startTimeFormatted, new Date().toISOString(), ADMIN_ROLE).durationTime > 0) {
+      this.invalidDates("Please select a future time.");
+      this.duration = "00:00";
+      this.inputsValidFlag = false;
+      return;
+    }
+    this.durationDetails = this.timeService.getStartTimeDetails(this.startTimeFormatted, this.endTimeFormatted, ADMIN_ROLE);
     if (this.durationDetails != null) {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       if (this.durationDetails.duration) {
@@ -98,7 +113,7 @@ export class SchedulePage implements OnInit {
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
-          this.invalidDates();
+          this.invalidDates("Start time cannot be more than end time");
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -114,7 +129,14 @@ export class SchedulePage implements OnInit {
   }
 
   getEndTimeDetails() {
-    this.durationDetails = this.timeService.getEndTimeDetails(this.startTime, this.endTime, ADMIN_ROLE);
+    this.formatTime(this.endTime, 'e');
+    if (this.timeService.getDuration(this.endTimeFormatted, new Date().toISOString(), ADMIN_ROLE).durationTime > 0) {
+      this.invalidDates("Please select a future time.");
+      this.duration = "00:00";
+      this.inputsValidFlag = false;
+      return;
+    }
+    this.durationDetails = this.timeService.getEndTimeDetails(this.startTimeFormatted, this.endTimeFormatted, ADMIN_ROLE);
     if (this.durationDetails != null) {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       if (this.durationDetails.duration) {
@@ -123,7 +145,7 @@ export class SchedulePage implements OnInit {
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
-          this.invalidDates();
+          this.invalidDates("Start time cannot be more than end time");
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
@@ -252,13 +274,26 @@ export class SchedulePage implements OnInit {
     return await defg.present();
   }
 
-  async invalidDates() {
+  async invalidDates(message: string) {
     let defg = await this.modalController.create({
       component: EndDateModalPage,
       cssClass: 'my-custom-modal-css',
       componentProps: {
+        errorMessage: message
       }
     });
     return await defg.present();
+  }
+
+  formatTime(time, tag) {
+    if (time != null) {
+      time = time.substring(0, 10) + ' ' + time.substring(11, 16) + ':00';
+    }
+    if(tag=='s') {
+      this.startTimeFormatted=time;
+    }
+    if(tag=='e') {
+      this.endTimeFormatted=time;
+    }
   }
 }

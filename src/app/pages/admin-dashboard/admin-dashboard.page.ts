@@ -121,7 +121,8 @@ export class AdminDashboardPage implements OnInit {
         localityName: nonTradeHour.locationName,
         localityId: nonTradeHour.localityId,
         startTime: nonTradeHour.startTime,
-        endTime: nonTradeHour.endTime
+        endTime: nonTradeHour.endTime,
+        nonTradeReason: nonTradeHour.nonTradeReason
       }
     });
   }

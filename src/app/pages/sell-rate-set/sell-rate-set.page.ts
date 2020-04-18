@@ -10,6 +10,7 @@ import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page
 import { TimeService } from 'src/app/services/time.service';
 import * as moment from 'moment';
 import { USER_ROLE, ACTION_CREATE, ACTION_EDIT, ACTION_FORECAST } from 'src/app/environments/environments';
+import { strictEqual } from 'assert';
 
 @Component({
   selector: 'app-sell-rate-set',
@@ -27,6 +28,7 @@ export class SellRateSetPage implements OnInit {
   startTimeDetails: any;
   endTimeDetails: any;
   totalAmount: any = "00.00";
+  totalAmountStr: any = "00.00";
   deviceName: string;
   duration: string;
   energy: string;
@@ -34,10 +36,14 @@ export class SellRateSetPage implements OnInit {
   sellOrderId: any;
   action: any;
   rate: any;
+  currentTime: any;
+  // sellSolar: boolean=false;
+  // sellGenerator: boolean=false;
+  // sellEV: boolean=false;
 
-  sellSolar: boolean=false;
-  sellGenerator: boolean=false;
-  sellEV: boolean=false;
+  sellSolar: string='';
+  sellGenerator: string='';
+  sellEV: string='';
 
   solarPowerToSell: number=0;
   generatorPowerToSell: number=0;
@@ -116,7 +122,9 @@ export class SellRateSetPage implements OnInit {
         this.generatorEnergyToSell = params['generatorEnergyToSell'];
         this.evEnergyToSell = params['evEnergyToSell'];
         this.power = this.energy = params['totalPowerToSell'];
-        this.totalAmount = (+this.evPowerToSell) * (+this.rate);
+        console.log('POWER : ' , this.power);
+        console.log('RATE : ' , this.rate);
+        this.totalAmount = (+this.power) * (+this.rate);
         console.log('solarDeviceId' , this.solarDeviceId);
         console.log('generatorDeviceId' , this.generatorDeviceId);
         console.log('evDeviceId' , this.evDeviceId);
@@ -128,11 +136,32 @@ export class SellRateSetPage implements OnInit {
     this.endTime = moment(this.timeService.endTime).format('hh:mm A');
     this.startTimeDetails = this.timeService.startTimeDetails;
     this.endTimeDetails = this.timeService.endTimeDetails;
+    console.log('start time : ' , this.startTime);
+    console.log('end time : ' , this.endTime);
+    console.log('start time details : ' , this.startTimeDetails);
+    console.log('end time details : ' , this.endTimeDetails);
     this.duration = this.timeService.duration;
+    this.currentTime = new Date().toISOString().substring(0, 10);
   }
 
   calculateTotalAmount() {
-    this.totalAmount = parseInt(this.rate) * parseInt(this.energy);
+    console.log('POWER 1 : ' , this.energy);
+    console.log('RATE 1 : ' , this.rate);
+    //this.totalAmount = parseInt(this.rate) * parseInt(this.energy);
+    this.totalAmount = (+this.energy) * (+this.rate);
+    var rateArr=this.totalAmount.toString().split('.');
+    if(rateArr[1] != null) {
+      var len = rateArr[1].length;
+      if(len>2){
+        this.totalAmountStr=rateArr[0] + '.' + rateArr[1].substring(0,2);
+      }
+      else {
+        this.totalAmountStr=rateArr[0] + '.' + rateArr[1];
+      }
+    }
+    else {
+      this.totalAmountStr=this.totalAmount;
+    }
   }
 
   async submit() {
@@ -173,7 +202,11 @@ export class SellRateSetPage implements OnInit {
       this.presentModal();
     }
     if (this.action == ACTION_FORECAST) {
-      if(this.sellSolar) {
+      console.log('sell solar : ' , this.sellSolar);
+      console.log('sell generator : ' , this.sellGenerator);
+      console.log('sell ev : ' , this.sellEV);
+      console.log('forecast sell orders before : ' , this.forecastSellDetails);
+      if(this.sellSolar=='true') {
         this.sellOrderPayload.deviceTypeId = "1";
         this.sellOrderPayload.sellerId = this.sellerId;
         this.sellOrderPayload.userDeviceId = this.solarDeviceId;
@@ -186,7 +219,7 @@ export class SellRateSetPage implements OnInit {
         this.forecastSellDetails.push(this.sellOrderPayload);
         this.sellOrderPayload = {};
       }
-      if(this.sellGenerator) {
+      if(this.sellGenerator=='true') {
         this.sellOrderPayload.deviceTypeId = "2";
         this.sellOrderPayload.sellerId = this.sellerId;
         this.sellOrderPayload.userDeviceId = this.generatorDeviceId;
@@ -199,7 +232,7 @@ export class SellRateSetPage implements OnInit {
         this.forecastSellDetails.push(this.sellOrderPayload);
         this.sellOrderPayload = {};
       }
-      if(this.sellEV) {
+      if(this.sellEV=='true') {
         this.sellOrderPayload.deviceTypeId = "3";
         this.sellOrderPayload.sellerId = this.sellerId;
         this.sellOrderPayload.userDeviceId = this.evDeviceId;
@@ -212,6 +245,7 @@ export class SellRateSetPage implements OnInit {
         this.forecastSellDetails.push(this.sellOrderPayload);
         this.sellOrderPayload = {};
       }
+      console.log('forecast sell orders after : ' , this.forecastSellDetails);
       this.orderService.createSellOrdersFromForecast(this.forecastSellDetails).subscribe( (data) => console.log(data));
       this.orderService.printSellOrderList();
       // this.router.navigate(['sell-post-success'], {
