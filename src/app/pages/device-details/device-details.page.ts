@@ -80,7 +80,7 @@ export class DeviceDetailsPage implements OnInit {
   ionViewWillLeave() {
     this.menuController.swipeEnable(true);
   }
-  
+
   addDevice() {
     if (this.showSolar) {
       this.devices.push({
@@ -113,27 +113,27 @@ export class DeviceDetailsPage implements OnInit {
           console.log('user devices from server : ', res);
           this.responseFromService = res;
           this.ingressService.setUserDevices(this.responseFromService.response.devices);
-          this.storage.set('LoggedInUserDevices', this.ingressService.getUserDevicesFromLocal());
-          this.storage.set('LoggedInUserId', this.userId).then(() => {
-            this.ingressService.loggedInUserId = this.userId;
-            this.router.navigate(['/dashboard'], {
-              queryParams: {
-                userId: this.userId,
-                //phoneNumber: this.phoneNumber,
-                //redirect: this.redirect
-              }
-            });
+          this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
+          //this.storage.set('LoggedInUserId', this.userId).then(() => {
+          //  this.ingressService.loggedInUserId = this.userId;
+          this.router.navigate(['/dashboard'], {
+            queryParams: {
+              userId: this.userId,
+              //phoneNumber: this.phoneNumber,
+              //redirect: this.redirect
+            }
           });
-          // this.router.navigate(['/dashboard'], {
-          //   queryParams: {
-          //     showSolar: this.showSolar,
-          //     solarCapacity: this.deviceDetailsForm.get('solar').value,
-          //     showGenerator: this.showGenerator,
-          //     generatorCapacity: this.deviceDetailsForm.get('generator').value,
-          //     showEV: this.showEV,
-          //     evCapacity: this.deviceDetailsForm.get('ev').value
-          //   }});
         });
+        // this.router.navigate(['/dashboard'], {
+        //   queryParams: {
+        //     showSolar: this.showSolar,
+        //     solarCapacity: this.deviceDetailsForm.get('solar').value,
+        //     showGenerator: this.showGenerator,
+        //     generatorCapacity: this.deviceDetailsForm.get('generator').value,
+        //     showEV: this.showEV,
+        //     evCapacity: this.deviceDetailsForm.get('ev').value
+        //   }});
+
       }
     });
   }

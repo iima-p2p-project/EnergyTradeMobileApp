@@ -106,27 +106,29 @@ export class RegisterPage implements OnInit {
         if (this.resFromService.response.key == 200 || this.resFromService.response.key == 500) {
           console.log('check2');
           this.registeredUser = res;
-          this.ingressService.loggedInUserStateId = this.selectedStateId;
-          this.ingressService.loggedInUserLocalityId = this.selectedLocalityId;
-          this.ingressService.loggedInUserBoardId = this.selectedBoardId;
-          this.ingressService.loggedInUserLocalityName = this.selectedLocality;
-          this.storage.set('LoggedInUserStateId', this.selectedStateId);
-          this.storage.set('LoggedInUserLocalityId', this.selectedLocalityId);
-          this.storage.set('LoggedInUserLocalityName', this.selectedLocality);
-          this.storage.set('LoggedInUserBoardId', this.selectedBoardId).then(() => {
-            this.ingressService.loggedInUserId = this.registeredUser.userId;
-            this.ingressService.setLoggedInUser(this.registeredUser);
-            if (this.registeredUser != null) {
-              this.ingressService.setLoggedInUserId(this.registeredUser.response.userId);
-              //setting up onesignal notification identifier
-              this.oneSignal.setExternalUserId(this.registeredUser.response.userId);
+          
+          // this.ingressService.loggedInUserStateId = this.selectedStateId;
+          // this.ingressService.loggedInUserLocalityId = this.selectedLocalityId;
+          // this.ingressService.loggedInUserBoardId = this.selectedBoardId;
+          // this.ingressService.loggedInUserLocalityName = this.selectedLocality;
+          // this.storage.set('LoggedInUserStateId', this.selectedStateId);
+          // this.storage.set('LoggedInUserLocalityId', this.selectedLocalityId);
+          // this.storage.set('LoggedInUserLocalityName', this.selectedLocality);
+          // this.storage.set('LoggedInUserBoardId', this.selectedBoardId).then(() => {
+          // this.ingressService.loggedInUserId = this.registeredUser.userId;
+          this.ingressService.setLoggedInUser(this.registeredUser);
+          this.oneSignal.setExternalUserId(this.registeredUser.response.userId);
+          // if (this.registeredUser != null) {
+          //   this.ingressService.setLoggedInUserId(this.registeredUser.response.userId);
+          //   //setting up onesignal notification identifier
+            
+          // }
+          this.router.navigate(['/add-device'], {
+            queryParams: {
+              userId: this.registeredUser.response.userId,
+              redirect: this.redirect
             }
-            this.router.navigate(['/add-device'], {
-              queryParams: {
-                userId: this.registeredUser.response.userId,
-                redirect: this.redirect
-              }
-            });
+            // });
           });
         }
       });

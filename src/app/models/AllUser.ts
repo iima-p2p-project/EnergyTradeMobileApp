@@ -4,22 +4,24 @@ import { AllElectricityBoard } from './AllElectricityBoard';
 import { UserRolesPl } from './UserRolesPl';
 import { UserTypePl } from './UserTypePl';
 
-export class AllUser{
+export class AllUser {
     userId?: number;
+    userName?: string;
+    usn?:string;
+    localityName?:string;
     activeStatus?: any;
     createdBy?: string;
     createdTs?: any;
     deactivationDate?: any;
-    fullName?: string;
     phoneNumber?: string;
     registrationDate?: any;
     softdeleteflag?: any;
     syncTs?: any;
     updatedBy?: string;
     updatedTs?: any;
-    allOtps?: AllOtp[];
-    allState?: AllState[];
-    allElectricityBoard?: AllElectricityBoard[];
-    userRolesPl?: UserRolesPl[];
-    userTypePl?: UserTypePl[];
+    stateId?: any;
+    boardId?: any;
+    userRole?: string;
+    userTypes?: string[];
+    localityId?: any;
 }

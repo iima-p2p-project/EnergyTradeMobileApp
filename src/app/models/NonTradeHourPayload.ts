@@ -1,5 +1,5 @@
 export class NonTradeHourPayload{
-    userId?: string;
+    userId?: any;
     startTime?: string;
     endTime?: string;
     nonTradeReason?: string;

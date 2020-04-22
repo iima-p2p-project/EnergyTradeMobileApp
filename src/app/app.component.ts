@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
-import { Platform, AlertController, MenuController } from '@ionic/angular';
+import { Platform, AlertController, MenuController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { IngressService } from 'src/app/services/ingress.service';
+import { AllUser } from './models/AllUser';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,8 @@ export class AppComponent {
   userType: any = 2;
   localityName: any;
   selectedUserPersona = "DR";
+  availablePersonas: string[];
+
 
   constructor(
     private platform: Platform,
@@ -52,12 +55,21 @@ export class AppComponent {
     private ingressService: IngressService,
     private oneSignal: OneSignal,
     private alertCtrl: AlertController,
-    private menu: MenuController
+    private menu: MenuController,
+    private events: Events
   ) {
     this.initializeApp();
+
+    events.subscribe('user:loggedin', () => {
+      this.getUserDetails();
+    });
   }
 
   ionViewDidEnter() {
+
+    console.log("open Side panel");
+
+
   }
 
   setupPushNotif() {
@@ -135,28 +147,42 @@ export class AppComponent {
     // });
   }
 
+  checkinAvailablePersonas(persona) {
+    if (this.availablePersonas)
+      return this.availablePersonas.includes(persona);
+  }
+
   getUserDetails() {
-    this.ingressService.getUserNameToken().then((res: any) => {
-      console.log('app component user name : ', res);
-      this.ingressService.setLoggedInUser(res);
-      this.userName = res;
-      this.ingressService.loggedInUserName = this.userName;
-      this.ingressService.getUserRoleToken().then((res) => {
-        console.log('app component user role : ', res);
-       // this.userRole = res;
-        this.ingressService.loggedInUserRole = this.userRole;
-        this.ingressService.getUserLocalityNameToken().then((res) => {
-          console.log('app component locality name : ', res);
-          this.localityName = res;
-          this.ingressService.loggedInUserLocalityName = this.localityName;
-          this.ingressService.getUserIdToken().then((res) => {
-            console.log('app component user id : ', res);
-            this.userId = res;
-            this.ingressService.loggedInUserId = this.userId;
-          });
-        });
-      });
-    });
+    if (this.ingressService.loggedInUser) {
+      //this.loggedInUser = this.ingressService.loggedInUser;
+      this.availablePersonas = this.ingressService.loggedInUser.userTypes;
+      if (this.availablePersonas.includes("DR")) {
+        this.selectedUserPersona = "DR";
+      } else {
+        this.selectedUserPersona = "P2P";
+      }
+
+
+      this.userName = this.ingressService.loggedInUser.userName;
+
+      // this.ingressService.getUserRoleToken().then((res) => {
+      // console.log('app component user role : ', res);
+      // this.userRole = res;
+      // this.ingressService.loggedInUserRole = this.userRole;
+      this.localityName = this.ingressService.loggedInUser.localityName;
+      //     this.ingressService.getUserLocalityNameToken().then((res) => {
+      //       console.log('app component locality name : ', res);
+      //       this.localityName = res;
+      //       this.ingressService.loggedInUserLocalityName = this.localityName;
+      //       this.ingressService.getUserIdToken().then((res) => {
+      //         console.log('app component user id : ', res);
+      //         this.userId = res;
+      //         this.ingressService.loggedInUserId = this.userId;
+      //       });
+      //     });
+      //   });
+      // });
+    }
   }
 
   navigateToProfile() {
@@ -198,4 +224,5 @@ export class AppComponent {
   navigateToAllDREvents() {
 
   }
+
 }

@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { IngressService } from './ingress.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
   constructor(private router: Router
     , private storage: Storage
-    , private ingressService: IngressService) { }
+    , private ingressService: IngressService
+    ) { }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     console.log("inside auth guard service");
@@ -18,7 +20,7 @@ export class AuthGuard implements CanActivate {
       console.log(this.ingressService.getUserIdToken());
       return true;
     }
-    this.router.navigate(['/create-account'], {
+    this.router.navigate(['/login'], {
       queryParams: {
         redirect: state.url
       }

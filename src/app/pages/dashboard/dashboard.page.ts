@@ -82,15 +82,15 @@ export class DashboardPage implements OnInit {
     this.showSolar = false;
     this.showGenerator = false;
     this.showEV = false;
-    this.forecastList=[];
-    this.forecastLen=0;
+    this.forecastList = [];
+    this.forecastLen = 0;
   }
 
   ngOnInit() {
   }
 
   ionViewDidEnter() {
-    if(new Date().toISOString().substring(0,10) != this.forecastService.lastForecastFetchedDate) {
+    if (new Date().toISOString().substring(0, 10) != this.forecastService.lastForecastFetchedDate) {
       this.forecastService.forecastFetched = false;
     }
     this.allOrdersAndContracts = [];
@@ -98,17 +98,17 @@ export class DashboardPage implements OnInit {
     this.allOrders = [];
     this.index = 0;
     this.length = 0;
-    this.powerToSell='';
-    this.deviceCapactiy='';
-    this.deviceTypeId='';
-    this.solarSelected=false;
-    this.generatorSelected=false;
-    this.evSelected=false;
-    this.showSolar=false;
-    this.showGenerator=false;
-    this.showEV=false;
-    this.minPowerToBuy='';
-    this.maxPowerToBuy='';
+    this.powerToSell = '';
+    this.deviceCapactiy = '';
+    this.deviceTypeId = '';
+    this.solarSelected = false;
+    this.generatorSelected = false;
+    this.evSelected = false;
+    this.showSolar = false;
+    this.showGenerator = false;
+    this.showEV = false;
+    this.minPowerToBuy = '';
+    this.maxPowerToBuy = '';
     this.route.queryParams.subscribe(params => {
       //this.userId = params['userId'];
       if (params['tab'] != null) {
@@ -125,123 +125,124 @@ export class DashboardPage implements OnInit {
       }
     });
 
-    this.ingressService.getUserIdToken().then((res) => {
-      this.userId = res;
-      this.ingressService.loggedInUserId = this.userId;
-      this.ingressService.getUserLocalityNameToken().then((res) => {
-        this.userLocation = res;
-        this.ingressService.loggedInUserLocalityName = this.userLocation;
-      });
-      this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
-        this.resFromServer = res;
-        //this.orderList = this.resFromServer.ordersAndContracts;
+    // this.ingressService.getUserIdToken().then((res) => {
+    this.userId = this.ingressService.loggedInUser.userId;
 
-        console.log("Orders List:", this.resFromServer.response);
-        this.orderService.orderList = this.resFromServer.response;
-        //combining orders and contracts
-        this.allOrdersAndContracts = [];
-        if (this.resFromServer.response.sellOrders) {
-          for (let i = 0; i < this.resFromServer.response.sellOrders.length; i++) {
-            this.allOrdersAndContracts.push(this.resFromServer.response.sellOrders[i]);
-          }
-        }
-        if (this.resFromServer.response.contracts) {
-          for (let i = 0; i < this.resFromServer.response.contracts.length; i++) {
-            this.allOrdersAndContracts.push(this.resFromServer.response.contracts[i]);
-          }
-        }
-        console.log("All Sell Orders and contracts: ", this.allOrdersAndContracts);
-        this.fineTuneOrderList();
-      });
-      this.ingressService.getUserDevicesToken().then((res) => {
-        this.userDeviceList = res;
-        if (this.userDeviceList == null) {
-          this.userHasOnlyLoad = true;
-          this.checkSell = false;
-          this.checkBuy = true;
-        }
-        else if (this.userDeviceList.length == 0) {
-          this.userHasOnlyLoad = true;
-          this.checkSell = false;
-          this.checkBuy = true;
-        }
-        else {
-          this.userDeviceList.forEach(element => {
-            if (element.deviceTypeId == 1) {
-              this.solarDeviceId = element.userDeviceId;
-              this.solarDeviceTypeId = element.deviceTypeId;
-              this.showSolar = true;
-              this.solarCapacity = element.capacity;
-            }
-            if (element.deviceTypeId == 2) {
-              this.generatorDeviceId = element.userDeviceId;
-              this.generatorDeviceTypeId = element.deviceTypeId;
-              this.showGenerator = true;
-              this.generatorCapacity = element.capacity;
-            }
-            if (element.deviceTypeId == 3) {
-              this.evDeviceId = element.userDeviceId;
-              this.evDeviceTypeId = element.deviceTypeId;
-              this.showEV = true;
-              this.evCapacity = element.capacity;
-            }
-          });
-        }
-      });
-      //});
-      if(this.userId) {
-        if(!this.forecastService.forecastFetched) {
-          this.forecastService.forecastList=[];
-          this.forecastService.formattedForecastList=[];
-          this.forecastService.getForecasts(this.userId).subscribe((res) => {
-            this.resFromServer = res;
-            console.log('forecast response : ' , this.resFromServer);
-            //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
-            this.forecastList=this.resFromServer.response.listOfForecast;
-            //this.forecastService.forecastList=this.forecastList;
-            console.log('forecast response 123 : ' , this.forecastList);
-            if(this.forecastList!=null) {
-              console.log('not null check');
-              this.upcomingForecast=this.forecastList[0];
-              console.log('upcoming forecast : ' , this.upcomingForecast);
-              this.upcomingForecastStartTime=this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
-              this.upcomingForecastEndTime=this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
-              this.upcomingForecastPower=this.upcomingForecast.power;
-              this.upcomingForecastPrice=this.upcomingForecast.pricePerUnit;
-              this.forecastLen=this.forecastList.length;
-              this.forecastList.forEach(forecast => {
-                if(forecast!=null) {
-                  this.deviceList=forecast.listOfUserDevices;
-                  this.forecastService.deviceList=this.deviceList;
-                  if(this.deviceList!=null) {
-                    this.deviceList.forEach(device => {
-                      if(device!=null) {
-                        if(device.deviceTypeId==1 && device.deviceTypeName=='Solar') {
-                          //this.solarDeviceId=device.userDeviceId;
-                          forecast.solarDeviceId=device.userDeviceId;
-                        }
-                        if(device.deviceTypeId==2 && device.deviceTypeName=='ExternalGenerator') {
-                          //this.generatorDeviceId=device.userDeviceId;
-                          forecast.generatorDeviceId=device.userDeviceId;
-                        }
-                        if(device.deviceTypeId==3 && device.deviceTypeName=='EV') {
-                          //this.evDeviceId=device.userDeviceId;
-                          forecast.evDeviceId=device.userDeviceId;
-                        }
-                      }
-                    });
-                  }
-                }
-              });
-              this.forecastService.forecastList=this.forecastList;
-              this.forecastService.formatForecastData(this.forecastService.forecastList);
-            }
-          });
-          this.forecastService.lastForecastFetchedDate = new Date().toISOString().substring(0,10);
-          this.forecastService.forecastFetched = true;
+
+    // this.ingressService.getUserLocalityNameToken().then((res) => {
+    //   this.userLocation = res;
+    //   this.ingressService.loggedInUserLocalityName = this.userLocation;
+    // });
+    this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
+      this.resFromServer = res;
+      //this.orderList = this.resFromServer.ordersAndContracts;
+
+      console.log("Orders List:", this.resFromServer.response);
+      this.orderService.orderList = this.resFromServer.response;
+      //combining orders and contracts
+      this.allOrdersAndContracts = [];
+      if (this.resFromServer.response.sellOrders) {
+        for (let i = 0; i < this.resFromServer.response.sellOrders.length; i++) {
+          this.allOrdersAndContracts.push(this.resFromServer.response.sellOrders[i]);
         }
       }
+      if (this.resFromServer.response.contracts) {
+        for (let i = 0; i < this.resFromServer.response.contracts.length; i++) {
+          this.allOrdersAndContracts.push(this.resFromServer.response.contracts[i]);
+        }
+      }
+      console.log("All Sell Orders and contracts: ", this.allOrdersAndContracts);
+      this.fineTuneOrderList();
     });
+    this.ingressService.getUserDevicesToken().then((res) => {
+      this.userDeviceList = res;
+      if (this.userDeviceList == null) {
+        this.userHasOnlyLoad = true;
+        this.checkSell = false;
+        this.checkBuy = true;
+      }
+      else if (this.userDeviceList.length == 0) {
+        this.userHasOnlyLoad = true;
+        this.checkSell = false;
+        this.checkBuy = true;
+      }
+      else {
+        this.userDeviceList.forEach(element => {
+          if (element.deviceTypeId == 1) {
+            this.solarDeviceId = element.userDeviceId;
+            this.solarDeviceTypeId = element.deviceTypeId;
+            this.showSolar = true;
+            this.solarCapacity = element.capacity;
+          }
+          if (element.deviceTypeId == 2) {
+            this.generatorDeviceId = element.userDeviceId;
+            this.generatorDeviceTypeId = element.deviceTypeId;
+            this.showGenerator = true;
+            this.generatorCapacity = element.capacity;
+          }
+          if (element.deviceTypeId == 3) {
+            this.evDeviceId = element.userDeviceId;
+            this.evDeviceTypeId = element.deviceTypeId;
+            this.showEV = true;
+            this.evCapacity = element.capacity;
+          }
+        });
+      }
+    });
+    //});
+    if (this.userId) {
+      if (!this.forecastService.forecastFetched) {
+        this.forecastService.forecastList = [];
+        this.forecastService.formattedForecastList = [];
+        this.forecastService.getForecasts(this.userId).subscribe((res) => {
+          this.resFromServer = res;
+          console.log('forecast response : ', this.resFromServer);
+          //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
+          this.forecastList = this.resFromServer.response.listOfForecast;
+          //this.forecastService.forecastList=this.forecastList;
+          console.log('forecast response 123 : ', this.forecastList);
+          if (this.forecastList != null) {
+            console.log('not null check');
+            this.upcomingForecast = this.forecastList[0];
+            console.log('upcoming forecast : ', this.upcomingForecast);
+            this.upcomingForecastStartTime = this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
+            this.upcomingForecastEndTime = this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
+            this.upcomingForecastPower = this.upcomingForecast.power;
+            this.upcomingForecastPrice = this.upcomingForecast.pricePerUnit;
+            this.forecastLen = this.forecastList.length;
+            this.forecastList.forEach(forecast => {
+              if (forecast != null) {
+                this.deviceList = forecast.listOfUserDevices;
+                this.forecastService.deviceList = this.deviceList;
+                if (this.deviceList != null) {
+                  this.deviceList.forEach(device => {
+                    if (device != null) {
+                      if (device.deviceTypeId == 1 && device.deviceTypeName == 'Solar') {
+                        //this.solarDeviceId=device.userDeviceId;
+                        forecast.solarDeviceId = device.userDeviceId;
+                      }
+                      if (device.deviceTypeId == 2 && device.deviceTypeName == 'ExternalGenerator') {
+                        //this.generatorDeviceId=device.userDeviceId;
+                        forecast.generatorDeviceId = device.userDeviceId;
+                      }
+                      if (device.deviceTypeId == 3 && device.deviceTypeName == 'EV') {
+                        //this.evDeviceId=device.userDeviceId;
+                        forecast.evDeviceId = device.userDeviceId;
+                      }
+                    }
+                  });
+                }
+              }
+            });
+            this.forecastService.forecastList = this.forecastList;
+            this.forecastService.formatForecastData(this.forecastService.forecastList);
+          }
+        });
+        this.forecastService.lastForecastFetchedDate = new Date().toISOString().substring(0, 10);
+        this.forecastService.forecastFetched = true;
+      }
+    }
+
   }
 
   fineTuneOrderList() {
@@ -427,8 +428,8 @@ export class DashboardPage implements OnInit {
   }
 
   formatTimeForForecast(ts, type) {
-    if(ts!=null) {
-      ts=ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
+    if (ts != null) {
+      ts = ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
       if (type == 't')
         return moment(ts).format("hh:mm A");
       else if (type == 'd')

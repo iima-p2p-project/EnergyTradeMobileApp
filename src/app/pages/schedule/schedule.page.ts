@@ -5,7 +5,7 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { NonTradeHourPayload } from 'src/app/models/NonTradeHourPayload';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT, USER_ROLE  } from 'src/app/environments/environments';
+import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT, USER_ROLE } from 'src/app/environments/environments';
 import { LocalityModalPage } from '../modals/selectLocality';
 import { ModalController, AlertController } from '@ionic/angular';
 import { NonTradePostSuccessPage } from '../non-trade-post-success/non-trade-post-success.page';
@@ -61,8 +61,8 @@ export class SchedulePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.startTimeFormatted='';
-    this.endTimeFormatted='';
+    this.startTimeFormatted = '';
+    this.endTimeFormatted = '';
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       console.log('ACTION : ', this.action);
@@ -84,11 +84,11 @@ export class SchedulePage implements OnInit {
         this.btnLabel = 'SCHEDULE';
         this.header = 'SCHEDULE';
         this.callerPage = params['callerPage'];
-        if(this.startTime==null && this.endTime==null) {
-          this.timeService.startTime=null;
-          this.timeService.endTime=null;
-          this.timeService.isStartTimeSelected=false;
-          this.timeService.isEndTimeSelected=false;
+        if (this.startTime == null && this.endTime == null) {
+          this.timeService.startTime = null;
+          this.timeService.endTime = null;
+          this.timeService.isStartTimeSelected = false;
+          this.timeService.isEndTimeSelected = false;
         }
       }
       console.log('state id : ', this.adminStateId);
@@ -109,7 +109,7 @@ export class SchedulePage implements OnInit {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
-        console.log('duration object in start time : ' , this.durationDetails);
+        console.log('duration object in start time : ', this.durationDetails);
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
@@ -141,7 +141,7 @@ export class SchedulePage implements OnInit {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
-        console.log('duration object in start time : ' , this.durationDetails);
+        console.log('duration object in start time : ', this.durationDetails);
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
@@ -149,7 +149,7 @@ export class SchedulePage implements OnInit {
           this.duration = "00:00";
           this.inputsValidFlag = false;
         } else {
-          if(this.endTime!=null) {
+          if (this.endTime != null) {
             this.inputsValidFlag = true;
           }
         }
@@ -163,14 +163,14 @@ export class SchedulePage implements OnInit {
   }
 
   submit() {
-    if(this.location==null || this.reason==null || this.reason==''  || this.reason==' ') {
+    if (this.location == null || this.reason == null || this.reason == '' || this.reason == ' ') {
       //this.presentAlert('Enter Location');
       this.invalidInput();
       return;
     }
     if (this.action == ACTION_EDIT) {
-      if (this.ingressService.loggedInUserId != null) {
-        this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId;
+      if (this.ingressService.loggedInUser != null) {
+        this.nonTradeHourPayload.userId = this.ingressService.loggedInUser.userId;
       }
       this.nonTradeHourPayload.startTime = this.timeService.startTime;
       this.nonTradeHourPayload.endTime = this.timeService.endTime;
@@ -182,8 +182,8 @@ export class SchedulePage implements OnInit {
       this.presentEditSuccessModal(this.nonTradeHourId, this.nonTradeHourPayload);
     }
     if (this.action == ACTION_CREATE) {
-      if (this.ingressService.loggedInUserId != null) {
-        this.nonTradeHourPayload.userId = this.ingressService.loggedInUserId;
+      if (this.ingressService.loggedInUser != null) {
+        this.nonTradeHourPayload.userId = this.ingressService.loggedInUser.userId;
       }
       this.nonTradeHourPayload.startTime = this.timeService.startTime;
       this.nonTradeHourPayload.endTime = this.timeService.endTime;
@@ -230,7 +230,7 @@ export class SchedulePage implements OnInit {
     await alert.present();
   }
 
-  async presentCreateSuccessModal(){
+  async presentCreateSuccessModal() {
     const myModal = await this.modalController.create({
       component: NonTradePostSuccessPage,
       cssClass: 'my-custom-modal-small-css'
@@ -238,20 +238,20 @@ export class SchedulePage implements OnInit {
     return await myModal.present();
   }
 
-  async presentEditSuccessModal(nonTradeHourId: any, nonTradeHourPayload: any){
+  async presentEditSuccessModal(nonTradeHourId: any, nonTradeHourPayload: any) {
     const myModal = await this.modalController.create({
       component: NonTradeHoursAlertPage,
       cssClass: 'my-custom-modal-css',
       componentProps: {
         'orderId': nonTradeHourId,
-        'orderPayload' : nonTradeHourPayload,
+        'orderPayload': nonTradeHourPayload,
         'orderType': 'NONTRADEHOUR'
       }
     });
     myModal.onDidDismiss().then((dataReturned) => {
       if (dataReturned !== null) {
-        if(dataReturned.data!==null) {
-          if(dataReturned.data.action=='YES'){
+        if (dataReturned.data !== null) {
+          if (dataReturned.data.action == 'YES') {
             this.router.navigate(['/admin-dashboard'], {
               queryParams: {
               }
@@ -289,11 +289,11 @@ export class SchedulePage implements OnInit {
     if (time != null) {
       time = time.substring(0, 10) + ' ' + time.substring(11, 16) + ':00';
     }
-    if(tag=='s') {
-      this.startTimeFormatted=time;
+    if (tag == 's') {
+      this.startTimeFormatted = time;
     }
-    if(tag=='e') {
-      this.endTimeFormatted=time;
+    if (tag == 'e') {
+      this.endTimeFormatted = time;
     }
   }
 }

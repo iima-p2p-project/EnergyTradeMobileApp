@@ -26,9 +26,10 @@ const routes: Routes = [
   { path: 'create-account', loadChildren: './pages/create-account/create-account.module#CreateAccountPageModule' },
   { path: 'otp', loadChildren: './pages/otp/otp.module#OtpPageModule' },
   { path: 'device-details', loadChildren: './pages/device-details/device-details.module#DeviceDetailsPageModule' },
-  { path: 'dashboard', 
-    loadChildren: 'src/app/pages/dashboard/dashboard.module#DashboardPageModule', 
-    canActivate: [AuthGuard] 
+  {
+    path: 'dashboard',
+    loadChildren: 'src/app/pages/dashboard/dashboard.module#DashboardPageModule',
+    canActivate: [AuthGuard]
   },
   { path: 'sell-time-picker', loadChildren: './pages/sell-time-picker/sell-time-picker.module#SellTimePickerPageModule' },
   { path: 'sell-rate-set', loadChildren: './pages/sell-rate-set/sell-rate-set.module#SellRateSetPageModule' },
@@ -69,9 +70,9 @@ const routes: Routes = [
   { path: 'cancel-order-modal2', loadChildren: './cancel-order-modal2/cancel-order-modal2.module#CancelOrderModal2PageModule' },
   { path: 'non-trade-post-success', loadChildren: './pages/non-trade-post-success/non-trade-post-success.module#NonTradePostSuccessPageModule' },
   { path: 'statement', loadChildren: './pages/statement/statement.module#StatementPageModule' },
-  { path: 'customer-register', loadChildren: './DR/pages/customer-register/customer-register.module#CustomerRegisterPageModule', canActivate: [AuthGuard]  },
-  { path: 'customer-dashboard', loadChildren: './DR/pages/customer-dashboard/customer-dashboard.module#CustomerDashboardPageModule'  },
-  { path: 'notifications', loadChildren: './pages/notifications/notifications.module#NotificationsPageModule' },
+  { path: 'customer-register', loadChildren: './DR/pages/customer-register/customer-register.module#CustomerRegisterPageModule' },
+  { path: 'customer-dashboard', loadChildren: './DR/pages/customer-dashboard/customer-dashboard.module#CustomerDashboardPageModule', canActivate: [AuthGuard] },
+  { path: 'notifications', loadChildren: './pages/notifications/notifications.module#NotificationsPageModule', canActivate: [AuthGuard] },
   { path: 'user-profile', loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule' },
   { path: 'events', loadChildren: './pages/events/events.module#EventsPageModule' },
   { path: 'event-details', loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule' },
@@ -84,7 +85,8 @@ const routes: Routes = [
   { path: 'all-dr-event-sets', loadChildren: './DR/pages/all-dr-event-sets/all-dr-event-sets.module#AllDrEventSetsPageModule' },
   { path: 'event-set-details', loadChildren: './DR/pages/event-set-details/event-set-details.module#EventSetDetailsPageModule' },
   { path: 'choose-user-type', loadChildren: './DR/pages/choose-user-type/choose-user-type.module#ChooseUserTypePageModule' },
-  { path: 'create-dr-user-account', loadChildren: './DR/pages/create-dr-user-account/create-dr-user-account.module#CreateDrUserAccountPageModule' },  { path: 'scheduled-event-set-details', loadChildren: './DR/pages/scheduled-event-set-details/scheduled-event-set-details.module#ScheduledEventSetDetailsPageModule' },
+  { path: 'create-dr-user-account', loadChildren: './DR/pages/create-dr-user-account/create-dr-user-account.module#CreateDrUserAccountPageModule' },
+  { path: 'scheduled-event-set-details', loadChildren: './DR/pages/scheduled-event-set-details/scheduled-event-set-details.module#ScheduledEventSetDetailsPageModule' },
   { path: 'druser-profile', loadChildren: './DR/pages/druser-profile/druser-profile.module#DRUserProfilePageModule' },
   { path: 'add-drasset', loadChildren: './DR/pages/add-drasset/add-drasset.module#AddDRAssetPageModule' },
 
@@ -99,4 +101,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

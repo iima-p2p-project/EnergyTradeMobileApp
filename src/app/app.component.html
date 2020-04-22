@@ -10,14 +10,16 @@
       <ion-content>
         <ion-row style="border-bottom:1px solid rgba(177, 177, 177, 0.7);">
           <ion-col size="6" style="padding: 15px 10px 15px 15px;" (click)="changePersona('p2p')">
-            <div class="top-btn " [class.btn-active]="selectedUserPersona=='P2P'">
+            <div class="top-btn " [class.btn-active]="selectedUserPersona=='P2P'"
+              *ngIf="checkinAvailablePersonas('P2P')">
               <img [hidden]="selectedUserPersona=='P2P'" src="assets/svg/P2PB.svg" class="btn-image" alt="">
               <img [hidden]="selectedUserPersona!='P2P'" src="assets/svg/P2PW.svg" class="btn-image" alt="">
               Peer - Peer
             </div>
           </ion-col>
-          <ion-col size="6" style="padding: 15px 15px 15px 10px;" (click)="changePersona('dr')">
-            <div class="top-btn" [class.btn-active]="selectedUserPersona=='DR'">
+          <ion-col size="6" style="padding: 15px 15px 15px 10px;" (click)="changePersona('dr')"
+            *ngIf="checkinAvailablePersonas('DR')">
+            <div class=" top-btn" [class.btn-active]="selectedUserPersona=='DR'">
               <img [hidden]="selectedUserPersona=='DR'" src="assets/svg/DRB.png" class="btn-image" alt="">
               <img [hidden]="selectedUserPersona!='DR'" src="assets/svg/DRW.png" class="btn-image" alt="">
               Demand Response

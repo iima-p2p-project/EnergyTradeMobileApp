@@ -84,21 +84,22 @@ export class CreateDrUserAccountPage implements OnInit {
       console.log('response from register service : ', this.responseFromService.response.key);
       if (this.responseFromService.response.key == 200) {
         this.userId = this.responseFromService.response.userId;
-        this.userRole = this.responseFromService.response.userRole;
-        this.ingressService.setLoggedInUserId(this.userId);
-        this.ingressService.loggedInUserRole = this.userRole;
-        this.ingressService.loggedInUserName = this.fullName;
-        this.storage.set('LoggedInUserRole', this.userRole);
-        this.storage.set('LoggedInUserName', this.fullName);
-        this.storage.set('LoggedInUserId', this.userId).then(() => {
-          this.ingressService.loggedInUserId = this.userId;
-          this.drCustomerService.updateDrCustomerDetails(this.fullName, this.phoneNumber, this.drContractNumber).subscribe((res: any) => {
-            if (res.response.key == "200") {
-              this.router.navigateByUrl("/customer-dashboard");
-            } else {
-              console.log("Something went wrong in dr customer update");
-            }
-          });
+        // this.userRole = this.responseFromService.response.userRole;
+        // this.ingressService.setLoggedInUserId(this.userId);
+        // this.ingressService.loggedInUserRole = this.userRole;
+        // this.ingressService.loggedInUserName = this.fullName;
+        // this.storage.set('LoggedInUserRole', this.userRole);
+        // this.storage.set('LoggedInUserName', this.fullName);
+        // this.storage.set('LoggedInUserId', this.userId).then(() => {
+
+        this.ingressService.setLoggedInUser({ userId: this.userId });
+        this.drCustomerService.updateDrCustomerDetails(this.fullName, this.phoneNumber, this.drContractNumber).subscribe((res: any) => {
+          if (res.response.key == "200") {
+            this.router.navigateByUrl("/customer-dashboard");
+          } else {
+            console.log("Something went wrong in dr customer update");
+          }
+          // });
 
         });
       }

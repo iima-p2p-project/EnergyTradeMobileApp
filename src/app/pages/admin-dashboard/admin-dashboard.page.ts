@@ -24,13 +24,13 @@ export class AdminDashboardPage implements OnInit {
   userId: any;
   userRole: any;
   userStateId: any;
-  buyLeadsCount: any=0;
-  sellLeadsCount: any=0;
-  
+  buyLeadsCount: any = 0;
+  sellLeadsCount: any = 0;
+
   constructor(private router: Router,
     private route: ActivatedRoute,
-    public modal:ModalController,
-    public nav:NavController,
+    public modal: ModalController,
+    public nav: NavController,
     private orderService: OrderService,
     private ingressService: IngressService,
     private timeService: TimeService,
@@ -41,55 +41,58 @@ export class AdminDashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.ingressService.getUserRoleToken().then((res) => {
-      this.userRole = res;
-      if(this.userRole=='User') {
-        this.router.navigate(['/dashboard'], {
-          queryParams: {
-          }
-        }); 
-      }
-    })
-    this.ingressService.getUserIdToken().then((res) => {
-      this.userId = res;
-      if (this.userId) {
-        this.ingressService.loggedInUserId = this.userId;
-        this.ingressService.getUserStateToken().then((res) => {
-          this.userStateId = res;
-          this.ingressService.loggedInUserStateId = this.userStateId;
-          this.adminService.getAllNonTradeHours(this.userId).subscribe((res) => {
-            this.resFromServer = res;
-            console.log('Non Trade Hours : ', this.resFromServer);
-            this.nonTradeHourList = this.resFromServer.response.data;
-            this.adminService.nonTradeHoursList = this.nonTradeHourList;
-            this.adminService.getAllTrades(this.userId).subscribe((res) => {
-              this.resFromServer = res;
-              console.log('Trade Leads : ', this.resFromServer);
-              this.allBuyLeads = this.resFromServer.response.contracts;
-              this.adminService.allBuyLeads = this.allBuyLeads;
-              this.allSellLeads = this.resFromServer.response.sellOrders;
-              this.adminService.allSellLeads = this.allSellLeads;
-              this.sellLeadsCount = this.resFromServer.response.totalSellLeads;
-              this.adminService.sellLeadsCount = this.sellLeadsCount;
-              this.buyLeadsCount = this.resFromServer.response.totalBuyLeads;
-              this.adminService.buyLeadsCount = this.buyLeadsCount;
-            });
-          });
+    // this.ingressService.getUserRoleToken().then((res) => {
+    this.userRole = this.ingressService.loggedInUser.userRole;
+    this.userId = this.ingressService.loggedInUser.userId;
+    if (this.userRole == 'User') {
+      this.router.navigate(['/dashboard'], {
+        queryParams: {
+        }
+        // }); 
+      });
+    }
+
+    /// this.ingressService.getUserIdToken().then((res) => {
+    //this.userId = res;
+    if (this.userId) {
+      //this.ingressService.loggedInUserId = this.userId;
+
+      // this.ingressService.getUserStateToken().then((res) => {
+      this.userStateId = this.ingressService.loggedInUser.stateId;
+      //        this.ingressService.loggedInUserStateId = this.userStateId;
+      this.adminService.getAllNonTradeHours(this.userId).subscribe((res) => {
+        this.resFromServer = res;
+        console.log('Non Trade Hours : ', this.resFromServer);
+        this.nonTradeHourList = this.resFromServer.response.data;
+        this.adminService.nonTradeHoursList = this.nonTradeHourList;
+        this.adminService.getAllTrades(this.userId).subscribe((res) => {
+          this.resFromServer = res;
+          console.log('Trade Leads : ', this.resFromServer);
+          this.allBuyLeads = this.resFromServer.response.contracts;
+          this.adminService.allBuyLeads = this.allBuyLeads;
+          this.allSellLeads = this.resFromServer.response.sellOrders;
+          this.adminService.allSellLeads = this.allSellLeads;
+          this.sellLeadsCount = this.resFromServer.response.totalSellLeads;
+          this.adminService.sellLeadsCount = this.sellLeadsCount;
+          this.buyLeadsCount = this.resFromServer.response.totalBuyLeads;
+          this.adminService.buyLeadsCount = this.buyLeadsCount;
         });
-      }
-    })
+      });
+      // });
+    }
+    // })
   }
 
-  async cancelModal(nonTradeHour: any , orderType: any) {
-    let defg= await this.modal.create({
+  async cancelModal(nonTradeHour: any, orderType: any) {
+    let defg = await this.modal.create({
       component: CancelNonTradeHourPage,
       cssClass: 'my-custom-modal-css',
       componentProps: {
         'orderId': nonTradeHour.nonTradeHourId,
         'orderType': orderType,
-        'orderStartTime': this.formatTime(nonTradeHour.startTime,'t'),
-        'orderEndTime': this.formatTime(nonTradeHour.endTime,'t'),
-        'orderDate': this.formatTime(nonTradeHour.startTime,'d')
+        'orderStartTime': this.formatTime(nonTradeHour.startTime, 't'),
+        'orderEndTime': this.formatTime(nonTradeHour.endTime, 't'),
+        'orderDate': this.formatTime(nonTradeHour.startTime, 'd')
       }
     });
     defg.onDidDismiss().then((dataReturned) => {
@@ -103,13 +106,13 @@ export class AdminDashboardPage implements OnInit {
   formatTime(ts, type) {
     if (type == 't')
       return moment(ts).format("hh:mm A");
-    else if(type == 'd')
-    return moment(ts).format("Do MMM");
+    else if (type == 'd')
+      return moment(ts).format("Do MMM");
   }
 
   getDuration(startTime: string, endTime: string) {
-    console.log('Admin Dashboard Duration : ' , this.timeService.getDuration(startTime,endTime, ADMIN_ROLE));
-    return (this.timeService.getDuration(startTime,endTime, ADMIN_ROLE).durationTime)/60;
+    console.log('Admin Dashboard Duration : ', this.timeService.getDuration(startTime, endTime, ADMIN_ROLE));
+    return (this.timeService.getDuration(startTime, endTime, ADMIN_ROLE).durationTime) / 60;
   }
 
   editNonTradeHours(nonTradeHour: any) {

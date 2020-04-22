@@ -27,6 +27,7 @@ export class LoginPage implements OnInit {
   localityId: any;
   localityName: any;
   userRole: any;
+  userTypes: string[] = [];
   userData: any;
   userName: any;
   responseFromService: any;
@@ -82,56 +83,58 @@ export class LoginPage implements OnInit {
       this.responseFromService = res;
       if (this.responseFromService.response.key == 200) {
         console.log('login response : ', this.responseFromService);
-        this.userId = this.responseFromService.response.userId;
-        this.stateId = this.responseFromService.response.stateId;
-        this.boardId = this.responseFromService.response.boardId;
-        this.localityId = this.responseFromService.response.localityId;
-        this.userRole = this.responseFromService.response.userRole;
-        this.localityName = this.responseFromService.response.localityName;
-        this.userName = this.responseFromService.response.userName;
+        // this.userId = this.responseFromService.response.userId;
+        // this.stateId = this.responseFromService.response.stateId;
+        // this.boardId = this.responseFromService.response.boardId;
+        // this.localityId = this.responseFromService.response.localityId;
+        // for (let i = 0; i < this.responseFromService.response.accessLevel.length; i++) {
+        //   let userType = this.responseFromService.response.accessLevel[i].accessLevel
+        //   this.userTypes.push(userType);
+        // }
+        // this.userRole = this.responseFromService.response.userRole;
+        // this.localityName = this.responseFromService.response.localityName;
+        // this.userName = this.responseFromService.response.userName;
         //setting user io for as notification identifier for onesignal
         this.oneSignal.setExternalUserId(this.userId);
-        this.ingressService.setLoggedInUserId(this.userId);
-        this.ingressService.loggedInUserRole = this.userRole;
-        this.ingressService.loggedInUserStateId = this.stateId;
-        this.ingressService.loggedInUserLocalityId = this.localityId;
-        this.ingressService.loggedInUserBoardId = this.boardId;
-        this.ingressService.loggedInUserLocalityName = this.localityName;
-        this.ingressService.loggedInUserName = this.userName;
-        this.ingressService.getUserDevices(this.userId).subscribe((res) => {
-          this.responseFromService = res;
-          this.ingressService.setUserDevices(this.responseFromService.response.devices);
-          this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
-          this.storage.set('LoggedInUserRole', this.userRole);
-          this.storage.set('LoggedInUserStateId', this.stateId);
-          this.storage.set('LoggedInUserLocalityId', this.localityId);
-          this.storage.set('LoggedInUserBoardId', this.boardId);
-          this.storage.set('LoggedInUserLocalityName', this.localityName);
-          this.storage.set('LoggedInUserName', this.userName);
-          this.storage.set('LoggedInUserId', this.userId).then(() => {
-            this.ingressService.loggedInUserId = this.userId;
-            this.ingressService.printStorageKeyValue('LoggedInUserId');
-            this.ingressService.printStorageKeyValue('LoggedInUserDevices');
-            if (this.userRole == ADMIN_ROLE) {
-              this.router.navigate(['/admin-dashboard'], {
-                queryParams: {
-                  userId: this.userId,
-                  phoneNumber: this.phoneNumber,
-                  redirect: this.redirect
-                }
-              });
-            }
-            if (this.userRole == USER_ROLE) {
-              this.router.navigate(['/dashboard'], {
-                queryParams: {
-                  userId: this.userId,
-                  phoneNumber: this.phoneNumber,
-                  redirect: this.redirect
-                }
-              });
+        this.ingressService.setLoggedInUser(this.responseFromService.response);
+
+        // this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
+        // this.storage.set('LoggedInUserRole', this.userRole);
+        // this.storage.set('LoggedInUserStateId', this.stateId);
+        // this.storage.set('LoggedInUserLocalityId', this.localityId);
+        // this.storage.set('LoggedInUserBoardId', this.boardId);
+        // this.storage.set('LoggedInUserLocalityName', this.localityName);
+        // this.storage.set('LoggedInUserName', this.userName);
+        // this.storage.set('LoggedInUserTypes', this.userTypes);
+
+
+        if (this.ingressService.loggedInUser.userRole == ADMIN_ROLE) {
+          this.router.navigate(['/admin-dashboard'], {
+            queryParams: {
+              userId: this.userId,
+              phoneNumber: this.phoneNumber,
+              redirect: this.redirect
             }
           });
-        });
+        } else if (this.ingressService.loggedInUser.userRole == USER_ROLE) {
+          if (this.ingressService.loggedInUser.userTypes.includes("P2P")) {
+            this.router.navigate(['/dashboard'], {
+              queryParams: {
+                userId: this.userId,
+                phoneNumber: this.phoneNumber,
+                redirect: this.redirect
+              }
+            });
+          } else if (this.ingressService.loggedInUser.userTypes.includes("DR")) {
+            this.router.navigate(['/customer-dashboard'], {
+              queryParams: {
+                userId: this.userId,
+                phoneNumber: this.phoneNumber,
+                redirect: this.redirect
+              }
+            });
+          }
+        }
       }
       else if (this.responseFromService.response.key == 300) {
         console.log('Wrong OTP');

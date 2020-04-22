@@ -20,13 +20,13 @@ export class CustomerDashboardPage implements OnInit {
   eventSetsWithPublishedEvents;
   eventSetsWithScheduledEvents;
   ngOnInit() {
-    this.userId = this.ingressService.loggedInUserId;
+    this.userId = this.ingressService.loggedInUser.userId;
 
   }
   ionViewDidEnter() {
     //fetch event set details for customer
-
-    this.drCustomerService.getEventSetsForCustomer(48).subscribe((res: any) => {
+    let user = this.userId;
+    this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
       console.log(this.eventSets);
       this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))

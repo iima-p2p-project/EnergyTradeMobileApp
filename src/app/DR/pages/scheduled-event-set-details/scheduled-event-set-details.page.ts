@@ -44,8 +44,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
       this.maxMinPrice = params["maxMinPrice"];
       this.maxMinPower = params["maxMinPower"];
       this.eventSetName = params["evenSetName"];
-      //this.userId= this.ingressService.loggedInUserId;
-      this.userId = 48;
+      this.userId= this.ingressService.loggedInUser.userId;
       //get event set events
       this.getEvents();
 

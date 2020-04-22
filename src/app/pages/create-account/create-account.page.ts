@@ -1,6 +1,6 @@
 import { NgModule, OnInit, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder} from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
@@ -38,15 +38,15 @@ export class CreateAccountPage implements OnInit {
     , private toastCtrl: ToastController
     , private menuController: MenuController) {
 
-      this.createAccountForm = this.formBuilder.group({
-        phoneNumber: [null, Validators.compose([
-          Validators.required,
-          Validators.pattern('^[0-9]{10}$')
-        ])],
-        fullName: [null, Validators.required],
-        otp: [null, Validators.required],
-      });
-     }
+    this.createAccountForm = this.formBuilder.group({
+      phoneNumber: [null, Validators.compose([
+        Validators.required,
+        Validators.pattern('^[0-9]{10}$')
+      ])],
+      fullName: [null, Validators.required],
+      otp: [null, Validators.required],
+    });
+  }
 
   ngOnInit() {
   }
@@ -78,23 +78,23 @@ export class CreateAccountPage implements OnInit {
         this.responseFromService = res;
         console.log('response from register service : ', this.responseFromService.response.key);
         //this.showToast(this.responseFromService.response.key);
-        if (this.responseFromService.response.key ==200) {
-          this.userId = this.responseFromService.response.userId;
-          this.userRole = this.responseFromService.response.userRole;
-          this.ingressService.setLoggedInUserId(this.userId);
-          this.ingressService.loggedInUserRole = this.userRole;
-          this.ingressService.loggedInUserName = this.fullName;
-          this.storage.set('LoggedInUserRole', this.userRole);
-          this.storage.set('LoggedInUserName', this.fullName);
-          this.storage.set('LoggedInUserId', this.userId).then(() => {
-            this.ingressService.loggedInUserId = this.userId;
-            this.router.navigate(['/register'], {
-              queryParams: {
-                phoneNumber: this.phoneNumber,
-                fullName: this.fullName,
-                redirect: this.redirect
-              }
-            });
+        if (this.responseFromService.response.key == 200) {
+          // this.userId = this.responseFromService.response.userId;
+          // this.userRole = this.responseFromService.response.userRole;
+          // this.ingressService.setLoggedInUserId(this.userId);
+          // this.ingressService.loggedInUserRole = this.userRole;
+          // this.ingressService.loggedInUserName = this.fullName;
+          // this.storage.set('LoggedInUserRole', this.userRole);
+          // this.storage.set('LoggedInUserName', this.fullName);
+          // this.storage.set('LoggedInUserId', this.userId).then(() => {
+          // this.ingressService.loggedInUserId = this.userId;
+          this.router.navigate(['/register'], {
+            queryParams: {
+              phoneNumber: this.phoneNumber,
+              fullName: this.fullName,
+              redirect: this.redirect
+            }
+            // });
           });
         }
         if (this.responseFromService.response.key == 300) {
@@ -112,20 +112,20 @@ export class CreateAccountPage implements OnInit {
       });
     }
   }
-  
+
   enableOTPField() {
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
-    if(this.phoneNumber.toString().length == 10) {
-      if(ENABLE_SERVICES) {
+    if (this.phoneNumber.toString().length == 10) {
+      if (ENABLE_SERVICES) {
         this.ingressService.sendOtp(this.phoneNumber.toString()).subscribe((res) => {
-          this.responseFromService=res;
-          console.log('server response from send otp : ' , res);
-          if(this.responseFromService.response.key == 300) {
+          this.responseFromService = res;
+          console.log('server response from send otp : ', res);
+          if (this.responseFromService.response.key == 300) {
             this.showOTPFlag = false;
             console.log('User Already Exists. Please Login');
             this.showToast('User Already Exists. Please Login');
           }
-          if(/*this.responseFromService.response.key == 200*/ true) {
+          if (/*this.responseFromService.response.key == 200*/ true) {
             this.showOTPFlag = true;
           }
         });
