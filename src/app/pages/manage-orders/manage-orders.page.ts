@@ -201,7 +201,13 @@ export class ManageOrdersPage implements OnInit {
   async applyEnergyFilter() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{
+        text: 'Ok',
+        role: 'done'
+      }, {
+        text: 'Cancel',
+        role: 'cancel'
+      }],
       columns: [{
         name: "energyTypeOptions",
         options: [{ text: "Electric Vehicle (EV)", value: "EV" }
@@ -216,7 +222,7 @@ export class ManageOrdersPage implements OnInit {
       this.energyTypeFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.energyTypeFilterKey);
       console.log('order : ', this.allOrders);
-      if (!this.monthFilterKey) {
+      if (this.energyTypeFilterKey) {
         this.displayOrderList = this.allOrders.filter(order => order.deviceTypeName == this.energyTypeFilterKey);
       }
     }
