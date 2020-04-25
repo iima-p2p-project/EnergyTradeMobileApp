@@ -127,7 +127,7 @@ export class SellTimePickerPage implements OnInit {
   getStartTimeDetails() {
     this.formatTime(this.startTime, 's');
 
-    let cutOffStartTime = moment(moment().format("YYYY-MM-DD") + "T06:00:00.000");
+    let cutOffStartTime = moment(moment(this.startTimeFormatted).format("YYYY-MM-DD") + "T06:00:00.000");
     if (this.deviceTypeId == 1 && moment(this.startTimeFormatted).isBefore(cutOffStartTime)) {
       this.invalidDates("Start Time for Solar Devices cannot be before 06:00 AM");
       return;
@@ -167,7 +167,7 @@ export class SellTimePickerPage implements OnInit {
   getEndTimeDetails() {
     this.formatTime(this.endTime, 'e');
 
-    let cutOffEndTime = moment(moment().format("YYYY-MM-DD") + "T18:00:00.000");
+    let cutOffEndTime = moment(moment(this.endTimeFormatted).format("YYYY-MM-DD") + "T18:00:00.000");
     if (this.deviceTypeId == 1 && moment(this.endTimeFormatted).isAfter(cutOffEndTime)) {
       this.invalidDates("End Time for Solar Devices cannot be after 06:00 PM");
       return;

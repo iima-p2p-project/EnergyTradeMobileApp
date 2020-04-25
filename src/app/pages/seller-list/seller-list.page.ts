@@ -68,7 +68,7 @@ export class SellerListPage implements OnInit {
       this.budgetMax = params['budgetMax'];
 
       this.buyOrderPayload.userId = this.buyerId;
-      if(this.deviceTypeId!=null) {
+      if (this.deviceTypeId != null) {
         this.buyOrderPayload.deviceTypeId = this.deviceTypeId;
       }
       else {
@@ -149,15 +149,13 @@ export class SellerListPage implements OnInit {
 
             this.showDot = true;
             this.displayedSellerList.sort(function (a, b) {
-              if (a.total_amount > b.total_amount)
-                return -1;
+              return b.totalAmount - a.totalAmount;
             });
           }
           else if (this.sortKey == 'l' || this.sortKey == 'r') {
             this.showDot = true;
             this.displayedSellerList.sort(function (a, b) {
-              if (a.total_amount < b.total_amount)
-                return -1;
+              return a.totalAmount - b.totalAmount;
             });
           }
         }
