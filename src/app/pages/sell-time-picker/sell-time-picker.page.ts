@@ -82,9 +82,9 @@ export class SellTimePickerPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.startTimeFormatted='';
-    this.endTimeFormatted='';
-    this.callerPage='';
+    this.startTimeFormatted = '';
+    this.endTimeFormatted = '';
+    this.callerPage = '';
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       if (this.action == ACTION_CREATE) {
@@ -92,14 +92,14 @@ export class SellTimePickerPage implements OnInit {
         this.sellerId = params['sellerId'];
         this.userDeviceId = params['userDeviceId'];
         this.deviceTypeId = params['deviceTypeId'];
-        console.log("caller page inside oninit 1 : " , this.callerPage);
+        console.log("caller page inside oninit 1 : ", this.callerPage);
         this.callerPage = params['callerPage'];
-        console.log("caller page inside oninit 2 : " , this.callerPage);
-        if(this.startTime==null && this.endTime==null) {
-          this.timeService.startTime=null;
-          this.timeService.endTime=null;
-          this.timeService.isStartTimeSelected=false;
-          this.timeService.isEndTimeSelected=false;
+        console.log("caller page inside oninit 2 : ", this.callerPage);
+        if (this.startTime == null && this.endTime == null) {
+          this.timeService.startTime = null;
+          this.timeService.endTime = null;
+          this.timeService.isStartTimeSelected = false;
+          this.timeService.isEndTimeSelected = false;
         }
       }
       if (this.action == ACTION_EDIT) {
@@ -126,6 +126,12 @@ export class SellTimePickerPage implements OnInit {
 
   getStartTimeDetails() {
     this.formatTime(this.startTime, 's');
+
+    let cutOffStartTime = moment(moment().format("YYYY-MM-DD") + "T06:00:00.000");
+    if (this.deviceTypeId == 1 && moment(this.startTimeFormatted).isBefore(cutOffStartTime)) {
+      this.invalidDates("Start Time for Solar Devices cannot be before 06:00 AM");
+      return;
+    }
     if (this.timeService.getDuration(this.startTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
       this.invalidDates("Please select a future time.");
       this.duration = "00:00";
@@ -137,7 +143,7 @@ export class SellTimePickerPage implements OnInit {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
-        console.log('duration object in start time : ' , this.durationDetails);
+        console.log('duration object in start time : ', this.durationDetails);
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
@@ -160,6 +166,12 @@ export class SellTimePickerPage implements OnInit {
 
   getEndTimeDetails() {
     this.formatTime(this.endTime, 'e');
+
+    let cutOffEndTime = moment(moment().format("YYYY-MM-DD") + "T18:00:00.000");
+    if (this.deviceTypeId == 1 && moment(this.endTimeFormatted).isAfter(cutOffEndTime)) {
+      this.invalidDates("End Time for Solar Devices cannot be after 06:00 PM");
+      return;
+    }
     if (this.timeService.getDuration(this.endTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
       this.invalidDates("Please select a future time.");
       this.duration = "00:00";
@@ -171,7 +183,7 @@ export class SellTimePickerPage implements OnInit {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
       if (this.durationDetails.duration) {
         this.duration = this.durationDetails.duration.duration;
-        console.log('duration object in end time : ' , this.durationDetails);
+        console.log('duration object in end time : ', this.durationDetails);
         if (this.durationDetails.duration.durationTime <= 0) {
           console.log("Invalid Time range");
           //this.presentAlert("End Time shall be after start time");
@@ -192,7 +204,7 @@ export class SellTimePickerPage implements OnInit {
   }
 
   proceedToSetRate() {
-    this.callerPage='';
+    this.callerPage = '';
     if (this.inputsValidFlag) {
       this.router.navigate(['/sell-rate-set'], {
         queryParams: {
@@ -250,11 +262,11 @@ export class SellTimePickerPage implements OnInit {
     if (time != null) {
       time = time.substring(0, 10) + ' ' + time.substring(11, 16) + ':00';
     }
-    if(tag=='s') {
-      this.startTimeFormatted=time;
+    if (tag == 's') {
+      this.startTimeFormatted = time;
     }
-    if(tag=='e') {
-      this.endTimeFormatted=time;
+    if (tag == 'e') {
+      this.endTimeFormatted = time;
     }
   }
 }

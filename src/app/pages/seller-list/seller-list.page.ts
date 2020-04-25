@@ -19,8 +19,9 @@ export class SellerListPage implements OnInit {
   buyOrderPayload: BuyOrderPayload = {};
   contractPayload: ContractPayload = {};
   buyerId: any;
+  showDot = false;
 
-  sellerList: any[]=[];
+  sellerList: any[] = [];
   displayedSellerList: any;
   formattedTime: any;
   formattedDate: any;
@@ -48,7 +49,7 @@ export class SellerListPage implements OnInit {
     private orderService: OrderService,
     private route: ActivatedRoute,
     private router: Router,
-    public alert:AlertController,
+    public alert: AlertController,
     private pickerCtrl: PickerController) { }
 
   ngOnInit() {
@@ -59,8 +60,8 @@ export class SellerListPage implements OnInit {
       this.buyerId = params['buyerId'];
       this.unitMin = params['unitMin'];
       this.unitMax = params['unitMax'];
-      this.startTime = params['startTime'];
-      this.endTime = params['endTime'];
+      this.startTime = params['startTime'] || '00:00:00 00';
+      this.endTime = params['endTime'] || '00:00:00 00'
       this.budgetMin = params['budgetMin'];
       this.budgetMax = params['budgetMax'];
 
@@ -82,8 +83,8 @@ export class SellerListPage implements OnInit {
           this.solarSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '1');
           this.genSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '2');
           this.orderService.sellerList = this.sellerList;
-          this.searchCount=this.sellerList.length;
-          this.searchDate=moment(this.startTime).format("Do MMM");
+          this.searchCount = this.sellerList.length;
+          this.searchDate = moment(this.startTime).format("Do MMM");
         }
       });
     });
@@ -127,7 +128,39 @@ export class SellerListPage implements OnInit {
     console.log("Sorting Sellers");
 
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{
+        text: 'OK'
+        , role: 'done'
+        , handler: async () => {
+          let col = await picker.getColumn('sortOptions');
+          console.log("Selected Col", col);
+          this.sortKey = col.options[col.selectedIndex].value;
+          console.log("Sort Key:", this.sortKey);
+          //
+          if (this.sortKey == 'h') {
+
+            this.showDot = true;
+            this.displayedSellerList.sort(function (a, b) {
+              if (a.total_amount > b.total_amount)
+                return -1;
+            });
+          }
+          else if (this.sortKey == 'l' || this.sortKey == 'r') {
+            this.showDot = true;
+            this.displayedSellerList.sort(function (a, b) {
+              if (a.total_amount < b.total_amount)
+                return -1;
+            });
+          }
+        }
+      }, {
+        text: 'CLEAR'
+        , role: 'cancel'
+        , handler: () => {
+          this.displayedSellerList = this.sellerList;
+          this.showDot = false;
+        }
+      }],
       columns: [{
         name: "sortOptions",
         options: [{ text: "Price - Low to High", value: "l" }
@@ -137,26 +170,29 @@ export class SellerListPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('sortOptions');
-      console.log("Selected Col", col);
-      this.sortKey = col.options[col.selectedIndex].value;
-      console.log("Sort Key:", this.sortKey);
-      //
-      if (this.sortKey == 'h') {
-        this.displayedSellerList.sort(function (a, b) {
-          if (a.total_amount > b.total_amount)
-            return -1;
-        });
-      }
-      else if (this.filterKey == 'l' || this.filterKey == 'r') {
-        this.displayedSellerList.sort(function (a, b) {
-          if (a.total_amount < b.total_amount)
-            return -1;
-        });
-      }
-    }
-    );
+    // picker.onDidDismiss().then(async data => {
+    //   let col = await picker.getColumn('sortOptions');
+    //   console.log("Selected Col", col);
+    //   this.sortKey = col.options[col.selectedIndex].value;
+    //   console.log("Sort Key:", this.sortKey);
+    //   //
+    //   if (this.sortKey == 'h') {
+
+    //     this.showDot = true;
+    //     this.displayedSellerList.sort(function (a, b) {
+    //       if (a.total_amount > b.total_amount)
+    //         return -1;
+    //     });
+    //   }
+    //   else if (this.sortKey == 'l' || this.sortKey == 'r') {
+    //     this.showDot = true;
+    //     this.displayedSellerList.sort(function (a, b) {
+    //       if (a.total_amount < b.total_amount)
+    //         return -1;
+    //     });
+    //   }
+    // }
+    // );
   }
 
 
