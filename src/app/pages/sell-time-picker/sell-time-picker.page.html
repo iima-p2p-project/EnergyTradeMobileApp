@@ -31,8 +31,8 @@
                 <ion-row>
                   <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
-                    [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()"
-                    [min]="currentTime" minuteValues="0,15,30,45"></ion-datetime>
+                    [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()" [min]="currentTime"
+                    minuteValues="0,15,30,45"></ion-datetime>
                   <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                 </ion-row>
               </ion-col>
@@ -57,8 +57,8 @@
                 <ion-row>
                   <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
-                    [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()"
-                    [min]="currentTime" minuteValues="0,15,30,45"></ion-datetime>
+                    [(ngModel)]="startTime" (ionChange)="getStartTimeDetails()" [min]="currentTime"
+                    minuteValues="0,15,30,45"></ion-datetime>
                   <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                 </ion-row>
               </ion-col>
@@ -86,8 +86,8 @@
                 <ion-row>
                   <ion-datetime placeholder="_ _:_ _" displayFormat="hh:mm A" pickerFormat="MMM DD, hh:mm A"
                     style="margin-left:-0.7em;" class='font-start-end font-datetime-big grey-colour'
-                    [(ngModel)]="endTime" (ionChange)="getEndTimeDetails()"
-                    [min]="currentTime" minuteValues="0,15,30,45"></ion-datetime>
+                    [(ngModel)]="endTime" (ionChange)="getEndTimeDetails()" [min]="currentTime"
+                    minuteValues="0,15,30,45"></ion-datetime>
                   <!-- <span style="font-size:0.7em;" class='font-start-end grey-colour'>AM</span> -->
                 </ion-row>
               </ion-col>
@@ -122,8 +122,14 @@
     <ion-grid style="position:relative;top:110px;margin: 0 30px;">
       <ion-row class='ion-text-center'>
         <ion-col class='ion-text-left top-row-center' size="6" style="border-right: 1px solid #ccc;">
-          <ion-icon src="assets/svg/solar-power (1).svg" style='padding-right:0.5em;font-size: 1.4em;'></ion-icon>
+          <ion-icon src="assets/svg/solar-power (1).svg" style='padding-right:0.5em;font-size: 1.4em;'
+            *ngIf="deviceTypeId == 1"></ion-icon>
+          <ion-icon src="assets/svg/ev (1).svg" style='padding-right:0.5em;font-size: 1.4em;' *ngIf="deviceTypeId == 3">
+          </ion-icon>
+          <ion-icon src="assets/svg/generator (1).svg" style='padding-right:0.5em;font-size: 1.4em;'
+            *ngIf="deviceTypeId == 2"></ion-icon>
           <span class='no-units'>{{power}}</span> kW
+
         </ion-col>
         <ion-col class='ion-text-right top-row-center' size="6">
           <ion-icon src="assets/svg/energy (1).svg" style='padding-right:0.5em;font-size: 1.4em'></ion-icon>
