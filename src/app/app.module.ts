@@ -30,6 +30,8 @@ import { CancelOrderModal2PageModule } from './cancel-order-modal2/cancel-order-
 
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 //import { File, IWriteOptions } from '@ionic-native/file/ngx';
 
 import {  
@@ -73,6 +75,7 @@ import {
     FileTransfer,  
     FileTransferObject,  
     File,
+    InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

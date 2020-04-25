@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { INGRESS_URL, CONFIG_URL, TRADE_URL, ORDER_URL, FORECAST_URL } from 'src/app/environments/environments';
+import { INGRESS_URL, TRADE_URL, ORDER_URL, FORECAST_URL } from 'src/app/environments/environments';
 import { AllTimeslots } from 'src/app/models/AllTimeslots';
 //import { start } from 'repl';
 import * as moment from 'moment';
