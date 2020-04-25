@@ -18,6 +18,7 @@ export class SellerListPage implements OnInit {
 
   buyOrderPayload: BuyOrderPayload = {};
   contractPayload: ContractPayload = {};
+  deviceTypeId: any;
   buyerId: any;
 
   sellerList: any[]=[];
@@ -56,6 +57,7 @@ export class SellerListPage implements OnInit {
 
   ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
+      this.deviceTypeId = params['deviceTypeId'];
       this.buyerId = params['buyerId'];
       this.unitMin = params['unitMin'];
       this.unitMax = params['unitMax'];
@@ -64,7 +66,13 @@ export class SellerListPage implements OnInit {
       this.budgetMin = params['budgetMin'];
       this.budgetMax = params['budgetMax'];
 
-      this.buyOrderPayload.deviceTypeId = 1;
+      this.buyOrderPayload.userId = this.buyerId;
+      if(this.deviceTypeId!=null) {
+        this.buyOrderPayload.deviceTypeId = this.deviceTypeId;
+      }
+      else {
+        this.buyOrderPayload.deviceTypeId = -1;
+      }
       this.buyOrderPayload.minUnits = this.unitMin;
       this.buyOrderPayload.maxUnits = this.unitMax;
       this.buyOrderPayload.transferStartTs = this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ':00';
