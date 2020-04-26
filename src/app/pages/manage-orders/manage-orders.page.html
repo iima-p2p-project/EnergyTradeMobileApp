@@ -62,8 +62,8 @@
 
     <!-- LINE PRODUCTION -->
     <ion-row *ngFor="let order of displayOrderList">
-      <ion-card class="card-bottom">
-        <ion-row class="ion-align-items-center" [class.disabled]="true">
+      <ion-card [ngClass]="getCSS(order)">
+        <ion-row class="ion-align-items-center" [class.disabled]="false">
           <ion-col size="2" class="prediction">
             <ion-icon style="zoom:2.7;" class="d-block m-auto" src="assets/svg/sell (1).svg"
               *ngIf="order.orderType == 'sell'"></ion-icon>
@@ -169,7 +169,7 @@
     <!-- END PRODUCTION -->
 
 
-    <ion-row>
+    <ion-row hidden="true">
       <ion-card class="card-bottom green">
         <ion-row class="ion-align-items-center">
           <ion-col size="2" class="prediction">
@@ -215,7 +215,7 @@
       </ion-card>
     </ion-row>
 
-    <ion-row>
+    <ion-row hidden="true">
       <ion-card class="card-bottom orange">
         <ion-row class="ion-align-items-center">
           <ion-col size="2" class="prediction">
@@ -259,7 +259,7 @@
         </ion-row>
 
       </ion-card>
-      <ion-card class="cart-note">
+      <ion-card class="cart-note" hidden="true">
         <ion-row class="ion-align-items-center">
           <ion-col size="10" class="description">
             <b class="name">TSSPDCL</b> charge you fro 10 units of power
@@ -271,7 +271,7 @@
       </ion-card>
     </ion-row>
 
-    <ion-row>
+    <ion-row hidden="true">
       <ion-card class="card-bottom red">
         <ion-row class="ion-align-items-center" [class.disabled]="true">
           <ion-col size="2" class="prediction">

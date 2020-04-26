@@ -30,6 +30,8 @@ export class ManageOrdersPage implements OnInit {
   monthFilterKey;
   energyTypeFilterKey;
   allOrdersAndContracts = [];
+  orderDisabled=false;
+  orderCSS='card-bottom';
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
@@ -259,5 +261,33 @@ export class ManageOrdersPage implements OnInit {
       }
     });
     return await defg.present();
+  }
+
+  getCSS(order) {
+    this.orderDisabled=false;
+    this.orderCSS='card-bottom';
+    if(order!=null) {
+      if(order.orderType=='sell' && order.orderStatus=='Completed') {
+        this.orderDisabled=false;
+        this.orderCSS='card-bottom green';
+      }
+      if(order.orderType=='sell' && order.orderStatus=='Cancelled') {
+        this.orderDisabled=true;
+        this.orderCSS='card-bottom red';
+      }
+      if(order.orderType=='sell' && order.orderStatus=='Inittiated' && order.isCancellable=='N') {
+        this.orderDisabled=false;
+        this.orderCSS='card-bottom orange';
+      }
+      if(order.orderType=='buy' && order.contractStatus=='Active' && order.isCancellable=='N') {
+        this.orderDisabled=false;
+        this.orderCSS='card-bottom orange';
+      }
+      if(order.orderType=='buy' && order.contractStatus=='Cancelled') {
+        this.orderDisabled=false;
+        this.orderCSS='card-bottom red';
+      }
+    }
+    return this.orderCSS;
   }
 }
