@@ -127,6 +127,8 @@ export class RegisterPage implements OnInit {
               }
             });
           });
+        } else if (this.resFromService.response.key == 300) {
+          window.alert("USN already exists.Please use a new USN number");
         }
       });
     }
