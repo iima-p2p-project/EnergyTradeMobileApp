@@ -63,7 +63,7 @@
     <!-- LINE PRODUCTION -->
     <ion-row *ngFor="let order of displayOrderList">
       <ion-card [ngClass]="getCSS(order)">
-        <ion-row class="ion-align-items-center" [class.disabled]="false">
+        <ion-row class="ion-align-items-center" [class.disabled]="orderDisabled">
           <ion-col size="2" class="prediction">
             <ion-icon style="zoom:2.7;" class="d-block m-auto" src="assets/svg/sell (1).svg"
               *ngIf="order.orderType == 'sell'"></ion-icon>

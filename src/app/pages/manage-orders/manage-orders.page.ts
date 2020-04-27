@@ -30,8 +30,8 @@ export class ManageOrdersPage implements OnInit {
   monthFilterKey;
   energyTypeFilterKey;
   allOrdersAndContracts = [];
-  orderDisabled=false;
-  orderCSS='card-bottom';
+  orderDisabled = false;
+  orderCSS = 'card-bottom';
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
@@ -264,28 +264,46 @@ export class ManageOrdersPage implements OnInit {
   }
 
   getCSS(order) {
-    this.orderDisabled=false;
-    this.orderCSS='card-bottom';
-    if(order!=null) {
-      if(order.orderType=='sell' && order.orderStatus=='Completed') {
-        this.orderDisabled=false;
-        this.orderCSS='card-bottom green';
+    this.orderDisabled = false;
+    this.orderCSS = 'card-bottom';
+    if (order != null) {
+      if (order.orderType == 'sell' &&
+        (order.orderStatus == 'Completed' || order.orderStatus == 'Validated')) {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom green';
       }
-      if(order.orderType=='sell' && order.orderStatus=='Cancelled') {
-        this.orderDisabled=true;
-        this.orderCSS='card-bottom red';
+      if (order.orderType == 'sell' && order.orderStatus == 'Cancelled') {
+        this.orderDisabled = true;
+        this.orderCSS = 'card-bottom red';
       }
-      if(order.orderType=='sell' && order.orderStatus=='Inittiated' && order.isCancellable=='N') {
-        this.orderDisabled=false;
-        this.orderCSS='card-bottom orange';
+      if (order.orderType == 'sell' && order.orderStatus == 'Inittiated' && order.isCancellable == 'N') {
+        this.orderDisabled = true;
+        this.orderCSS = 'card-bottom red';
       }
-      if(order.orderType=='buy' && order.contractStatus=='Active' && order.isCancellable=='N') {
-        this.orderDisabled=false;
-        this.orderCSS='card-bottom orange';
+      if (order.orderType == 'buy' &&
+        (order.contractStatus == 'Completed' || order.contractStatus == 'Validated')) {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom green';
       }
-      if(order.orderType=='buy' && order.contractStatus=='Cancelled') {
-        this.orderDisabled=false;
-        this.orderCSS='card-bottom red';
+      if (order.orderType == 'buy' && order.contractStatus == 'Cancelled') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom red';
+      }
+      if (order.orderType == 'buy' && order.contractStatus == 'Live') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom orange';
+      }
+      if (order.orderType == 'sell' && order.orderStatus == 'Live') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom orange';
+      }
+      if (order.orderType == 'buy' && order.contractStatus == 'Active' && order.isCancellable == 'N') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom yellow';
+      }
+      if (order.orderType == 'sell' && order.orderStatus == 'Contracted' && order.isCancellable == 'N') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom yellow';
       }
     }
     return this.orderCSS;
