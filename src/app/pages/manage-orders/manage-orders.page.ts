@@ -107,7 +107,7 @@ export class ManageOrdersPage implements OnInit {
     });
 
     this.allOrders = this.orderListUpdated;
-    this.cancelledOrders = this.orderListUpdated.filter(order => order.orderStatus == "cancelled");
+    this.cancelledOrders = this.orderListUpdated.filter(order => order.orderStatus == "Cancelled");
     this.futureOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isAfter(moment.now()));
     this.pastOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isBefore(moment.now()));
   }
@@ -286,7 +286,7 @@ export class ManageOrdersPage implements OnInit {
         this.orderCSS = 'card-bottom green';
       }
       if (order.orderType == 'buy' && order.contractStatus == 'Cancelled') {
-        this.orderDisabled = false;
+        this.orderDisabled = true;
         this.orderCSS = 'card-bottom red';
       }
       if (order.orderType == 'buy' && order.contractStatus == 'Live') {

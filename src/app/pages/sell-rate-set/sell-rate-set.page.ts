@@ -140,14 +140,16 @@ export class SellRateSetPage implements OnInit {
     console.log('end time details : ', this.endTimeDetails);
     this.duration = this.timeService.duration;
     this.currentTime = new Date().toISOString().substring(0, 10);
+    // if (this.rate)
+    //   this.calculateTotalAmount();
   }
 
   calculateTotalAmount() {
-    console.log('POWER 1 : ', this.energy);
-    console.log('RATE 1 : ', this.rate);
+    // console.log('POWER 1 : ', this.energy);
+    // console.log('RATE 1 : ', this.rate);
     //this.totalAmount = parseInt(this.rate) * parseInt(this.energy);
-    this.totalAmount = (+this.energy) * (this.rate).toFixed(2);
-    this.totalAmount = this.totalAmount.toFixed(2);
+    this.totalAmount = (+this.energy) * +(+this.rate).toFixed(2);
+    this.totalAmount = +this.totalAmount.toFixed(2);
     this.totalAmountStr = this.totalAmount + "";
     // var rateArr = this.totalAmount.toString().split('.');
     // if (rateArr[1] != null) {

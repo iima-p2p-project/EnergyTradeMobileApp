@@ -68,7 +68,7 @@ export class SellerListPage implements OnInit {
       this.budgetMax = params['budgetMax'];
 
       this.buyOrderPayload.userId = this.buyerId;
-      if (this.deviceTypeId != null) {
+      if (this.deviceTypeId != null && this.deviceTypeId != "") {
         this.buyOrderPayload.deviceTypeId = this.deviceTypeId;
       }
       else {

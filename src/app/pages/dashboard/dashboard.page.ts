@@ -199,11 +199,11 @@ export class DashboardPage implements OnInit {
         }
       });
       //});
-      if (this.userId) {
+      if (this.ingressService.loggedInUserId) {
         if (!this.forecastService.forecastFetched) {
           this.forecastService.forecastList = [];
           this.forecastService.formattedForecastList = [];
-          this.forecastService.getForecasts(this.userId).subscribe((res) => {
+          this.forecastService.getForecasts(this.ingressService.loggedInUserId).subscribe((res) => {
             this.resFromServer = res;
             console.log('forecast response : ', this.resFromServer);
             //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
