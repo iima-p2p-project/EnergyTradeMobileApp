@@ -189,7 +189,7 @@ export class DashboardPage implements OnInit {
               this.showGenerator = true;
               this.generatorCapacity = element.capacity;
             }
-            if (element.deviceTypeId == 3) {
+            if (element.deviceTypeId == 4) {
               this.evDeviceId = element.userDeviceId;
               this.evDeviceTypeId = element.deviceTypeId;
               this.showEV = true;
