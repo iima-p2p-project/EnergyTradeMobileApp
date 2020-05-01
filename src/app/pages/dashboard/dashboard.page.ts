@@ -182,18 +182,21 @@ export class DashboardPage implements OnInit {
               this.solarDeviceTypeId = element.deviceTypeId;
               this.showSolar = true;
               this.solarCapacity = element.capacity;
+              this.ingressService.solarDeviceId = this.solarDeviceId;
             }
             if (element.deviceTypeId == 2) {
               this.generatorDeviceId = element.userDeviceId;
               this.generatorDeviceTypeId = element.deviceTypeId;
               this.showGenerator = true;
               this.generatorCapacity = element.capacity;
+              this.ingressService.generatorDeviceId = this.generatorDeviceId;
             }
             if (element.deviceTypeId == 4) {
               this.evDeviceId = element.userDeviceId;
               this.evDeviceTypeId = element.deviceTypeId;
               this.showEV = true;
               this.evCapacity = element.capacity;
+              this.ingressService.evDeviceId = this.evDeviceId;
             }
           });
         }

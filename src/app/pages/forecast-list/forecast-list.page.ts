@@ -19,28 +19,28 @@ export class ForecastListPage implements OnInit {
   userId: any;
 
   power: number;
-  remainingPower: number; 
+  remainingPower: number;
 
-  sellSolar: boolean=false;
-  sellGenerator: boolean=false;
-  sellEV: boolean=false;
+  sellSolar: boolean = false;
+  sellGenerator: boolean = false;
+  sellEV: boolean = false;
 
-  solarPowerToSell: number=0;
-  generatorPowerToSell: number=0;
-  evPowerToSell: number=0;
+  solarPowerToSell: number = 0;
+  generatorPowerToSell: number = 0;
+  evPowerToSell: number = 0;
 
-  solarEnergyToSell: number=0;
-  generatorEnergyToSell: number=0;
-  evEnergyToSell: number=0;
+  solarEnergyToSell: number = 0;
+  generatorEnergyToSell: number = 0;
+  evEnergyToSell: number = 0;
 
   solarDeviceId: any;
   generatorDeviceId: any;
   evDeviceId: any;
 
-  totalAmount: number=0;
+  totalAmount: number = 0;
 
   cssClassColor: any = "grey-bg";
-  
+
   constructor(private forecastService: ForecastService
     , private ingressService: IngressService
     , private router: Router
@@ -53,7 +53,7 @@ export class ForecastListPage implements OnInit {
   ionViewWillEnter() {
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
-      if(this.userId) {
+      if (this.userId) {
         // this.forecastService.getForecasts(this.userId).subscribe((res) => {
         //   this.resFromServer = res;
         //   console.log('forecast response : ' , this.resFromServer);
@@ -83,11 +83,11 @@ export class ForecastListPage implements OnInit {
         //     });
         //   }
         // });
-        console.log('forecast list from forecast page : ' ,  this.forecastService.formattedForecastList);
+        console.log('forecast list from forecast page : ', this.forecastService.formattedForecastList);
         //this.forecastService.formatForecastData(this.forecastService.forecastList);
         //this.forecastList=this.forecastService.forecastList;
-        this.forecastList=this.forecastService.formattedForecastList;
-        this.deviceList=this.forecastService.deviceList;
+        this.forecastList = this.forecastService.formattedForecastList;
+        this.deviceList = this.forecastService.deviceList;
       }
     })
   }
@@ -99,7 +99,7 @@ export class ForecastListPage implements OnInit {
 
   getForecastPowerToDisplay(forecast: any) {
     var powerAvailable = forecast.solarPower + forecast.generatorPower + forecast.evpower;
-    if(forecast.userLoad > powerAvailable) {
+    if (forecast.userLoad > powerAvailable) {
       return (forecast.userLoad - powerAvailable);
     }
     else {
@@ -109,26 +109,26 @@ export class ForecastListPage implements OnInit {
 
   sellForecast(forecast: any) {
     this.power = this.getForecastPowerToDisplay(forecast);
-    console.log('forecast sell : ' , forecast);
+    console.log('forecast sell : ', forecast);
     this.remainingPower = this.power;
     if (forecast.solarPower <= this.power) {
       this.sellSolar = true;
-      this.solarPowerToSell=forecast.solarPower;
-      this.solarEnergyToSell=this.solarPowerToSell;
+      this.solarPowerToSell = forecast.solarPower;
+      this.solarEnergyToSell = this.solarPowerToSell;
       this.remainingPower = this.power - forecast.solarPower;
     }
     if (this.remainingPower > 0) {
       if (forecast.generatorPower <= this.remainingPower) {
         this.sellGenerator = true;
-        this.generatorPowerToSell=forecast.generatorPower;
-        this.generatorEnergyToSell=this.generatorPowerToSell;
+        this.generatorPowerToSell = forecast.generatorPower;
+        this.generatorEnergyToSell = this.generatorPowerToSell;
         this.remainingPower = this.remainingPower - forecast.generatorPower;
       }
       if (this.remainingPower > 0) {
         if (forecast.evpower <= this.remainingPower) {
           this.sellEV = true;
-          this.evPowerToSell=forecast.evpower;
-          this.evEnergyToSell=this.evPowerToSell;
+          this.evPowerToSell = forecast.evpower;
+          this.evEnergyToSell = this.evPowerToSell;
           this.remainingPower = this.remainingPower - forecast.evpower;
         }
       }
@@ -140,15 +140,15 @@ export class ForecastListPage implements OnInit {
         action: ACTION_FORECAST,
         sellerId: this.userId,
         sellSolar: this.sellSolar,
-        solarDeviceId: forecast.solarDeviceId,
+        solarDeviceId: this.ingressService.solarDeviceId,
         solarPowerToSell: this.solarPowerToSell,
         solarEnergyToSell: this.solarEnergyToSell,
         sellGenerator: this.sellGenerator,
-        generatorDeviceId: forecast.generatorDeviceId,
+        generatorDeviceId: this.ingressService.generatorDeviceId,
         generatorPowerToSell: this.generatorPowerToSell,
         generatorEnergyToSell: this.generatorEnergyToSell,
         sellEV: this.sellEV,
-        evDeviceId: forecast.evDeviceId,  
+        evDeviceId: this.ingressService.evDeviceId,
         evPowerToSell: this.evPowerToSell,
         evEnergyToSell: this.evEnergyToSell,
         totalPowerToSell: this.power,
@@ -160,18 +160,18 @@ export class ForecastListPage implements OnInit {
   }
 
   buyForecast(forecast: any) {
-    this.power = this.getForecastPowerToDisplay (forecast);
-    this.totalAmount=(this.power) * (+forecast.pricePerUnit);
+    this.power = this.getForecastPowerToDisplay(forecast);
+    this.totalAmount = (this.power) * (+forecast.pricePerUnit);
     this.timeService.getStartTimeDetails(forecast.startTime, forecast.endTime, USER_ROLE);
     this.timeService.getEndTimeDetails(forecast.startTime, forecast.endTime, USER_ROLE);
     this.router.navigate(['/seller-list'], {
       queryParams: {
         action: ACTION_FORECAST,
         buyerId: this.userId,
-        unitMin: this.power-10,
-        unitMax: this.power+10,
-        budgetMin: this.getTotalAmount(this.power, forecast.pricePerUnit)-100,
-        budgetMax: this.getTotalAmount(this.power, forecast.pricePerUnit)+100,
+        unitMin: this.power - 10,
+        unitMax: this.power + 10,
+        budgetMin: this.getTotalAmount(this.power, forecast.pricePerUnit) - 100,
+        budgetMax: this.getTotalAmount(this.power, forecast.pricePerUnit) + 100,
         startTime: forecast.startTime,
         endTime: forecast.endTime
       }
@@ -179,24 +179,24 @@ export class ForecastListPage implements OnInit {
   }
 
   formatTime(ts, type) {
-    if(ts!=null) {
-      ts=ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
-      console.log('TSSSS : ' , ts);
+    if (ts != null) {
+      ts = ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
+      console.log('TSSSS : ', ts);
       if (type == 't')
         return moment(ts).format("hh:mm A");
-      else if(type == 'd')
-      return moment(ts).format("Do MMM");
+      else if (type == 'd')
+        return moment(ts).format("Do MMM");
     }
   }
 
   formatTimeCheckWithCurrentTime(ts, type) {
-    if(ts!=null) {
-      ts=ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
-      console.log('TSSSS : ' , ts);
+    if (ts != null) {
+      ts = ts.substring(0, 10) + ' ' + ts.substring(11, 16) + ':00';
+      console.log('TSSSS : ', ts);
       if (type == 't')
         return moment(ts).format("hh:mm A");
-      else if(type == 'd') {
-        if((moment(new Date().toISOString()).format("Do MMM"))==(moment(ts).format("Do MMM")))
+      else if (type == 'd') {
+        if ((moment(new Date().toISOString()).format("Do MMM")) == (moment(ts).format("Do MMM")))
           return 'Today';
         else
           return moment(ts).format("Do MMM");
