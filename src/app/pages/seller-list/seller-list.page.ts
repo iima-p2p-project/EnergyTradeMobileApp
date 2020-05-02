@@ -87,9 +87,9 @@ export class SellerListPage implements OnInit {
           console.log("Sell Orders", this.sellerList);
           //adding filterd arrays
           this.displayedSellerList = this.sellerList;
-          this.evSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '3');
-          this.solarSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '1');
-          this.genSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '2');
+          this.evSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Battery');
+          this.solarSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Solar');
+          this.genSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Generator');
           this.orderService.sellerList = this.sellerList;
           this.searchCount = this.sellerList.length;
           this.searchDate = moment(this.startTime).format("Do MMM");

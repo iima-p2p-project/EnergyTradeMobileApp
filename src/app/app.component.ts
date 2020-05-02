@@ -66,7 +66,7 @@ export class AppComponent {
 
   setupPushNotif() {
     this.oneSignal.startInit('9b0a5ec6-e306-4aa7-9713-722d8ee1f47c', '701058302199');
-    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification)
 
 
     this.oneSignal.handleNotificationReceived().subscribe(data => {
@@ -92,7 +92,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.styleBlackTranslucent();
       this.splashScreen.hide();
       this.setupPushNotif();
 
