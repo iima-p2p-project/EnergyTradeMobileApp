@@ -129,7 +129,10 @@ export class RegisterPage implements OnInit {
             });
           });
         } else if (this.resFromService.response.key == 300) {
-          this.presentAlert("USN number already exists.")
+          if (this.resFromService.response.message == 'USN Already Existed.')
+            this.presentAlert("USN number already exists");
+          else
+            this.presentAlert("Invalid USN");
         }
       });
     }
