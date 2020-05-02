@@ -237,11 +237,11 @@ export class DashboardPage implements OnInit {
                           //this.solarDeviceId=device.userDeviceId;
                           forecast.solarDeviceId = device.userDeviceId;
                         }
-                        if (device.deviceTypeId == 2 && device.deviceTypeName == 'ExternalGenerator') {
+                        if (device.deviceTypeId == 2 && device.deviceTypeName == 'Generator') {
                           //this.generatorDeviceId=device.userDeviceId;
                           forecast.generatorDeviceId = device.userDeviceId;
                         }
-                        if (device.deviceTypeId == 3 && device.deviceTypeName == 'EV') {
+                        if (device.deviceTypeId == 4 && device.deviceTypeName == 'Battery') {
                           //this.evDeviceId=device.userDeviceId;
                           forecast.evDeviceId = device.userDeviceId;
                         }

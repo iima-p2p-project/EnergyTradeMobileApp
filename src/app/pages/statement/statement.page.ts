@@ -95,7 +95,7 @@ export class StatementPage implements OnInit {
     this.txnListFromServer.forEach(element => {
 
       this.txn.Id = element.transactionId;
-      this.txn.Name =  element.participantName;
+      this.txn.Name = element.participantName;
       this.txn.Date = this.formatTime(element.transferStartTs, 'd');
       this.txn.Device = element.deviceTypeName;
       this.txn.Type = element.type;
@@ -103,7 +103,7 @@ export class StatementPage implements OnInit {
 
       this.txnList.push(this.txn);
 
-      this.txn={};
+      this.txn = {};
 
       this.trade = element.transactionId + " " + element.participantName
         + " " + this.formatTime(element.transferStartTs, 'd')
@@ -139,7 +139,7 @@ export class StatementPage implements OnInit {
   }
 
   formatTime(ts, type) {
-   // console.log('format time param : ', ts);
+    // console.log('format time param : ', ts);
     if (type == 't')
       return moment(ts).format("hh:mm A");
     else if (type == 'd')
@@ -156,8 +156,8 @@ export class StatementPage implements OnInit {
         if (this.resFromServer != null) {
           this.response = this.resFromServer.response;
           if (this.response != null) {
-            this.totalEarnings = this.response.totalAmountEarned;
-            this.totalSpent = this.response.totalAmountSpent;
+            this.totalEarnings = (+(+this.response.totalAmountEarned).toFixed(2));
+            this.totalSpent = (+(+this.response.totalAmountSpent).toFixed(2));
             this.txnListFromServer = this.response.trades;
           }
         }
@@ -174,8 +174,8 @@ export class StatementPage implements OnInit {
         if (this.resFromServer != null) {
           this.response = this.resFromServer.response;
           if (this.response != null) {
-            this.totalEarnings = this.response.totalAmountEarned;
-            this.totalSpent = this.response.totalAmountSpent;
+            this.totalEarnings = (+(+this.response.totalAmountEarned).toFixed(2));
+            this.totalSpent = (+(+this.response.totalAmountSpent).toFixed(2));
             this.txnListFromServer = this.response.trades;
           }
         }
@@ -319,7 +319,7 @@ export class StatementPage implements OnInit {
         { text: " ", style: 'story', margin: [0, 0, 0, 20] },
         // { text: this.tradeList, style: 'story', margin: [0, 0, 0, 20] },
         this.table(this.txnList, ['Trade Id', 'Trade Type', 'Participant Name', 'Trade Date', 'Trade Device', 'Total Amount'])
-                // {
+        // {
         //   ul: [
         //     'Bacon',
         //     'Rips',
@@ -460,10 +460,10 @@ export class StatementPage implements OnInit {
       var dataRow = [];
 
       columns.forEach(function (column) {
-        col=column.toString();
+        col = column.toString();
         //key=col.substring(col.indexOf(" ")).trim();
-        console.log('col : ', col.substring(col.indexOf(" ")+1));
-        dataRow.push(row[col.substring(col.indexOf(" ")+1)].toString());
+        console.log('col : ', col.substring(col.indexOf(" ") + 1));
+        dataRow.push(row[col.substring(col.indexOf(" ") + 1)].toString());
       })
 
       body.push(dataRow);
@@ -480,5 +480,9 @@ export class StatementPage implements OnInit {
         body: this.buildTableBody(data, columns),
       }
     };
+  }
+
+  decimalCorrection(data) {
+    return (+data).toFixed(2);
   }
 }
