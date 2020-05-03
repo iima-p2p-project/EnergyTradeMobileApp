@@ -122,8 +122,14 @@
     <ion-grid style="position:relative;top:110px;margin: 0 30px;">
       <ion-row class='ion-text-center'>
         <ion-col class='ion-text-left top-row-center' size="6" style="border-right: 1px solid #ccc;">
-          <ion-icon src="assets/svg/solar-power (1).svg" style='padding-right:0.5em;font-size: 1.4em;'></ion-icon>
+          <ion-icon src="assets/svg/solar-power (1).svg" style='padding-right:0.5em;font-size: 1.4em;'
+            *ngIf="deviceTypeId == 1"></ion-icon>
+          <ion-icon src="assets/svg/ev (1).svg" style='padding-right:0.5em;font-size: 1.4em;' *ngIf="deviceTypeId == 4">
+          </ion-icon>
+          <ion-icon src="assets/svg/generator (1).svg" style='padding-right:0.5em;font-size: 1.4em;'
+            *ngIf="deviceTypeId == 2"></ion-icon>
           <span class='no-units'>{{power}}</span> kW
+
         </ion-col>
         <ion-col class='ion-text-right top-row-center' size="6">
           <ion-icon src="assets/svg/energy (1).svg" style='padding-right:0.5em;font-size: 1.4em'></ion-icon>
@@ -138,8 +144,9 @@
               routerDirection="forward" routerLink="/sell-rate-set" (click)="proceedToSetRate()">
                 PROCEED TO SET RATE
               </ion-button> -->
-      <ion-button class="ion-text-center" disabled="{{!inputsValidFlag}}" shape="round" style="font-family:MSemiBold;"
-        routerDirection="forward" routerLink="/sell-rate-set" (click)="proceedToSetRate()">
+      <ion-button class="ion-text-center" disabled="{{(!startValid) || (!endValid)}}" shape="round"
+        style="font-family:MSemiBold;" routerDirection="forward" routerLink="/sell-rate-set"
+        (click)="proceedToSetRate()">
         PROCEED TO SET RATE
       </ion-button>
     </div>

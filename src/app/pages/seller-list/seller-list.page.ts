@@ -18,9 +18,11 @@ export class SellerListPage implements OnInit {
 
   buyOrderPayload: BuyOrderPayload = {};
   contractPayload: ContractPayload = {};
+  deviceTypeId: any;
   buyerId: any;
+  showDot = false;
 
-  sellerList: any[]=[];
+  sellerList: any[] = [];
   displayedSellerList: any;
   formattedTime: any;
   formattedDate: any;
@@ -48,7 +50,7 @@ export class SellerListPage implements OnInit {
     private orderService: OrderService,
     private route: ActivatedRoute,
     private router: Router,
-    public alert:AlertController,
+    public alert: AlertController,
     private pickerCtrl: PickerController) { }
 
   ngOnInit() {
@@ -56,15 +58,22 @@ export class SellerListPage implements OnInit {
 
   ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
+      this.deviceTypeId = params['deviceTypeId'];
       this.buyerId = params['buyerId'];
       this.unitMin = params['unitMin'];
       this.unitMax = params['unitMax'];
-      this.startTime = params['startTime'];
-      this.endTime = params['endTime'];
+      this.startTime = params['startTime'] || '00:00:00 00';
+      this.endTime = params['endTime'] || '00:00:00 00'
       this.budgetMin = params['budgetMin'];
       this.budgetMax = params['budgetMax'];
 
-      this.buyOrderPayload.deviceTypeId = 1;
+      this.buyOrderPayload.userId = this.buyerId;
+      if (this.deviceTypeId != null && this.deviceTypeId != "") {
+        this.buyOrderPayload.deviceTypeId = this.deviceTypeId;
+      }
+      else {
+        this.buyOrderPayload.deviceTypeId = -1;
+      }
       this.buyOrderPayload.minUnits = this.unitMin;
       this.buyOrderPayload.maxUnits = this.unitMax;
       this.buyOrderPayload.transferStartTs = this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ':00';
@@ -78,12 +87,12 @@ export class SellerListPage implements OnInit {
           console.log("Sell Orders", this.sellerList);
           //adding filterd arrays
           this.displayedSellerList = this.sellerList;
-          this.evSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '3');
-          this.solarSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '1');
-          this.genSellOrders = this.sellerList.filter(sellOrder => sellOrder.device_type_id == '2');
+          this.evSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Battery');
+          this.solarSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Solar');
+          this.genSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Generator');
           this.orderService.sellerList = this.sellerList;
-          this.searchCount=this.sellerList.length;
-          this.searchDate=moment(this.startTime).format("Do MMM");
+          this.searchCount = this.sellerList.length;
+          this.searchDate = moment(this.startTime).format("Do MMM");
         }
       });
     });
@@ -127,7 +136,37 @@ export class SellerListPage implements OnInit {
     console.log("Sorting Sellers");
 
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{
+        text: 'OK'
+        , role: 'done'
+        , handler: async () => {
+          let col = await picker.getColumn('sortOptions');
+          console.log("Selected Col", col);
+          this.sortKey = col.options[col.selectedIndex].value;
+          console.log("Sort Key:", this.sortKey);
+          //
+          if (this.sortKey == 'h') {
+
+            this.showDot = true;
+            this.displayedSellerList.sort(function (a, b) {
+              return b.totalAmount - a.totalAmount;
+            });
+          }
+          else if (this.sortKey == 'l' || this.sortKey == 'r') {
+            this.showDot = true;
+            this.displayedSellerList.sort(function (a, b) {
+              return a.totalAmount - b.totalAmount;
+            });
+          }
+        }
+      }, {
+        text: 'CLEAR'
+        , role: 'cancel'
+        , handler: () => {
+          this.displayedSellerList = this.sellerList;
+          this.showDot = false;
+        }
+      }],
       columns: [{
         name: "sortOptions",
         options: [{ text: "Price - Low to High", value: "l" }
@@ -137,26 +176,29 @@ export class SellerListPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('sortOptions');
-      console.log("Selected Col", col);
-      this.sortKey = col.options[col.selectedIndex].value;
-      console.log("Sort Key:", this.sortKey);
-      //
-      if (this.sortKey == 'h') {
-        this.displayedSellerList.sort(function (a, b) {
-          if (a.total_amount > b.total_amount)
-            return -1;
-        });
-      }
-      else if (this.filterKey == 'l' || this.filterKey == 'r') {
-        this.displayedSellerList.sort(function (a, b) {
-          if (a.total_amount < b.total_amount)
-            return -1;
-        });
-      }
-    }
-    );
+    // picker.onDidDismiss().then(async data => {
+    //   let col = await picker.getColumn('sortOptions');
+    //   console.log("Selected Col", col);
+    //   this.sortKey = col.options[col.selectedIndex].value;
+    //   console.log("Sort Key:", this.sortKey);
+    //   //
+    //   if (this.sortKey == 'h') {
+
+    //     this.showDot = true;
+    //     this.displayedSellerList.sort(function (a, b) {
+    //       if (a.total_amount > b.total_amount)
+    //         return -1;
+    //     });
+    //   }
+    //   else if (this.sortKey == 'l' || this.sortKey == 'r') {
+    //     this.showDot = true;
+    //     this.displayedSellerList.sort(function (a, b) {
+    //       if (a.total_amount < b.total_amount)
+    //         return -1;
+    //     });
+    //   }
+    // }
+    // );
   }
 
 

@@ -30,6 +30,8 @@ export class ManageOrdersPage implements OnInit {
   monthFilterKey;
   energyTypeFilterKey;
   allOrdersAndContracts = [];
+  orderDisabled = false;
+  orderCSS = 'card-bottom';
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
@@ -45,8 +47,8 @@ export class ManageOrdersPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.allOrdersAndContracts=[];
-    this.orderListUpdated=[];
+    this.allOrdersAndContracts = [];
+    this.orderListUpdated = [];
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
       if (this.userId) {
@@ -98,10 +100,14 @@ export class ManageOrdersPage implements OnInit {
     console.log("Updated orders list", this.orderListUpdated);
     this.displayOrderList = this.orderListUpdated;
     this.displayOrderList.sort((ts1, ts2) => {
-      return moment(ts2.transferStartTs).diff(ts1.transferStartTs);
+      let t1 = moment(ts1.transferStartTs);
+      let t2 = moment(ts2.transferStartTs);
+      let diff = t1.diff(t2, 'seconds');
+      return diff;
     });
+
     this.allOrders = this.orderListUpdated;
-    this.cancelledOrders = this.orderListUpdated.filter(order => order.orderStatus == "cancelled");
+    this.cancelledOrders = this.orderListUpdated.filter(order => order.orderStatus == "Cancelled");
     this.futureOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isAfter(moment.now()));
     this.pastOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isBefore(moment.now()));
   }
@@ -120,7 +126,7 @@ export class ManageOrdersPage implements OnInit {
   // }
 
   formatTime(ts, type) {
-    console.log('format time param : ' , ts);
+    //console.log('format time param : ' , ts);
     if (type == 't')
       return moment(ts).format("hh:mm A");
     else if (type == 'd')
@@ -186,7 +192,7 @@ export class ManageOrdersPage implements OnInit {
       let col = await picker.getColumn('monthOptions');
       this.monthFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.monthFilterKey);
-      console.log('order : ' , this.allOrders);
+      console.log('order : ', this.allOrders);
       this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
       // if(!this.monthFilterKey) {
       //   this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
@@ -197,7 +203,13 @@ export class ManageOrdersPage implements OnInit {
   async applyEnergyFilter() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{
+        text: 'Ok',
+        role: 'done'
+      }, {
+        text: 'Cancel',
+        role: 'cancel'
+      }],
       columns: [{
         name: "energyTypeOptions",
         options: [{ text: "Electric Vehicle (EV)", value: "EV" }
@@ -211,9 +223,9 @@ export class ManageOrdersPage implements OnInit {
       let col = await picker.getColumn('energyTypeOptions');
       this.energyTypeFilterKey = col.options[col.selectedIndex].value;
       console.log("Filter Key:", this.energyTypeFilterKey);
-      console.log('order : ' , this.allOrders);
-      if(!this.monthFilterKey) {
-      this.displayOrderList = this.allOrders.filter(order => order.deviceTypeName == this.energyTypeFilterKey);
+      console.log('order : ', this.allOrders);
+      if (this.energyTypeFilterKey) {
+        this.displayOrderList = this.allOrders.filter(order => order.deviceTypeName == this.energyTypeFilterKey);
       }
     }
     );
@@ -249,5 +261,51 @@ export class ManageOrdersPage implements OnInit {
       }
     });
     return await defg.present();
+  }
+
+  getCSS(order) {
+    this.orderDisabled = false;
+    this.orderCSS = 'card-bottom';
+    if (order != null) {
+      if (order.orderType == 'sell' &&
+        (order.orderStatus == 'Completed' || order.orderStatus == 'Validated')) {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom green';
+      }
+      if (order.orderType == 'sell' && order.orderStatus == 'Cancelled') {
+        this.orderDisabled = true;
+        this.orderCSS = 'card-bottom red';
+      }
+      if (order.orderType == 'sell' && order.orderStatus == 'Inittiated' && order.isCancellable == 'N') {
+        this.orderDisabled = true;
+        this.orderCSS = 'card-bottom red';
+      }
+      if (order.orderType == 'buy' &&
+        (order.contractStatus == 'Completed' || order.contractStatus == 'Validated')) {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom green';
+      }
+      if (order.orderType == 'buy' && order.contractStatus == 'Cancelled') {
+        this.orderDisabled = true;
+        this.orderCSS = 'card-bottom red';
+      }
+      if (order.orderType == 'buy' && order.contractStatus == 'Live') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom orange';
+      }
+      if (order.orderType == 'sell' && order.orderStatus == 'Live') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom orange';
+      }
+      if (order.orderType == 'buy' && order.contractStatus == 'Active' && order.isCancellable == 'N') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom yellow';
+      }
+      if (order.orderType == 'sell' && order.orderStatus == 'Contracted' && order.isCancellable == 'N') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom yellow';
+      }
+    }
+    return this.orderCSS;
   }
 }

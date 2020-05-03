@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { IngressService } from 'src/app/services/ingress.service';
+import { BackButtonService } from './services/back-button.service';
 
 @Component({
   selector: 'app-root',
@@ -49,9 +50,15 @@ export class AppComponent {
     private router: Router,
     private ingressService: IngressService,
     private oneSignal: OneSignal,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private backButtonService: BackButtonService,
+    private navCtrl: NavController
+
   ) {
     this.initializeApp();
+
+
+
   }
 
   ionViewDidEnter() {
@@ -59,7 +66,7 @@ export class AppComponent {
 
   setupPushNotif() {
     this.oneSignal.startInit('9b0a5ec6-e306-4aa7-9713-722d8ee1f47c', '701058302199');
-    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification)
 
 
     this.oneSignal.handleNotificationReceived().subscribe(data => {
@@ -88,6 +95,7 @@ export class AppComponent {
       this.statusBar.styleBlackTranslucent();
       this.splashScreen.hide();
       this.setupPushNotif();
+
     });
   }
 
@@ -156,7 +164,7 @@ export class AppComponent {
   }
 
   navigateToProfile() {
-    if(this.userRole == "User") {
+    if (this.userRole == "User") {
       this.router.navigate(['/profile'], {
         queryParams: {
           userId: this.userId,
@@ -165,4 +173,17 @@ export class AppComponent {
       });
     }
   }
+
+  @HostListener('document:backbutton')
+  onBackButton() {
+    if (this.backButtonService.quitOnBackButton) {
+      if (window.confirm("Do you want to exit the app?")) {
+        this.backButtonService.closeApp();
+      }
+    } else {
+      this.navCtrl.back();
+    }
+  }
+
+
 }

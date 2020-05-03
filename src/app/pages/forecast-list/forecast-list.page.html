@@ -20,7 +20,7 @@
 
   <ion-grid class="price-tables" style="position:relative;z-index:2;padding-top:18%;">
     <ion-row class="small-font">
-      <ion-col size="4">
+      <ion-col size="5">
         <strong>
           <strong>
             Date & Time
@@ -32,7 +32,7 @@
           Units
         </strong>
       </ion-col>
-      <ion-col size="4">
+      <ion-col size="3">
         <strong>
           Price (₹)
         </strong>
@@ -44,14 +44,14 @@
     <!-- LINE 1 -->
     <ion-row *ngFor="let forecast of forecastList; let i = index;" style="padding-top:0.5em;padding-bottom:0.5em;"
       [ngClass]="(i % 2 == 0) ? 'grey-bg' : ''">
-      <ion-col size="4" class="dt-list-text">
+      <ion-col size="5" class="dt-list-text">
         <div style="color:rgb(94, 93, 93)">{{formatTimeCheckWithCurrentTime(forecast.forecastDate, 'd')}}</div>
         <div>{{formatTime(forecast.startTime, 't')}} - {{formatTime(forecast.endTime, 't')}}</div>
       </ion-col>
       <ion-col size="2" class="dt-unit-text">
         {{forecast.power}}
       </ion-col>
-      <ion-col size="4" class="dt-list-text" style="margin-left:-0.5em;">
+      <ion-col size="3" class="dt-list-text" style="margin-left:-0.5em;">
         <div>
           <strong>
             {{getTotalAmount(forecast.power, forecast.pricePerUnit)}}
@@ -62,14 +62,14 @@
         </div>
       </ion-col>
       <ion-col size="2" style="margin-left:-1em;" *ngIf='getForecastPower(forecast)>0'>
-        <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round"
-          color="primary" size="small" (click)="sellForecast(forecast)">
+        <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em; padding-left: 6px;"
+          shape="round" color="primary" size="small" (click)="sellForecast(forecast)">
           SELL
         </ion-button>
       </ion-col>
       <ion-col size="2" style="margin-left:-1em;" *ngIf='getForecastPower(forecast)<0'>
-        <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;" shape="round"
-          color="primary" size="small" (click)="buyForecast(forecast)">
+        <ion-button style="font-family:MMedium !important;width:70%;height:70%;font-size:0.6em;padding-left:6px;"
+          shape="round" color="primary" size="small" (click)="buyForecast(forecast)">
           BUY
         </ion-button>
       </ion-col>

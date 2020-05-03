@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { INGRESS_URL, CONFIG_URL } from 'src/app/environments/environments';
+import { INGRESS_URL } from 'src/app/environments/environments';
 import { AllUser } from 'src/app/models/AllUser';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
@@ -31,6 +31,10 @@ export class IngressService {
   loggedInUserLocalityName: string;
 
   userDevicesList: any;
+  solarDeviceId;
+  evDeviceId;
+  generatorDeviceId;
+  
 
   constructor(private httpClient: HttpClient
     ,private storage: Storage

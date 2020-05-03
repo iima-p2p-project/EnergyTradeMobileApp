@@ -55,7 +55,8 @@ export class RegisterPage implements OnInit {
     , private storage: Storage
     , public modalController: ModalController
     , private oneSignal: OneSignal
-    , private menuController: MenuController) {
+    , private menuController: MenuController
+    , private alertController: AlertController) {
 
     this.registerForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
@@ -127,6 +128,11 @@ export class RegisterPage implements OnInit {
               }
             });
           });
+        } else if (this.resFromService.response.key == 300) {
+          if (this.resFromService.response.message == 'USN Already Existed.')
+            this.presentAlert("USN number already exists");
+          else
+            this.presentAlert("Invalid USN");
         }
       });
     }
@@ -138,6 +144,17 @@ export class RegisterPage implements OnInit {
         }
       });
     }
+  }
+
+  async presentAlert(alertmsg) {
+
+    //const alertMsg = `<span>${alertmsg}.</span>`;
+
+    const alert = await this.alertController.create({
+      message: alertmsg,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   redirectToLogin() {

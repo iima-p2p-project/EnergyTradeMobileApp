@@ -1,11 +1,12 @@
 import { NgModule, OnInit, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder} from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
-import { ENABLE_SERVICES } from 'src/app/environments/environments';
+import { ENABLE_SERVICES, TERMS_OF_USE_URL } from 'src/app/environments/environments';
 import { AlertController, ToastController, MenuController } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class CreateAccountPage implements OnInit {
   user: any;
   userId: any;
   responseFromService: any;
+  iabRef: any;
 
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
@@ -36,17 +38,18 @@ export class CreateAccountPage implements OnInit {
     , private router: Router
     , private storage: Storage
     , private toastCtrl: ToastController
-    , private menuController: MenuController) {
+    , private menuController: MenuController
+    , private iab: InAppBrowser) {
 
-      this.createAccountForm = this.formBuilder.group({
-        phoneNumber: [null, Validators.compose([
-          Validators.required,
-          Validators.pattern('^[0-9]{10}$')
-        ])],
-        fullName: [null, Validators.required],
-        otp: [null, Validators.required],
-      });
-     }
+    this.createAccountForm = this.formBuilder.group({
+      phoneNumber: [null, Validators.compose([
+        Validators.required,
+        Validators.pattern('^[0-9]{10}$')
+      ])],
+      fullName: [null, Validators.required],
+      otp: [null, Validators.required],
+    });
+  }
 
   ngOnInit() {
   }
@@ -78,7 +81,7 @@ export class CreateAccountPage implements OnInit {
         this.responseFromService = res;
         console.log('response from register service : ', this.responseFromService.response.key);
         //this.showToast(this.responseFromService.response.key);
-        if (this.responseFromService.response.key ==200) {
+        if (this.responseFromService.response.key == 200) {
           this.userId = this.responseFromService.response.userId;
           this.userRole = this.responseFromService.response.userRole;
           this.ingressService.setLoggedInUserId(this.userId);
@@ -111,20 +114,20 @@ export class CreateAccountPage implements OnInit {
       });
     }
   }
-  
+
   enableOTPField() {
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
-    if(this.phoneNumber.toString().length == 10) {
-      if(ENABLE_SERVICES) {
+    if (this.phoneNumber.toString().length == 10) {
+      if (ENABLE_SERVICES) {
         this.ingressService.sendOtp(this.phoneNumber.toString()).subscribe((res) => {
-          this.responseFromService=res;
-          console.log('server response from send otp : ' , res);
-          if(this.responseFromService.response.key == 300) {
+          this.responseFromService = res;
+          console.log('server response from send otp : ', res);
+          if (this.responseFromService.response.key == 300) {
             this.showOTPFlag = false;
             console.log('User Already Exists. Please Login');
             this.showToast('User Already Exists. Please Login');
           }
-          if(/*this.responseFromService.response.key == 200*/ true) {
+          if (/*this.responseFromService.response.key == 200*/ true) {
             this.showOTPFlag = true;
           }
         });
@@ -144,5 +147,12 @@ export class CreateAccountPage implements OnInit {
     this.router.navigate(['/login'], {
       queryParams: {}
     });
+  }
+
+  openSysBrowser(choice) {
+    let url = "";
+    if (choice === 'tnc')
+      url = TERMS_OF_USE_URL;
+    this.iabRef = this.iab.create(url, "_system");
   }
 }

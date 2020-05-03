@@ -1,4 +1,5 @@
 export class BuyOrderPayload{
+    userId?: any;
     deviceTypeId?: any;
     minUnits?: number;
     maxUnits?: number;

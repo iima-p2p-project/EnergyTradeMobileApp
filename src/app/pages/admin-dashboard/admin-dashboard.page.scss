@@ -1,107 +1,158 @@
-ion-content{
-    --background:#0048A8;
-  
-  }
-  
-  .menu-button{
-    color:white;
-    text-align: left;
-  }
-  
-  .title-top{
-    color:white;
-    text-align:center;
-    font-size:1.4em;
-    font-family:MSemiBold !important;
-  }
-
-  .middle-row-left{
-    color:white;
-    font-family:MMedium !important;
-    padding-left:15px;
-  }
-  
-  .middle-row-right{
-    font-family:MMedium;
-    color:white;
-    font-size:0.8em;
-    text-align:right;
-  }
-
-  .row-control{
-    margin-top:-10px;
+ion-content {
+  --background: #0048a8;
 }
 
-
-.card-center{
-    background-color:white;
-    width:97%;
-    margin-left:auto;
-    margin-right:auto;
-
-    .card-unit-number{
-      font-family:MMedium !important;
-      color:black;
-      font-size:1.1em;
-    }
-
-    .card-id-number{
-        font-family:MMedium !important;
-        color:grey;
-        font-size:0.8em;
-    }
-
- 
-
-    .card-bottom-line-left{
-        text-align:left;
-        font-family:MMedium !important;
-        color:grey;
-        font-size:0.8em;
-     }
-     .card-bottom-line-right{
-        text-align:right;
-        font-family:MMedium !important;
-        color:grey;
-        font-size:0.8em;
-     }
-
-     .content-style{
-        padding-top:1em;
-        padding-bottom:0.5em;
-        padding-left:0.5em;
-        padding-right:0.8em;
-     }
-
-    .card-price{
-        text-align:right;
-        font-family:MSemiBold!important;
-        color:black;
-        // font-size:em;
-    }
-
-    .prediction{
-        vertical-align:middle;
-        text-align:left;
-        padding-top:1.6em;
-    }
+.menu-button {
+  color: white;
+  text-align: left;
 }
 
-.the-footer{
-  background-color:#0048A8;
-  color:white;
-  padding:0;
+.title-top {
+  color: white;
+  text-align: center;
+  font-size: 1.4em;
+  font-family: MSemiBold !important;
 }
 
-.title-text{
+.middle-row-left {
+  color: white;
   font-family: MMedium !important;
-  color:white;
-  text-align:center;
+  padding-left: 15px;
 }
 
-.sub-text{
-  font-family:MMedium !important;
-  color:white;
-  text-align:center;
-  font-size:0.7em;
+.middle-row-right {
+  font-family: MMedium;
+  color: white;
+  font-size: 0.8em;
+  text-align: right;
+}
+
+.row-control {
+  margin-top: -10px;
+}
+
+.card-center {
+  background-color: white;
+  width: 97%;
+  margin-left: auto;
+  margin-right: auto;
+
+  .card-unit-number {
+    font-family: MMedium !important;
+    color: black;
+    font-size: 1.1em;
+  }
+
+  .card-id-number {
+    font-family: MMedium !important;
+    color: grey;
+    font-size: 0.8em;
+  }
+
+  .card-bottom-line-left {
+    text-align: left;
+    font-family: MMedium !important;
+    color: grey;
+    font-size: 0.8em;
+  }
+  .card-bottom-line-right {
+    text-align: right;
+    font-family: MMedium !important;
+    color: grey;
+    font-size: 0.8em;
+  }
+
+  .content-style {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.8em;
+  }
+
+  .card-price {
+    text-align: right;
+    font-family: MSemiBold !important;
+    color: black;
+    // font-size:em;
+  }
+
+  .prediction {
+    vertical-align: middle;
+    text-align: left;
+    padding-top: 1.6em;
+  }
+}
+
+.the-footer {
+  background-color: #0048a8;
+  color: white;
+  padding: 0;
+}
+
+.title-text {
+  font-family: MMedium !important;
+  color: white;
+  text-align: center;
+}
+
+.sub-text {
+  font-family: MMedium !important;
+  color: white;
+  text-align: center;
+  font-size: 0.7em;
+}
+
+.card-bottom {
+  --background: white;
+  width: 99% !important;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 0;
+  border-left: 8px solid white;
+  z-index: 1;
+
+  .unit-number {
+    font-family: MMedium !important;
+    color: black;
+    font-size: 1.2em;
+  }
+
+  .unit-id {
+    font-family: MLight !important;
+    color: black;
+    font-size: 0.7em;
+    text-align: right;
+  }
+
+  .bottom-row {
+    font-family: MMedium !important;
+    color: black;
+    font-size: 0.6em;
+  }
+
+  .sell {
+    color: rgb(150, 150, 150);
+  }
+
+  .hyphen {
+    vertical-align: middle;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
+
+.green {
+  border-color: yellowgreen;
+}
+
+.orange {
+  border-color: orange;
+}
+
+.red {
+  border-color: red;
 }

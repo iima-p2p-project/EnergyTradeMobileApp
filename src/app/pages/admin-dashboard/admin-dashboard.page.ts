@@ -24,13 +24,15 @@ export class AdminDashboardPage implements OnInit {
   userId: any;
   userRole: any;
   userStateId: any;
-  buyLeadsCount: any=0;
-  sellLeadsCount: any=0;
-  
+  buyLeadsCount: any = 0;
+  sellLeadsCount: any = 0;
+  orderCSS;
+  nonTradeHourDisabled = false;
+
   constructor(private router: Router,
     private route: ActivatedRoute,
-    public modal:ModalController,
-    public nav:NavController,
+    public modal: ModalController,
+    public nav: NavController,
     private orderService: OrderService,
     private ingressService: IngressService,
     private timeService: TimeService,
@@ -43,11 +45,11 @@ export class AdminDashboardPage implements OnInit {
   ionViewDidEnter() {
     this.ingressService.getUserRoleToken().then((res) => {
       this.userRole = res;
-      if(this.userRole=='User') {
+      if (this.userRole == 'User') {
         this.router.navigate(['/dashboard'], {
           queryParams: {
           }
-        }); 
+        });
       }
     })
     this.ingressService.getUserIdToken().then((res) => {
@@ -80,16 +82,16 @@ export class AdminDashboardPage implements OnInit {
     })
   }
 
-  async cancelModal(nonTradeHour: any , orderType: any) {
-    let defg= await this.modal.create({
+  async cancelModal(nonTradeHour: any, orderType: any) {
+    let defg = await this.modal.create({
       component: CancelNonTradeHourPage,
       cssClass: 'my-custom-modal-css',
       componentProps: {
         'orderId': nonTradeHour.nonTradeHourId,
         'orderType': orderType,
-        'orderStartTime': this.formatTime(nonTradeHour.startTime,'t'),
-        'orderEndTime': this.formatTime(nonTradeHour.endTime,'t'),
-        'orderDate': this.formatTime(nonTradeHour.startTime,'d')
+        'orderStartTime': this.formatTime(nonTradeHour.startTime, 't'),
+        'orderEndTime': this.formatTime(nonTradeHour.endTime, 't'),
+        'orderDate': this.formatTime(nonTradeHour.startTime, 'd')
       }
     });
     defg.onDidDismiss().then((dataReturned) => {
@@ -103,13 +105,13 @@ export class AdminDashboardPage implements OnInit {
   formatTime(ts, type) {
     if (type == 't')
       return moment(ts).format("hh:mm A");
-    else if(type == 'd')
-    return moment(ts).format("Do MMM");
+    else if (type == 'd')
+      return moment(ts).format("Do MMM");
   }
 
   getDuration(startTime: string, endTime: string) {
-    console.log('Admin Dashboard Duration : ' , this.timeService.getDuration(startTime,endTime, ADMIN_ROLE));
-    return (this.timeService.getDuration(startTime,endTime, ADMIN_ROLE).durationTime)/60;
+    console.log('Admin Dashboard Duration : ', this.timeService.getDuration(startTime, endTime, ADMIN_ROLE));
+    return (this.timeService.getDuration(startTime, endTime, ADMIN_ROLE).durationTime) / 60;
   }
 
   editNonTradeHours(nonTradeHour: any) {
@@ -169,5 +171,21 @@ export class AdminDashboardPage implements OnInit {
         userId: this.userStateId
       }
     });
+  }
+
+
+  getCSS(nonTradeHour) {
+    this.nonTradeHourDisabled = false;
+    let nonTradeHourCSS = 'card-bottom card-center';
+    if (nonTradeHour != null) {
+      if (nonTradeHour.status == 'Cancelled') {
+        this.nonTradeHourDisabled = true;
+        nonTradeHourCSS = 'card-center card-bottom red';
+      } else if (nonTradeHour.isCancellable == 'N') {
+        this.nonTradeHourDisabled = false;
+        nonTradeHourCSS = 'card-center card-bottom green';
+      }
+    }
+    return nonTradeHourCSS;
   }
 }

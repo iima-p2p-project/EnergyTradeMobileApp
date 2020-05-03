@@ -1,36 +1,37 @@
 <ion-header class="_header">
-  
+
   <ion-toolbar class="_toolbar">
     <ion-title class="__title">
-        CREATE ACCOUNT
+      CREATE ACCOUNT
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="_content">
 
-    
+
 
   <div class="content-main">
 
 
-  <form [formGroup]="createAccountForm" >
- 
-    
+    <form [formGroup]="createAccountForm">
 
-      <div class="Label_" >
-          <p class="p__" >FULL NAME</p>
-          <ion-input class="_Input" formControlName="fullName" ></ion-input>
-        </div>
 
-        <p class="Label_BILL">Name as per your Electricity Bill</p>
 
-        <div class="Label_" >
-            <p class="p__" >PHONE NUMBER</p>
-            <ion-input class="_Input" formControlName="phoneNumber" type="number" (ionChange)="enableOTPField()"></ion-input>
-          </div>
+      <div class="Label_">
+        <p class="p__">FULL NAME</p>
+        <ion-input class="_Input" formControlName="fullName"></ion-input>
+      </div>
 
-          <!--<ion-row *ngIf="showOTPFlag">
+      <p class="Label_BILL">Name as per your Electricity Bill</p>
+
+      <div class="Label_">
+        <p class="p__">PHONE NUMBER</p>
+        <ion-input class="_Input" formControlName="phoneNumber" type="number" (ionChange)="enableOTPField()">
+        </ion-input>
+      </div>
+
+      <!--<ion-row *ngIf="showOTPFlag">
             <ion-col>
                 <p class="reading_">
                   <img src="../../../assets/assets2/loading_OTP.svg" class="Loading"> 
@@ -41,42 +42,45 @@
             </ion-col>
           </ion-row>-->
 
-  
 
-        <div class="Label_" *ngIf="showOTPFlag">
-            <p class="p__" >4 DIGIT OTP</p>
-            <ion-input class="OTP_input" formControlName="otp" type="number"></ion-input>
 
-            <!-- class="Resend_OTP_btn" -->
-            <ion-button fill="clear" style="margin-top:-0.1em;--border-radius:0px;font-family:MLight !important;--background:transparent;color:#0048A8;margin-left:-0.7em;" >
-              RESEND
-            </ion-button>
-          </div>
+      <div class="Label_" *ngIf="showOTPFlag">
+        <p class="p__">4 DIGIT OTP</p>
+        <ion-input class="OTP_input" formControlName="otp" type="number"></ion-input>
+
+        <!-- class="Resend_OTP_btn" -->
+        <ion-button fill="clear"
+          style="margin-top:-0.1em;--border-radius:0px;font-family:MLight !important;--background:transparent;color:#0048A8;margin-left:-0.7em;">
+          RESEND
+        </ion-button>
+      </div>
       <div class="Message">
-        <p class="p_message" style="line-height:1.1em;">By clicking Continue you are accepting to Sustain Impact <span class="Terms_"> Terms & Conditions</span></p>
+        <p class="p_message" style="line-height:1.1em;">By clicking Continue you are accepting to Sustain Impact <span
+            class="Terms_" (click)="openSysBrowser('tnc')"> Terms & Conditions</span></p>
       </div>
       <!-- <ion-label class="message" routerLink='/login'></ion-label> -->
 
       <ion-row>
-          <ion-col>
-              <ion-button (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
-                </ion-button>
-          </ion-col>
-        </ion-row>
+        <ion-col>
+          <ion-button (click)="continueToRegister()" [disabled]="!createAccountForm.valid">CONTINUE
+          </ion-button>
+        </ion-col>
+      </ion-row>
 
 
-  </form>
-
-
-
+    </form>
 
 
 
-</div>
+
+
+
+  </div>
 </ion-content>
 
 <ion-footer>
-<ion-toolbar>
-  <ion-title class="my-footer-style">Already have an account? <span class="redirect-button" (click)="redirectToLogin()">SIGN IN</span></ion-title>
-</ion-toolbar>
+  <ion-toolbar>
+    <ion-title class="my-footer-style">Already have an account? <span class="redirect-button"
+        (click)="redirectToLogin()">SIGN IN</span></ion-title>
+  </ion-toolbar>
 </ion-footer>
