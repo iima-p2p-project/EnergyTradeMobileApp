@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, AlertController, MenuController } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
@@ -39,10 +39,8 @@ export class AppComponent {
 
   userId: any;
   userName: any;
-  userRole: any = "Admin"
-  userType: any = 2;
+  userRole: any;
   localityName: any;
-  selectedUserPersona = "DR";
 
   constructor(
     private platform: Platform,
@@ -51,8 +49,7 @@ export class AppComponent {
     private router: Router,
     private ingressService: IngressService,
     private oneSignal: OneSignal,
-    private alertCtrl: AlertController,
-    private menu: MenuController
+    private alertCtrl: AlertController
   ) {
     this.initializeApp();
   }
@@ -136,14 +133,13 @@ export class AppComponent {
   }
 
   getUserDetails() {
-    this.ingressService.getUserNameToken().then((res: any) => {
+    this.ingressService.getUserNameToken().then((res) => {
       console.log('app component user name : ', res);
-      this.ingressService.setLoggedInUser(res);
       this.userName = res;
       this.ingressService.loggedInUserName = this.userName;
       this.ingressService.getUserRoleToken().then((res) => {
         console.log('app component user role : ', res);
-       // this.userRole = res;
+        this.userRole = res;
         this.ingressService.loggedInUserRole = this.userRole;
         this.ingressService.getUserLocalityNameToken().then((res) => {
           console.log('app component locality name : ', res);
@@ -160,42 +156,13 @@ export class AppComponent {
   }
 
   navigateToProfile() {
-
-    if (this.selectedUserPersona == "P2P") {
+    if(this.userRole == "User") {
       this.router.navigate(['/profile'], {
         queryParams: {
           userId: this.userId,
           flow: 'USER'
         }
       });
-    } else if (this.selectedUserPersona == "DR") {
-      this.router.navigate(['druser-profile'], {
-        queryParams: {
-          userId: this.userId,
-          flow: 'DRCustomer'
-        }
-      });
-
     }
-  }
-
-  changePersona(persona) {
-    if (persona == 'dr') {
-      this.selectedUserPersona = "DR";
-      this.router.navigateByUrl('/customer-dashboard');
-      this.menu.close();
-    } else {
-      this.selectedUserPersona = "P2P";
-      this.router.navigateByUrl('/dashboard');
-      this.menu.close();
-    }
-  }
-
-  navigateToDRDashboard() {
-
-  }
-
-  navigateToAllDREvents() {
-
   }
 }

@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-split-pane>
+  <ion-split-pane (click)="getUserDetails()">
     <!-- (click)="getUserDetails() -->
     <ion-menu type="overlay">
       <!-- <ion-header>
@@ -8,24 +8,8 @@
         </ion-toolbar>
       </ion-header> -->
       <ion-content>
-        <ion-row style="border-bottom:1px solid rgba(177, 177, 177, 0.7);">
-          <ion-col size="6" style="padding: 15px 10px 15px 15px;" (click)="changePersona('p2p')">
-            <div class="top-btn " [class.btn-active]="selectedUserPersona=='P2P'">
-              <img [hidden]="selectedUserPersona=='P2P'" src="assets/svg/P2PB.svg" class="btn-image" alt="">
-              <img [hidden]="selectedUserPersona!='P2P'" src="assets/svg/P2PW.svg" class="btn-image" alt="">
-              Peer - Peer
-            </div>
-          </ion-col>
-          <ion-col size="6" style="padding: 15px 15px 15px 10px;" (click)="changePersona('dr')">
-            <div class="top-btn" [class.btn-active]="selectedUserPersona=='DR'">
-              <img [hidden]="selectedUserPersona=='DR'" src="assets/svg/DRB.png" class="btn-image" alt="">
-              <img [hidden]="selectedUserPersona!='DR'" src="assets/svg/DRW.png" class="btn-image" alt="">
-              Demand Response
-            </div>
-          </ion-col>
-        </ion-row>
         <ion-list>
-          <ion-menu-toggle (click)="navigateToProfile()">
+          <ion-menu-toggle>
             <ion-item style="padding-top:0.5em;" detail="true" lines="none" (click)="navigateToProfile()">
               <ion-avatar slot="start" style="border:1px rgba(128, 128, 128, 0.486) solid;">
                 <img src="assets/assets2/man.svg">
@@ -51,30 +35,15 @@
         </ion-list>
         <ion-list>
 
-          <ion-menu-toggle *ngIf='userRole == "Admin" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "Admin"'>
             <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToAdminDashboard()">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/dashboard.svg"
                 slot="start"></ion-icon>
               <ion-label class="name-class">Dashboard</ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-menu-toggle *ngIf='selectedUserPersona == "DR"'>
-            <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToDRDashboard()">
-              <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/dashboard.svg"
-                slot="start"></ion-icon>
-              <ion-label class="name-class">Dashboard</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='selectedUserPersona == "DR"'>
-            <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToAllDREvents()">
-              <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/dashboard.svg"
-                slot="start"></ion-icon>
-              <ion-label class="name-class">DR Events</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-
-          <ion-menu-toggle *ngIf='userRole == "Admin" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "Admin"'>
             <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToCustomerList()">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" name="people" slot="start">
               </ion-icon>
@@ -82,7 +51,7 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "Admin" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "Admin"'>
             <ion-item style="padding-top:0.2em;" class="list-item" lines="none">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
                 src="assets/svg/add_resources.svg" slot="start"></ion-icon>
@@ -90,7 +59,7 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "User" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item class="list-item" lines="none" (click)="navigateToSell()">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);" src="assets/svg/sell copy.svg"
                 slot="start"></ion-icon>
@@ -98,7 +67,7 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "User" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item style="padding-top:0.2em;" class="list-item" lines="none" (click)="navigateToBuy()">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
                 src="assets/svg/sell copy 6.svg" slot="start"></ion-icon>
@@ -121,28 +90,28 @@
               </ion-item>
           </ion-menu-toggle> -->
 
-          <ion-menu-toggle *ngIf='userRole == "User" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item class="list-item" lines="none" routerLink="manage-orders" routerDirection="forward">
               <ion-icon src="assets/svg/boxlid.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Manage Orders</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "User" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item class="list-item" lines="none" routerLink="statement" routerDirection="forward">
               <ion-icon src="assets/svg/boxlid.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Monthly Statement</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "User" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item class="list-item" lines="none" routerLink="forecast-list" routerDirection="forward">
               <ion-icon src="assets/svg/wallet.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Forecast</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "User" && selectedUserPersona == "P2P"'>
+          <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item class="list-item" lines="none">
               <ion-icon name="add-circle-outline" slot="start"></ion-icon>
               <ion-label class="name-class">Add Resources</ion-label>
@@ -189,5 +158,5 @@
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
-  <ng-http-loader></ng-http-loader>
+  <ng-http-loader ></ng-http-loader>
 </ion-app>

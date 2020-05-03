@@ -1,78 +1,9 @@
-<ion-header no-border>
-  <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">
-      CREATE ACCOUNT
-    </ion-title>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>customer-register</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <div class='content-div'>
-    <div class="shadow-div"></div>
-    <div class="div-form">
-      <div class="form-detail">
-        <p class="heading">CONTRACT ACCOUNT</p>
-        <ion-input class="form-control-input" type="number" [(ngModel)]="contractNumber"> </ion-input>
-        <div class="error-in-contract" *ngIf="showError">
-          {{errMsg}}
-        </div>
-      </div>
-
-      <div class="contract-details" *ngIf="contractFound">
-        <div class="form-detail">
-          <p class="heading">Company Name</p>
-          <p class="detail">{{contractDetails?.compnayName}}</p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">Type Activity</p>
-          <p class="detail"> {{contractDetails?.companyType}} </p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">Division</p>
-          <p class="detail">{{contractDetails?.division}} </p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">Meter Number</p>
-          <p class="detail">{{contractDetails?.meterNumber}}</p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">SL (KW)</p>
-          <p class="detail">{{contractDetails?.sl}}</p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">Billed Mus Fy 17-18</p>
-          <p class="detail">{{contractDetails?.billedMus}}</p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">Company Address</p>
-          <p class="detail">{{contractDetails?.companyAddress}}</p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">Customer Name</p>
-          <p class="detail">{{contractDetails?.customerName}}</p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">Contact Number</p>
-          <p class="detail">{{contractDetails?.contactNumber}}</p>
-        </div>
-        <div class="form-detail">
-          <p class="heading">Email Address</p>
-          <p class="detail">{{contractDetails?.emailAddress}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="div-next-btn" style="text-align:center;">
-      <ion-button class="ion-text-center" shape="round" style="font-family:MSemiBold;width: 150px;height: 40px;"
-        (click)="next()">
-        NEXT
-      </ion-button>
-    </div>
-
-    <div class="div-sign-in" style="text-align:center;">
-      <div class="sign-in-text" (click)="signin()">Already have an account ? <b> SIGN IN </b></div>
-    </div>
-  </div>
-
 
 </ion-content>

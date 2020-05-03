@@ -114,7 +114,6 @@ export class RegisterPage implements OnInit {
           this.storage.set('LoggedInUserLocalityId', this.selectedLocalityId);
           this.storage.set('LoggedInUserLocalityName', this.selectedLocality);
           this.storage.set('LoggedInUserBoardId', this.selectedBoardId).then(() => {
-            this.ingressService.loggedInUserId = this.registeredUser.userId;
             this.ingressService.setLoggedInUser(this.registeredUser);
             if (this.registeredUser != null) {
               this.ingressService.setLoggedInUserId(this.registeredUser.response.userId);

@@ -1,199 +1,189 @@
-ion-content {
-  --background: #0048A8;
+ion-content{
+  --background:#0048A8;
 
 }
 
-ion-input {
-  --placeholder-color: grey;
+ion-input{
+  --placeholder-color:grey;
 }
 
-.prediction {
-  vertical-align: middle;
+.prediction{
+  vertical-align:middle;
+  text-align:left;
+  padding-top:1.6em;
+  padding-left:1em;
+}
+
+.menu-button{
+  color:white;
   text-align: left;
-  padding-top: 1.6em;
-  padding-left: 1em;
 }
 
-.menu-button {
-  color: white;
-  text-align: left;
+.title-top{
+  color:white;
+  text-align:center;
+  font-size:1.6em;
+  font-family:MSemiBold !important;
 }
 
-.title-top {
-  color: white;
-  text-align: center;
-  font-size: 1.6em;
-  font-family: MSemiBold !important;
-}
-
-.box-top {
-  height: 17%;
-  width: 95%;
-  background-color: rgba(3, 47, 141, 0.726);
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 1%;
-  margin-top: 8%;
-  border-radius: 3px;
+.box-top{
+  height:17%;
+  width:95%;
+  background-color:rgba(3, 47, 141, 0.726);
+  margin-left:auto;
+  margin-right:auto;
+  padding-top:1%;
+  margin-top:8%;
+  border-radius:3px;
 
   //LEFT SIDE
-  .box-top-left-left {
-    margin-top: -10px;
+  .box-top-left-left{
+    margin-top:-10px;
   }
-
-  .box-top-left-right {
-    margin-top: -11px;
-    font-size: 0.6em;
-    font-family: MLight !important;
-    color: white;
+  .box-top-left-right{
+    margin-top:-11px;
+    font-size:0.6em;
+    font-family:MLight !important;
+    color:white;
   }
 
   //RIGHT SIDE
-  .box-top-right-left {
-    margin-top: -10px;
-    font-size: 0.6em;
-    color: white;
-    font-family: MMedium !important;
+  .box-top-right-left{
+    margin-top:-10px;
+    font-size:0.6em;
+    color:white;
+    font-family:MMedium !important;
+  }
+  .box-top-right-right{
+    margin-top:-10px;
+    font-size:0.6em;
+    color:white;
+    font-family:MMedium !important;
+    text-align:left;
   }
 
-  .box-top-right-right {
-    margin-top: -10px;
-    font-size: 0.6em;
-    color: white;
-    font-family: MMedium !important;
-    text-align: left;
+  .box-center-right-left{
+    font-size:3em;
+    margin-top:-10px;
+    font-family:MLight !important;
+    color:white;
   }
 
-  .box-center-right-left {
-    font-size: 3em;
-    margin-top: -10px;
-    font-family: MLight !important;
-    color: white;
+  .box-center-right-center{
+    margin-top:-10px;
+    color:rgba(255, 255, 255, 0.5);
+    font-family:MLight !important;
+    font-size:2.5em;
+    text-align:left;
   }
 
-  .box-center-right-center {
-    margin-top: -10px;
-    color: rgba(255, 255, 255, 0.5);
-    font-family: MLight !important;
-    font-size: 2.5em;
-    text-align: left;
-  }
-
-  .box-center-right-right {
-    font-size: 3em;
-    margin-top: -10px;
-    font-family: MLight !important;
-    color: white;
+  .box-center-right-right{
+    font-size:3em;
+    margin-top:-10px;
+    font-family:MLight !important;
+    color:white;
   }
 
 
   //BOTTOM ROW
 
   //LEFT SIDE
-  .bottom-left {
-    font-size: 0.7em;
-    font-family: MMedium !important;
-    color: white;
+  .bottom-left{
+    font-size:0.7em;
+    font-family:MMedium !important;
+    color:white;
+    margin-left:-0.5em;
   }
-
-  .bottom-left-icon {
-    color: white;
-    margin-bottom: -1px;
+  .bottom-left-icon{
+    color:white;
   }
 
   //RIGHT SIDE
-  .bottom-right {
-    text-align: right;
-    color: white;
-    font-family: MMedium !important;
-    font-size: 0.7em;
+  .bottom-right{
+    text-align:right;
+    color:white;
+    font-family:MMedium !important;
+    font-size:0.7em;
   }
-
-  .bottom-right-icon {
-    text-align: left;
-    color: white;
-    margin-bottom: -1px;
+  .bottom-right-icon{
+    text-align:left;
+    color:white;
   }
 
 }
 
 
 
-.card-middle {
-  --background: white;
-  width: 99% !important;
-  margin-right: auto;
-  margin-left: auto;
+.card-middle{
+  --background:white;
+  width:99% !important;
+  margin-right:auto;
+  margin-left:auto;
 
-  ion-segment-button {
+  ion-segment-button{
     text-transform: none;
-    font-family: MMedium !important;
-    color: black;
-    font-size: 1.2em;
+    font-family:MMedium !important;
+    color:black;
+    font-size:1.2em;
   }
 
-  .small-title {
-    font-family: MMedium !important;
-    color: black;
+  .small-title{
+    font-family:MMedium !important;
+    color:black;
+  }
+  .number-big{
+    font-size:1.1em;
+    color:black;
+    font-weight:400;
+    font-family:MMedium !important;
   }
 
-  .number-big {
-    font-size: 1.1em;
-    color: black;
-    font-weight: 400;
-    font-family: MMedium !important;
-  }
-
-  ion-button {
-    font-family: MMedium !important;
+  ion-button{
+    font-family:MMedium !important;
   }
 
 }
 
-.middle-row-left {
-  color: white;
-  font-family: MMedium !important;
-  padding-left: 1em;
-  font-size: 0.9em;
+.middle-row-left{
+  color:white;
+  font-family:MMedium !important;
+  padding-left:1em;
+  font-size:0.9em;
 }
 
-.middle-row-right {
-  font-family: MMedium;
-  color: white;
-  font-size: 0.8em;
-  text-align: right;
+.middle-row-right{
+  font-family:MMedium;
+  color:white;
+  font-size:0.8em;
+  text-align:right;
 }
 
-.card-bottom {
-  --background: white;
-  width: 99% !important;
-  margin-right: auto;
-  margin-left: auto;
+.card-bottom{
+  --background:white;
+  width:99% !important;
+  margin-right:auto;
+  margin-left:auto;
 
-  .unit-number {
-    font-family: MMedium !important;
-    color: black;
-    font-size: 1.2em;
+  .unit-number{
+    font-family:MMedium !important;
+    color:black;
+    font-size:1.2em;
   }
-
-  .unit-id {
-    font-family: MLight !important;
-    color: black;
-    font-size: 0.7em;
-    text-align: left;
+  .unit-id{
+    font-family:MLight !important;
+    color:black;
+    font-size:0.7em;
+    text-align:left;
   }
-
-  .bottom-row {
-    font-family: MMedium !important;
-    color: black;
-    font-size: 0.6em;
+  .bottom-row{
+    font-family:MMedium !important;
+    color:black;
+    font-size:0.6em;
   }
-
-  .sell {
-    color: rgb(150, 150, 150);
+  .sell{
+    color:rgb(150, 150, 150);
   }
-
-  .hyphen {
+  .hyphen{
     vertical-align: middle;
     align-content: center;
     text-align: center;
@@ -204,14 +194,14 @@ ion-input {
   }
 }
 
-.icon {
+.icon{
   display: inline-block;
   vertical-align: middle;
-}
+ }
 
-.redBox {
-  border: rgba(255, 0, 0, 0) 1px solid;
-}
+ .redBox{
+   border: rgba(255, 0, 0, 0) 1px solid;
+ }
 
 
 // #63B508 — green

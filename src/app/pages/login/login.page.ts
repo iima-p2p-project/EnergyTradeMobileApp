@@ -109,7 +109,6 @@ export class LoginPage implements OnInit {
           this.storage.set('LoggedInUserLocalityName', this.localityName);
           this.storage.set('LoggedInUserName', this.userName);
           this.storage.set('LoggedInUserId', this.userId).then(() => {
-            this.ingressService.loggedInUserId = this.userId;
             this.ingressService.printStorageKeyValue('LoggedInUserId');
             this.ingressService.printStorageKeyValue('LoggedInUserDevices');
             if (this.userRole == ADMIN_ROLE) {
@@ -168,7 +167,7 @@ export class LoginPage implements OnInit {
   }
 
   redirectToRegister() {
-    this.router.navigate(['/choose-user-type'], {
+    this.router.navigate(['/create-account'], {
       queryParams: {}
     });
   }

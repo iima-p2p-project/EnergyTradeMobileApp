@@ -20,7 +20,6 @@ export const environment = {
   export const ORDER_URL = 'http://139.59.30.90:8080/et_order/rest/';
   export const FORECAST_URL = 'http://139.59.30.90:8080/et_forecast/rest/';
   export const TRADE_URL = 'http://139.59.30.90:3000/apiv1/trade';
-  export const DR_URL = 'http://localhost:8085';
 
 
   export const CONFIG_URL = 'http://103.120.179.22:3007/configurations';

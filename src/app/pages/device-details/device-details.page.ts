@@ -115,7 +115,6 @@ export class DeviceDetailsPage implements OnInit {
           this.ingressService.setUserDevices(this.responseFromService.response.devices);
           this.storage.set('LoggedInUserDevices', this.ingressService.getUserDevicesFromLocal());
           this.storage.set('LoggedInUserId', this.userId).then(() => {
-            this.ingressService.loggedInUserId = this.userId;
             this.router.navigate(['/dashboard'], {
               queryParams: {
                 userId: this.userId,
