@@ -16,6 +16,7 @@ export class DRCustomerService {
   withdrawFromEventUrl = DR_URL + '/withdrawFromEvent';
   counterbidInEventUrl = DR_URL + '/counterbidInEvent';
   updateEventCommitmentsUrl = DR_URL + '/updateEventCommitments';
+  getDRCustomerProfileUrl = DR_URL + '/getDRCustomerProfile';
 
 
 
@@ -128,5 +129,21 @@ export class DRCustomerService {
       }
       , options
     );
+  }
+
+
+  getDRCustomerProfile(userId) {
+
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.getDRCustomerProfileUrl
+      , {
+        "userId": +userId,
+      }
+      , options
+    );
+
   }
 }

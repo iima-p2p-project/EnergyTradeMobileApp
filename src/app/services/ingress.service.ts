@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { INGRESS_URL, CONFIG_URL } from 'src/app/environments/environments';
+import { INGRESS_URL } from 'src/app/environments/environments';
 import { AllUser } from 'src/app/models/AllUser';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
@@ -167,6 +167,8 @@ export class IngressService {
     user.stateId = userDetails.stateId;
     user.boardId = userDetails.boardId;
     user.localityName = userDetails.localityName;
+    user.drContractNumber = userDetails.userDetails;
+    user.phoneNumber = userDetails.phoneNumber;
 
     for (let i = 0; i < userDetails.accessLevel.length; i++) {
       userTypes.push(userDetails.accessLevel[i].accessLevel);
@@ -193,7 +195,7 @@ export class IngressService {
     this.userDevicesList = deviceList;
   }
 
-  async getUserIdToken() {
+  async getUser() {
     console.log("get token");
     if (!this.loggedInUser) {
       console.log("storage token");

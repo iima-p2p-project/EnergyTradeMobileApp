@@ -16,8 +16,8 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     console.log("inside auth guard service");
-    if (await this.ingressService.getUserIdToken()) {
-      console.log(this.ingressService.getUserIdToken());
+    if (await this.ingressService.getUser()) {
+      console.log(this.ingressService.getUser());
       return true;
     }
     this.router.navigate(['/login'], {

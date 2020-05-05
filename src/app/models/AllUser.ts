@@ -7,8 +7,8 @@ import { UserTypePl } from './UserTypePl';
 export class AllUser {
     userId?: number;
     userName?: string;
-    usn?:string;
-    localityName?:string;
+    usn?: string;
+    localityName?: string;
     activeStatus?: any;
     createdBy?: string;
     createdTs?: any;
@@ -24,4 +24,5 @@ export class AllUser {
     userRole?: string;
     userTypes?: string[];
     localityId?: any;
+    drContractNumber?: any;
 }

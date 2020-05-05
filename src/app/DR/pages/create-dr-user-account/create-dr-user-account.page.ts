@@ -7,6 +7,7 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES } from 'src/app/environments/environments';
 import { AlertController, ToastController, MenuController } from '@ionic/angular';
 import { DRCustomerService } from 'src/app/services/drcustomer.service';
+import { AllUser } from 'src/app/models/AllUser';
 
 @Component({
   selector: 'app-create-dr-user-account',
@@ -92,10 +93,32 @@ export class CreateDrUserAccountPage implements OnInit {
         // this.storage.set('LoggedInUserName', this.fullName);
         // this.storage.set('LoggedInUserId', this.userId).then(() => {
 
-        this.ingressService.setLoggedInUser({ userId: this.userId });
+        this.ingressService.loggedInUser.userId = this.userId;
         this.drCustomerService.updateDrCustomerDetails(this.fullName, this.phoneNumber, this.drContractNumber).subscribe((res: any) => {
           if (res.response.key == "200") {
-            this.router.navigateByUrl("/customer-dashboard");
+
+            this.drCustomerService.getDRCustomerProfile(this.userId).subscribe((res: any) => {
+              let userDetails = {} as any;
+              userDetails.drContractNumber = res.response.drContractNumber;
+              userDetails.phoneNumber = res.response.phoneNumber;
+              userDetails.userName = res.response.fullName;
+              userDetails.accessLevel = res.response.userRole;
+              userDetails.userId = this.userId;
+              this.ingressService.setLoggedInUser(userDetails);
+              // this.ingressService.loggedInUser.drContractNumber = res.response.drContractNumber;
+              // this.ingressService.loggedInUser.phoneNumber = res.response.phoneNumber;
+              // this.ingressService.loggedInUser.userName = res.response.fullName;
+              // let userTypes = res.response.userRole;
+              // let userTypesArray = [];
+              // for (let i = 0; i < userTypes.length; i++) {
+              //   userTypesArray.push(userTypes[i].accessLevel);
+              // }
+              // this.ingressService.loggedInUser.userTypes = userTypesArray;
+              this.router.navigateByUrl("/customer-dashboard");
+            }, (err) => {
+              window.alert("Something went wron in getting customer profile.");
+            })
+
           } else {
             console.log("Something went wrong in dr customer update");
           }
