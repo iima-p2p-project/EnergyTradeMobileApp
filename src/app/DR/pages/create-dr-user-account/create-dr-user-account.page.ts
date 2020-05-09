@@ -5,7 +5,7 @@ import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES } from 'src/app/environments/environments';
-import { AlertController, ToastController, MenuController } from '@ionic/angular';
+import { AlertController, ToastController, MenuController, Events } from '@ionic/angular';
 import { DRCustomerService } from 'src/app/services/drcustomer.service';
 import { User } from 'src/app/models/User';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
@@ -42,7 +42,8 @@ export class CreateDrUserAccountPage implements OnInit {
     , private toastCtrl: ToastController
     , private menuController: MenuController
     , private drCustomerService: DRCustomerService
-    , private oneSignal: OneSignal) {
+    , private oneSignal: OneSignal
+    , private events: Events) {
 
     this.createAccountForm = this.formBuilder.group({
       phoneNumber: [null, Validators.compose([
@@ -96,10 +97,11 @@ export class CreateDrUserAccountPage implements OnInit {
         // this.storage.set('LoggedInUserName', this.fullName);
         // this.storage.set('LoggedInUserId', this.userId).then(() => {
 
-        this.ingressService.loggedInUser.userId = this.userId;
+
         this.drCustomerService.updateDrCustomerDetails(this.fullName, this.phoneNumber, this.drContractNumber).subscribe((res: any) => {
           if (res.response.key == "200") {
             this.postLoginActions(res.response);
+            this.router.navigateByUrl("/customer-dashboard");
             // this.drCustomerService.getDRCustomerProfile(this.userId).subscribe((res: any) => {
             //   let userDetails = {} as any;
             //   userDetails.drContractNumber = res.response.drContractNumber;
@@ -182,6 +184,7 @@ export class CreateDrUserAccountPage implements OnInit {
     userDetails.userTypes = response.userTypes;
     this.ingressService.setLoggedInUser(userDetails);
     this.oneSignal.setExternalUserId("" + this.ingressService.loggedInUser.userId);
+    this.events.publish("user:loggedin");
   }
 
 }

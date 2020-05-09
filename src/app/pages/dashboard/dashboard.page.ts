@@ -204,10 +204,12 @@ export class DashboardPage implements OnInit {
             console.log('not null check');
             this.upcomingForecast = this.forecastList[0];
             console.log('upcoming forecast : ', this.upcomingForecast);
-            this.upcomingForecastStartTime = this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
-            this.upcomingForecastEndTime = this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
-            this.upcomingForecastPower = this.upcomingForecast.power;
-            this.upcomingForecastPrice = this.upcomingForecast.pricePerUnit;
+            if (this.upcomingForecast) {
+              this.upcomingForecastStartTime = this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
+              this.upcomingForecastEndTime = this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
+              this.upcomingForecastPower = this.upcomingForecast.power;
+              this.upcomingForecastPrice = this.upcomingForecast.pricePerUnit;
+            }
             this.forecastLen = this.forecastList.length;
             this.forecastList.forEach(forecast => {
               if (forecast != null) {

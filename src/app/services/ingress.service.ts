@@ -25,7 +25,7 @@ export class IngressService {
   getP2PUserProfileUrl = INGRESS_URL + '/getp2pUserProfile';
 
   loggedInUser: User;
-  userP2PDevices : any;
+  userP2PDevices: any;
   userP2PDetails: UserP2PDetails;
   // loggedInUserId: string;
   // loggedInUserName: string;
@@ -165,18 +165,18 @@ export class IngressService {
 
   setLoggedInUser(userDetails) {
     let userTypes: string[] = [];
-    let user: User;
+    let user: User = new User();
     user.userId = userDetails.userId;
     user.userName = userDetails.userName;
     user.phoneNumber = userDetails.phoneNumber;
     user.userRole = userDetails.userRole;
-    for (let i = 0; i < userDetails.accessLevel.length; i++) {
-      userTypes.push(userDetails.accessLevel[i].accessLevel);
+    for (let i = 0; i < userDetails.userTypes.length; i++) {
+      userTypes.push(userDetails.userTypes[i].accessLevel);
     }
     user.userTypes = userTypes;
     this.loggedInUser = user;
     this.storage.set('LoggedInUser', user);
-    this.events.publish("user:loggedin");
+
   }
 
 
@@ -246,6 +246,12 @@ export class IngressService {
     userP2Pdetails.stateName = p2pUserDetails.stateName;
     userP2Pdetails.stateId = p2pUserDetails.stateId;
     this.storage.set('P2PUserDetails', userP2Pdetails);
+    this.userP2PDetails = userP2Pdetails;
+  }
+
+  setP2PUserDevices(p2pDevices) {
+    this.storage.set('UserP2PDevices', p2pDevices);
+    this.userP2PDevices = p2pDevices;
   }
   // async getUserStateToken() {
   //   console.log("get token");
@@ -339,6 +345,7 @@ export class IngressService {
   logout(): Promise<boolean> {
     return this.storage.remove('LoggedInUser').then(() => {
       this.storage.remove('UserP2PDevices');
+      this.storage.remove('P2PUserDetails');
       this.router.navigate(['/login']);
       return true;
     })

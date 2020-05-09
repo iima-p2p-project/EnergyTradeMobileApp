@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { IngressService } from 'src/app/services/ingress.service';
+import { ADMIN_ROLE } from './environments/environments';
 
 
 @Component({
@@ -62,6 +63,10 @@ export class AppComponent {
 
     events.subscribe('user:loggedin', () => {
       this.getUserDetails();
+    });
+
+    events.subscribe('user:setAppComponentData', () => {
+      this.setAppComponentData();
     });
   }
 
@@ -152,14 +157,28 @@ export class AppComponent {
       return this.availablePersonas.includes(persona);
   }
 
+  setAppComponentData() {
+    this.availablePersonas = this.ingressService.loggedInUser.userTypes;
+    this.userName = this.ingressService.loggedInUser.userName;
+    this.selectedUserPersona = "P2P";
+  }
+
   getUserDetails() {
     if (this.ingressService.loggedInUser) {
+
+      //   this.localityName = this.ingressService.userP2PDetails.localityName;
       //this.loggedInUser = this.ingressService.loggedInUser;
       this.availablePersonas = this.ingressService.loggedInUser.userTypes;
       if (this.availablePersonas.includes("DR")) {
         this.selectedUserPersona = "DR";
+        this.router.navigate(["customer-dashboard"]);
       } else {
         this.selectedUserPersona = "P2P";
+        if (this.userRole == ADMIN_ROLE) {
+          this.router.navigate(["admin-dashboard"]);
+        } else {
+          this.router.navigate(["dashboard"]);
+        }
       }
 
 
@@ -169,7 +188,7 @@ export class AppComponent {
       // console.log('app component user role : ', res);
       // this.userRole = res;
       // this.ingressService.loggedInUserRole = this.userRole;
-      this.localityName = this.ingressService.userP2PDetails.localityName;
+
       //     this.ingressService.getUserLocalityNameToken().then((res) => {
       //       console.log('app component locality name : ', res);
       //       this.localityName = res;
@@ -186,7 +205,6 @@ export class AppComponent {
   }
 
   navigateToProfile() {
-
     if (this.selectedUserPersona == "P2P") {
       this.router.navigate(['/profile'], {
         queryParams: {
@@ -201,7 +219,6 @@ export class AppComponent {
           flow: 'DRCustomer'
         }
       });
-
     }
   }
 

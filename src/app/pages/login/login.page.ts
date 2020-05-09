@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AlertController, ToastController, MenuController } from '@ionic/angular';
+import { AlertController, ToastController, MenuController, Events } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
@@ -44,7 +44,8 @@ export class LoginPage implements OnInit {
     , private storage: Storage
     , private toastCtrl: ToastController
     , private oneSignal: OneSignal
-    , private menuController: MenuController) {
+    , private menuController: MenuController
+    , private events: Events) {
 
     this.loginForm = this.formBuilder.group({
       phoneNumber: [null, Validators.compose([
@@ -138,6 +139,8 @@ export class LoginPage implements OnInit {
     this.userId = this.ingressService.loggedInUser.userId;
     this.ingressService.getp2pUserProfile(this.userId).subscribe((res: any) => {
       this.ingressService.setP2PUserDetails(res.response);
+      this.ingressService.setP2PUserDevices(res.response.devices);
+      this.events.publish("user:loggedin");
     });
     this.oneSignal.setExternalUserId(this.userId);
     if (this.ingressService.loggedInUser.userRole == ADMIN_ROLE) {

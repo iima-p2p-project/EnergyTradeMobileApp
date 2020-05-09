@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { AlertController, ToastController, MenuController } from '@ionic/angular';
+import { AlertController, ToastController, MenuController, Events } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 
@@ -30,7 +30,8 @@ export class DeviceDetailsPage implements OnInit {
     , private formBuilder: FormBuilder
     , private router: Router
     , private storage: Storage
-    , private menuController: MenuController) {
+    , private menuController: MenuController
+    , private events: Events) {
     this.deviceDetailsForm = this.formBuilder.group({
       solar: [null, Validators.nullValidator],
       generator: [null, Validators.nullValidator],
@@ -111,9 +112,10 @@ export class DeviceDetailsPage implements OnInit {
       if (this.responseFromService.response.key == 200) {
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
           console.log('user devices from server : ', res);
+          this.events.publish("user:setAppComponentData");
           this.responseFromService = res;
           // this.ingressService.setUserDevices(this.responseFromService.response.devices);
-          this.storage.set('UserP2PDevices', this.responseFromService.response.devices);
+          this.ingressService.setP2PUserDevices(this.responseFromService.response.devices);
           //this.storage.set('LoggedInUserId', this.userId).then(() => {
           //  this.ingressService.loggedInUserId = this.userId;
           this.router.navigate(['/dashboard'], {

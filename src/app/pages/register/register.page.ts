@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { AlertController, MenuController, ToastController, Events } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { RegisterPayload } from 'src/app/models/RegisterPayload';
@@ -59,7 +59,8 @@ export class RegisterPage implements OnInit {
     , public modalController: ModalController
     , private oneSignal: OneSignal
     , private menuController: MenuController
-    , private toastCtrl: ToastController) {
+    , private toastCtrl: ToastController
+    , private events: Events) {
 
     this.registerForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
@@ -119,8 +120,8 @@ export class RegisterPage implements OnInit {
           // this.storage.set('LoggedInUserLocalityName', this.selectedLocality);
           // this.storage.set('LoggedInUserBoardId', this.selectedBoardId).then(() => {
           // this.ingressService.loggedInUserId = this.registeredUser.userId;
-          this.ingressService.setLoggedInUser(this.registeredUser);
-          this.oneSignal.setExternalUserId(this.registeredUser.response.userId);
+          //  this.ingressService.setLoggedInUser(this.registeredUser);
+          //  this.oneSignal.setExternalUserId(this.registeredUser.response.userId);
           // if (this.registeredUser != null) {
           //   this.ingressService.setLoggedInUserId(this.registeredUser.response.userId);
           //   //setting up onesignal notification identifier
@@ -133,8 +134,13 @@ export class RegisterPage implements OnInit {
             }
             // });
           });
-        } else {
-          this.showToast("Something Went wrong in registration. Please contact customer service.");
+        } else if (this.resFromService.response.key == 300 && this.resFromService.response.message == "USN Already Existed.") {
+          this.showToast("USN already exists")
+        } else if (this.resFromService.response.key == 300 && this.resFromService.response.message == "USN Not Existed.") {
+          this.showToast("Invalid USN");
+        }
+        else {
+          this.showToast("Something Went wrong in registration. Contact support.");
         }
       });
     }
@@ -155,11 +161,14 @@ export class RegisterPage implements OnInit {
     userDetails.userName = response.name;
     userDetails.userRole = response.userRole;
     userDetails.userTypes = response.userTypes;
+    this.userId = response.userId;
     this.ingressService.setLoggedInUser(userDetails);
     this.ingressService.getp2pUserProfile(this.userId).subscribe((res: any) => {
       this.ingressService.setP2PUserDetails(res.response);
+      //this.events.publish("user:loggedin");
     });
     this.oneSignal.setExternalUserId("" + this.ingressService.loggedInUser.userId);
+    
   }
 
   async showToast(message: string) {
