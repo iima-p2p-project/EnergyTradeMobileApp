@@ -45,6 +45,7 @@ export class SellerListPage implements OnInit {
 
   searchCount: any;
   searchDate: any;
+  sortedSellerList;
 
   constructor(private timeService: TimeService,
     private orderService: OrderService,
@@ -86,7 +87,15 @@ export class SellerListPage implements OnInit {
           this.sellerList = this.resFromServer.response.list;
           console.log("Sell Orders", this.sellerList);
           //adding filterd arrays
-          this.displayedSellerList = this.sellerList;
+          this.sortedSellerList = this.sellerList.sort((res1, res2) => {
+            let timeDistance = ((Math.abs(moment(res1.transferStartTs).diff(moment(this.startTime), 'minutes')) +
+              Math.abs(moment(res1.transferEndTs).diff(moment(this.endTime), 'minutes')))) - ((Math.abs(moment(res2.transferStartTs).diff(moment(this.startTime), 'minutes')) +
+                Math.abs(moment(res2.transferEndTs).diff(moment(this.endTime), 'minutes'))))
+            return timeDistance;
+          });
+
+          this.displayedSellerList = this.sortedSellerList;
+
           this.evSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Battery');
           this.solarSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Solar');
           this.genSellOrders = this.sellerList.filter(sellOrder => sellOrder.deviceTypeName == 'Generator');
@@ -206,7 +215,7 @@ export class SellerListPage implements OnInit {
     console.log("Filtering sell Sellers");
 
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{ text: 'Ok', role: 'done' }],
       columns: [{
         name: "filterOptions",
         options: [{ text: "Any", value: "a" }
@@ -224,7 +233,7 @@ export class SellerListPage implements OnInit {
       console.log("Filter Key:", this.filterKey);
       //
       if (this.filterKey == 'a') {
-        this.displayedSellerList = this.sellerList;
+        this.displayedSellerList = this.sortedSellerList;
       }
       else if (this.filterKey == 'e') {
         this.displayedSellerList = this.evSellOrders;
