@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { IngressService } from 'src/app/services/ingress.service';
-import { AllUser } from './models/AllUser';
+
 
 @Component({
   selector: 'app-root',
@@ -169,7 +169,7 @@ export class AppComponent {
       // console.log('app component user role : ', res);
       // this.userRole = res;
       // this.ingressService.loggedInUserRole = this.userRole;
-      this.localityName = this.ingressService.loggedInUser.localityName;
+      this.localityName = this.ingressService.userP2PDetails.localityName;
       //     this.ingressService.getUserLocalityNameToken().then((res) => {
       //       console.log('app component locality name : ', res);
       //       this.localityName = res;

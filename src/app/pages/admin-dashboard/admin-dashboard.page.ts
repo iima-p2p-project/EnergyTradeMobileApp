@@ -58,7 +58,7 @@ export class AdminDashboardPage implements OnInit {
       //this.ingressService.loggedInUserId = this.userId;
 
       // this.ingressService.getUserStateToken().then((res) => {
-      this.userStateId = this.ingressService.loggedInUser.stateId;
+      this.userStateId = this.ingressService.userP2PDetails.stateId;
       //        this.ingressService.loggedInUserStateId = this.userStateId;
       this.adminService.getAllNonTradeHours(this.userId).subscribe((res) => {
         this.resFromServer = res;

@@ -112,8 +112,8 @@ export class DeviceDetailsPage implements OnInit {
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
           console.log('user devices from server : ', res);
           this.responseFromService = res;
-          this.ingressService.setUserDevices(this.responseFromService.response.devices);
-          this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
+          // this.ingressService.setUserDevices(this.responseFromService.response.devices);
+          this.storage.set('UserP2PDevices', this.responseFromService.response.devices);
           //this.storage.set('LoggedInUserId', this.userId).then(() => {
           //  this.ingressService.loggedInUserId = this.userId;
           this.router.navigate(['/dashboard'], {

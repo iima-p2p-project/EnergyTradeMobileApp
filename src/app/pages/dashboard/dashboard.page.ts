@@ -154,41 +154,40 @@ export class DashboardPage implements OnInit {
       console.log("All Sell Orders and contracts: ", this.allOrdersAndContracts);
       this.fineTuneOrderList();
     });
-    this.ingressService.getUserDevicesToken().then((res) => {
-      this.userDeviceList = res;
-      if (this.userDeviceList == null) {
-        this.userHasOnlyLoad = true;
-        this.checkSell = false;
-        this.checkBuy = true;
-      }
-      else if (this.userDeviceList.length == 0) {
-        this.userHasOnlyLoad = true;
-        this.checkSell = false;
-        this.checkBuy = true;
-      }
-      else {
-        this.userDeviceList.forEach(element => {
-          if (element.deviceTypeId == 1) {
-            this.solarDeviceId = element.userDeviceId;
-            this.solarDeviceTypeId = element.deviceTypeId;
-            this.showSolar = true;
-            this.solarCapacity = element.capacity;
-          }
-          if (element.deviceTypeId == 2) {
-            this.generatorDeviceId = element.userDeviceId;
-            this.generatorDeviceTypeId = element.deviceTypeId;
-            this.showGenerator = true;
-            this.generatorCapacity = element.capacity;
-          }
-          if (element.deviceTypeId == 3) {
-            this.evDeviceId = element.userDeviceId;
-            this.evDeviceTypeId = element.deviceTypeId;
-            this.showEV = true;
-            this.evCapacity = element.capacity;
-          }
-        });
-      }
-    });
+    this.userDeviceList = this.ingressService.userP2PDevices;
+    if (this.userDeviceList == null) {
+      this.userHasOnlyLoad = true;
+      this.checkSell = false;
+      this.checkBuy = true;
+    }
+    else if (this.userDeviceList.length == 0) {
+      this.userHasOnlyLoad = true;
+      this.checkSell = false;
+      this.checkBuy = true;
+    }
+    else {
+      this.userDeviceList.forEach(element => {
+        if (element.deviceTypeId == 1) {
+          this.solarDeviceId = element.userDeviceId;
+          this.solarDeviceTypeId = element.deviceTypeId;
+          this.showSolar = true;
+          this.solarCapacity = element.capacity;
+        }
+        if (element.deviceTypeId == 2) {
+          this.generatorDeviceId = element.userDeviceId;
+          this.generatorDeviceTypeId = element.deviceTypeId;
+          this.showGenerator = true;
+          this.generatorCapacity = element.capacity;
+        }
+        if (element.deviceTypeId == 3) {
+          this.evDeviceId = element.userDeviceId;
+          this.evDeviceTypeId = element.deviceTypeId;
+          this.showEV = true;
+          this.evCapacity = element.capacity;
+        }
+      });
+    }
+
     //});
     if (this.userId) {
       if (!this.forecastService.forecastFetched) {

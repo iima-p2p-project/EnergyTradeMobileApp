@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AlertController, MenuController } from '@ionic/angular';
+import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
 import { RegisterPayload } from 'src/app/models/RegisterPayload';
@@ -11,6 +11,7 @@ import { StateModalPage } from '../modals/selectState';
 import { LocalityModalPage } from '../modals/selectLocality';
 import { BoardModalPage } from '../modals/selectBoard';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-register',
@@ -47,6 +48,8 @@ export class RegisterPage implements OnInit {
   selectedBoardId: any;
   selectedLocalityId: any;
 
+  userId: string;
+
 
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
@@ -55,7 +58,8 @@ export class RegisterPage implements OnInit {
     , private storage: Storage
     , public modalController: ModalController
     , private oneSignal: OneSignal
-    , private menuController: MenuController) {
+    , private menuController: MenuController
+    , private toastCtrl: ToastController) {
 
     this.registerForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
@@ -104,9 +108,8 @@ export class RegisterPage implements OnInit {
         console.log('register response : ', res);
         this.resFromService = res;
         if (this.resFromService.response.key == 200 || this.resFromService.response.key == 500) {
-          console.log('check2');
           this.registeredUser = res;
-          
+          this.postLoginActions(this.resFromService.response);
           // this.ingressService.loggedInUserStateId = this.selectedStateId;
           // this.ingressService.loggedInUserLocalityId = this.selectedLocalityId;
           // this.ingressService.loggedInUserBoardId = this.selectedBoardId;
@@ -121,7 +124,7 @@ export class RegisterPage implements OnInit {
           // if (this.registeredUser != null) {
           //   this.ingressService.setLoggedInUserId(this.registeredUser.response.userId);
           //   //setting up onesignal notification identifier
-            
+
           // }
           this.router.navigate(['/add-device'], {
             queryParams: {
@@ -130,6 +133,8 @@ export class RegisterPage implements OnInit {
             }
             // });
           });
+        } else {
+          this.showToast("Something Went wrong in registration. Please contact customer service.");
         }
       });
     }
@@ -141,6 +146,28 @@ export class RegisterPage implements OnInit {
         }
       });
     }
+  }
+
+  postLoginActions(response) {
+    let userDetails = new User();
+    userDetails.userId = response.userId;
+    userDetails.phoneNumber = response.phoneNumber;
+    userDetails.userName = response.name;
+    userDetails.userRole = response.userRole;
+    userDetails.userTypes = response.userTypes;
+    this.ingressService.setLoggedInUser(userDetails);
+    this.ingressService.getp2pUserProfile(this.userId).subscribe((res: any) => {
+      this.ingressService.setP2PUserDetails(res.response);
+    });
+    this.oneSignal.setExternalUserId("" + this.ingressService.loggedInUser.userId);
+  }
+
+  async showToast(message: string) {
+    const toast7 = await this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+    });
+    toast7.present();
   }
 
   redirectToLogin() {

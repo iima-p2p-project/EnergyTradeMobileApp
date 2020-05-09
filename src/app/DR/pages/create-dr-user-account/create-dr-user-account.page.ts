@@ -7,7 +7,9 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES } from 'src/app/environments/environments';
 import { AlertController, ToastController, MenuController } from '@ionic/angular';
 import { DRCustomerService } from 'src/app/services/drcustomer.service';
-import { AllUser } from 'src/app/models/AllUser';
+import { User } from 'src/app/models/User';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+
 
 @Component({
   selector: 'app-create-dr-user-account',
@@ -39,7 +41,8 @@ export class CreateDrUserAccountPage implements OnInit {
     , private storage: Storage
     , private toastCtrl: ToastController
     , private menuController: MenuController
-    , private drCustomerService: DRCustomerService) {
+    , private drCustomerService: DRCustomerService
+    , private oneSignal: OneSignal) {
 
     this.createAccountForm = this.formBuilder.group({
       phoneNumber: [null, Validators.compose([
@@ -96,28 +99,28 @@ export class CreateDrUserAccountPage implements OnInit {
         this.ingressService.loggedInUser.userId = this.userId;
         this.drCustomerService.updateDrCustomerDetails(this.fullName, this.phoneNumber, this.drContractNumber).subscribe((res: any) => {
           if (res.response.key == "200") {
-
-            this.drCustomerService.getDRCustomerProfile(this.userId).subscribe((res: any) => {
-              let userDetails = {} as any;
-              userDetails.drContractNumber = res.response.drContractNumber;
-              userDetails.phoneNumber = res.response.phoneNumber;
-              userDetails.userName = res.response.fullName;
-              userDetails.accessLevel = res.response.userRole;
-              userDetails.userId = this.userId;
-              this.ingressService.setLoggedInUser(userDetails);
-              // this.ingressService.loggedInUser.drContractNumber = res.response.drContractNumber;
-              // this.ingressService.loggedInUser.phoneNumber = res.response.phoneNumber;
-              // this.ingressService.loggedInUser.userName = res.response.fullName;
-              // let userTypes = res.response.userRole;
-              // let userTypesArray = [];
-              // for (let i = 0; i < userTypes.length; i++) {
-              //   userTypesArray.push(userTypes[i].accessLevel);
-              // }
-              // this.ingressService.loggedInUser.userTypes = userTypesArray;
-              this.router.navigateByUrl("/customer-dashboard");
-            }, (err) => {
-              window.alert("Something went wron in getting customer profile.");
-            })
+            this.postLoginActions(res.response);
+            // this.drCustomerService.getDRCustomerProfile(this.userId).subscribe((res: any) => {
+            //   let userDetails = {} as any;
+            //   userDetails.drContractNumber = res.response.drContractNumber;
+            //   userDetails.phoneNumber = res.response.phoneNumber;
+            //   userDetails.userName = res.response.fullName;
+            //   userDetails.accessLevel = res.response.userRole;
+            //   userDetails.userId = this.userId;
+            //   this.ingressService.setLoggedInUser(userDetails);
+            // this.ingressService.loggedInUser.drContractNumber = res.response.drContractNumber;
+            // this.ingressService.loggedInUser.phoneNumber = res.response.phoneNumber;
+            // this.ingressService.loggedInUser.userName = res.response.fullName;
+            // let userTypes = res.response.userRole;
+            // let userTypesArray = [];
+            // for (let i = 0; i < userTypes.length; i++) {
+            //   userTypesArray.push(userTypes[i].accessLevel);
+            // }
+            // this.ingressService.loggedInUser.userTypes = userTypesArray;
+            //   this.router.navigateByUrl("/customer-dashboard");
+            // }, (err) => {
+            //   window.alert("Something went wron in getting customer profile.");
+            // })
 
           } else {
             console.log("Something went wrong in dr customer update");
@@ -138,16 +141,18 @@ export class CreateDrUserAccountPage implements OnInit {
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
     if (this.phoneNumber.toString().length == 10) {
       if (ENABLE_SERVICES) {
-        this.ingressService.sendOtp(this.phoneNumber.toString()).subscribe((res) => {
+        this.ingressService.sendRegistrationOTP(this.phoneNumber.toString(), "DR").subscribe((res) => {
           this.responseFromService = res;
-          console.log('server response from send otp : ', res);
-          if (this.responseFromService.response.key == 300) {
+          if (this.responseFromService.response.key == 200) {
+            this.showOTPFlag = true;
+          }
+          else if (this.responseFromService.response.key == 300 && this.responseFromService.response.accessExist) {
+            this.showOTPFlag = true;
+          }
+          else if (this.responseFromService.response.key == 300) {
             this.showOTPFlag = false;
             console.log('User Already Exists. Please Login');
             this.showToast('User Already Exists. Please Login');
-          }
-          if (/*this.responseFromService.response.key == 200*/ true) {
-            this.showOTPFlag = true;
           }
         });
       }
@@ -166,6 +171,17 @@ export class CreateDrUserAccountPage implements OnInit {
     this.router.navigate(['/login'], {
       queryParams: {}
     });
+  }
+
+  postLoginActions(response) {
+    let userDetails = new User();
+    userDetails.userId = response.userId;
+    userDetails.phoneNumber = response.phoneNumber;
+    userDetails.userName = response.name;
+    userDetails.userRole = response.userRole;
+    userDetails.userTypes = response.userTypes;
+    this.ingressService.setLoggedInUser(userDetails);
+    this.oneSignal.setExternalUserId("" + this.ingressService.loggedInUser.userId);
   }
 
 }

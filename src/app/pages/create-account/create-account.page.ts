@@ -117,16 +117,19 @@ export class CreateAccountPage implements OnInit {
     this.phoneNumber = this.createAccountForm.get('phoneNumber').value;
     if (this.phoneNumber.toString().length == 10) {
       if (ENABLE_SERVICES) {
-        this.ingressService.sendOtp(this.phoneNumber.toString()).subscribe((res) => {
+        this.ingressService.sendRegistrationOTP(this.phoneNumber.toString(), "P2P").subscribe((res) => {
           this.responseFromService = res;
           console.log('server response from send otp : ', res);
-          if (this.responseFromService.response.key == 300) {
+          if (this.responseFromService.response.key == 200) {
+            this.showOTPFlag = true;
+          }
+          else if (this.responseFromService.response.key == 300 && this.responseFromService.response.accessExist) {
+            this.showOTPFlag = true;
+          }
+          else if (this.responseFromService.response.key == 300) {
             this.showOTPFlag = false;
             console.log('User Already Exists. Please Login');
             this.showToast('User Already Exists. Please Login');
-          }
-          if (/*this.responseFromService.response.key == 200*/ true) {
-            this.showOTPFlag = true;
           }
         });
       }

@@ -72,7 +72,7 @@ export class StatementPage implements OnInit {
     if (this.toDate != null) {
       this.toDateFormatted = this.toDate.substring(0, 10);
     }
-    this.ingressService.getUser().then((res) => {
+    this.ingressService.getLoggedInUser().then((res) => {
       this.userId = res.userId;
       this.orderService.getAllTradeByDate(this.fromDateFormatted, this.toDateFormatted, this.userId)
         .subscribe((res) => {

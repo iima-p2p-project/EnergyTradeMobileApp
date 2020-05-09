@@ -51,7 +51,7 @@ export class ForecastListPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.ingressService.getUser().then((res) => {
+    this.ingressService.getLoggedInUser().then((res) => {
       this.userId = res.userId;
       if(this.userId) {
         // this.forecastService.getForecasts(this.userId).subscribe((res) => {

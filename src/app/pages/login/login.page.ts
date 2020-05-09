@@ -7,6 +7,8 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { ENABLE_SERVICES, ADMIN_ROLE, USER_ROLE } from 'src/app/environments/environments';
 import { IfStmt } from '@angular/compiler';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { User } from 'src/app/models/User';
+import { UserP2PDetails } from 'src/app/models/UserP2PDetails';
 
 @Component({
   selector: 'app-login',
@@ -75,66 +77,15 @@ export class LoginPage implements OnInit {
   login() {
     this.phoneNumber = this.loginForm.get('phoneNumber').value;
     this.otp = this.loginForm.get('otp').value;
-    var verifyUserPayload = {
-      "loginMode": "P",
-      "phoneNum": this.phoneNumber.toString()
-    }
+    // var verifyUserPayload = {
+    //   "loginMode": "P",
+    //   "phoneNum": this.phoneNumber.toString()
+    // }
     this.ingressService.login(this.phoneNumber, this.otp).subscribe((res) => {
       this.responseFromService = res;
       if (this.responseFromService.response.key == 200) {
         console.log('login response : ', this.responseFromService);
-        // this.userId = this.responseFromService.response.userId;
-        // this.stateId = this.responseFromService.response.stateId;
-        // this.boardId = this.responseFromService.response.boardId;
-        // this.localityId = this.responseFromService.response.localityId;
-        // for (let i = 0; i < this.responseFromService.response.accessLevel.length; i++) {
-        //   let userType = this.responseFromService.response.accessLevel[i].accessLevel
-        //   this.userTypes.push(userType);
-        // }
-        // this.userRole = this.responseFromService.response.userRole;
-        // this.localityName = this.responseFromService.response.localityName;
-        // this.userName = this.responseFromService.response.userName;
-        //setting user io for as notification identifier for onesignal
-        this.oneSignal.setExternalUserId(this.userId);
-        this.ingressService.setLoggedInUser(this.responseFromService.response);
-
-        // this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
-        // this.storage.set('LoggedInUserRole', this.userRole);
-        // this.storage.set('LoggedInUserStateId', this.stateId);
-        // this.storage.set('LoggedInUserLocalityId', this.localityId);
-        // this.storage.set('LoggedInUserBoardId', this.boardId);
-        // this.storage.set('LoggedInUserLocalityName', this.localityName);
-        // this.storage.set('LoggedInUserName', this.userName);
-        // this.storage.set('LoggedInUserTypes', this.userTypes);
-
-
-        if (this.ingressService.loggedInUser.userRole == ADMIN_ROLE) {
-          this.router.navigate(['/admin-dashboard'], {
-            queryParams: {
-              userId: this.userId,
-              phoneNumber: this.phoneNumber,
-              redirect: this.redirect
-            }
-          });
-        } else if (this.ingressService.loggedInUser.userRole == USER_ROLE) {
-          if (this.ingressService.loggedInUser.userTypes.includes("P2P")) {
-            this.router.navigate(['/dashboard'], {
-              queryParams: {
-                userId: this.userId,
-                phoneNumber: this.phoneNumber,
-                redirect: this.redirect
-              }
-            });
-          } else if (this.ingressService.loggedInUser.userTypes.includes("DR")) {
-            this.router.navigate(['/customer-dashboard'], {
-              queryParams: {
-                userId: this.userId,
-                phoneNumber: this.phoneNumber,
-                redirect: this.redirect
-              }
-            });
-          }
-        }
+        this.postLoginActions(this.responseFromService.response);
       }
       else if (this.responseFromService.response.key == 300) {
         console.log('Wrong OTP');
@@ -146,7 +97,7 @@ export class LoginPage implements OnInit {
     this.phoneNumber = this.loginForm.get('phoneNumber').value;
     if (this.phoneNumber.toString().length == 10) {
       if (ENABLE_SERVICES) {
-        this.ingressService.generateOtp(this.phoneNumber.toString()).subscribe((res) => {
+        this.ingressService.sendLoginOTP(this.phoneNumber.toString()).subscribe((res) => {
           this.responseFromService = res;
           if (this.responseFromService.response.key == 200) {
             this.showOTPFlag = true;
@@ -174,6 +125,49 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/choose-user-type'], {
       queryParams: {}
     });
+  }
+
+  postLoginActions(response) {
+    let userDetails = new User();
+    userDetails.userId = response.userId;
+    userDetails.phoneNumber = response.phoneNumber;
+    userDetails.userName = response.name;
+    userDetails.userRole = response.userRole;
+    userDetails.userTypes = response.userTypes;
+    this.ingressService.setLoggedInUser(userDetails);
+    this.userId = this.ingressService.loggedInUser.userId;
+    this.ingressService.getp2pUserProfile(this.userId).subscribe((res: any) => {
+      this.ingressService.setP2PUserDetails(res.response);
+    });
+    this.oneSignal.setExternalUserId(this.userId);
+    if (this.ingressService.loggedInUser.userRole == ADMIN_ROLE) {
+      this.router.navigate(['/admin-dashboard'], {
+        queryParams: {
+          userId: this.userId,
+          phoneNumber: this.phoneNumber,
+          redirect: this.redirect
+        }
+      });
+    } else if (this.ingressService.loggedInUser.userRole == USER_ROLE) {
+      if (this.ingressService.loggedInUser.userTypes.includes("P2P")) {
+        this.router.navigate(['/dashboard'], {
+          queryParams: {
+            userId: this.userId,
+            phoneNumber: this.ingressService.loggedInUser.phoneNumber,
+            redirect: this.redirect
+          }
+        });
+      } else if (this.ingressService.loggedInUser.userTypes.includes("DR")) {
+        this.router.navigate(['/customer-dashboard'], {
+          queryParams: {
+            userId: this.userId,
+            phoneNumber: this.ingressService.loggedInUser.phoneNumber,
+            redirect: this.redirect
+          }
+        });
+      }
+    }
+
   }
 
 }

@@ -12,12 +12,11 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router
     , private storage: Storage
     , private ingressService: IngressService
-    ) { }
+  ) { }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log("inside auth guard service");
-    if (await this.ingressService.getUser()) {
-      console.log(this.ingressService.getUser());
+    if (await this.ingressService.getLoggedInUser()) {
+      console.log(this.ingressService.getLoggedInUser());
       return true;
     }
     this.router.navigate(['/login'], {
@@ -25,6 +24,6 @@ export class AuthGuard implements CanActivate {
         redirect: state.url
       }
     });
-    return true;
+    return false;
   }
 }

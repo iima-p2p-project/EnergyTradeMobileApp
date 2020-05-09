@@ -47,7 +47,7 @@ export class ManageOrdersPage implements OnInit {
   ionViewWillEnter() {
     this.allOrdersAndContracts=[];
     this.orderListUpdated=[];
-    this.ingressService.getUser().then((res) => {
+    this.ingressService.getLoggedInUser().then((res) => {
       this.userId = res.userId;
       if (this.userId) {
         this.orderService.getAllOrdersByUser(this.userId).subscribe((res) => {
