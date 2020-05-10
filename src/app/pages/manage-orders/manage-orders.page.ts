@@ -138,7 +138,7 @@ export class ManageOrdersPage implements OnInit {
     console.log("Apply Period Filter");
 
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{ text: 'Ok', role: 'done' }],
       columns: [{
         name: "periodOptions",
         options: [{ text: "All", value: "a" }
@@ -170,7 +170,7 @@ export class ManageOrdersPage implements OnInit {
   async applyMonthFilter() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{ text: 'Ok', role: 'done' }],
       columns: [{
         name: "monthOptions",
         options: [{ text: "January", value: "1" }
@@ -207,9 +207,6 @@ export class ManageOrdersPage implements OnInit {
       buttons: [{
         text: 'Ok',
         role: 'done'
-      }, {
-        text: 'Cancel',
-        role: 'cancel'
       }],
       columns: [{
         name: "energyTypeOptions",

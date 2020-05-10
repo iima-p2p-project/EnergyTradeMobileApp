@@ -63,7 +63,7 @@ export class TotalSellLeadsPage implements OnInit {
   async filterByMonth() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{ text: 'Ok', role: 'done' }],
       columns: [{
         name: "monthOptions",
         options: [{ text: "January", value: "1" }

@@ -168,14 +168,16 @@ export class SellerListPage implements OnInit {
             });
           }
         }
-      }, {
-        text: 'CLEAR'
-        , role: 'cancel'
-        , handler: () => {
-          this.displayedSellerList = this.sellerList;
-          this.showDot = false;
-        }
-      }],
+      }
+      // , {
+      //   text: 'CLEAR'
+      //   , role: 'cancel'
+      //   , handler: () => {
+      //     this.displayedSellerList = this.sellerList;
+      //     this.showDot = false;
+      //   }
+      // }
+    ],
       columns: [{
         name: "sortOptions",
         options: [{ text: "Price - Low to High", value: "l" }
