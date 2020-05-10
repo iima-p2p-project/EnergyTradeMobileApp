@@ -14,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  selectedOption='upcoming';
+  selectedOption = 'upcoming';
 
   flow: any;
   userId: any;
@@ -37,7 +37,7 @@ export class ProfilePage implements OnInit {
   displayCompletedOrderList: any;
 
   constructor(
-    public modal:ModalController
+    public modal: ModalController
     , private adminService: AdminService
     , private route: ActivatedRoute
     , private router: Router
@@ -60,7 +60,7 @@ export class ProfilePage implements OnInit {
       this.resFromServer = res;
       if (this.resFromServer) {
         console.log("User Orders List:", this.resFromServer.response);
-        if(this.resFromServer.response!=null) {
+        if (this.resFromServer.response != null) {
           this.userId = this.resFromServer.response.userId;
           this.userName = this.resFromServer.response.userName;
           this.userEmail = this.resFromServer.response.email;
@@ -92,7 +92,7 @@ export class ProfilePage implements OnInit {
           console.log("All Upcoming Orders: ", this.allUpcomingOrders);
           console.log("All Completed Orders: ", this.allCompletedOrders);
           this.fineTuneOrderList();
-        } 
+        }
       }
     })
   }
@@ -111,6 +111,7 @@ export class ProfilePage implements OnInit {
         obj.deviceTypeName = obj.sellorder.deviceTypeName;
         obj.powerToSell = obj.sellorder.powerToSell;
         obj.totalAmount = obj.sellorder.totalAmount;
+        obj.energy = obj.sellorder.energy;
       }
       if (obj.orderType == "sell")
         obj.month = moment(obj.transferStartTs).format('M');
@@ -137,6 +138,7 @@ export class ProfilePage implements OnInit {
         obj.deviceTypeName = obj.sellorder.deviceTypeName;
         obj.powerToSell = obj.sellorder.powerToSell;
         obj.totalAmount = obj.sellorder.totalAmount;
+        obj.energy = obj.sellorder.energy;
       }
       if (obj.orderType == "sell")
         obj.month = moment(obj.transferStartTs).format('M');
@@ -158,17 +160,15 @@ export class ProfilePage implements OnInit {
       return moment(ts).format("Do MMM");
   }
 
-  segmentChanged($event)
-  {
+  segmentChanged($event) {
     // console.log($event.detail.value);
-    this.selectedOption=$event.detail.value;
+    this.selectedOption = $event.detail.value;
   }
 
-  async openCancelModal()
-  {
-    let pqr=await this.modal.create({
-      component:CancelInProfilePage,
-      cssClass:'cancelx-custom-modal-css'
+  async openCancelModal() {
+    let pqr = await this.modal.create({
+      component: CancelInProfilePage,
+      cssClass: 'cancelx-custom-modal-css'
     })
 
     return await pqr.present();
@@ -176,10 +176,10 @@ export class ProfilePage implements OnInit {
 
   cancelTrade(order: any, orderType: any) {
     console.log('check1');
-    if(this.flow=='ADMIN') {
+    if (this.flow == 'ADMIN') {
       this.cancelModalAdmin(order, orderType);
     }
-    if(this.flow=='USER') {
+    if (this.flow == 'USER') {
       this.cancelModalUser(order, orderType);
     }
   }
