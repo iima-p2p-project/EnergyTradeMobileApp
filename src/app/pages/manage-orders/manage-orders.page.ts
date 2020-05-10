@@ -104,7 +104,7 @@ export class ManageOrdersPage implements OnInit {
       let t1 = moment(ts1.transferStartTs);
       let t2 = moment(ts2.transferStartTs);
       let diff = t1.diff(t2, 'seconds');
-      return diff;
+      return diff * -1;
     });
 
     this.allOrders = this.orderListUpdated;
