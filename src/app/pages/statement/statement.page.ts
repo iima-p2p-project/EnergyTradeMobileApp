@@ -159,6 +159,9 @@ export class StatementPage implements OnInit {
             this.totalEarnings = (+(+this.response.totalAmountEarned).toFixed(2));
             this.totalSpent = (+(+this.response.totalAmountSpent).toFixed(2));
             this.txnListFromServer = this.response.trades;
+            this.txnListFromServer.sort((ts1, ts2) => {
+              return (moment(ts2.transferStartTs).diff(ts1.transferStartTs)) * -1;
+            })
           }
         }
       });
