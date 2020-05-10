@@ -64,6 +64,7 @@ export class SellRateSetPage implements OnInit {
   //Screenwidth
   screenWidth: any;
   screenMode: any;
+  disableEnergyField;
 
   constructor(private formBuilder: FormBuilder,
     public modal: ModalController
@@ -97,6 +98,7 @@ export class SellRateSetPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       if (this.action == ACTION_CREATE || this.action == ACTION_EDIT) {
+        this.disableEnergyField = false;
         this.sellOrderId = params['sellOrderId'];
         this.energy = params['energy'];
         this.power = params['power'];
@@ -104,7 +106,8 @@ export class SellRateSetPage implements OnInit {
         this.userDeviceId = params['userDeviceId'];
         this.deviceTypeId = params['deviceTypeId'];
       }
-      if (this.action == ACTION_FORECAST) {
+      else if (this.action == ACTION_FORECAST) {
+        this.disableEnergyField = true;
         this.rate = params['pricePerUnit'];
         this.sellerId = params['sellerId'];
         this.sellSolar = params['sellSolar'];
@@ -128,6 +131,8 @@ export class SellRateSetPage implements OnInit {
         console.log('evDeviceId', this.evDeviceId);
         //this.startTime = moment(params['startTime']).format('hh:mm A');
         //this.endTime = moment(params['endTime']).format('hh:mm A');
+      } else {
+        this.disableEnergyField = true;
       }
     });
     this.startTime = moment(this.timeService.startTime).format('hh:mm A');
