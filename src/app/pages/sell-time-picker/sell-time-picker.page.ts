@@ -83,9 +83,9 @@ export class SellTimePickerPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.startTimeFormatted = '';
-    this.endTimeFormatted = '';
-    this.callerPage = '';
+    // this.startTimeFormatted = '';
+    // this.endTimeFormatted = '';
+    // this.callerPage = '';
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       if (this.action == ACTION_CREATE) {
