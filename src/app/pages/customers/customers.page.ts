@@ -92,10 +92,12 @@ export class CustomersPage implements OnInit {
   async filterByLocation() {
     console.log("Apply Location Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{ text: 'Ok', role: 'done' }],
       columns: [{
         name: "monthOptions",
         options: [{ text: "Tarnaka", value: "Tarnaka" }
+          , { text: "Nizamabad", value: "Nizamabad" }
+          , { text: "Shimachalam", value: "Shimachalam" }
           , { text: "Lingampalli", value: "Lingampalli" }
           , { text: "All", value: "All" }
         ]
