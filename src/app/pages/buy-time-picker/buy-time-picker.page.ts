@@ -7,6 +7,7 @@ import { OrderService } from 'src/app/services/order.service';
 import { USER_ROLE } from 'src/app/environments/environments';
 import { InvalidInputModalPage } from 'src/app/invalid-input-modal/invalid-input-modal.page';
 import { EndDateModalPage } from 'src/app/end-date-modal/end-date-modal.page';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-buy-time-picker',
@@ -40,8 +41,10 @@ export class BuyTimePickerPage implements OnInit {
 
   startTimeDetails: any = "DAY,DD MM";
   endTimeDetails: any = "DAY,DD MM";
-  inputsValidFlag = false;
+  // inputsValidFlag = false;
   callerPage: string;
+  startValid = false;
+  endValid = false;
 
   constructor(
     public platform: Platform,
@@ -68,7 +71,7 @@ export class BuyTimePickerPage implements OnInit {
       this.unitMin = params['unitMin'];
       this.unitMax = params['unitMax'];
       this.callerPage = params['callerPage'];
-      if (this.startTime==null && this.endTime==null) {
+      if (this.startTime == null && this.endTime == null) {
         this.timeService.startTime = null;
         this.timeService.endTime = null;
         this.timeService.isStartTimeSelected = false;
@@ -79,12 +82,20 @@ export class BuyTimePickerPage implements OnInit {
   }
   getStartTimeDetails() {
     this.formatTime(this.startTime, 's');
+
+    let cutOffStartTime = moment(moment(this.startTimeFormatted).format("YYYY-MM-DD") + "T06:00:00.000");
+    if (this.deviceTypeId == 1 && moment(this.startTimeFormatted).isBefore(cutOffStartTime)) {
+      this.invalidDates("Start Time for Solar Devices cannot be before 06:00 AM");
+      this.startValid = false;
+      return;
+    }
     if (this.timeService.getDuration(this.startTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
       this.invalidDates("Please select a future time.");
       this.duration = "00:00";
-      this.inputsValidFlag = false;
+      this.startValid = false;
       return;
     }
+    this.startValid = true;
     this.durationDetails = this.timeService.getStartTimeDetails(this.startTimeFormatted, this.endTimeFormatted, USER_ROLE);
     if (this.durationDetails != null) {
       this.startTimeDetails = this.durationDetails.startTimeDetails;
@@ -95,9 +106,11 @@ export class BuyTimePickerPage implements OnInit {
           //this.presentAlert("End Time shall be after start time");
           this.invalidDates("Start time cannot be more than end time");
           this.duration = "00:00";
-          this.inputsValidFlag = false;
+          // this.inputsValidFlag = false;
+          this.startValid = false;
         } else {
-          this.inputsValidFlag = true;
+          // this.inputsValidFlag = true;
+          this.startValid = true;
         }
       }
       else {
@@ -108,12 +121,20 @@ export class BuyTimePickerPage implements OnInit {
 
   getEndTimeDetails() {
     this.formatTime(this.endTime, 'e');
+    let cutOffEndTime = moment(moment(this.endTimeFormatted).format("YYYY-MM-DD") + "T18:00:00.000");
+    if (this.deviceTypeId == 1 && moment(this.endTimeFormatted).isAfter(cutOffEndTime)) {
+      this.invalidDates("End Time for Solar Devices cannot be after 06:00 PM");
+      this.endValid = false;
+      return;
+    }
     if (this.timeService.getDuration(this.endTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
       this.invalidDates("Please select a future time.");
       this.duration = "00:00";
-      this.inputsValidFlag = false;
+      // this.inputsValidFlag = false;
+      this.endValid = false;
       return;
     }
+    this.endValid = true;
     this.durationDetails = this.timeService.getEndTimeDetails(this.startTimeFormatted, this.endTimeFormatted, USER_ROLE);
     if (this.durationDetails != null) {
       this.endTimeDetails = this.durationDetails.endTimeDetails;
@@ -124,9 +145,11 @@ export class BuyTimePickerPage implements OnInit {
           //this.presentAlert("End Time shall be after start time");
           this.invalidDates("Start time cannot be more than end time");
           this.duration = "00:00";
-          this.inputsValidFlag = false;
+          // this.inputsValidFlag = false;
+          this.endValid = false;
         } else {
-          this.inputsValidFlag = true;
+          // this.inputsValidFlag = true;
+          this.endValid = true;
         }
       }
       else {
@@ -137,7 +160,7 @@ export class BuyTimePickerPage implements OnInit {
 
   findSellers() {
 
-    if (this.inputsValidFlag && this.budgetMin && this.budgetMax && +this.budgetMax >= +this.budgetMin) {
+    if (this.endValid && this.startValid && this.budgetMin && this.budgetMax && +this.budgetMax >= +this.budgetMin) {
       // this.buyOrderPayload.unitMin = this.unitMin;
       // this.buyOrderPayload.unitMax = this.unitMax;
       // this.buyOrderPayload.startTime = this.startTime;
@@ -202,11 +225,11 @@ export class BuyTimePickerPage implements OnInit {
     if (time != null) {
       time = time.substring(0, 10) + ' ' + time.substring(11, 16) + ':00';
     }
-    if(tag=='s') {
-      this.startTimeFormatted=time;
+    if (tag == 's') {
+      this.startTimeFormatted = time;
     }
-    if(tag=='e') {
-      this.endTimeFormatted=time;
+    if (tag == 'e') {
+      this.endTimeFormatted = time;
     }
   }
 }
