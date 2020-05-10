@@ -153,6 +153,9 @@ export class SellTimePickerPage implements OnInit {
           this.invalidDates("Start time cannot be more than end time");
           this.duration = "00:00";
           this.startValid = false;
+        } else if (this.durationDetails.duration.durationTime > 720 && this.deviceTypeId == 1) {
+          this.startValid = false;
+          this.invalidDates("Time range include dark hours. Solar order cannot be created.");
         } else {
           this.startValid = true;
           //this.endValid = true;
@@ -195,6 +198,10 @@ export class SellTimePickerPage implements OnInit {
           //this.presentAlert("End Time shall be after start time");
           this.invalidDates("Start time cannot be more than end time");
           this.duration = "00:00";
+          this.endValid = false;
+        }
+        else if (this.durationDetails.duration.durationTime > 720 && this.deviceTypeId == 1) {
+          this.invalidDates("Time range include dark hours. Solar order cannot be created.");
           this.endValid = false;
         } else {
           this.endValid = true;
