@@ -90,6 +90,7 @@ export class ManageOrdersPage implements OnInit {
         obj.deviceTypeName = obj.sellorder.deviceTypeName;
         obj.transferStartTs = obj.sellorder.transferStartTs;
         obj.transferEndTs = obj.sellorder.transferEndTs;
+        obj.energy = obj.sellorder.energy;
       }
       if (obj.orderType == "sell")
         obj.month = moment(obj.transferStartTs).format('M');
