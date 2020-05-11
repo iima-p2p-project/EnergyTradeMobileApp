@@ -148,36 +148,16 @@ export class SellerListPage implements OnInit {
       buttons: [{
         text: 'OK'
         , role: 'done'
-        , handler: async () => {
-          let col = await picker.getColumn('sortOptions');
-          console.log("Selected Col", col);
-          this.sortKey = col.options[col.selectedIndex].value;
-          console.log("Sort Key:", this.sortKey);
-          //
-          if (this.sortKey == 'h') {
-
-            this.showDot = true;
-            this.displayedSellerList.sort(function (a, b) {
-              return b.totalAmount - a.totalAmount;
-            });
-          }
-          else if (this.sortKey == 'l' || this.sortKey == 'r') {
-            this.showDot = true;
-            this.displayedSellerList.sort(function (a, b) {
-              return a.totalAmount - b.totalAmount;
-            });
-          }
-        }
       }
-      // , {
-      //   text: 'CLEAR'
-      //   , role: 'cancel'
-      //   , handler: () => {
-      //     this.displayedSellerList = this.sellerList;
-      //     this.showDot = false;
-      //   }
-      // }
-    ],
+        // , {
+        //   text: 'CLEAR'
+        //   , role: 'cancel'
+        //   , handler: () => {
+        //     this.displayedSellerList = this.sellerList;
+        //     this.showDot = false;
+        //   }
+        // }
+      ],
       columns: [{
         name: "sortOptions",
         options: [{ text: "Price - Low to High", value: "l" }
@@ -187,30 +167,51 @@ export class SellerListPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    // picker.onDidDismiss().then(async data => {
-    //   let col = await picker.getColumn('sortOptions');
-    //   console.log("Selected Col", col);
-    //   this.sortKey = col.options[col.selectedIndex].value;
-    //   console.log("Sort Key:", this.sortKey);
-    //   //
-    //   if (this.sortKey == 'h') {
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('sortOptions');
+      console.log("Selected Col", col);
+      this.sortKey = col.options[col.selectedIndex].value;
+      console.log("Sort Key:", this.sortKey);
+      //
+      if (this.sortKey == 'h') {
 
-    //     this.showDot = true;
-    //     this.displayedSellerList.sort(function (a, b) {
-    //       if (a.total_amount > b.total_amount)
-    //         return -1;
-    //     });
-    //   }
-    //   else if (this.sortKey == 'l' || this.sortKey == 'r') {
-    //     this.showDot = true;
-    //     this.displayedSellerList.sort(function (a, b) {
-    //       if (a.total_amount < b.total_amount)
-    //         return -1;
-    //     });
-    //   }
-    // }
-    // );
+        this.showDot = true;
+        this.displayedSellerList.sort(function (a, b) {
+          return b.totalAmount - a.totalAmount;
+        });
+      }
+      else if (this.sortKey == 'l' || this.sortKey == 'r') {
+        this.showDot = true;
+        this.displayedSellerList.sort(function (a, b) {
+          return a.totalAmount - b.totalAmount;
+        });
+      }
+    });
   }
+  // picker.onDidDismiss().then(async data => {
+  //   let col = await picker.getColumn('sortOptions');
+  //   console.log("Selected Col", col);
+  //   this.sortKey = col.options[col.selectedIndex].value;
+  //   console.log("Sort Key:", this.sortKey);
+  //   //
+  //   if (this.sortKey == 'h') {
+
+  //     this.showDot = true;
+  //     this.displayedSellerList.sort(function (a, b) {
+  //       if (a.total_amount > b.total_amount)
+  //         return -1;
+  //     });
+  //   }
+  //   else if (this.sortKey == 'l' || this.sortKey == 'r') {
+  //     this.showDot = true;
+  //     this.displayedSellerList.sort(function (a, b) {
+  //       if (a.total_amount < b.total_amount)
+  //         return -1;
+  //     });
+  //   }
+  // }
+  // );
+
 
 
   async filterSellRecords() {
