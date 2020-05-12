@@ -115,14 +115,14 @@
   <ion-grid style="position:relative;top:100px;color:white;font-family:MMedium !important;">
     <ion-row style="padding-bottom:0.5em;">
       <ion-col size="6" style="padding-left:2.5em;font-size:0.8em;">
-        UNITS TO POST
+        POWER (KW)
       </ion-col>
       <ion-col size="2" style="font-size:0.9em;">
         :
       </ion-col>
       <ion-col size="4" style="font-size:0.8em;margin-left:-2em;margin-top:-0.5em;font-family:MMedium !important;">
         <ion-input placeholder="Enter Amount" style="font-family:MMedium !important;" type="number" [(ngModel)]="power"
-          disabled="{{disableEnergyField}}">
+          disabled="{{disableEnergyField}}" (ionChange)="calculateEnergy()">
         </ion-input>
       </ion-col>
     </ion-row>

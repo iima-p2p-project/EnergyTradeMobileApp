@@ -269,4 +269,9 @@ export class SellRateSetPage implements OnInit {
     });
     return await myModal.present();
   }
+
+  calculateEnergy() {
+    let timeDiff = (moment(this.timeService.endTime).diff(this.timeService.startTime, 'minutes')) / 60;
+    this.energy = (+this.power * timeDiff) + "";
+  }
 }
