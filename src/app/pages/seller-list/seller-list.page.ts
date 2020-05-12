@@ -148,15 +148,36 @@ export class SellerListPage implements OnInit {
       buttons: [{
         text: 'OK'
         , role: 'done'
+        , handler: async () => {
+          let col = await picker.getColumn('sortOptions');
+          console.log("Selected Col", col);
+          this.sortKey = col.options[col.selectedIndex].value;
+          console.log("Sort Key:", this.sortKey);
+          //
+          if (this.sortKey == 'h') {
+
+            this.showDot = true;
+            this.displayedSellerList.sort(function (a, b) {
+              return b.totalAmount - a.totalAmount;
+            });
+          }
+          else if (this.sortKey == 'l' || this.sortKey == 'r') {
+            this.showDot = true;
+            this.displayedSellerList.sort(function (a, b) {
+              return a.totalAmount - b.totalAmount;
+            });
+          }
+
+        }
       }
-        // , {
-        //   text: 'CLEAR'
-        //   , role: 'cancel'
-        //   , handler: () => {
-        //     this.displayedSellerList = this.sellerList;
-        //     this.showDot = false;
-        //   }
-        // }
+        , {
+        text: 'Clear'
+        , role: 'cancel'
+        , handler: () => {
+          this.displayedSellerList = this.sellerList;
+          this.showDot = false;
+        }
+      }
       ],
       columns: [{
         name: "sortOptions",
@@ -167,26 +188,9 @@ export class SellerListPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('sortOptions');
-      console.log("Selected Col", col);
-      this.sortKey = col.options[col.selectedIndex].value;
-      console.log("Sort Key:", this.sortKey);
-      //
-      if (this.sortKey == 'h') {
+    // picker.onDidDismiss().then(async data => {
 
-        this.showDot = true;
-        this.displayedSellerList.sort(function (a, b) {
-          return b.totalAmount - a.totalAmount;
-        });
-      }
-      else if (this.sortKey == 'l' || this.sortKey == 'r') {
-        this.showDot = true;
-        this.displayedSellerList.sort(function (a, b) {
-          return a.totalAmount - b.totalAmount;
-        });
-      }
-    });
+    // });
   }
   // picker.onDidDismiss().then(async data => {
   //   let col = await picker.getColumn('sortOptions');
@@ -218,7 +222,29 @@ export class SellerListPage implements OnInit {
     console.log("Filtering sell Sellers");
 
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }],
+      buttons: [{
+        text: 'Ok', role: 'done', handler: async () => {
+          let col = await picker.getColumn('filterOptions');
+          console.log("Selected Col", col);
+          this.filterKey = col.options[col.selectedIndex].value;
+          console.log("Filter Key:", this.filterKey);
+          //
+          if (this.filterKey == 'a') {
+            this.displayedSellerList = this.sortedSellerList;
+          }
+          else if (this.filterKey == 'e') {
+            this.displayedSellerList = this.evSellOrders;
+          } else if (this.filterKey == 'g') {
+            this.displayedSellerList = this.genSellOrders;
+          } else if (this.filterKey == 's') {
+            this.displayedSellerList = this.solarSellOrders;
+          }
+        }
+      }, {
+        text: 'Cancel', role: 'done', handler: () => {
+          console.log("Hello World");
+        }
+      }],
       columns: [{
         name: "filterOptions",
         options: [{ text: "Any", value: "a" }
@@ -229,23 +255,9 @@ export class SellerListPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('filterOptions');
-      console.log("Selected Col", col);
-      this.filterKey = col.options[col.selectedIndex].value;
-      console.log("Filter Key:", this.filterKey);
-      //
-      if (this.filterKey == 'a') {
-        this.displayedSellerList = this.sortedSellerList;
-      }
-      else if (this.filterKey == 'e') {
-        this.displayedSellerList = this.evSellOrders;
-      } else if (this.filterKey == 'g') {
-        this.displayedSellerList = this.genSellOrders;
-      } else if (this.filterKey == 's') {
-        this.displayedSellerList = this.solarSellOrders;
-      }
-    }
-    );
+    // picker.onDidDismiss().then(async data => {
+
+    // }
+    // );
   }
 }

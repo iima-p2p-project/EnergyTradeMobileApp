@@ -138,7 +138,29 @@ export class ManageOrdersPage implements OnInit {
     console.log("Apply Period Filter");
 
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }],
+      buttons: [{
+        text: 'Ok', role: 'done', handler: async () => {
+          let col = await picker.getColumn('periodOptions');
+          console.log("Selected Col", col);
+          this.periodFilterKey = col.options[col.selectedIndex].value;
+          console.log("Filter Key:", this.periodFilterKey);
+          if (this.periodFilterKey == 'a')
+            this.displayOrderList = this.allOrders;
+          else if (this.periodFilterKey == 'c')
+            this.displayOrderList = this.cancelledOrders;
+          else if (this.periodFilterKey == 'f')
+            this.displayOrderList = this.futureOrders;
+          else if (this.periodFilterKey == 'p')
+            this.displayOrderList = this.pastOrders;
+          else
+            this.displayOrderList = this.allOrders;
+
+        }
+      }, {
+        text: "Cancel", role: "cancel", handler: () => {
+
+        }
+      }],
       columns: [{
         name: "periodOptions",
         options: [{ text: "All", value: "a" }
@@ -149,28 +171,23 @@ export class ManageOrdersPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('periodOptions');
-      console.log("Selected Col", col);
-      this.periodFilterKey = col.options[col.selectedIndex].value;
-      console.log("Filter Key:", this.periodFilterKey);
-      if (this.periodFilterKey == 'a')
-        this.displayOrderList = this.allOrders;
-      else if (this.periodFilterKey == 'c')
-        this.displayOrderList = this.cancelledOrders;
-      else if (this.periodFilterKey == 'f')
-        this.displayOrderList = this.futureOrders;
-      else if (this.periodFilterKey == 'p')
-        this.displayOrderList = this.pastOrders;
-      else
-        this.displayOrderList = this.allOrders;
-    }
-    );
+    // picker.onDidDismiss().then(async data => {
+
+    // }
+    // );
   }
   async applyMonthFilter() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }],
+      buttons: [{
+        text: 'Ok', role: 'done', handler: async () => {
+          let col = await picker.getColumn('monthOptions');
+          this.monthFilterKey = col.options[col.selectedIndex].value;
+          console.log("Filter Key:", this.monthFilterKey);
+          console.log('order : ', this.allOrders);
+          this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
+        }
+      }, { text: "Cancel", role: "cancel", handler: () => { } }],
       columns: [{
         name: "monthOptions",
         options: [{ text: "January", value: "1" }
@@ -190,11 +207,7 @@ export class ManageOrdersPage implements OnInit {
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
     picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('monthOptions');
-      this.monthFilterKey = col.options[col.selectedIndex].value;
-      console.log("Filter Key:", this.monthFilterKey);
-      console.log('order : ', this.allOrders);
-      this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
+
       // if(!this.monthFilterKey) {
       //   this.displayOrderList = this.allOrders.filter(order => order.month == this.monthFilterKey);
       // }    
@@ -206,7 +219,22 @@ export class ManageOrdersPage implements OnInit {
     let opts: PickerOptions = {
       buttons: [{
         text: 'Ok',
-        role: 'done'
+        role: 'done',
+        handler: async () => {
+          let col = await picker.getColumn('energyTypeOptions');
+          this.energyTypeFilterKey = col.options[col.selectedIndex].value;
+          console.log("Filter Key:", this.energyTypeFilterKey);
+          console.log('order : ', this.allOrders);
+          if (this.energyTypeFilterKey) {
+            this.displayOrderList = this.allOrders.filter(order => order.deviceTypeName == this.energyTypeFilterKey);
+          }
+        }
+      }, {
+        text: "Cancel",
+        role: "cancel",
+        handler: () => {
+
+        }
       }],
       columns: [{
         name: "energyTypeOptions",
@@ -217,16 +245,10 @@ export class ManageOrdersPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('energyTypeOptions');
-      this.energyTypeFilterKey = col.options[col.selectedIndex].value;
-      console.log("Filter Key:", this.energyTypeFilterKey);
-      console.log('order : ', this.allOrders);
-      if (this.energyTypeFilterKey) {
-        this.displayOrderList = this.allOrders.filter(order => order.deviceTypeName == this.energyTypeFilterKey);
-      }
-    }
-    );
+    // picker.onDidDismiss().then(async data => {
+
+    // }
+    // );
   }
 
   editSellOrder(order: any) {

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 import { PickerOptions } from '@ionic/core';
 import { PickerController } from '@ionic/angular';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-total-buy-leads',
@@ -59,7 +60,19 @@ export class TotalBuyLeadsPage implements OnInit {
   async filterByMonth() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }],
+      buttons: [{
+        text: 'Ok', role: 'done', handler: async () => {
+          let col = await picker.getColumn('monthOptions');
+          this.monthFilterKey = col.options[col.selectedIndex].value;
+          this.displayLeads = this.allBuyLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
+        }
+      }, {
+        text: "Cancel",
+        role: "cancel",
+        handler: () => {
+
+        }
+      }],
       columns: [{
         name: "monthOptions",
         options: [{ text: "January", value: "1" }
@@ -78,18 +91,32 @@ export class TotalBuyLeadsPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('monthOptions');
-      this.monthFilterKey = col.options[col.selectedIndex].value;
-      this.displayLeads = this.allBuyLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
-    }
-    );
+    // picker.onDidDismiss().then(async data => {
+
+    // }
+    // );
   }
 
   async filterByLocation() {
     console.log("Apply Location Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }],
+      buttons: [{
+        text: 'Ok', role: 'done', handler: async () => {
+          let col = await picker.getColumn('monthOptions');
+          this.locationFilterKey = col.options[col.selectedIndex].value;
+          if (this.locationFilterKey != 'All') {
+            this.displayLeads = this.allBuyLeads.filter(order => order.sellorder.localityName == this.locationFilterKey);
+          } else {
+            this.displayLeads = this.allBuyLeads;
+          }
+        }
+      }, {
+        text: "Cancel",
+        role: "cancel",
+        handler: () => {
+
+        }
+      }],
       columns: [{
         name: "monthOptions",
         options: [{ text: "Tarnaka", value: "Tarnaka" }
@@ -102,15 +129,9 @@ export class TotalBuyLeadsPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('monthOptions');
-      this.locationFilterKey = col.options[col.selectedIndex].value;
-      if (this.locationFilterKey != 'All') {
-        this.displayLeads = this.allBuyLeads.filter(order => order.sellorder.localityName == this.locationFilterKey);
-      } else {
-        this.displayLeads = this.allBuyLeads;
-      }
-    });
+    // picker.onDidDismiss().then(async data => {
+
+    // });
   }
 
   selectLead() {
