@@ -127,6 +127,8 @@ export class SellTimePickerPage implements OnInit {
 
   getStartTimeDetails() {
     this.formatTime(this.startTime, 's');
+    let timediff = moment(this.startTimeFormatted).diff(moment(), 'minutes');
+
 
     let cutOffStartTime = moment(moment(this.startTimeFormatted).format("YYYY-MM-DD") + "T06:00:00.000");
     if (this.deviceTypeId == 1 && moment(this.startTimeFormatted).isBefore(cutOffStartTime)) {
@@ -136,6 +138,11 @@ export class SellTimePickerPage implements OnInit {
     }
     if (this.timeService.getDuration(this.startTimeFormatted, new Date().toISOString(), USER_ROLE).durationTime > 0) {
       this.invalidDates("Please select a future time.");
+      this.duration = "00:00";
+      this.startValid = false;
+      return;
+    } else if (timediff < 60) {
+      this.invalidDates("Start time should be atleast 1 hour from present time");
       this.duration = "00:00";
       this.startValid = false;
       return;
