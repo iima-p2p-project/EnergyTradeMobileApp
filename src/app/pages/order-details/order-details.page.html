@@ -1,129 +1,134 @@
 <ion-content>
-    <ion-row>
-        <ion-col class="menu-button" size="2">
-          <div style="margin-top:-0.7em;">
-            <ion-back-button defaultHref="buy-time-picker"></ion-back-button>
-          </div>
-        </ion-col>
-        <ion-col class="title-top" size="8">
-          <div>ORDER DETAILS</div>
-        </ion-col>
-    </ion-row>
-    <ion-grid>
-      <ion-row class="ion-text-center">
-        <ion-col>
-          <ion-grid>
-            <ion-row>
-              <!-- <ion-col size="3"> -->
-                <!-- <ion-icon zoom="2.0" slot="icon-only" src="assets/svg/solar copy.svg"></ion-icon> -->
-              <!-- </ion-col> -->
-              <ion-col size="12" class="order_details" style="text-align:center;">
-                <span style="font-size:0.9em;">₹ </span>
-                <!-- <span class="bigger">123/-</span><br> -->
-                <span class="bigger">{{totalAmount}}/-</span><br>
-                <span class="smaller" style="margin-top:-1.5em;">{{deviceTypeName}}</span>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-grid style="border:0.5px solid white; width:90%;border-radius:5px;">
-            <ion-row>
-              <ion-col class="ion-text-center" style="font-family:MMedium !important;font-size:0.7em;color:white;border-right:1px solid white;">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col size="5" style="display:block;vertical-align:middle; text-align:right;">
-                        <ion-icon style="zoom:3;vertical-align: middle;" name="flash"></ion-icon>
-                    </ion-col>
-                    <ion-col size="5" style="text-align:left;display:block;vertical-align:middle;">
-                        {{power}} <br> UNITS
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </ion-col>
-              <ion-col class="ion-text-center" style="font-family:MMedium !important;font-size:0.7em;color:white;">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col size="4">
-                        <ion-icon style="zoom:2;vertical-align: middle;" color="light" name="time"></ion-icon>
-                    </ion-col>
-                    <ion-col size="8" style="text-align:left;display:block;vertical-align:middle;">
-                      {{date}}<br>
-                      <span style="font-size:0.7em;">{{startTime}} - {{endTime}}</span>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <div class="spacer" style="height:10px;"></div>
-    <div style='position:absolute;z-index:1;bottom:0;left:0px;width:100%;height:60%;background-color:white;'>
-      <ion-row>
-        <ion-col style="font-family:MSemiBold !important;font-size:0.8em; text-align:center">
-          PAYMENT OPTIONS
-        </ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-segment color="dark" (ionChange)="segmentChanged($event)">
-              <ion-segment-button value="bank" checked>
-                <ion-label>BHIM UPI</ion-label>
-              </ion-segment-button>
-              <ion-segment-button value="dc">
-                <ion-label>DEBIT CARD</ion-label>
-              </ion-segment-button>
-              <ion-segment-button value="cc">
-                  <ion-label>CREDIT CARD</ion-label>
-                </ion-segment-button>
-          </ion-segment>
-      </ion-row>
-      <ion-row>
-        <ion-col *ngIf="selectedOption=='bank'">
-          <ion-list>
-            <ion-item lines="none">
-                <!-- <ion-avatar slot="start"> -->
-                  <div slot="start">
-                    <img src="assets/assets2/hdfc-logo.png">
-                  </div>
-                  <!-- </ion-avatar> -->
-                  <ion-label style="font-size:0.7em;font-family:MMedium !important;">
-                    *********2261 <br>
-                    HDFC Bank
-                  </ion-label>
-                  <ion-icon src="assets/assets2/delete.svg" slot="end" style="zoom:0.8;"></ion-icon>
-                  <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
-            </ion-item>
-            <ion-item lines="none">
-                <!-- <ion-avatar slot="start"> -->
-                  <div slot="start">
-                    <img src="assets/assets2/bank-logo.png">
-                  </div>
-                  <!-- </ion-avatar> -->
-                  <ion-label style="font-size:0.7em;font-family:MMedium !important;">
-                    *********1009 <br>
-                    Union Bank of India
-                  </ion-label>
-                  <!-- <ion-icon name="trash" slot="end" color="light"></ion-icon> -->
-                  <ion-icon name="radio-button-off" slot="end"></ion-icon>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-      <div style="padding-top:0.3em;border-bottom:1px solid rgb(221, 221, 221);width:90%;margin-left:auto;margin-right:auto;"></div>
-
-      <ion-button fill="clear" color="primary" style="text-transform:none;font-family:MSemiBold !important;font-size:0.7em;">
-        ADD ANOTHER BANK ACCOUNT
-      </ion-button>
-
-      <div style="text-align:center;padding-top:30px;">
-        <ion-button shape="round" color="primary" style="width:70%;text-align:center;font-family:MSemiBold !important;height:3.3em;" (click)="createContract()">
-          CONFIRM PAYMENT
-        </ion-button>
+  <ion-row>
+    <ion-col class="menu-button" size="2">
+      <div style="margin-top:-0.7em;">
+        <ion-back-button defaultHref="buy-time-picker"></ion-back-button>
       </div>
+    </ion-col>
+    <ion-col class="title-top" size="8">
+      <div>ORDER DETAILS</div>
+    </ion-col>
+  </ion-row>
+  <ion-grid>
+    <ion-row class="ion-text-center">
+      <ion-col>
+        <ion-grid>
+          <ion-row>
+            <!-- <ion-col size="3"> -->
+            <!-- <ion-icon zoom="2.0" slot="icon-only" src="assets/svg/solar copy.svg"></ion-icon> -->
+            <!-- </ion-col> -->
+            <ion-col size="12" class="order_details" style="text-align:center;">
+              <span style="font-size:0.9em;">₹ </span>
+              <!-- <span class="bigger">123/-</span><br> -->
+              <span class="bigger">{{totalAmount}}/-</span><br>
+              <span class="smaller" style="margin-top:-1.5em;">{{deviceTypeName}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-grid style="border:0.5px solid white; width:90%;border-radius:5px;">
+          <ion-row>
+            <ion-col class="ion-text-center"
+              style="font-family:MMedium !important;font-size:0.7em;color:white;border-right:1px solid white;">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="5" style="display:block;vertical-align:middle; text-align:right;">
+                    <ion-icon style="zoom:3;vertical-align: middle;" name="flash"></ion-icon>
+                  </ion-col>
+                  <ion-col size="5" style="text-align:left;display:block;vertical-align:middle;">
+                    {{energy}} <br> UNITS
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+            <ion-col class="ion-text-center" style="font-family:MMedium !important;font-size:0.7em;color:white;">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="4">
+                    <ion-icon style="zoom:2;vertical-align: middle;" color="light" name="time"></ion-icon>
+                  </ion-col>
+                  <ion-col size="8" style="text-align:left;display:block;vertical-align:middle;">
+                    {{date}}<br>
+                    <span style="font-size:0.7em;">{{startTime}} - {{endTime}}</span>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="spacer" style="height:10px;"></div>
+  <div style='position:absolute;z-index:1;bottom:0;left:0px;width:100%;height:60%;background-color:white;'>
+    <ion-row>
+      <ion-col style="font-family:MSemiBold !important;font-size:0.8em; text-align:center">
+        PAYMENT OPTIONS
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-segment color="dark" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="bank" checked>
+          <ion-label>BHIM UPI</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="dc">
+          <ion-label>DEBIT CARD</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="cc">
+          <ion-label>CREDIT CARD</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="selectedOption=='bank'">
+        <ion-list>
+          <ion-item lines="none">
+            <!-- <ion-avatar slot="start"> -->
+            <div slot="start">
+              <img src="assets/assets2/hdfc-logo.png">
+            </div>
+            <!-- </ion-avatar> -->
+            <ion-label style="font-size:0.7em;font-family:MMedium !important;">
+              *********2261 <br>
+              HDFC Bank
+            </ion-label>
+            <ion-icon src="assets/assets2/delete.svg" slot="end" style="zoom:0.8;"></ion-icon>
+            <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
+          </ion-item>
+          <ion-item lines="none">
+            <!-- <ion-avatar slot="start"> -->
+            <div slot="start">
+              <img src="assets/assets2/bank-logo.png">
+            </div>
+            <!-- </ion-avatar> -->
+            <ion-label style="font-size:0.7em;font-family:MMedium !important;">
+              *********1009 <br>
+              Union Bank of India
+            </ion-label>
+            <!-- <ion-icon name="trash" slot="end" color="light"></ion-icon> -->
+            <ion-icon name="radio-button-off" slot="end"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <div
+      style="padding-top:0.3em;border-bottom:1px solid rgb(221, 221, 221);width:90%;margin-left:auto;margin-right:auto;">
+    </div>
 
-    </div> 
+    <ion-button fill="clear" color="primary"
+      style="text-transform:none;font-family:MSemiBold !important;font-size:0.7em;">
+      ADD ANOTHER BANK ACCOUNT
+    </ion-button>
+
+    <div style="text-align:center;padding-top:30px;">
+      <ion-button shape="round" color="primary"
+        style="width:70%;text-align:center;font-family:MSemiBold !important;height:3.3em;" (click)="createContract()">
+        CONFIRM PAYMENT
+      </ion-button>
+    </div>
+
+  </div>
 </ion-content>
