@@ -160,7 +160,7 @@ export class BuyTimePickerPage implements OnInit {
 
   findSellers() {
 
-    if (this.endValid && this.startValid && this.budgetMin && this.budgetMax && +this.budgetMax >= +this.budgetMin) {
+    if (this.endValid && this.startValid && this.budgetMin && this.budgetMin >= 0 && this.budgetMax >= 0 && this.budgetMax && +this.budgetMax >= +this.budgetMin) {
       // this.buyOrderPayload.unitMin = this.unitMin;
       // this.buyOrderPayload.unitMax = this.unitMax;
       // this.buyOrderPayload.startTime = this.startTime;
