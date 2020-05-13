@@ -13,8 +13,8 @@
     </ion-col>
   </ion-row>
 
-  <ion-searchbar style="font-family:MMedium !important;" placeholder="Search for ID" animated
-  [(ngModel)]="selectedLead" (ionChange)="selectLead()"></ion-searchbar>
+  <ion-searchbar style="font-family:MMedium !important;" placeholder="Search for ID" animated [(ngModel)]="selectedLead"
+    (ionChange)="selectLead()"></ion-searchbar>
 
   <ion-grid>
     <!-- LINE 2 -->
@@ -36,16 +36,22 @@
                   </div>
                 </ion-col>
                 <ion-col class="card-right">
-                  <ion-icon name="pin" class="icon"></ion-icon> Tarnaka
+                  <ion-icon name="pin" class="icon"></ion-icon> Tarnaka <br>
+                  <span class="d-flex align-items-center justify-content-end order-state text-red ">
+                    <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
+                  </span> <br>
+                  <span class="d-flex align-items-center justify-content-end order-state text-orange">
+                    GATE CLOSED
+                  </span>
                 </ion-col>
               </ion-row>
               <ion-row class="card-bottom-line">
                 <ion-col size="3">
-                    <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg" 
+                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
                     *ngIf="sellLead.deviceTypeName=='Solar'"></ion-icon>
-                    <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
+                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
                     *ngIf="sellLead.deviceTypeName=='Generator'"></ion-icon>
-                    <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
+                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
                     *ngIf="sellLead.deviceTypeName=='EV'"></ion-icon>
                   {{sellLead.deviceTypeName}}
                 </ion-col>
