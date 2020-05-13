@@ -32,6 +32,8 @@ export class ManageOrdersPage implements OnInit {
   allOrdersAndContracts = [];
   orderDisabled = false;
   orderCSS = 'card-bottom';
+  showGateClosureLabel = false;
+  showLiveLabel = false;
 
   constructor(private orderService: OrderService
     , private ingressService: IngressService
@@ -106,7 +108,7 @@ export class ManageOrdersPage implements OnInit {
       let diff = t1.diff(t2, 'seconds');
       return diff * -1;
     });
-
+    console.log("Display order list:", this.displayOrderList);
     this.allOrders = this.orderListUpdated;
     this.cancelledOrders = this.orderListUpdated.filter(order => order.orderStatus == "Cancelled");
     this.futureOrders = this.orderListUpdated.filter(order => moment(order.transferStartTs).isAfter(moment.now()));
@@ -291,39 +293,58 @@ export class ManageOrdersPage implements OnInit {
         (order.orderStatus == 'Completed' || order.orderStatus == 'Validated')) {
         this.orderDisabled = false;
         this.orderCSS = 'card-bottom green';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
-      if (order.orderType == 'sell' && order.orderStatus == 'Cancelled') {
+      else if (order.orderType == 'sell' && order.orderStatus == 'Cancelled') {
         this.orderDisabled = true;
         this.orderCSS = 'card-bottom red';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
-      if (order.orderType == 'sell' && order.orderStatus == 'Inittiated' && order.isCancellable == 'N') {
+      else if (order.orderType == 'sell' && order.orderStatus == 'Inittiated' && order.isCancellable == 'N') {
         this.orderDisabled = true;
         this.orderCSS = 'card-bottom red';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
-      if (order.orderType == 'buy' &&
+      else if (order.orderType == 'buy' &&
         (order.contractStatus == 'Completed' || order.contractStatus == 'Validated')) {
         this.orderDisabled = false;
         this.orderCSS = 'card-bottom green';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
-      if (order.orderType == 'buy' && order.contractStatus == 'Cancelled') {
+      else if (order.orderType == 'buy' && order.contractStatus == 'Cancelled') {
         this.orderDisabled = true;
         this.orderCSS = 'card-bottom red';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
-      if (order.orderType == 'buy' && order.contractStatus == 'Live') {
+      else if (order.contractStatus == 'Live') {
         this.orderDisabled = false;
-        this.orderCSS = 'card-bottom orange';
+        this.showLiveLabel = true;
+        this.orderCSS = 'card-bottom';
+        this.showGateClosureLabel = false;
       }
-      if (order.orderType == 'sell' && order.orderStatus == 'Live') {
-        this.orderDisabled = false;
-        this.orderCSS = 'card-bottom orange';
+      else if (order.contractStatus == 'Expired') {
+        this.orderDisabled = true;
+        this.showLiveLabel = false;
+        this.orderCSS = 'card-bottom red';
+        this.showGateClosureLabel = false;
       }
-      if (order.orderType == 'buy' && order.contractStatus == 'Active' && order.isCancellable == 'N') {
+      else if (order.orderType == 'buy' && order.contractStatus == 'Active' && order.isCancellable == 'N') {
         this.orderDisabled = false;
         this.orderCSS = 'card-bottom yellow';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
-      if (order.orderType == 'sell' && order.orderStatus == 'Contracted' && order.isCancellable == 'N') {
+      //gate closure 
+      else if (order.orderType == 'sell' && order.orderStatus == 'Contracted' && order.isCancellable == 'N') {
         this.orderDisabled = false;
-        this.orderCSS = 'card-bottom yellow';
+        this.showGateClosureLabel = true;
+        this.orderCSS = 'card-bottom';
+        this.showLiveLabel = false;
       }
     }
     return this.orderCSS;

@@ -82,11 +82,10 @@
               </ion-col>
               <ion-col size="4" class="card-price">
                 <span style="font-size:1.3em;"> ₹ {{order.totalAmount}}</span><br>
-                <span [hidden]="orderDisabled"
-                  class="d-flex align-items-center justify-content-end order-state text-red ">
+                <span *ngIf="showLiveLabel" class="d-flex align-items-center justify-content-end order-state text-red ">
                   <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
                 </span>
-                <span [hidden]="orderDisabled"
+                <span *ngIf="showGateClosureLabel"
                   class="d-flex align-items-center justify-content-end order-state text-orange">
                   GATE CLOSED
                 </span>
