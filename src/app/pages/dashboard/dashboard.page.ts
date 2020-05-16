@@ -72,6 +72,11 @@ export class DashboardPage implements OnInit {
 
   forecastLen: number;
 
+  orderDisabled = false;
+  orderCSS = 'card-bottom';
+  showGateClosureLabel = false;
+  showLiveLabel = false;
+
   constructor(private router: Router
     , private route: ActivatedRoute
     , private modal: ModalController
@@ -505,4 +510,82 @@ export class DashboardPage implements OnInit {
   ionViewDidLeave() {
     this.platform.backButton.unsubscribe();
   }
+
+  // getCSS(order) {
+  //   this.orderDisabled = false;
+  //   this.orderCSS = 'card-bottom';
+  //   if (order != null) {
+  //     if (order.orderType == 'sell' &&
+  //     (order.orderStatus == 'Completed' 
+  //     || (order.orderStatus == 'Validated' && order.isFineApplicable == 'N'))) {
+  //       this.orderDisabled = false;
+  //       this.orderCSS = 'card-bottom green';
+  //       this.showLiveLabel = false;
+  //       this.showGateClosureLabel = false;
+  //     }
+  //     else if (order.orderType == 'sell' &&
+  //     (order.orderStatus == 'Cancelled' || order.orderStatus == 'Expired')) {
+  //       this.orderDisabled = true;
+  //       this.orderCSS = 'card-bottom red';
+  //       this.showLiveLabel = false;
+  //       this.showGateClosureLabel = false;
+  //     }
+  //     else if (order.orderType == 'sell' && order.orderStatus == 'Live') {
+  //       this.orderDisabled = false;
+  //       this.orderCSS = 'card-bottom';
+  //       this.showLiveLabel = true;
+  //       this.showGateClosureLabel = false;
+  //     }
+  //     else if (order.orderType == 'sell' && 
+  //     (order.orderStatus == 'Contracted' && order.isCancellable == 'N')) {
+  //       this.orderDisabled = false;
+  //       this.orderCSS = 'card-bottom';
+  //       this.showLiveLabel = false;
+  //       this.showGateClosureLabel = true;
+  //     }
+  //     if (order.orderType == 'sell' &&
+  //     (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y')) {
+  //       this.orderDisabled = false;
+  //       this.orderCSS = 'card-bottom yellow';
+  //       this.showLiveLabel = false;
+  //       this.showGateClosureLabel = false;
+  //     }
+  //     else if (order.orderType == 'buy' &&
+  //     (order.contractStatus == 'Completed' 
+  //     || (order.contractStatus == 'Validated' && order.isFineApplicable == 'N'))) {
+  //       this.orderDisabled = false;
+  //       this.orderCSS = 'card-bottom green';
+  //       this.showLiveLabel = false;
+  //       this.showGateClosureLabel = false;
+  //     }
+  //     else if (order.orderType == 'buy' && 
+  //     (order.contractStatus == 'Cancelled' || order.contractStatus == 'Expired')) {
+  //       this.orderDisabled = true;
+  //       this.orderCSS = 'card-bottom red';
+  //       this.showLiveLabel = false;
+  //       this.showGateClosureLabel = false;
+  //     }
+  //     else if (order.orderType == 'buy' && order.contractStatus == 'Live') {
+  //       this.orderDisabled = false;
+  //       this.showLiveLabel = true;
+  //       this.orderCSS = 'card-bottom';
+  //       this.showGateClosureLabel = false;
+  //     }
+  //     else if (order.orderType == 'buy' && 
+  //     (order.contractStatus == 'Active' && order.isCancellable == 'N')) {
+  //       this.orderDisabled = false;
+  //       this.orderCSS = 'card-bottom';
+  //       this.showLiveLabel = false;
+  //       this.showGateClosureLabel = true;
+  //     }
+  //     if (order.orderType == 'buy' &&
+  //     (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y')) {
+  //       this.orderDisabled = false;
+  //       this.orderCSS = 'card-bottom yellow';
+  //       this.showLiveLabel = false;
+  //       this.showGateClosureLabel = false;
+  //     }
+  //   }
+  //   return this.orderCSS;
+  // }
 }

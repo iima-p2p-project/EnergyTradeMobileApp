@@ -172,6 +172,16 @@
           </ion-col>
         </ion-row>
       </ion-card>
+      <ion-card class="cart-note" *ngIf="showFine">
+        <ion-row class="ion-align-items-center">
+          <ion-col size="10" class="description">
+            <b class="name">TSSPDCL</b> charges you for {{deficitEnergy}} units of power
+          </ion-col>
+          <ion-col size="2" class="ion-text-right amount">
+            ₹ {{fineValue}}
+          </ion-col>
+        </ion-row>
+      </ion-card>
     </ion-row>
     <!-- END PRODUCTION -->
 
