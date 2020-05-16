@@ -19,9 +19,9 @@
   <ion-grid>
     <!-- LINE 2 -->
     <ion-row class='row-control' (click)="selectSellLead(sellLead)" *ngFor="let sellLead of displayLeads">
-      <ion-card class="card-center green">
+      <ion-card [ngClass]="getCSS(sellLead)">
         <ion-card-content>
-          <ion-row style="margin-top:-0.5em;" class="disabled">
+          <ion-row style="margin-top:-0.5em;" [class.disabled]="orderDisabled">
             <ion-col size="2" class="prediction">
               <ion-icon style="zoom:3;" src="assets/assets2/buy.svg"></ion-icon>
             </ion-col>
@@ -37,10 +37,11 @@
                 </ion-col>
                 <ion-col class="card-right">
                   <ion-icon name="pin" class="icon"></ion-icon> Tarnaka <br>
-                  <span class="d-flex align-items-center justify-content-end order-state text-red ">
+                  <span *ngIf="showLiveLabel" class="d-flex align-items-center justify-content-end order-state text-red ">
                     <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
                   </span> <br>
-                  <span class="d-flex align-items-center justify-content-end order-state text-orange">
+                  <span *ngIf="showGateClosureLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-orange">
                     GATE CLOSED
                   </span>
                 </ion-col>

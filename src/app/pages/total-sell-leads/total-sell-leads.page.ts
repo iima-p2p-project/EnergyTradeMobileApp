@@ -141,42 +141,42 @@ export class TotalSellLeadsPage implements OnInit {
 
     // });
   }
-  // getCSS(order) {
-  //   this.orderDisabled = false;
-  //   this.orderCSS = 'card-bottom';
-  //   if (order != null) {
-  //     if (order.orderStatus == 'Completed' 
-  //     || (order.orderStatus == 'Validated' && order.isFineApplicable == 'N')) {
-  //       this.orderDisabled = false;
-  //       this.orderCSS = 'card-bottom green';
-  //       this.showLiveLabel = false;
-  //       this.showGateClosureLabel = false;
-  //     }
-  //     else if (order.orderStatus == 'Cancelled' || order.orderStatus == 'Expired') {
-  //       this.orderDisabled = true;
-  //       this.orderCSS = 'card-bottom red';
-  //       this.showLiveLabel = false;
-  //       this.showGateClosureLabel = false;
-  //     }
-  //     else if (order.orderStatus == 'Live') {
-  //       this.orderDisabled = false;
-  //       this.orderCSS = 'card-bottom';
-  //       this.showLiveLabel = true;
-  //       this.showGateClosureLabel = false;
-  //     }
-  //     else if (order.orderStatus == 'Contracted' && order.isCancellable == 'N') {
-  //       this.orderDisabled = false;
-  //       this.orderCSS = 'card-bottom';
-  //       this.showLiveLabel = false;
-  //       this.showGateClosureLabel = true;
-  //     }
-  //     if (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y') {
-  //       this.orderDisabled = false;
-  //       this.orderCSS = 'card-bottom yellow';
-  //       this.showLiveLabel = false;
-  //       this.showGateClosureLabel = false;
-  //     }
-  //   }
-  //   return this.orderCSS;
-  // }
+  getCSS(order) {
+    this.orderDisabled = false;
+    this.orderCSS = 'card-center';
+    if (order != null) {
+      if (order.orderStatus == 'Completed' 
+      || (order.orderStatus == 'Validated' && order.isFineApplicable == 'N')) {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center green';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
+      }
+      else if (order.orderStatus == 'Cancelled' || order.orderStatus == 'Expired') {
+        this.orderDisabled = true;
+        this.orderCSS = 'card-center red';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
+      }
+      else if (order.orderStatus == 'Live') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center';
+        this.showLiveLabel = true;
+        this.showGateClosureLabel = false;
+      }
+      else if (order.orderStatus == 'Contracted' && order.isCancellable == 'N') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = true;
+      }
+      if (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center yellow';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
+      }
+    }
+    return this.orderCSS;
+  }
 }

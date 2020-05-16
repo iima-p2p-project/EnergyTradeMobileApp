@@ -276,10 +276,10 @@
 
 
     <!-- PRODUCTION -->
-    <ion-card class="card-bottom green" *ngFor="let order of allOrders">
+    <ion-card [ngClass]="getCSS(order)" *ngFor="let order of allOrders">
       <!-- <div style="position:absolute;background-color:#63B508;height:100%;width:8px;"></div> -->
       <ion-grid>
-        <ion-row class="disabled">
+        <ion-row [class.disabled]="orderDisabled">
           <ion-col size="2" style="padding-left:1em;">
             <ion-icon style="zoom:2.7;" src="assets/svg/sell (1).svg" *ngIf="order.orderType == 'sell'"></ion-icon>
             <ion-icon style="zoom:2.7;" src="assets/svg/buy (1).svg" *ngIf="order.orderType == 'buy'"></ion-icon>
@@ -297,10 +297,12 @@
                 </ion-col>
                 <ion-col size="4" class="unit-number" style="margin-right:-10px;">
                   <span style="font-size:0.7em;">₹ </span><strong>{{order?.totalAmount}}</strong> <br>
-                  <span class="d-flex align-items-center justify-content-end order-state text-red ">
+                  <span *ngIf="showLiveLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-red ">
                     <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
                   </span> <br>
-                  <span class="d-flex align-items-center justify-content-end order-state text-orange">
+                  <span *ngIf="showGateClosureLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-orange">
                     GATE CLOSED
                   </span>
                 </ion-col>
