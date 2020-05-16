@@ -276,10 +276,10 @@
 
 
     <!-- PRODUCTION -->
-    <ion-card class="card-bottom" *ngFor="let order of allOrders">
-      <div style="position:absolute;background-color:#63B508;height:100%;width:8px;"></div>
+    <ion-card class="card-bottom green" *ngFor="let order of allOrders">
+      <!-- <div style="position:absolute;background-color:#63B508;height:100%;width:8px;"></div> -->
       <ion-grid>
-        <ion-row>
+        <ion-row class="disabled">
           <ion-col size="2" style="padding-left:1em;">
             <ion-icon style="zoom:2.7;" src="assets/svg/sell (1).svg" *ngIf="order.orderType == 'sell'"></ion-icon>
             <ion-icon style="zoom:2.7;" src="assets/svg/buy (1).svg" *ngIf="order.orderType == 'buy'"></ion-icon>
