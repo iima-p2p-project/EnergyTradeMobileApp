@@ -19,9 +19,9 @@
   <ion-grid>
     <!-- LINE 2 -->
     <ion-row class='row-control' (click)="selectSellLead(sellLead)" *ngFor="let sellLead of displayLeads">
-      <ion-card class="card-center">
+      <ion-card class="card-center green">
         <ion-card-content>
-          <ion-row style="margin-top:-0.5em;">
+          <ion-row style="margin-top:-0.5em;" class="disabled">
             <ion-col size="2" class="prediction">
               <ion-icon style="zoom:3;" src="assets/assets2/buy.svg"></ion-icon>
             </ion-col>
