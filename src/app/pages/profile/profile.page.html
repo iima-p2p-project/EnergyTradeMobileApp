@@ -56,9 +56,9 @@
   <ion-grid *ngIf="selectedOption=='upcoming'">
     <!-- LINE 1 -->
     <ion-row *ngFor="let upcomingOrder of displayUpcomingOrderList">
-      <ion-card class="card-center red">
+      <ion-card [ngClass]="getCSS(order)">
         <ion-card-content>
-          <ion-row style="margin-top:-0.5em;" class="disabled">
+          <ion-row style="margin-top:-0.5em;" [class.disabled]="orderDisabled">
             <ion-col size="2" class="prediction">
               <ion-icon style="zoom:2.7;" src="assets/svg/sell (1).svg" *ngIf="upcomingOrder.orderType == 'sell'">
               </ion-icon>
@@ -74,10 +74,12 @@
                 </ion-col>
                 <ion-col class="card-price">
                   <span style="font-size:1.3em;"> ₹ {{upcomingOrder.totalAmount}}</span><br>
-                  <span class="d-flex align-items-center justify-content-end order-state text-red ">
+                  <span *ngIf="showLiveLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-red ">
                     <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
                   </span>
-                  <span class="d-flex align-items-center justify-content-end order-state text-orange">
+                  <span *ngIf="showGateClosureLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-orange">
                     GATE CLOSED
                   </span>
                 </ion-col>
@@ -121,10 +123,10 @@
 
     <!-- LINE 1 -->
     <ion-row *ngFor="let completedOrder of displayCompletedOrderList">
-      <ion-card class="card-center green">
+      <ion-card [ngClass]="getCSS(order)">
         <!-- <div style="position:absolute;background-color:green;height:100%;width:8px;"></div> -->
         <ion-card-content>
-          <ion-row style="margin-top:-0.5em;" class="disabled">
+          <ion-row style="margin-top:-0.5em;" [class.disabled]="orderDisabled">
             <ion-col size="2" class="prediction">
               <ion-icon style="zoom:2.7;" src="assets/svg/sell (1).svg" *ngIf="completedOrder.orderType == 'sell'">
               </ion-icon>
@@ -140,10 +142,12 @@
                 </ion-col>
                 <ion-col class="card-price">
                   <span style="font-size:1.3em;">₹ {{completedOrder.totalAmount}}</span><br>
-                  <span class="d-flex align-items-center justify-content-end order-state text-red ">
+                  <span *ngIf="showLiveLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-red ">
                     <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
                   </span>
-                  <span class="d-flex align-items-center justify-content-end order-state text-orange">
+                  <span *ngIf="showGateClosureLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-orange">
                     GATE CLOSED
                   </span>
                 </ion-col>
@@ -178,6 +182,16 @@
               style="font-family:MSemiBold !important;font-size:1em;font-weight:800;">
               CANCEL
             </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card class="cart-note" *ngIf="showFine">
+        <ion-row class="ion-align-items-center">
+          <ion-col size="10" class="description">
+            <b class="name">TSSPDCL</b> charges you for {{deficitEnergy}} units of power
+          </ion-col>
+          <ion-col size="2" class="ion-text-right amount">
+            ₹ {{fineValue}}
           </ion-col>
         </ion-row>
       </ion-card>
