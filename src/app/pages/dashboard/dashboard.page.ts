@@ -543,13 +543,13 @@ export class DashboardPage implements OnInit {
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
       }
-      if (order.orderType == 'sell' &&
-      (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y')) {
-        this.orderDisabled = false;
-        this.orderCSS = 'card-bottom yellow';
-        this.showLiveLabel = false;
-        this.showGateClosureLabel = false;
-      }
+      // if (order.orderType == 'sell' &&
+      // (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y')) {
+      //   this.orderDisabled = false;
+      //   this.orderCSS = 'card-bottom yellow';
+      //   this.showLiveLabel = false;
+      //   this.showGateClosureLabel = false;
+      // }
       else if (order.orderType == 'buy' &&
       (order.contractStatus == 'Completed' 
       || (order.contractStatus == 'Validated' && order.isFineApplicable == 'N'))) {
@@ -578,13 +578,13 @@ export class DashboardPage implements OnInit {
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
       }
-      if (order.orderType == 'buy' &&
-      (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y')) {
-        this.orderDisabled = false;
-        this.orderCSS = 'card-bottom yellow';
-        this.showLiveLabel = false;
-        this.showGateClosureLabel = false;
-      }
+      // if (order.orderType == 'buy' &&
+      // (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y')) {
+      //   this.orderDisabled = false;
+      //   this.orderCSS = 'card-bottom yellow';
+      //   this.showLiveLabel = false;
+      //   this.showGateClosureLabel = false;
+      // }
     }
     return this.orderCSS;
   }

@@ -146,7 +146,7 @@ export class TotalSellLeadsPage implements OnInit {
     this.orderCSS = 'card-center';
     if (order != null) {
       if (order.orderStatus == 'Completed' 
-      || (order.orderStatus == 'Validated' && order.isFineApplicable == 'N')) {
+      || (order.orderStatus == 'Validated' && order.isFineApplicable != 'Y')) {
         this.orderDisabled = false;
         this.orderCSS = 'card-center green';
         this.showLiveLabel = false;
@@ -170,12 +170,12 @@ export class TotalSellLeadsPage implements OnInit {
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
       }
-      if (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y') {
-        this.orderDisabled = false;
-        this.orderCSS = 'card-center yellow';
-        this.showLiveLabel = false;
-        this.showGateClosureLabel = false;
-      }
+      // if (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y') {
+      //   this.orderDisabled = false;
+      //   this.orderCSS = 'card-center yellow';
+      //   this.showLiveLabel = false;
+      //   this.showGateClosureLabel = false;
+      // }
     }
     return this.orderCSS;
   }

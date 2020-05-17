@@ -37,7 +37,7 @@ export class ProfilePage implements OnInit {
   displayCompletedOrderList: any;
 
   orderDisabled = false;
-  orderCSS = 'card-bottom';
+  orderCSS = 'card-center';
   showGateClosureLabel = false;
   showLiveLabel = false;
   showFine = false;
@@ -229,14 +229,14 @@ export class ProfilePage implements OnInit {
 
   getCSS(order) {
     this.orderDisabled = false;
-    this.orderCSS = 'card-bottom';
+    this.orderCSS = 'card-center';
     if (order != null) {
       if (order.orderType == 'sell' &&
       (order.orderStatus == 'Completed' 
-      || (order.orderStatus == 'Validated' && order.isFineApplicable == 'N'))) {
+      || (order.orderStatus == 'Validated' && order.isFineApplicable != 'Y'))) {
         this.showFine = false;
         this.orderDisabled = false;
-        this.orderCSS = 'card-bottom green';
+        this.orderCSS = 'card-center green';
         this.showLiveLabel = false;
         this.showGateClosureLabel = false;
       }
@@ -244,14 +244,14 @@ export class ProfilePage implements OnInit {
       (order.orderStatus == 'Cancelled' || order.orderStatus == 'Expired')) {
         this.showFine = false;  
         this.orderDisabled = true;
-        this.orderCSS = 'card-bottom red';
+        this.orderCSS = 'card-center red';
         this.showLiveLabel = false;
         this.showGateClosureLabel = false;
       }
       else if (order.orderType == 'sell' && order.orderStatus == 'Live') {
         this.showFine = false;
         this.orderDisabled = false;
-        this.orderCSS = 'card-bottom';
+        this.orderCSS = 'card-center';
         this.showLiveLabel = true;
         this.showGateClosureLabel = false;
       }
@@ -259,26 +259,26 @@ export class ProfilePage implements OnInit {
       (order.orderStatus == 'Contracted' && order.isCancellable == 'N')) {
         this.showFine = false;
         this.orderDisabled = false;
-        this.orderCSS = 'card-bottom';
+        this.orderCSS = 'card-center';
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
       }
-      if (order.orderType == 'sell' &&
-      (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y')) {
-        this.showFine = true;
-        this.deficitEnergy = (+order.energy) - (+order.sellerEnergyTransfer);
-        this.fineValue = order.sellerFine;
-        this.orderDisabled = false;
-        this.orderCSS = 'card-bottom yellow';
-        this.showLiveLabel = false;
-        this.showGateClosureLabel = false;
-      }
+      // if (order.orderType == 'sell' &&
+      // (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y')) {
+      //   this.showFine = true;
+      //   this.deficitEnergy = (+order.energy) - (+order.sellerEnergyTransfer);
+      //   this.fineValue = order.sellerFine;
+      //   this.orderDisabled = false;
+      //   this.orderCSS = 'card-center yellow';
+      //   this.showLiveLabel = false;
+      //   this.showGateClosureLabel = false;
+      // }
       else if (order.orderType == 'buy' &&
       (order.contractStatus == 'Completed' 
-      || (order.contractStatus == 'Validated' && order.isFineApplicable == 'N'))) {
+      || (order.contractStatus == 'Validated' && order.isFineApplicable != 'Y'))) {
         this.showFine = false;
         this.orderDisabled = false;
-        this.orderCSS = 'card-bottom green';
+        this.orderCSS = 'card-center green';
         this.showLiveLabel = false;
         this.showGateClosureLabel = false;
       }
@@ -286,7 +286,7 @@ export class ProfilePage implements OnInit {
       (order.contractStatus == 'Cancelled' || order.contractStatus == 'Expired')) {
         this.showFine = false;
         this.orderDisabled = true;
-        this.orderCSS = 'card-bottom red';
+        this.orderCSS = 'card-center red';
         this.showLiveLabel = false;
         this.showGateClosureLabel = false;
       }
@@ -294,27 +294,27 @@ export class ProfilePage implements OnInit {
         this.showFine = false;
         this.orderDisabled = false;
         this.showLiveLabel = true;
-        this.orderCSS = 'card-bottom';
+        this.orderCSS = 'card-center';
         this.showGateClosureLabel = false;
       }
       else if (order.orderType == 'buy' && 
       (order.contractStatus == 'Active' && order.isCancellable == 'N')) {
         this.showFine = false;
         this.orderDisabled = false;
-        this.orderCSS = 'card-bottom';
+        this.orderCSS = 'card-center';
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
       }
-      if (order.orderType == 'buy' &&
-      (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y')) {
-        this.showFine = true;
-        this.deficitEnergy = (+order.energy) - (+order.buyerEnergyTransfer);
-        this.fineValue = order.buyerFine;
-        this.orderDisabled = false;
-        this.orderCSS = 'card-bottom yellow';
-        this.showLiveLabel = false;
-        this.showGateClosureLabel = false;
-      }
+      // if (order.orderType == 'buy' &&
+      // (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y')) {
+      //   this.showFine = true;
+      //   this.deficitEnergy = (+order.energy) - (+order.buyerEnergyTransfer);
+      //   this.fineValue = order.buyerFine;
+      //   this.orderDisabled = false;
+      //   this.orderCSS = 'card-center yellow';
+      //   this.showLiveLabel = false;
+      //   this.showGateClosureLabel = false;
+      // }
     }
     return this.orderCSS;
   }
