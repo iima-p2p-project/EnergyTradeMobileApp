@@ -35,7 +35,7 @@ export class SellRateSetPage implements OnInit {
   power: string;
   sellOrderId: any;
   action: any;
-  rate: any;
+  rate: any = 0.0;
   currentTime: any;
   // sellSolar: boolean=false;
   // sellGenerator: boolean=false;
@@ -273,5 +273,9 @@ export class SellRateSetPage implements OnInit {
   calculateEnergy() {
     let timeDiff = (moment(this.timeService.endTime).diff(this.timeService.startTime, 'minutes')) / 60;
     this.energy = (+this.power * timeDiff) + "";
+
+    this.totalAmount = (+this.energy) * +(+this.rate).toFixed(2);
+    this.totalAmount = +this.totalAmount.toFixed(2);
+    this.totalAmountStr = this.totalAmount + "";
   }
 }
