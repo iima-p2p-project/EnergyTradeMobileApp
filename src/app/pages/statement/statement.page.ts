@@ -91,6 +91,9 @@ export class StatementPage implements OnInit {
   }
 
   formatTradeList() {
+    this.txnList=[];
+    this.trade='';
+    this.tradeList=[];
     console.log('trade format: ');
     this.txnListFromServer.forEach(element => {
 
