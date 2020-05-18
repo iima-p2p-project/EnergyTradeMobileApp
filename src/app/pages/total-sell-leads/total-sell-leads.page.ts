@@ -38,6 +38,12 @@ export class TotalSellLeadsPage implements OnInit {
   ionViewWillEnter() {
     this.allSellLeads = this.adminService.allSellLeads;
     this.displayLeads = this.allSellLeads;
+    this.displayLeads.sort((ts1, ts2) => {
+      let t1 = moment(ts1.transferStartTs);
+      let t2 = moment(ts2.transferStartTs);
+      let diff = t1.diff(t2, 'seconds');
+      return diff * -1;
+    });
   }
 
   formatTime(ts, type) {
