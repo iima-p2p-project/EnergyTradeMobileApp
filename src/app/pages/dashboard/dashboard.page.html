@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
+<ion-content class="ion-padding-bottom">
   <ion-row>
     <ion-col class="menu-button" size="2">
       <ion-menu-button></ion-menu-button>
@@ -118,7 +118,8 @@
         </ion-col> -->
       </ion-row>
     </ion-grid>
-
+  </div>
+  <div class="px-2">
     <ion-card class="card-middle buy">
       <ion-card-content>
         <ion-segment (ionChange)="segmentChanged($event)">
@@ -298,11 +299,11 @@
                 <ion-col size="4" class="unit-number" style="margin-right:-10px;">
                   <span style="font-size:0.7em;">₹ </span><strong>{{order?.totalAmount}}</strong> <br>
                   <span *ngIf="showLiveLabel"
-                  class="d-flex align-items-center justify-content-end order-state text-red ">
+                    class="d-flex align-items-center justify-content-end order-state text-red ">
                     <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
                   </span>
                   <span *ngIf="showGateClosureLabel"
-                  class="d-flex align-items-center justify-content-end order-state text-orange">
+                    class="d-flex align-items-center justify-content-end order-state text-orange">
                     GATE CLOSED
                   </span>
                 </ion-col>
@@ -419,7 +420,7 @@
 
 
 
-
+  
   <!-- <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
     <br/><br/><br/><br/><br/><br/>
     <app-buy (buyFlow)=initiateBuyFlow($event)></app-buy> -->
