@@ -7,15 +7,15 @@ export const environment = {
 };
 
 export const devAddress = "http://139.59.30.90:8080";
-export const uatAddress = "http://139.59.34.247:8080";   
+export const uatAddress = "http://139.59.34.247:8080";
 export const activeBackend = uatAddress;
 
 
-//for uat
-// export const ONE_SIGNAL_APP_ID = "7b5d152f-7a97-479e-8461-e876941c55c4";
+// for uat
+export const ONE_SIGNAL_APP_ID = "7b5d152f-7a97-479e-8461-e876941c55c4";
 
 // for dev
-export const ONE_SIGNAL_APP_ID= "9b0a5ec6-e306-4aa7-9713-722d8ee1f47c";
+//export const ONE_SIGNAL_APP_ID= "9b0a5ec6-e306-4aa7-9713-722d8ee1f47c";
 
 
 export const FIREBASE_APP_ID = "701058302199";
