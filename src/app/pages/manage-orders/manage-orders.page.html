@@ -156,7 +156,7 @@
             </ion-button>
           </ion-col>
           <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)">
-            <ion-button expand="full" fill="clear" *ngIf="order.isEditable == 'Y'"
+            <ion-button expand="full" fill="clear" disabled="order.isEditable == 'Y'"
               style="font-family:MSemiBold !important;font-size:1.2em;font-weight:800;" (click)="editSellOrder(order)">
               EDIT
             </ion-button>
