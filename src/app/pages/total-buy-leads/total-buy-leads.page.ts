@@ -39,6 +39,12 @@ export class TotalBuyLeadsPage implements OnInit {
   ionViewWillEnter() {
     this.allBuyLeads = this.adminService.allBuyLeads;
     this.displayLeads = this.allBuyLeads;
+    this.displayLeads.sort((ts1, ts2) => {
+      let t1 = moment(ts1.sellorder.transferStartTs);
+      let t2 = moment(ts2.sellorder.transferStartTs);
+      let diff = t1.diff(t2, 'seconds');
+      return diff * -1;
+    });
     console.log("Display Leads", this.displayLeads);
   }
 
@@ -173,6 +179,12 @@ export class TotalBuyLeadsPage implements OnInit {
         this.orderCSS = 'card-center';
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
+      }
+      else {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
       // if (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y') {
       //   this.orderDisabled = false;

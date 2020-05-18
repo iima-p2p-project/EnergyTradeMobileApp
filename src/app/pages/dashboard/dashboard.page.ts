@@ -281,6 +281,7 @@ export class DashboardPage implements OnInit {
         obj.deviceTypeName = obj.sellorder.deviceTypeName;
         obj.transferStartTs = obj.sellorder.transferStartTs;
         obj.transferEndTs = obj.sellorder.transferEndTs;
+        obj.energy = obj.sellorder.energy;
       }
       if (obj.orderType == "sell")
         obj.month = moment(obj.transferStartTs).format('M');
@@ -577,6 +578,12 @@ export class DashboardPage implements OnInit {
         this.orderCSS = 'card-bottom';
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
+      }
+      else {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
       // if (order.orderType == 'buy' &&
       // (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y')) {
