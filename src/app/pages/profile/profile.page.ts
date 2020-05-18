@@ -305,6 +305,13 @@ export class ProfilePage implements OnInit {
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
       }
+      else {
+        this.showFine = false;
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
+      }
       // if (order.orderType == 'buy' &&
       // (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y')) {
       //   this.showFine = true;

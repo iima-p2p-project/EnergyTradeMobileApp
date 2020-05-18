@@ -578,6 +578,12 @@ export class DashboardPage implements OnInit {
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
       }
+      else {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-bottom';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
+      }
       // if (order.orderType == 'buy' &&
       // (order.contractStatus == 'Validated' && order.isFineApplicable == 'Y')) {
       //   this.orderDisabled = false;

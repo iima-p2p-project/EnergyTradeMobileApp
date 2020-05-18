@@ -170,6 +170,12 @@ export class TotalSellLeadsPage implements OnInit {
         this.showLiveLabel = false;
         this.showGateClosureLabel = true;
       }
+      else {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
+      }
       // if (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y') {
       //   this.orderDisabled = false;
       //   this.orderCSS = 'card-center yellow';
