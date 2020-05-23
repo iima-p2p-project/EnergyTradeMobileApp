@@ -1,6 +1,5 @@
 ion-content {
-  --background: #0048A8;
-
+  --background: #0048a8;
 }
 
 ion-item {
@@ -61,7 +60,6 @@ ion-item {
     font-size: 1.5em;
     text-align: right;
   }
-
 }
 
 .card-center {
@@ -183,16 +181,15 @@ ion-item {
   }
 }
 
-
 .bottom-footer {
-  border: rgba(173, 216, 230, 0.300) 0.5px solid;
+  border: rgba(173, 216, 230, 0.3) 0.5px solid;
   padding: 1em;
   font-family: MSemiBold !important;
 
   .icon {
     display: inline-block;
     vertical-align: middle;
-    zoom: 1.0;
+    zoom: 1;
     // color:white;
   }
 }
@@ -205,7 +202,7 @@ ion-item {
 }
 
 .the-footer {
-  background-color: #0048A8;
+  background-color: #0048a8;
   color: white;
   padding: 0;
 }
@@ -289,6 +286,10 @@ ion-item {
 
 .green {
   border-color: yellowgreen;
+}
+
+.yellow {
+  border-color: rgb(216, 241, 74);
 }
 
 .orange {

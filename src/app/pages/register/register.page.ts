@@ -60,7 +60,8 @@ export class RegisterPage implements OnInit {
     , private oneSignal: OneSignal
     , private menuController: MenuController
     , private toastCtrl: ToastController
-    , private events: Events) {
+    , private events: Events
+    , private alertController: AlertController) {
 
     this.registerForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],

@@ -57,9 +57,12 @@
 
       <ion-col size="2" style="position:absolute;left:40%;">
         <div>
-          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/solar copy.svg" *ngIf="deviceTypeId=='1'"></ion-icon>
-          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/solar copy.svg" *ngIf="deviceTypeId=='2'"></ion-icon>
-          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/solar copy.svg" *ngIf="deviceTypeId=='3'"></ion-icon>
+          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/solar copy.svg" *ngIf="deviceTypeId=='1'">
+          </ion-icon>
+          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/GeneratorLight.svg" *ngIf="deviceTypeId=='2'">
+          </ion-icon>
+          <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/EVLight.svg" *ngIf="deviceTypeId=='4'">
+          </ion-icon>
         </div>
         <div style="margin-top:-1em;">
           <ion-icon style="zoom:1.2;padding-top:30%;" src="assets/svg/arrow 2.svg"></ion-icon>
@@ -118,7 +121,8 @@
         :
       </ion-col>
       <ion-col size="4" style="font-size:0.8em;margin-left:-2em;margin-top:-0.5em;font-family:MMedium !important;">
-        <ion-input placeholder="Enter Amount" style="font-family:MMedium !important;" type="number" [(ngModel)]="power">
+        <ion-input placeholder="Enter Amount" style="font-family:MMedium !important;" type="number" [(ngModel)]="power"
+          disabled="action == 'FORECAST'">
         </ion-input>
       </ion-col>
     </ion-row>
@@ -173,11 +177,11 @@
   <div style="padding-top:60%;
         margin-left:auto;margin-right:auto;text-align:center;">
 
-    <ion-button class="ion-text-center" shape="round" color="dark" *ngIf="rate==null || rate<1" disabled 
+    <ion-button class="ion-text-center" shape="round" color="dark" *ngIf="rate==null || rate<=0" disabled
       style="font-family:MSemiBold;width:75%;height:50px;font-size:18px;">
       SUBMIT
     </ion-button>
-    <ion-button class="ion-text-center" shape="round" color="dark" *ngIf="rate>0" 
+    <ion-button class="ion-text-center" shape="round" color="dark" *ngIf="rate>0"
       style="font-family:MSemiBold;width:75%;height:50px;font-size:18px;" (click)="submit()">
       SUBMIT
     </ion-button>

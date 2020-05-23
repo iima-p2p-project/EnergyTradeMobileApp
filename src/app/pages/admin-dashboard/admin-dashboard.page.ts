@@ -26,6 +26,8 @@ export class AdminDashboardPage implements OnInit {
   userStateId: any;
   buyLeadsCount: any = 0;
   sellLeadsCount: any = 0;
+  orderCSS;
+  nonTradeHourDisabled = false;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -172,5 +174,21 @@ export class AdminDashboardPage implements OnInit {
         userId: this.userStateId
       }
     });
+  }
+
+
+  getCSS(nonTradeHour) {
+    this.nonTradeHourDisabled = false;
+    let nonTradeHourCSS = 'card-bottom card-center';
+    if (nonTradeHour != null) {
+      if (nonTradeHour.status == 'Cancelled') {
+        this.nonTradeHourDisabled = true;
+        nonTradeHourCSS = 'card-center card-bottom red';
+      } else if (nonTradeHour.isCancellable == 'N') {
+        this.nonTradeHourDisabled = false;
+        nonTradeHourCSS = 'card-center card-bottom green';
+      }
+    }
+    return nonTradeHourCSS;
   }
 }

@@ -29,15 +29,15 @@
             <ion-row>
               <ion-col size="4" class='ion-text-center' style="margin-left:-1.4em;">
                 <a class="icon-circle icon-circle-outline">
-                  <ion-icon style="width:20px;height:20px;vertical-align: middle;padding-bottom:20px;" src="assets/svg/solar.svg"
-                    *ngIf='seller.deviceTypeName=="Solar"'></ion-icon>
+                  <ion-icon style="width:20px;height:20px;vertical-align: middle;padding-bottom:20px;"
+                    src="assets/svg/solar.svg" *ngIf='seller.deviceTypeName=="Solar"'></ion-icon>
                   <ion-icon style="width:20px;height:20px;vertical-align: middle;padding-bottom:20px;"
                     src="assets/svg/generator (1).svg" *ngIf='seller.deviceTypeName=="Generator"'></ion-icon>
-                  <ion-icon style="width:20px;height:20px;vertical-align: middle;padding-bottom:20px;" src="assets/svg/ev (1).svg"
-                    *ngIf='seller.deviceTypeName=="EV"'></ion-icon>
+                  <ion-icon style="width:20px;height:20px;vertical-align: middle;padding-bottom:20px;"
+                    src="assets/svg/ev (1).svg" *ngIf='seller.deviceTypeName=="Battery"'></ion-icon>
                 </a>
                 <ion-row style="margin-top:-0.5em;">
-                  <ion-col class="small-font-left" >
+                  <ion-col class="small-font-left">
                     <ion-icon class="icon" name="pin" color="primary" style="padding-right:0.3em;"></ion-icon>
                     {{seller.locationName}}
                   </ion-col>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="small-font-black" style="margin-top:-0.5em;">
                   <ion-icon style="zoom:1.2;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                  {{getFormattedTime(seller.transferStartTs)}} - {{getFormattedTime(seller.transferEndTs)}} 
+                  {{getFormattedTime(seller.transferStartTs)}} - {{getFormattedTime(seller.transferEndTs)}}
                 </div>
               </ion-col>
               <ion-col size="3" class="right-card" style="margin-left:1em;">
@@ -70,7 +70,7 @@
       </ion-col>
     </ion-row>
 
-     <!-- DEVELOPMENT -->
+    <!-- DEVELOPMENT -->
     <!-- <ion-row class="height-adjust" (click)="selectSeller(seller)">
         <ion-col>
           <ion-card style="background-color:white;" routerDirection="forward" routerLink='/order-details'>
@@ -128,7 +128,7 @@
       <ion-col class="bottom-footer" (click)="sortSellRecords()">
         <!-- <ion-button expand="full"> -->
         <ion-icon style="transform: rotate(90deg);" name="swap"></ion-icon>
-        SORT<span class="dot"></span>
+        SORT<span [ngClass]="showDot?'dot':''"></span>
         <!-- </ion-button> -->
       </ion-col>
       <ion-col class="bottom-footer" (click)="filterSellRecords()">

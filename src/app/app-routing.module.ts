@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'manage-orders', loadChildren: './pages/manage-orders/manage-orders.module#ManageOrdersPageModule' },
   { path: 'buy-power', loadChildren: './pages/buy-power/buy-power.module#BuyPowerPageModule' },
   { path: 'sell-power', loadChildren: './pages/sell-power/sell-power.module#SellPowerPageModule' },
-  { path: 'forecast-list', loadChildren: './pages/forecast-list/forecast-list.module#ForecastListPageModule' },
+  { path: 'forecast-list', loadChildren: './pages/forecast-list/forecast-list.module#ForecastListPageModule', canActivate:[AuthGuard] },
   { path: 'total-sell-leads', loadChildren: './pages/total-sell-leads/total-sell-leads.module#TotalSellLeadsPageModule' },
   { path: 'total-buy-leads', loadChildren: './pages/total-buy-leads/total-buy-leads.module#TotalBuyLeadsPageModule' },
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },

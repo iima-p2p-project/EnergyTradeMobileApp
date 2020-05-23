@@ -5,7 +5,7 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { NonTradeHourPayload } from 'src/app/models/NonTradeHourPayload';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT, USER_ROLE } from 'src/app/environments/environments';
+import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT, USER_ROLE  } from 'src/app/environments/environments';
 import { LocalityModalPage } from '../modals/selectLocality';
 import { ModalController, AlertController } from '@ionic/angular';
 import { NonTradePostSuccessPage } from '../non-trade-post-success/non-trade-post-success.page';
@@ -61,8 +61,8 @@ export class SchedulePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.startTimeFormatted = '';
-    this.endTimeFormatted = '';
+    this.startTimeFormatted='';
+    this.endTimeFormatted='';
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       console.log('ACTION : ', this.action);
@@ -289,11 +289,11 @@ export class SchedulePage implements OnInit {
     if (time != null) {
       time = time.substring(0, 10) + ' ' + time.substring(11, 16) + ':00';
     }
-    if (tag == 's') {
-      this.startTimeFormatted = time;
+    if(tag=='s') {
+      this.startTimeFormatted=time;
     }
-    if (tag == 'e') {
-      this.endTimeFormatted = time;
+    if(tag=='e') {
+      this.endTimeFormatted=time;
     }
   }
 }

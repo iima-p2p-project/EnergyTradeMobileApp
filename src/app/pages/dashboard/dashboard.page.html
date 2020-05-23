@@ -218,7 +218,7 @@
           </ion-row>
           <ion-row>
             <ion-col size="5" *ngIf="selectedOption=='sell'">
-              <ion-button *ngIf="powerToSell==null || powerToSell<1 || !isDeviceSelectedForSell()" disabled
+              <ion-button *ngIf="powerToSell==null || powerToSell<=0 || !isDeviceSelectedForSell()" disabled
                 shape="round" expand="full" style="font-size:1.2em;opacity:0.6;height:2.5em;" (click)="go()">
                 SELL
               </ion-button>
@@ -228,12 +228,13 @@
               </ion-button>
             </ion-col>
             <ion-col size="4" *ngIf="selectedOption=='buy'">
-              <ion-button *ngIf="minPowerToBuy==null || maxPowerToBuy==null || maxPowerToBuy<1" disabled shape="round"
-                expand="full" style="font-size:1.2em;opacity:0.6;" (click)="go()">
+              <ion-button
+                *ngIf="!(minPowerToBuy>-1 && maxPowerToBuy>0 && minPowerToBuy != null && maxPowerToBuy != null)"
+                disabled shape="round" expand="full" style="font-size:1.2em;opacity:0.6;" (click)="go()">
                 BUY
               </ion-button>
-              <ion-button *ngIf="minPowerToBuy>-1 && maxPowerToBuy>0" shape="round" expand="full"
-                style="font-size:1.2em;" (click)="go()">
+              <ion-button *ngIf="minPowerToBuy>-1 && maxPowerToBuy>0 && minPowerToBuy != null && maxPowerToBuy != null"
+                shape="round" expand="full" style="font-size:1.2em;" (click)="go()">
                 BUY
               </ion-button>
             </ion-col>

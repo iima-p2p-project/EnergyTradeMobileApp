@@ -99,7 +99,7 @@ export class DeviceDetailsPage implements OnInit {
 
     if (this.showEV) {
       this.devices.push({
-        "deviceId": "3",
+        "deviceId": "4",
         "deviceCapacity": this.deviceDetailsForm.get('ev').value
       });
     }

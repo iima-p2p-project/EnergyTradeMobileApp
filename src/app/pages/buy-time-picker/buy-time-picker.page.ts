@@ -147,6 +147,7 @@ export class BuyTimePickerPage implements OnInit {
       // this.orderService.searchBuyLeads(this.buyOrderPayload).subscribe( (data) => console.log(data));
       this.router.navigate(['/seller-list'], {
         queryParams: {
+          deviceTypeId: this.deviceTypeId,
           buyerId: this.buyerId,
           unitMin: this.unitMin,
           unitMax: this.unitMax,

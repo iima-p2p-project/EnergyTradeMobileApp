@@ -36,6 +36,10 @@ export class IngressService {
   // loggedInUserLocalityName: string;
   // loggedInUserTypes: string[];
   userDevicesList: any;
+  solarDeviceId;
+  evDeviceId;
+  generatorDeviceId;
+  
 
   constructor(private httpClient: HttpClient
     , private storage: Storage

@@ -4,8 +4,9 @@ import { FormGroup, FormsModule, ReactiveFormsModule, Validators, FormBuilder } 
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { IngressService } from 'src/app/services/ingress.service';
-import { ENABLE_SERVICES } from 'src/app/environments/environments';
+import { ENABLE_SERVICES, TERMS_OF_USE_URL } from 'src/app/environments/environments';
 import { AlertController, ToastController, MenuController } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class CreateAccountPage implements OnInit {
   user: any;
   userId: any;
   responseFromService: any;
+  iabRef: any;
 
   constructor(private ingressService: IngressService
     , private route: ActivatedRoute
@@ -36,7 +38,8 @@ export class CreateAccountPage implements OnInit {
     , private router: Router
     , private storage: Storage
     , private toastCtrl: ToastController
-    , private menuController: MenuController) {
+    , private menuController: MenuController
+    , private iab: InAppBrowser) {
 
     this.createAccountForm = this.formBuilder.group({
       phoneNumber: [null, Validators.compose([
@@ -148,5 +151,12 @@ export class CreateAccountPage implements OnInit {
     this.router.navigate(['/login'], {
       queryParams: {}
     });
+  }
+
+  openSysBrowser(choice) {
+    let url = "";
+    if (choice === 'tnc')
+      url = TERMS_OF_USE_URL;
+    this.iabRef = this.iab.create(url, "_system");
   }
 }

@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IonDatetime, Platform, ModalController } from '@ionic/angular';
 import { Order } from 'src/app/models/Order';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
-import { OrderService} from 'src/app/services/order.service';
+import { OrderService } from 'src/app/services/order.service';
 import { SellPostSuccessPage } from '../sell-post-success/sell-post-success.page';
 import { TimeService } from 'src/app/services/time.service';
 import * as moment from 'moment';
@@ -41,17 +41,17 @@ export class SellRateSetPage implements OnInit {
   // sellGenerator: boolean=false;
   // sellEV: boolean=false;
 
-  sellSolar: string='';
-  sellGenerator: string='';
-  sellEV: string='';
+  sellSolar: string = '';
+  sellGenerator: string = '';
+  sellEV: string = '';
 
-  solarPowerToSell: number=0;
-  generatorPowerToSell: number=0;
-  evPowerToSell: number=0;
+  solarPowerToSell: number = 0;
+  generatorPowerToSell: number = 0;
+  evPowerToSell: number = 0;
 
-  solarEnergyToSell: number=0;
-  generatorEnergyToSell: number=0;
-  evEnergyToSell: number=0;
+  solarEnergyToSell: number = 0;
+  generatorEnergyToSell: number = 0;
+  evEnergyToSell: number = 0;
 
   solarDeviceId: any;
   generatorDeviceId: any;
@@ -62,43 +62,41 @@ export class SellRateSetPage implements OnInit {
   forecastSellDetails: SellOrderPayload[] = [];
 
   //Screenwidth
-  screenWidth:any;
-  screenMode:any;
+  screenWidth: any;
+  screenMode: any;
 
   constructor(private formBuilder: FormBuilder,
-    public modal:ModalController
+    public modal: ModalController
     , private router: Router,
-    public platform:Platform
+    public platform: Platform
     , private route: ActivatedRoute
     , private orderService: OrderService
-    , private timeService: TimeService) { 
-      this.sellRateSetForm = this.formBuilder.group({
-        rate: [null, Validators.required],
-        startTime: [null, Validators.required],
-        endTime: [null, Validators.required],
-        duration: [null, Validators.required],
-        power: [null, Validators.required],
-        totalAmount: [null, Validators.required]
-      });
-    }
+    , private timeService: TimeService) {
+    this.sellRateSetForm = this.formBuilder.group({
+      rate: [null, Validators.required],
+      startTime: [null, Validators.required],
+      endTime: [null, Validators.required],
+      duration: [null, Validators.required],
+      power: [null, Validators.required],
+      totalAmount: [null, Validators.required]
+    });
+  }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    this.screenWidth=this.platform.width();
-      if(this.screenWidth>760)
-      {
-        this.screenMode="big"
-      }
-      else
-      {
-        this.screenMode="small";
-      }
+    this.screenWidth = this.platform.width();
+    if (this.screenWidth > 760) {
+      this.screenMode = "big"
+    }
+    else {
+      this.screenMode = "small";
+    }
 
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
-      if(this.action==ACTION_CREATE || this.action==ACTION_EDIT) {
+      if (this.action == ACTION_CREATE || this.action == ACTION_EDIT) {
         this.sellOrderId = params['sellOrderId'];
         this.energy = params['energy'];
         this.power = params['power'];
@@ -106,7 +104,7 @@ export class SellRateSetPage implements OnInit {
         this.userDeviceId = params['userDeviceId'];
         this.deviceTypeId = params['deviceTypeId'];
       }
-      if(this.action==ACTION_FORECAST) {
+      if (this.action == ACTION_FORECAST) {
         this.rate = params['pricePerUnit'];
         this.sellerId = params['sellerId'];
         this.sellSolar = params['sellSolar'];
@@ -122,12 +120,12 @@ export class SellRateSetPage implements OnInit {
         this.generatorEnergyToSell = params['generatorEnergyToSell'];
         this.evEnergyToSell = params['evEnergyToSell'];
         this.power = this.energy = params['totalPowerToSell'];
-        console.log('POWER : ' , this.power);
-        console.log('RATE : ' , this.rate);
+        console.log('POWER : ', this.power);
+        console.log('RATE : ', this.rate);
         this.totalAmount = (+this.power) * (+this.rate);
-        console.log('solarDeviceId' , this.solarDeviceId);
-        console.log('generatorDeviceId' , this.generatorDeviceId);
-        console.log('evDeviceId' , this.evDeviceId);
+        console.log('solarDeviceId', this.solarDeviceId);
+        console.log('generatorDeviceId', this.generatorDeviceId);
+        console.log('evDeviceId', this.evDeviceId);
         //this.startTime = moment(params['startTime']).format('hh:mm A');
         //this.endTime = moment(params['endTime']).format('hh:mm A');
       }
@@ -136,36 +134,40 @@ export class SellRateSetPage implements OnInit {
     this.endTime = moment(this.timeService.endTime).format('hh:mm A');
     this.startTimeDetails = this.timeService.startTimeDetails;
     this.endTimeDetails = this.timeService.endTimeDetails;
-    console.log('start time : ' , this.startTime);
-    console.log('end time : ' , this.endTime);
-    console.log('start time details : ' , this.startTimeDetails);
-    console.log('end time details : ' , this.endTimeDetails);
+    console.log('start time : ', this.startTime);
+    console.log('end time : ', this.endTime);
+    console.log('start time details : ', this.startTimeDetails);
+    console.log('end time details : ', this.endTimeDetails);
     this.duration = this.timeService.duration;
     this.currentTime = new Date().toISOString().substring(0, 10);
+    // if (this.rate)
+    //   this.calculateTotalAmount();
   }
 
   calculateTotalAmount() {
-    console.log('POWER 1 : ' , this.energy);
-    console.log('RATE 1 : ' , this.rate);
+    // console.log('POWER 1 : ', this.energy);
+    // console.log('RATE 1 : ', this.rate);
     //this.totalAmount = parseInt(this.rate) * parseInt(this.energy);
-    this.totalAmount = (+this.energy) * (+this.rate);
-    var rateArr=this.totalAmount.toString().split('.');
-    if(rateArr[1] != null) {
-      var len = rateArr[1].length;
-      if(len>2){
-        this.totalAmountStr=rateArr[0] + '.' + rateArr[1].substring(0,2);
-      }
-      else {
-        this.totalAmountStr=rateArr[0] + '.' + rateArr[1];
-      }
-    }
-    else {
-      this.totalAmountStr=this.totalAmount;
-    }
+    this.totalAmount = (+this.energy) * +(+this.rate).toFixed(2);
+    this.totalAmount = +this.totalAmount.toFixed(2);
+    this.totalAmountStr = this.totalAmount + "";
+    // var rateArr = this.totalAmount.toString().split('.');
+    // if (rateArr[1] != null) {
+    //   var len = rateArr[1].length;
+    //   if (len > 2) {
+    //     this.totalAmountStr = rateArr[0] + '.' + rateArr[1].substring(0, 2);
+    //   }
+    //   else {
+    //     this.totalAmountStr = rateArr[0] + '.' + rateArr[1];
+    //   }
+    // }
+    // else {
+    //   this.totalAmountStr = this.totalAmount;
+    // }
   }
 
   async submit() {
-    if(this.action == ACTION_CREATE) {
+    if (this.action == ACTION_CREATE) {
       this.sellOrderPayload.sellerId = this.sellerId;
       this.sellOrderPayload.deviceTypeId = this.deviceTypeId;
       this.sellOrderPayload.userDeviceId = this.userDeviceId;
@@ -175,7 +177,7 @@ export class SellRateSetPage implements OnInit {
       this.sellOrderPayload.transferEndTs = this.timeService.endTime;
       this.sellOrderPayload.ratePerUnit = this.rate;
       this.sellOrderPayload.totalAmount = this.totalAmount;
-      this.orderService.createSellOrder(this.sellOrderPayload).subscribe( (data) => console.log(data));
+      this.orderService.createSellOrder(this.sellOrderPayload).subscribe((data) => console.log(data));
       this.orderService.printSellOrderList();
       // this.router.navigate(['sell-post-success'], {
       //   queryParams: {}
@@ -202,11 +204,11 @@ export class SellRateSetPage implements OnInit {
       this.presentModal();
     }
     if (this.action == ACTION_FORECAST) {
-      console.log('sell solar : ' , this.sellSolar);
-      console.log('sell generator : ' , this.sellGenerator);
-      console.log('sell ev : ' , this.sellEV);
-      console.log('forecast sell orders before : ' , this.forecastSellDetails);
-      if(this.sellSolar=='true') {
+      console.log('sell solar : ', this.sellSolar);
+      console.log('sell generator : ', this.sellGenerator);
+      console.log('sell ev : ', this.sellEV);
+      console.log('forecast sell orders before : ', this.forecastSellDetails);
+      if (this.sellSolar == 'true') {
         this.sellOrderPayload.deviceTypeId = "1";
         this.sellOrderPayload.sellerId = this.sellerId;
         this.sellOrderPayload.userDeviceId = this.solarDeviceId;
@@ -219,7 +221,7 @@ export class SellRateSetPage implements OnInit {
         this.forecastSellDetails.push(this.sellOrderPayload);
         this.sellOrderPayload = {};
       }
-      if(this.sellGenerator=='true') {
+      if (this.sellGenerator == 'true') {
         this.sellOrderPayload.deviceTypeId = "2";
         this.sellOrderPayload.sellerId = this.sellerId;
         this.sellOrderPayload.userDeviceId = this.generatorDeviceId;
@@ -232,7 +234,7 @@ export class SellRateSetPage implements OnInit {
         this.forecastSellDetails.push(this.sellOrderPayload);
         this.sellOrderPayload = {};
       }
-      if(this.sellEV=='true') {
+      if (this.sellEV == 'true') {
         this.sellOrderPayload.deviceTypeId = "3";
         this.sellOrderPayload.sellerId = this.sellerId;
         this.sellOrderPayload.userDeviceId = this.evDeviceId;
@@ -245,8 +247,8 @@ export class SellRateSetPage implements OnInit {
         this.forecastSellDetails.push(this.sellOrderPayload);
         this.sellOrderPayload = {};
       }
-      console.log('forecast sell orders after : ' , this.forecastSellDetails);
-      this.orderService.createSellOrdersFromForecast(this.forecastSellDetails).subscribe( (data) => console.log(data));
+      console.log('forecast sell orders after : ', this.forecastSellDetails);
+      this.orderService.createSellOrdersFromForecast(this.forecastSellDetails).subscribe((data) => console.log(data));
       this.orderService.printSellOrderList();
       // this.router.navigate(['sell-post-success'], {
       //   queryParams: {}
@@ -255,7 +257,7 @@ export class SellRateSetPage implements OnInit {
     }
   }
 
-  async presentModal(){
+  async presentModal() {
     const myModal = await this.modal.create({
       component: SellPostSuccessPage,
       cssClass: 'my-custom-modal-small-css'

@@ -57,10 +57,10 @@
 
     <!-- LINE 1 -->
     <ion-row *ngFor="let nonTradeHour of nonTradeHourList">
-      <ion-card class="card-center">
+      <ion-card [ngClass]="getCSS(nonTradeHour)">
         <!-- <ion-card-content> -->
         <ion-grid class="content-style">
-          <ion-row style="margin-top:-0.5em;margin-bottom:0.7em;">
+          <ion-row style="margin-top:-0.5em;margin-bottom:0.7em;" [class.disabled]="nonTradeHourDisabled">
             <ion-col size="9">
               <div style="font-size:0.8em;">
                 {{formatTime(nonTradeHour.startTime,'d')}}
@@ -85,7 +85,7 @@
         </ion-grid>
         <!-- </ion-card-content> -->
         <ion-row style="border-top:0.5px rgba(156, 156, 156, 0.685) solid;text-align:center;height:40px;"
-        *ngIf="nonTradeHour.isEditable=='Y' || nonTradeHour.isCancellable=='Y'">
+          *ngIf="nonTradeHour.isEditable=='Y' || nonTradeHour.isCancellable=='Y'">
           <ion-col size="6" *ngIf="nonTradeHour.isCancellable=='Y'">
             <ion-button size="small" expand="full" fill="clear"
               style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
@@ -94,7 +94,7 @@
             </ion-button>
           </ion-col>
           <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)"
-          *ngIf="nonTradeHour.isEditable=='Y'">
+            *ngIf="nonTradeHour.isEditable=='Y'">
             <ion-button size="small" expand="full" fill="clear"
               style="font-family:MSemiBold !important;font-size:0.8em;font-weight:800;text-align:center;"
               (click)="editNonTradeHours(nonTradeHour)">

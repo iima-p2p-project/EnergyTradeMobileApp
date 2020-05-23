@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavController, AlertController, ModalController } from '@ionic/angular';
+import { NavController, AlertController, ModalController, Platform } from '@ionic/angular';
 import { IngressService } from 'src/app/services/ingress.service';
 import { SellOrderPayload } from 'src/app/models/SellOrderPayload';
 import { BuyOrderPayload } from 'src/app/models/BuyOrderPayload';
@@ -9,6 +9,7 @@ import { OrderService } from 'src/app/services/order.service';
 import * as moment from 'moment';
 import { InvalidInputModalPage } from 'src/app/invalid-input-modal/invalid-input-modal.page';
 import { ForecastService } from 'src/app/services/forecast.service';
+import { BackButtonService } from 'src/app/services/back-button.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -78,7 +79,9 @@ export class DashboardPage implements OnInit {
     , private orderService: OrderService
     , private ingressService: IngressService
     , private alertController: AlertController
-    , private forecastService: ForecastService) {
+    , private forecastService: ForecastService
+    , private platform: Platform
+    , private backButtonService: BackButtonService) {
     this.showSolar = false;
     this.showGenerator = false;
     this.showEV = false;
@@ -89,7 +92,13 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
   }
 
+
+  ionViewWillLeave() {
+    this.backButtonService.quitOnBackButton = false;
+  }
+
   ionViewDidEnter() {
+    this.backButtonService.quitOnBackButton = true;
     if (new Date().toISOString().substring(0, 10) != this.forecastService.lastForecastFetchedDate) {
       this.forecastService.forecastFetched = false;
     }
@@ -471,5 +480,23 @@ export class DashboardPage implements OnInit {
       }
     });
     return await defg.present();
+  }
+
+  configueHardwareBackButton() {
+
+    this.platform.backButton.subscribe(() => {
+      window.alert("Alert2" + this.constructor.name);
+      if (this.constructor.name == "DashboardPage") {
+        {
+          if (window.confirm("Do you want to exit app?")) {
+            navigator["app"].exitApp();
+          }
+        }
+      }
+    });
+  }
+
+  ionViewDidLeave() {
+    this.platform.backButton.unsubscribe();
   }
 }
