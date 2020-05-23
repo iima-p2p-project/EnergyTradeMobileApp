@@ -187,13 +187,19 @@ export class DashboardPage implements OnInit {
           this.showSolar = true;
           this.solarCapacity = element.capacity;
         }
-        if (element.deviceTypeId == 2) {
+        else if (element.deviceTypeId == 2) {
           this.generatorDeviceId = element.userDeviceId;
           this.generatorDeviceTypeId = element.deviceTypeId;
           this.showGenerator = true;
           this.generatorCapacity = element.capacity;
         }
-        if (element.deviceTypeId == 3) {
+        else if (element.deviceTypeId == 3) {
+          this.evDeviceId = element.userDeviceId;
+          this.evDeviceTypeId = element.deviceTypeId;
+          this.showEV = true;
+          this.evCapacity = element.capacity;
+        }
+        else { // added temporarily for accomodating battery
           this.evDeviceId = element.userDeviceId;
           this.evDeviceTypeId = element.deviceTypeId;
           this.showEV = true;

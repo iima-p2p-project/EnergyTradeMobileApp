@@ -175,6 +175,7 @@ export class AppComponent {
       //   this.localityName = this.ingressService.userP2PDetails.localityName;
       //this.loggedInUser = this.ingressService.loggedInUser;
       this.availablePersonas = this.ingressService.loggedInUser.userTypes;
+      this.userRole = this.ingressService.loggedInUser.userRole;
       if (this.availablePersonas.includes("DR")) {
         this.selectedUserPersona = "DR";
         this.router.navigate(["customer-dashboard"]);
