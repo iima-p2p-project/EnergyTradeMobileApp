@@ -1,162 +1,199 @@
-ion-content{
-    --background:#0048A8;
-  
-  }
+ion-content {
+  --background: #0048A8;
 
-  ion-item{
-      font-family:MMedium !important;
-  }
-
-  .opacity-sold{
-    opacity:0.4;
-  }
-
-
-  .menu-button{
-    color:white;
-    text-align: left;
-    margin-top:1em;
-  }
-  
-  .title-top{
-    color:white;
-    text-align:center;
-    font-size:1.4em;
-    font-family:MSemiBold !important;
-    margin-top:1em;
-  }
-
-  .row-control{
-      margin-top:-10px;
-  }
-
-  .card-center{
-    background-color:white;
-    width:97%;
-    margin-left:auto;
-    margin-right:auto;
-
-    .card-unit-number{
-      font-family:MMedium !important;
-      color:black;
-      font-size:1.2em;
-    }
-
-    .card-id-number{
-        font-family:MMedium !important;
-        color:grey;
-        font-size:0.8em;
-    }
-
-    .card-bottom-line{
-        font-family:MMedium !important;
-        color:black;
-        font-size:0.7em;
-        display: inline-block;
-        vertical-align: middle;
-        .icon{
-          display: inline-block;
-          vertical-align: middle;
-         }
-    }
-
-    .card-right{
-        text-align:right;
-        font-family:MMedium!important;
-        font-size:0.8em;
-        color:rgb(116, 116, 116);
-        .icon{
-          display: inline-block;
-          vertical-align: middle;
-         }
-    }
-
-    .prediction{
-        vertical-align:middle;
-        text-align:left;
-        padding-top:1.6em;
-    }
 }
 
-.card-bottom-top{
-  z-index:2;
-  background-color:white;
-  width:97%;
-  margin-left:auto;
-  margin-right:auto;
-
-  .card-unit-number{
-    font-family:MMedium !important;
-    color:black;
-    font-size:1.2em;
-  }
-
-  .card-id-number{
-      font-family:MMedium !important;
-      color:grey;
-      font-size:0.8em;
-  }
-
-  .card-bottom-line{
-      font-family:MMedium !important;
-      color:black;
-      font-size:0.7em;
-      display: inline-block;
-      vertical-align: middle;
-      .icon{
-        display: inline-block;
-        vertical-align: middle;
-       }
-  }
-
-  .card-price{
-      text-align:right;
-      font-family:MSemiBold!important;
-      color:black;
-  }
-
-  .prediction{
-      vertical-align:middle;
-      text-align:left;
-      padding-top:1.6em;
-  }
+ion-item {
+  font-family: MMedium !important;
 }
 
-.card-bottom-bottom{
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:-10px;
-    z-index:1;
-    background-color:white;
-    width:93%;
-    height:45px;
-    font-size:0.7em;
-    color:black;
+.opacity-sold {
+  opacity: 0.4;
+}
+
+.menu-button {
+  color: white;
+  text-align: left;
+  margin-top: 1em;
+}
+
+.title-top {
+  color: white;
+  text-align: center;
+  font-size: 1.4em;
+  font-family: MSemiBold !important;
+  margin-top: 1em;
+}
+
+.row-control {
+  margin-top: -10px;
+}
+
+.card-center {
+  background-color: white;
+  width: 97%;
+  margin-left: auto;
+  margin-right: auto;
+  border-left: 8px solid white;
+
+  .card-unit-number {
     font-family: MMedium !important;
-    padding:10px;
-    .icon{
-      display: inline-block;
-      vertical-align: middle;
-      zoom:1.8;
-     }
-}
+    color: black;
+    font-size: 1.2em;
+  }
 
-.bottom-footer{
-  border:rgba(173, 216, 230, 0.300) 0.5px solid;
-  padding:1em;
-  font-family:MSemiBold !important;
-}
+  .card-id-number {
+    font-family: MMedium !important;
+    color: grey;
+    font-size: 0.8em;
+  }
 
-.the-footer{
-  background-color:#0048A8;
-  color:white;
-  padding:0;
-  .icon{
+  .card-bottom-line {
+    font-family: MMedium !important;
+    color: black;
+    font-size: 0.7em;
     display: inline-block;
     vertical-align: middle;
-   }
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  .card-right {
+    text-align: right;
+    font-family: MMedium !important;
+    font-size: 0.8em;
+    color: rgb(116, 116, 116);
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  .prediction {
+    vertical-align: middle;
+    text-align: left;
+    padding-top: 1.6em;
+  }
 }
 
-.height-adjust{
-    margin-top:-1.5em;
+.disabled {
+  opacity: 0.5;
+}
+
+.green {
+  border-color: yellowgreen;
+}
+
+.yellow {
+  border-color: rgb(216, 241, 74);
+}
+
+.orange {
+  border-color: orange;
+}
+
+.red {
+  border-color: red;
+}
+
+.card-bottom-top {
+  z-index: 2;
+  background-color: white;
+  width: 97%;
+  margin-left: auto;
+  margin-right: auto;
+
+  .card-unit-number {
+    font-family: MMedium !important;
+    color: black;
+    font-size: 1.2em;
+  }
+
+  .card-id-number {
+    font-family: MMedium !important;
+    color: grey;
+    font-size: 0.8em;
+  }
+
+  .card-bottom-line {
+    font-family: MMedium !important;
+    color: black;
+    font-size: 0.7em;
+    display: inline-block;
+    vertical-align: middle;
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  .card-price {
+    text-align: right;
+    font-family: MSemiBold !important;
+    color: black;
+  }
+
+  .prediction {
+    vertical-align: middle;
+    text-align: left;
+    padding-top: 1.6em;
+  }
+}
+
+.card-bottom-bottom {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -10px;
+  z-index: 1;
+  background-color: white;
+  width: 93%;
+  height: 45px;
+  font-size: 0.7em;
+  color: black;
+  font-family: MMedium !important;
+  padding: 10px;
+
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1.8;
+  }
+}
+
+.bottom-footer {
+  border: rgba(173, 216, 230, 0.300) 0.5px solid;
+  padding: 1em;
+  font-family: MSemiBold !important;
+}
+
+.the-footer {
+  background-color: #0048A8;
+  color: white;
+  padding: 0;
+
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.height-adjust {
+  margin-top: -1.5em;
+}
+
+.text-orange {
+  color: orange;
+}
+
+.text-red {
+  color: red;
+}
+
+.order-state {
+  font-size: 0.6em;
 }

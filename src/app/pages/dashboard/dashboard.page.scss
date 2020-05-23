@@ -94,11 +94,11 @@ ion-input {
     font-size: 0.7em;
     font-family: MMedium !important;
     color: white;
+    margin-left: -0.5em;
   }
 
   .bottom-left-icon {
     color: white;
-    margin-bottom: -1px;
   }
 
   //RIGHT SIDE
@@ -112,7 +112,6 @@ ion-input {
   .bottom-right-icon {
     text-align: left;
     color: white;
-    margin-bottom: -1px;
   }
 
 }
@@ -169,6 +168,9 @@ ion-input {
   width: 99% !important;
   margin-right: auto;
   margin-left: auto;
+  margin-bottom: 0;
+  border-left: 8px solid white;
+  z-index: 1;
 
   .unit-number {
     font-family: MMedium !important;
@@ -213,6 +215,38 @@ ion-input {
   border: rgba(255, 0, 0, 0) 1px solid;
 }
 
+.disabled {
+  opacity: 0.5;
+}
+
+.green {
+  border-color: yellowgreen;
+}
+
+.yellow {
+  border-color: rgb(216, 241, 74);
+}
+
+.orange {
+  border-color: orange;
+}
+
+.red {
+  border-color: red;
+}
+
+
+.text-orange {
+  color: orange;
+}
+
+.text-red {
+  color: red;
+}
+
+.order-state {
+  font-size: 0.5em;
+}
 
 // #63B508 — green
 // #D0021B —red

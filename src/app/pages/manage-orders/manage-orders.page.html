@@ -81,7 +81,14 @@
                 </span>
               </ion-col>
               <ion-col size="4" class="card-price">
-                ₹ <span style="font-size:1.3em;">{{order.totalAmount}}</span>
+                <span style="font-size:1.3em;"> ₹ {{order.totalAmount}}</span><br>
+                <span *ngIf="showLiveLabel" class="d-flex align-items-center justify-content-end order-state text-red ">
+                  <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
+                </span>
+                <span *ngIf="showGateClosureLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-orange">
+                  GATE CLOSED
+                </span>
               </ion-col>
             </ion-row>
             <ion-row>
@@ -149,7 +156,7 @@
             </ion-button>
           </ion-col>
           <ion-col size="6" style="border-left:1px solid rgba(156, 156, 156, 0.685)">
-            <ion-button expand="full" fill="clear" *ngIf="order.isEditable == 'Y'"
+            <ion-button expand="full" fill="clear" [disabled]="order.isEditable == 'N'"
               style="font-family:MSemiBold !important;font-size:1.2em;font-weight:800;" (click)="editSellOrder(order)">
               EDIT
             </ion-button>
@@ -162,6 +169,16 @@
               style="font-family:MSemiBold !important;font-size:1.2em;font-weight:800; text-align: center;">
               CANCEL
             </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card class="cart-note" *ngIf="showFine">
+        <ion-row class="ion-align-items-center">
+          <ion-col size="10" class="description">
+            <b class="name">TSSPDCL</b> charges you for {{deficitEnergy}} units of power
+          </ion-col>
+          <ion-col size="2" class="ion-text-right amount">
+            ₹ {{fineValue}}
           </ion-col>
         </ion-row>
       </ion-card>

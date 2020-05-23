@@ -12,6 +12,18 @@ export const uatAddress = "http://139.59.34.247:8080";
 
 export const activeBackend = devAddress;
 
+
+// for uat
+export const ONE_SIGNAL_APP_ID = "7b5d152f-7a97-479e-8461-e876941c55c4";
+
+// for dev
+//export const ONE_SIGNAL_APP_ID= "9b0a5ec6-e306-4aa7-9713-722d8ee1f47c";
+
+
+export const FIREBASE_APP_ID = "701058302199";
+
+
+
 export const ADMIN_ROLE = 'Admin';
 export const USER_ROLE = 'User';
 

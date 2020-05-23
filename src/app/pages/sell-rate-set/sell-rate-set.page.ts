@@ -35,7 +35,7 @@ export class SellRateSetPage implements OnInit {
   power: string;
   sellOrderId: any;
   action: any;
-  rate: any;
+  rate: any = 0.0;
   currentTime: any;
   // sellSolar: boolean=false;
   // sellGenerator: boolean=false;
@@ -64,6 +64,7 @@ export class SellRateSetPage implements OnInit {
   //Screenwidth
   screenWidth: any;
   screenMode: any;
+  disableEnergyField;
 
   constructor(private formBuilder: FormBuilder,
     public modal: ModalController
@@ -97,6 +98,7 @@ export class SellRateSetPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.action = params['action'];
       if (this.action == ACTION_CREATE || this.action == ACTION_EDIT) {
+        this.disableEnergyField = false;
         this.sellOrderId = params['sellOrderId'];
         this.energy = params['energy'];
         this.power = params['power'];
@@ -104,7 +106,8 @@ export class SellRateSetPage implements OnInit {
         this.userDeviceId = params['userDeviceId'];
         this.deviceTypeId = params['deviceTypeId'];
       }
-      if (this.action == ACTION_FORECAST) {
+      else if (this.action == ACTION_FORECAST) {
+        this.disableEnergyField = true;
         this.rate = params['pricePerUnit'];
         this.sellerId = params['sellerId'];
         this.sellSolar = params['sellSolar'];
@@ -128,6 +131,8 @@ export class SellRateSetPage implements OnInit {
         console.log('evDeviceId', this.evDeviceId);
         //this.startTime = moment(params['startTime']).format('hh:mm A');
         //this.endTime = moment(params['endTime']).format('hh:mm A');
+      } else {
+        this.disableEnergyField = true;
       }
     });
     this.startTime = moment(this.timeService.startTime).format('hh:mm A');
@@ -175,8 +180,8 @@ export class SellRateSetPage implements OnInit {
       this.sellOrderPayload.energy = this.energy;
       this.sellOrderPayload.transferStartTs = this.timeService.startTime;
       this.sellOrderPayload.transferEndTs = this.timeService.endTime;
-      this.sellOrderPayload.ratePerUnit = this.rate;
-      this.sellOrderPayload.totalAmount = this.totalAmount;
+      this.sellOrderPayload.ratePerUnit = this.rate.toFixed(2);
+      this.sellOrderPayload.totalAmount = this.totalAmount.toFixed(2);
       this.orderService.createSellOrder(this.sellOrderPayload).subscribe((data) => console.log(data));
       this.orderService.printSellOrderList();
       // this.router.navigate(['sell-post-success'], {
@@ -263,5 +268,14 @@ export class SellRateSetPage implements OnInit {
       cssClass: 'my-custom-modal-small-css'
     });
     return await myModal.present();
+  }
+
+  calculateEnergy() {
+    let timeDiff = (moment(this.timeService.endTime).diff(this.timeService.startTime, 'minutes')) / 60;
+    this.energy = (+this.power * timeDiff) + "";
+
+    this.totalAmount = (+this.energy) * +(+this.rate).toFixed(2);
+    this.totalAmount = +this.totalAmount.toFixed(2);
+    this.totalAmountStr = this.totalAmount + "";
   }
 }

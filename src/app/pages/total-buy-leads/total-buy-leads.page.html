@@ -13,16 +13,16 @@
     </ion-col>
   </ion-row>
 
-  <ion-searchbar style="font-family:MMedium !important;" placeholder="Search for ID" animated
-  [(ngModel)]="selectedLead" (ionChange)="selectLead()"></ion-searchbar>
+  <ion-searchbar style="font-family:MMedium !important;" placeholder="Search for ID" animated [(ngModel)]="selectedLead"
+    (ionChange)="selectLead()"></ion-searchbar>
 
   <ion-grid>
 
     <!-- LINE 1 -->
     <ion-row class="row-control" (click)="selectBuyLead(buyLead)" *ngFor="let buyLead of displayLeads">
-      <ion-card class="card-center">
+      <ion-card [ngClass]="getCSS(buyLead)">
         <ion-card-content>
-          <ion-row style="margin-top:-0.5em;">
+          <ion-row style="margin-top:-0.5em;" [class.disabled]="orderDisabled">
             <ion-col size="2" class="prediction">
               <ion-icon style="zoom:3;" src="assets/assets2/sell.svg"></ion-icon>
             </ion-col>
@@ -30,23 +30,31 @@
               <ion-row style="margin-bottom:0.7em;">
                 <ion-col>
                   <div class="card-unit-number">
-                    {{buyLead.sellorder.powerToSell}} Units
+                    {{buyLead.sellorder.energy}} Units
                   </div>
                   <div class="card-id-number">
                     ID #{{buyLead.contractId}}
                   </div>
                 </ion-col>
                 <ion-col class="card-right">
-                  <ion-icon name="pin" class="icon"></ion-icon> {{buyLead.sellorder.localityName}}
+                  <ion-icon name="pin" class="icon"></ion-icon> {{buyLead.sellorder.localityName}} <br>
+                  <span *ngIf="showLiveLabel" 
+                  class="d-flex align-items-center justify-content-end order-state text-red ">
+                    <ion-icon name="radio-button-on" class="pr-1"></ion-icon>LIVE
+                  </span> <br>
+                  <span *ngIf="showGateClosureLabel"
+                  class="d-flex align-items-center justify-content-end order-state text-orange">
+                    GATE CLOSED
+                  </span>
                 </ion-col>
               </ion-row>
               <ion-row class="card-bottom-line">
                 <ion-col size="3">
-                    <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg" 
+                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
                     *ngIf="buyLead.sellorder.deviceTypeName=='Solar'"></ion-icon>
-                    <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
+                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
                     *ngIf="buyLead.sellorder.deviceTypeName=='Generator'"></ion-icon>
-                    <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
+                  <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/solar (1).svg"
                     *ngIf="buyLead.sellorder.deviceTypeName=='EV'"></ion-icon>
                   {{buyLead.sellorder.deviceTypeName}}
                 </ion-col>
@@ -56,7 +64,8 @@
                 </ion-col>
                 <ion-col size="6">
                   <ion-icon style="zoom:1.3;" class="icon" src="assets/svg/timer.svg"></ion-icon>
-                  {{formatTime(buyLead.sellorder.transferStartTs,'t')}} - {{formatTime(buyLead.sellorder.transferEndTs,'t')}}
+                  {{formatTime(buyLead.sellorder.transferStartTs,'t')}} -
+                  {{formatTime(buyLead.sellorder.transferEndTs,'t')}}
                 </ion-col>
               </ion-row>
             </ion-col>
@@ -78,7 +87,7 @@
       </ion-col>
       <ion-col class="bottom-footer" (click)="filterByMonth()">
         <!-- <ion-button expand="full"> -->
-        <ion-icon name="calendar" class="icon" ></ion-icon>
+        <ion-icon name="calendar" class="icon"></ion-icon>
         MONTH
         <!-- </ion-button> -->
       </ion-col>

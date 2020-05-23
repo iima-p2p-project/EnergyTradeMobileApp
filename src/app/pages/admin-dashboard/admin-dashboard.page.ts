@@ -183,10 +183,10 @@ export class AdminDashboardPage implements OnInit {
     if (nonTradeHour != null) {
       if (nonTradeHour.status == 'Cancelled') {
         this.nonTradeHourDisabled = true;
-        nonTradeHourCSS = 'card-center card-bottom red';
+        nonTradeHourCSS = 'card-center card-bottom';
       } else if (nonTradeHour.isCancellable == 'N') {
         this.nonTradeHourDisabled = false;
-        nonTradeHourCSS = 'card-center card-bottom green';
+        nonTradeHourCSS = 'card-center card-bottom';
       }
     }
     return nonTradeHourCSS;

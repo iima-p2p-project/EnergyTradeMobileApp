@@ -116,6 +116,10 @@ ion-item {
   color: black;
 }
 
+.order-state {
+  font-size: 0.6em;
+}
+
 .card-bottom-top {
   z-index: 2;
   background-color: white;
@@ -298,6 +302,14 @@ ion-item {
 
 .red {
   border-color: red;
+}
+
+.text-orange {
+  color: orange;
+}
+
+.text-red {
+  color: red;
 }
 
 .cart-note {

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ADMIN_ROLE, ACTION_CREATE, ACTION_EDIT } from 'src/app/environments/environments';
 import { PickerOptions } from '@ionic/core';
 import { PickerController } from '@ionic/angular';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-total-sell-leads',
@@ -20,6 +21,11 @@ export class TotalSellLeadsPage implements OnInit {
   locationFilterKey: any;
   selectedLead: any;
 
+  orderCSS = 'card-bottom';
+  showGateClosureLabel = false;
+  showLiveLabel = false;
+  orderDisabled = false;
+
   constructor(private router: Router
     , private route: ActivatedRoute
     , private adminService: AdminService
@@ -32,6 +38,12 @@ export class TotalSellLeadsPage implements OnInit {
   ionViewWillEnter() {
     this.allSellLeads = this.adminService.allSellLeads;
     this.displayLeads = this.allSellLeads;
+    this.displayLeads.sort((ts1, ts2) => {
+      let t1 = moment(ts1.transferStartTs);
+      let t2 = moment(ts2.transferStartTs);
+      let diff = t1.diff(t2, 'seconds');
+      return diff * -1;
+    });
   }
 
   formatTime(ts, type) {
@@ -55,7 +67,7 @@ export class TotalSellLeadsPage implements OnInit {
   }
 
   selectLead() {
-    if(this.selectedLead!=null) {
+    if (this.selectedLead != null) {
       this.displayLeads = this.allSellLeads.filter(sellLead => sellLead.sellOrderId == this.selectedLead);
     }
   }
@@ -63,7 +75,19 @@ export class TotalSellLeadsPage implements OnInit {
   async filterByMonth() {
     console.log("Apply Month Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{
+        text: 'Ok', role: 'done', handler: async () => {
+          let col = await picker.getColumn('monthOptions');
+          this.monthFilterKey = col.options[col.selectedIndex].value;
+          this.displayLeads = this.allSellLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
+        }
+      }, {
+        text: "Cancel",
+        role: "cancel",
+        handler: () => {
+
+        }
+      }],
       columns: [{
         name: "monthOptions",
         options: [{ text: "January", value: "1" }
@@ -82,21 +106,36 @@ export class TotalSellLeadsPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('monthOptions');
-      this.monthFilterKey = col.options[col.selectedIndex].value;
-      this.displayLeads = this.allSellLeads.filter(order => moment(order.transferStartTs).format('M') == this.monthFilterKey);
-    }
-    );
+    // picker.onDidDismiss().then(async data => {
+
+    // }
+    // );
   }
 
   async filterByLocation() {
     console.log("Apply Location Filter");
     let opts: PickerOptions = {
-      buttons: [{ text: 'Ok', role: 'done' }, { text: 'Cancel', role: 'cancel' }],
+      buttons: [{
+        text: 'Ok', role: 'done', handler: async () => {
+          let col = await picker.getColumn('monthOptions');
+          this.locationFilterKey = col.options[col.selectedIndex].value;
+          if (this.locationFilterKey != 'All') {
+            this.displayLeads = this.allSellLeads.filter(order => order.localityName == this.locationFilterKey);
+          } else {
+            this.displayLeads = this.allSellLeads;
+          }
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel', handler: () => {
+
+        }
+      }],
       columns: [{
         name: "monthOptions",
         options: [{ text: "Tarnaka", value: "Tarnaka" }
+          , { text: "Nizamabad", value: "Nizamabad" }
+          , { text: "Shimachalam", value: "Shimachalam" }
           , { text: "Lingampalli", value: "Lingampalli" }
           , { text: "All", value: "All" }
         ]
@@ -104,14 +143,52 @@ export class TotalSellLeadsPage implements OnInit {
     }
     let picker = await this.pickerCtrl.create(opts)
     picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('monthOptions');
-      this.locationFilterKey = col.options[col.selectedIndex].value;
-      if (this.locationFilterKey != 'All') {
-        this.displayLeads = this.allSellLeads.filter(order => order.localityName == this.locationFilterKey);
-      } else {
-        this.displayLeads = this.allSellLeads;
+    // picker.onDidDismiss().then(async data => {
+
+    // });
+  }
+  getCSS(order) {
+    this.orderDisabled = false;
+    this.orderCSS = 'card-center';
+    if (order != null) {
+      if (order.orderStatus == 'Completed' 
+      || (order.orderStatus == 'Validated' && order.isFineApplicable != 'Y')) {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center green';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
       }
-    });
+      else if (order.orderStatus == 'Cancelled' || order.orderStatus == 'Expired') {
+        this.orderDisabled = true;
+        this.orderCSS = 'card-center red';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
+      }
+      else if (order.orderStatus == 'Live') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center';
+        this.showLiveLabel = true;
+        this.showGateClosureLabel = false;
+      }
+      else if (order.orderStatus == 'Contracted' && order.isCancellable == 'N') {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = true;
+      }
+      else {
+        this.orderDisabled = false;
+        this.orderCSS = 'card-center';
+        this.showLiveLabel = false;
+        this.showGateClosureLabel = false;
+      }
+      // if (order.orderStatus == 'Validated' && order.isFineApplicable == 'Y') {
+      //   this.orderDisabled = false;
+      //   this.orderCSS = 'card-center yellow';
+      //   this.showLiveLabel = false;
+      //   this.showGateClosureLabel = false;
+      // }
+    }
+    return this.orderCSS;
   }
 }

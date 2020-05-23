@@ -10,6 +10,7 @@ import { IngressService } from 'src/app/services/ingress.service';
 import { ADMIN_ROLE } from './environments/environments';
 
 import { BackButtonService } from './services/back-button.service';
+import { ONE_SIGNAL_APP_ID, FIREBASE_APP_ID } from './environments/environments';
 
 @Component({
   selector: 'app-root',
@@ -81,7 +82,8 @@ export class AppComponent {
   }
 
   setupPushNotif() {
-    this.oneSignal.startInit('9b0a5ec6-e306-4aa7-9713-722d8ee1f47c', '701058302199');
+
+    this.oneSignal.startInit(ONE_SIGNAL_APP_ID, FIREBASE_APP_ID);
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification)
 
 

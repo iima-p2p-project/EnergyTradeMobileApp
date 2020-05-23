@@ -57,10 +57,10 @@
 
     <!-- LINE 1 -->
     <ion-row *ngFor="let nonTradeHour of nonTradeHourList">
-      <ion-card [ngClass]="getCSS(nonTradeHour)">
+      <ion-card class="card-center">
         <!-- <ion-card-content> -->
         <ion-grid class="content-style">
-          <ion-row style="margin-top:-0.5em;margin-bottom:0.7em;" [class.disabled]="nonTradeHourDisabled">
+          <ion-row style="margin-top:-0.5em;margin-bottom:0.7em;" [class.disabled]="false">
             <ion-col size="9">
               <div style="font-size:0.8em;">
                 {{formatTime(nonTradeHour.startTime,'d')}}
