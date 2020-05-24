@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DRCustomerService } from 'src/app/services/drcustomer.service';
 import { IngressService } from 'src/app/services/ingress.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DeleteModalPage } from 'src/app/modals/delete-modal/delete-modal.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-drasset',
@@ -12,12 +14,32 @@ export class AddDRAssetPage implements OnInit {
 
   constructor(private drCustomerService: DRCustomerService,
     private ingressService: IngressService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    public modal: ModalController
   ) { }
   assetName;
   assetPower;
+  redirect;
+  type;
+  userDeviceId;
+
+
+
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.type = params['type'];
+      this.redirect = params['redirect'];
+      if (this.type == "EDIT") {
+        this.assetName = params['assetName'];
+        this.assetPower = params['capacity'];
+        this.userDeviceId = params['userDeviceId'];
+      }
+    });
   }
 
   addDRAsset() {
@@ -35,6 +57,43 @@ export class AddDRAssetPage implements OnInit {
         window.alert("Something went wrong in adding dr device");
       });
 
+  }
+
+  close() {
+    this.router.navigate(['/druser-profile']);
+  }
+
+  editDRAsset() {
+    this.drCustomerService.editDRDevice(this.userDeviceId
+      , this.assetName
+      , this.assetPower).subscribe((res: any) => {
+        if (res.response.key == "200") {
+          console.log("Success");
+          this.router.navigate(['druser-profile']);
+        } else {
+          window.alert("Something went wrong in editing device details");
+        }
+      }, (err) => {
+        window.alert("Something went wrong in server");
+      });
+
+  }
+
+  async deleteDRDevice() {
+    let deleteDeviceModal = await this.modal.create({
+      component: DeleteModalPage,
+      cssClass: 'delete-modal-css',
+      componentProps: {
+        assetName: this.assetName,
+        userDeviceId: this.userDeviceId
+      }
+    });
+    deleteDeviceModal.onWillDismiss().then((data: any) => {
+      if (data.data == 'success') {
+        this.router.navigate(['druser-profile']);
+      }
+    });
+    return await deleteDeviceModal.present();
   }
 
 }

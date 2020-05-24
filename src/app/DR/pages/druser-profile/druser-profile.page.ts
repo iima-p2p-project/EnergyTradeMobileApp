@@ -32,8 +32,31 @@ export class DRUserProfilePage implements OnInit {
 
 
 
-  goToAssets() {
-    this.router.navigate(['add-drasset']);
+  goToAddAssets() {
+    this.router.navigate(['add-drasset'], {
+      queryParams: {
+        redirect: "/druser-profile",
+        type: "ADD"
+      }
+    });
   }
+
+  gotToEditAsset(asset: any) {
+    this.router.navigate(['add-drasset'], {
+      queryParams: {
+        redirect: "/druser-profile",
+        type: "EDIT",
+        capacity: asset.deviceCapacity,
+        assetName: asset.drDeviceName,
+        userDeviceId: asset.drDeviceId
+
+      }
+    });
+
+  }
+
+
+
+
 
 }

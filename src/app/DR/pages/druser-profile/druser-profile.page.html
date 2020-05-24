@@ -32,17 +32,22 @@
         Avaiable Energy Assets ({{energyAssets?.length}})
       </ion-col>
       <ion-col size="3" class="p-0 d-flex align-items-center justify-content-end btn-add">
-        <b (click)="goToAssets()">Add New</b>
+        <b (click)="goToAddAssets()">Add New</b>
       </ion-col>
     </ion-row>
-    <ion-row class="border rounded mt-2 assest-item" *ngFor="let energyAsset of energyAssets">
+    <ion-row class="border rounded mt-2 assest-item" *ngFor="let energyAsset of energyAssets"
+      (click)="gotToEditAsset(energyAsset)">
       <ion-col size="7" class="pl-3 py-2">
         <b>{{energyAsset?.drDeviceName}}</b>
       </ion-col>
       <ion-col size="5" class="pr-3 py-2 d-flex align-items-center justify-content-end">
         <ion-icon src="assets/svg/energy-2.svg"></ion-icon>&nbsp;{{energyAsset?.deviceCapacity}} KW (±3%)
       </ion-col>
+      <!-- <ion-col>
+        <ion-icon name="trash"></ion-icon>
+      </ion-col> -->
     </ion-row>
+
     <!-- <ion-row class="border rounded mt-2 assest-item">
       <ion-col size="7" class="pl-3 py-2">
         <b>EV</b>

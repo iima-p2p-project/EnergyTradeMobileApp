@@ -19,8 +19,12 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="12" class="p-0 pt-2 text-center"> <ion-button class="btn-modal" shape="round">NO</ion-button> </ion-col>
-      <ion-col size="12" class="p-0 pb-2 text-center"> <ion-button class="btn-modal" fill="clear">YES, DELETE</ion-button></ion-col>
+      <ion-col size="12" class="p-0 pt-2 text-center">
+        <ion-button class="btn-modal" shape="round" (click)="close()">NO</ion-button>
+      </ion-col>
+      <ion-col size="12" class="p-0 pb-2 text-center">
+        <ion-button class="btn-modal" fill="clear" (click)="delete()">YES, DELETE</ion-button>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -18,6 +18,8 @@ export class DRCustomerService {
   updateEventCommitmentsUrl = DR_URL + '/updateEventCommitments';
   getDRCustomerProfileUrl = DR_URL + '/getDRCustomerProfile';
   addDRDeviceUrl = DR_URL + '/addDRCustomerDevice';
+  updateDRDeviceUrl = DR_URL + '/updateDRCustomerDevice';
+  deleteDRDeviceUrl = DR_URL + '/deleteDRCustomerDevice';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -149,8 +151,6 @@ export class DRCustomerService {
 
 
   addDRDevice(userId: any, deviceName: String, deviceCapacity: String) {
-
-
     var options = {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
@@ -165,6 +165,30 @@ export class DRCustomerService {
       }
       , options
     );
+  }
 
+  editDRDevice(userDeviceId: any, deviceName: String, deviceCapacity: String) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.updateDRDeviceUrl
+      , {
+        "userDrDeviceId": +userDeviceId,
+        "deviceName": deviceName,
+        "deviceCapacity": deviceCapacity
+      }
+      , options
+    );
+  }
+
+  deleteDRDevice(userDeviceId: any) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.delete(this.deleteDRDeviceUrl + "/" + userDeviceId
+      , options
+    );
   }
 }

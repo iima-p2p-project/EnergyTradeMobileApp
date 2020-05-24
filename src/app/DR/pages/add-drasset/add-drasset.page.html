@@ -1,10 +1,13 @@
 <ion-header no-border class="header">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="/druser-profile"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center title">
+    <ion-title class="ion-text-center title" *ngIf="type=='ADD'">
       ADD NEW ENERGY ASSET
+    </ion-title>
+    <ion-title class="ion-text-center title" *ngIf="type=='EDIT'">
+      {{assetName}}
     </ion-title>
     <ion-buttons slot="end">
       <ion-button disabled>
@@ -17,7 +20,7 @@
 <ion-content>
   <div class='content-div'>
     <div class="form-div">
-      <div class="heading">Please add an asset and its timings</div>
+      <div class="heading" *ngIf="type=='ADD'">Please add an asset and its timings</div>
       <div class="px-4 pt-3 form-item">
         <div class="form-control-label">ENERGY ASSET NAME</div>
         <ion-input class="form-control-input border rounded" type="text" [(ngModel)]="assetName"> </ion-input>
@@ -127,14 +130,24 @@
         </div>
       </div> -->
     </div>
-    <div class="text-center div-add-btn">
+    <div class="text-center div-add-btn" *ngIf="type=='ADD'">
       <ion-button class="text-center" shape="round" (click)="addDRAsset()">
         ADD
       </ion-button>
     </div>
-    <div class="text-center div-close-btn">
-      <ion-button class="text-center" shape="round" fill="clear">
+    <div class="text-center div-close-btn" *ngIf="type=='ADD'">
+      <ion-button class="text-center" shape="round" fill="clear" (click)="close()">
         CLOSE
+      </ion-button>
+    </div>
+    <div class="text-center div-add-btn" *ngIf="type=='EDIT'">
+      <ion-button class="text-center" shape="round" (click)="editDRAsset()">
+        UPDATE
+      </ion-button>
+    </div>
+    <div class="text-center div-close-btn" *ngIf="type=='EDIT'">
+      <ion-button class="text-center" shape="round" fill="clear" (click)="deleteDRDevice()">
+        DELETE
       </ion-button>
     </div>
   </div>
