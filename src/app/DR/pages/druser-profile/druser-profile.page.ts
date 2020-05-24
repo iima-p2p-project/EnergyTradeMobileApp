@@ -55,6 +55,14 @@ export class DRUserProfilePage implements OnInit {
 
   }
 
+  viewProfile() {
+    this.router.navigate(['contract-details'], {
+      queryParams: {
+        redirect: "/druser-profile",
+      }
+    });
+  }
+
 
 
 

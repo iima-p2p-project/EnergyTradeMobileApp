@@ -1,0 +1,133 @@
+ion-content {
+    --background: #0048A8;
+}
+
+.logo-div {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.option-div {
+    position: absolute;
+    top: 100px;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: white;
+    border-radius: 40px 40px 0 0;
+
+    .btn-card {
+        text-align: center;
+        padding: 20px;
+        border: 1px solid var(--ion-color-primary);
+        border-radius: 5px;
+        color: var(--ion-color-primary);
+        font-weight: bold;
+    }
+
+    .btn-image {
+        display: block;
+        margin: auto;
+        height: 40px;
+    }
+}
+
+.content-div {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: white;
+    border-radius: 40px 40px 0 0;
+}
+
+.shadow-div {
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+    width: 100%;
+    height: 50px;
+    border-radius: 40px 40px 0 0;
+    box-shadow: inset 0px 45px 20px 0px rgba(255, 255, 255, 0.90);
+}
+
+.div-form {
+    position: absolute;
+    width: 100%;
+    height: 93%;
+    overflow-y: scroll;
+    padding: 25px 0 80px 0;
+}
+
+.div-next-btn {
+    width: 100%;
+    position: absolute;
+    bottom: 40px;
+    padding: 20px;
+    box-shadow: inset 0px -60px 20px 20px rgba(255, 255, 255, 0.90);
+}
+
+.div-sign-in {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+
+    .sign-in-text {
+        margin: 0 25px;
+        padding: 10px 0;
+        border-top: 1px solid #ccc;
+        font-size: 14px;
+
+        b {
+            color: var(--ion-color-primary);
+        }
+    }
+}
+
+
+p.heading {
+    font-size: 12px;
+    font-family: Gotham;
+    font-weight: bold;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+}
+
+p.detail {
+    font-size: 16px;
+    font-family: Gotham;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: var(--ion-color-primary);
+
+}
+
+.form-detail {
+    margin-top: 20px;
+    padding: 0 50px;
+}
+
+.form-control-input {
+    width: 100% !important;
+    font-family: sans-serif;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    padding-left: 10px !important;
+    height: 36px;
+    color: var(--ion-color-primary);
+}
+.error-in-contract{
+
+    width: 100% !important;
+    font-family: MSemiBold;
+    padding-top: 12px !important;
+    color: #D0021B;
+}
+
+.back-button {
+    position: fixed;
+    color: white;
+    font-size: 1em;
+}

@@ -73,7 +73,7 @@ const routes: Routes = [
   { path: 'customer-register', loadChildren: './DR/pages/customer-register/customer-register.module#CustomerRegisterPageModule' },
   { path: 'customer-dashboard', loadChildren: './DR/pages/customer-dashboard/customer-dashboard.module#CustomerDashboardPageModule', canActivate: [AuthGuard] },
   { path: 'notifications', loadChildren: './pages/notifications/notifications.module#NotificationsPageModule', canActivate: [AuthGuard] },
-  { path: 'user-profile', loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule', canActivate: [AuthGuard]  },
+  { path: 'user-profile', loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule', canActivate: [AuthGuard] },
   { path: 'events', loadChildren: './pages/events/events.module#EventsPageModule' },
   { path: 'event-details', loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule' },
   { path: 'event-detail-edit', loadChildren: './pages/event-detail-edit/event-detail-edit.module#EventDetailEditPageModule' },
@@ -88,7 +88,9 @@ const routes: Routes = [
   { path: 'create-dr-user-account', loadChildren: './DR/pages/create-dr-user-account/create-dr-user-account.module#CreateDrUserAccountPageModule' },
   { path: 'scheduled-event-set-details', loadChildren: './DR/pages/scheduled-event-set-details/scheduled-event-set-details.module#ScheduledEventSetDetailsPageModule' },
   { path: 'druser-profile', loadChildren: './DR/pages/druser-profile/druser-profile.module#DRUserProfilePageModule', canActivate: [AuthGuard] },
-  { path: 'add-drasset', loadChildren: './DR/pages/add-drasset/add-drasset.module#AddDRAssetPageModule', canActivate: [AuthGuard]  },
+  { path: 'add-drasset', loadChildren: './DR/pages/add-drasset/add-drasset.module#AddDRAssetPageModule', canActivate: [AuthGuard] },
+  { path: 'contract-details', loadChildren: './DR/pages/contract-details/contract-details.module#ContractDetailsPageModule', canActivate: [AuthGuard] },
+
 
 
 
