@@ -19,6 +19,9 @@ export class AllDrEventSetsPage implements OnInit {
   eventSets;
   eventSetsWithPublishedEvents;
   eventSetsWithScheduledEvents;
+  eventSetsWithCompletedEvents;
+  eventSetsWithCancelledEvents;
+  eventSetsWithPenaltyEvents;
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
 
@@ -29,10 +32,43 @@ export class AllDrEventSetsPage implements OnInit {
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
       console.log(this.eventSets);
-      this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
-      this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
+      this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet));
+      this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet));
+      this.eventSetsWithCompletedEvents = this.eventSets.filter(eventSet => this.checkForCompletedEvent(eventSet));
+      this.eventSetsWithCancelledEvents = this.eventSets.filter(eventSet => this.checkForCancelledEvent(eventSet));
+      this.eventSetsWithPenaltyEvents = this.eventSets.filter(eventSet => this.checkForPenaltyEvent(eventSet));
     });
   }
+  checkForCompletedEvent(eventSet) {
+    let events = eventSet.events;
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].eventCustomerMappingStatus == "8")
+        return true;
+    }
+    return false;
+
+  }
+
+  checkForCancelledEvent(eventSet) {
+    let events = eventSet.events;
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].eventCustomerMappingStatus == "9")
+        return true;
+    }
+    return false;
+
+  }
+
+  checkForPenaltyEvent(eventSet) {
+    let events = eventSet.events;
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].eventCustomerMappingStatus == "10")
+        return true;
+    }
+    return false;
+
+  }
+
 
   checkForScheduledEvent(eventSet): boolean {
     let events = eventSet.events;
