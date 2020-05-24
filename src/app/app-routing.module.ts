@@ -82,7 +82,7 @@ const routes: Routes = [
   { path: 'withdraw-event-modal', loadChildren: './modals/withdraw-event-modal/withdraw-event-modal.module#WithdrawEventModalPageModule' },
   { path: 'edit-bid-modal', loadChildren: './modals/edit-bid-modal/edit-bid-modal.module#EditBidModalPageModule' },
   { path: 'delete-modal', loadChildren: './modals/delete-modal/delete-modal.module#DeleteModalPageModule' },
-  { path: 'all-dr-event-sets', loadChildren: './DR/pages/all-dr-event-sets/all-dr-event-sets.module#AllDrEventSetsPageModule' },
+  { path: 'all-dr-event-sets', loadChildren: './DR/pages/all-dr-event-sets/all-dr-event-sets.module#AllDrEventSetsPageModule', canActivate: [AuthGuard] },
   { path: 'event-set-details', loadChildren: './DR/pages/event-set-details/event-set-details.module#EventSetDetailsPageModule' },
   { path: 'choose-user-type', loadChildren: './DR/pages/choose-user-type/choose-user-type.module#ChooseUserTypePageModule' },
   { path: 'create-dr-user-account', loadChildren: './DR/pages/create-dr-user-account/create-dr-user-account.module#CreateDrUserAccountPageModule' },

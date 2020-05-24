@@ -1,5 +1,69 @@
+// ion-content {
+//     --background: var(--ion-color-primary);
+//     font-family: MMedium;
+// }
+
+// .header {
+//     font-family: MMedium;
+//     font-size: 14px;
+
+//     .title {
+//         font-family: MMedium;
+//         font-size: 16px;
+//     }
+
+//     .icon {
+//         font-size: 1.5em;
+//     }
+// }
+
+// .total-earning {
+//     background: #003c8e;
+//     color: white;
+
+//     .earning {
+//         font-size: 2.5em;
+//     }
+
+//     .description {
+//         font-size: 10px;
+//         margin-top: -5px;
+//     }
+// }
+
+// .title {
+//     font-family: MMedium;
+//     font-size: 14px;
+//     color: white;
+// }
+
+// .event-list-item {
+//     background-color: white;
+//     padding: 0 15px;
+//     border-radius: 5px;
+
+//     .event-date {
+//         font-size: 16px;
+//         font-family: MMedium;
+//     }
+
+//     .event-detail {
+//         font-size: 10px;
+//         font-family: MMedium;
+//         line-height: 0;
+//     }
+
+//     .view-event {
+//         padding: 10px;
+//         border-top: 1px solid #ccc;
+//         color: var(--ion-color-primary);
+//         font-size: 12px;
+//         font-family: MSemiBold;
+//     }
+// }
+
 ion-content {
-    --background: var(--ion-color-primary);
+    --background: #0048a8;
     font-family: MMedium;
 }
 
@@ -59,5 +123,109 @@ ion-content {
         color: var(--ion-color-primary);
         font-size: 12px;
         font-family: MSemiBold;
+    }
+}
+
+.menu-button {
+    color: white;
+    text-align: left;
+}
+
+.title-top {
+    color: white;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: MSemiBold !important;
+}
+
+.title {
+    font-family: MMedium;
+    font-size: 16px;
+    color: white;
+}
+
+.view-all {
+    font-family: MMedium;
+    font-size: 12px;
+    color: white;
+}
+
+.empty-event-list {
+    height: 150px;
+    background: #003c8e;
+    padding: 20px 100px;
+
+    .label {
+        font-size: 10px;
+        text-align: center;
+        color: white;
+        font-family: MMedium;
+    }
+}
+
+.event-list-item {
+    background-color: white;
+    padding: 0 15px;
+    border-radius: 5px;
+
+    .event-date {
+        font-size: 16px;
+        font-family: MMedium;
+    }
+
+    .event-detail {
+        font-size: 10px;
+        font-family: MMedium;
+        line-height: 0;
+    }
+
+    .view-event {
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        color: var(--ion-color-primary);
+        font-size: 12px;
+        font-family: MSemiBold;
+    }
+}
+
+.event-history {
+    .event-detail {
+        font-size: 10px;
+        font-family: MMedium;
+    }
+
+    .history-card {
+        .icon {
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .count {
+            font-size: 20px;
+            font-family: MMedium;
+            text-align: center;
+        }
+
+        .label {
+            font-family: MMedium;
+            font-size: 8px;
+            color: gray;
+            text-align: center;
+        }
+
+        .green {
+            color: #63b509;
+        }
+
+        .red {
+            color: #d0021c;
+        }
+
+        .orange {
+            color: #f5a724;
+        }
     }
 }

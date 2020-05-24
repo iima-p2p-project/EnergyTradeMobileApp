@@ -34,7 +34,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="12" class="p-0 pl-1 pt-1 d-flex align-items-center title">
         Published DR Event Sets (01)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
       </ion-col>
@@ -57,9 +57,9 @@
       <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
         View Events
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <ion-row class="event-list-item mt-1">
+    <!-- <ion-row class="event-list-item mt-1">
       <ion-col size="12" class="p-0 py-2">
         <div class="event-date">27 Oct, 2019</div>
         <div class="d-flex justify-content-between event-detail">
@@ -77,9 +77,9 @@
       <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
         View Events
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="12" class="p-0 pl-1 pt-1 d-flex align-items-center title">
         Scheduled DR Event Sets (01)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
       </ion-col>
@@ -102,9 +102,9 @@
       <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
         View Events
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="12" class="p-0 pl-1 pt-1 d-flex align-items-center title">
         Completed DR Event Sets (01)&nbsp;<ion-icon name="information-circle-outline"></ion-icon>
       </ion-col>
@@ -127,6 +127,145 @@
       <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
         View Events
       </ion-col>
+    </ion-row> -->
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9" class="p-0 pl-1 d-flex align-items-center title">
+        Published DR Event Sets ({{eventSetsWithPublishedEvents?.length}})&nbsp;<ion-icon
+          name="information-circle-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all "
+        (click)="viewAllEventSets()">
+        View All &nbsp;&nbsp;<ion-icon name="arrow-forward"></ion-icon>
+      </ion-col>
     </ion-row>
+
+    <ion-row *ngIf="eventSetsWithPublishedEvents?.length==0">
+      <ion-col size="12">
+        <div class="empty-event-list rounded">
+          <div class="text-center p-3">
+            <ion-icon src="assets/svg/forecast-data.svg" style="font-size: 50px;color: white;"></ion-icon>
+          </div>
+          <div class="label">No Published Demand Responce Events</div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithPublishedEvents">
+      <ion-col size="12" class="p-0 py-2">
+        <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
+        <div class="event-date">{{eventset?.eventSetName}}</div>
+        <div class="d-flex justify-content-between event-detail">
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;{{findMaxAndMinPower(eventset)}}
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;{{findMaxAndMinPrice(eventset)}}
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'published')">
+        View Events
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row class="event-list-item mt-1">
+      <ion-col size="12" class="p-0 py-2">
+        <div class="event-date">27 Oct, 2019</div>
+        <div class="d-flex justify-content-between event-detail">
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;5 Dr Events
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;900KW-1100KW
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;600-1124 Paise/KWH
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails()">
+        View Events
+      </ion-col>
+    </ion-row> -->
+
+
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="p-0 pl-1 d-flex align-items-center title">
+        Scheduled DR Event Sets ({{eventSetsWithScheduledEvents?.length}})&nbsp;<ion-icon
+          name="information-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
+      <ion-col size="12" class="p-0 py-2">
+        <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
+        <div class="event-date">{{eventset?.eventSetName}}</div>
+        <div class="d-flex justify-content-between event-detail">
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
+          </div>
+          <div class="d-flex align-items-center">
+            Scheduled: {{countScheduled(eventset)}}
+          </div>
+          <div class="d-flex align-items-center">
+            Counter Bid: {{countCounterBids(eventset)}}
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'scheduled')">
+        View Events
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="pb-1">
+      <ion-col size="9" class="p-0 pl-1 d-flex align-items-center title">
+        Event History Overview
+      </ion-col>
+      <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all ">
+        View All &nbsp;&nbsp;<ion-icon name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="event-history">
+      <ion-col size="4" class="p-0">
+        <div class="history-card bg-white rounded mr-1 p-2">
+          <div class="icon green">
+            <ion-icon mode="ios" name="checkmark-circle"></ion-icon>
+          </div>
+          <div class="count">05</div>
+          <div class="label">Successful DR Events</div>
+        </div>
+      </ion-col>
+
+      <ion-col size="4" class="p-0">
+        <div class="history-card bg-white rounded p-2">
+          <div class="icon red">
+            <ion-icon mode="ios" name="close-circle"></ion-icon>
+          </div>
+          <div class="count text-secondary">05</div>
+          <div class="label">Cancelled DR Events</div>
+        </div>
+      </ion-col>
+
+      <ion-col size="4" class="p-0">
+        <div class="history-card bg-white rounded ml-1 p-2">
+          <div class="icon orange">
+            <ion-icon mode="ios" name="alert"></ion-icon>
+          </div>
+          <div class="count">05</div>
+          <div class="label">Penalty DR Events</div>
+        </div>
+      </ion-col>
+    </ion-row>
+
   </ion-grid>
 </ion-content>
