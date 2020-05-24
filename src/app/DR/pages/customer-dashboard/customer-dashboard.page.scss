@@ -1,5 +1,5 @@
 ion-content {
-    --background: #0048A8;
+    --background: #0048a8;
 }
 
 .menu-button {
@@ -47,6 +47,7 @@ ion-content {
     .event-date {
         font-size: 16px;
         font-family: MMedium;
+        text-transform: uppercase;
     }
 
     .event-detail {
@@ -90,7 +91,6 @@ ion-content {
             font-size: 8px;
             color: gray;
             text-align: center;
-
         }
 
         .green {
