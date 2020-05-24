@@ -17,7 +17,7 @@ export class DRCustomerService {
   counterbidInEventUrl = DR_URL + '/counterbidInEvent';
   updateEventCommitmentsUrl = DR_URL + '/updateEventCommitments';
   getDRCustomerProfileUrl = DR_URL + '/getDRCustomerProfile';
-
+  addDRDeviceUrl = DR_URL + '/addDRCustomerDevice';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -141,6 +141,27 @@ export class DRCustomerService {
     return this.httpClient.post(this.getDRCustomerProfileUrl
       , {
         "userId": +userId,
+      }
+      , options
+    );
+
+  }
+
+
+  addDRDevice(userId: any, deviceName: String, deviceCapacity: String) {
+
+
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.post(this.addDRDeviceUrl
+      , {
+        userId,
+        deviceDetails: [{
+          deviceName,
+          deviceCapacity
+        }]
       }
       , options
     );

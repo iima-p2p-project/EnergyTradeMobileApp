@@ -20,14 +20,15 @@
       <div class="heading">Please add an asset and its timings</div>
       <div class="px-4 pt-3 form-item">
         <div class="form-control-label">ENERGY ASSET NAME</div>
-        <ion-input class="form-control-input border rounded" type="text"> </ion-input>
+        <ion-input class="form-control-input border rounded" type="text" [(ngModel)]="assetName"> </ion-input>
       </div>
       <div class="px-4 pt-3 form-item">
         <div class="form-control-label">POWER</div>
         <div class="d-flex align-items-center power">
           <ion-icon src="assets/svg/energy-2.svg" class="power-icon"></ion-icon>&nbsp;
           <div class="input-div">
-            <ion-input class="form-control-input power-input" maxlength="3" placeholder="XXX" type="text"> </ion-input>
+            <ion-input class="form-control-input power-input" maxlength="3" placeholder="XXX" type="text"
+              [(ngModel)]="assetPower"> </ion-input>
           </div>
           <div class="unit"> KW (±3%)</div>
         </div>
@@ -127,7 +128,7 @@
       </div> -->
     </div>
     <div class="text-center div-add-btn">
-      <ion-button class="text-center" shape="round">
+      <ion-button class="text-center" shape="round" (click)="addDRAsset()">
         ADD
       </ion-button>
     </div>

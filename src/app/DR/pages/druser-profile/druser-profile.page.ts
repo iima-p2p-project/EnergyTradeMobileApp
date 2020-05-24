@@ -19,13 +19,15 @@ export class DRUserProfilePage implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ionViewWillEnter() {
     this.drCustomerService.getDRCustomerProfile(this.ingressService.loggedInUser.userId).subscribe((res: any) => {
       this.customerProfileDetails = res.response;
       this.energyAssets = this.customerProfileDetails.drCustomerDevice;
     }, (err: any) => {
       window.alert("Something went wrong in fetching DR Customer profile details");
-    })
-
+    });
   }
 
 
