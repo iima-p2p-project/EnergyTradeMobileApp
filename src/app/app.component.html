@@ -152,14 +152,14 @@
           </ion-menu-toggle>
 
           <ion-menu-toggle>
-            <ion-item class="list-item" lines="none">
+            <ion-item class="list-item" lines="none" (click)="showSettings()">
               <ion-icon src="assets/svg/settings.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Settings</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
           <ion-menu-toggle>
-            <ion-item class="list-item" lines="none">
+            <ion-item class="list-item" lines="none" (click)="callHelp()">
               <ion-icon src="assets/svg/headset.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Help</ion-label>
             </ion-item>

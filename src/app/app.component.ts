@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { IngressService } from 'src/app/services/ingress.service';
-import { ADMIN_ROLE } from './environments/environments';
+import { ADMIN_ROLE, SUPPORT_NUMBER } from './environments/environments';
 
 import { BackButtonService } from './services/back-button.service';
 import { ONE_SIGNAL_APP_ID, FIREBASE_APP_ID } from './environments/environments';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @Component({
   selector: 'app-root',
@@ -61,7 +62,8 @@ export class AppComponent {
     private menu: MenuController,
     private events: Events,
     private backButtonService: BackButtonService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private callNumber: CallNumber
   ) {
     this.initializeApp();
 
@@ -242,7 +244,7 @@ export class AppComponent {
   }
 
   navigateToDRDashboard() {
-
+    this.router.navigate(['customer-dashboard']);
   }
 
   navigateToAllDREvents() {
@@ -258,6 +260,14 @@ export class AppComponent {
       this.navCtrl.back();
     }
   }
+  callHelp() {
+    this.callNumber.callNumber(SUPPORT_NUMBER, true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
+  }
 
+  showSettings() {
+    window.alert("This is an upcoming functionality");
+  }
 
 }

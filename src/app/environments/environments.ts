@@ -31,7 +31,7 @@ export const ACTION_FORECAST = 'FORECAST';
 export const ACTION_CREATE = 'CREATE';
 export const ACTION_EDIT = 'EDIT';
 
-export const SUPPORT_NUMBER = '';
+export const SUPPORT_NUMBER = '123456789';
 
 export const INGRESS_URL = activeBackend + '/et_ingress/rest';
 export const ADMIN_URL = activeBackend + '/et_order/rest/';
@@ -47,6 +47,7 @@ export const DEV_FLAG = true;
 export const NO_OTP_FLAG = true;
 export const PRIVACY_POLICY_URL = 'https://docs.google.com/document/d/1e45gQ3-Ri6Eri9QM07hmCYfVfZfTj1ek0Iq1QGjYwxs/edit'
 export const TERMS_OF_USE_URL = "https://docs.google.com/document/d/1e45gQ3-Ri6Eri9QM07hmCYfVfZfTj1ek0Iq1QGjYwxs/edit";
+
 
 
 

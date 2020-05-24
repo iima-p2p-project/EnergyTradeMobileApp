@@ -13,7 +13,7 @@ import { BoardModalPage } from './pages/modals/selectBoard';
 import { LocalityModalPage } from './pages/modals/selectLocality';
 
 import { SellPostSuccessPageModule } from './pages/sell-post-success/sell-post-success.module';
-import { BuyPostSuccessPageModule} from './pages/buy-post-success/buy-post-success.module';
+import { BuyPostSuccessPageModule } from './pages/buy-post-success/buy-post-success.module';
 import { NonTradePostSuccessPageModule } from './pages/non-trade-post-success/non-trade-post-success.module';
 
 import { CancelNonTradeHourPageModule } from './pages/cancel-non-trade-hour/cancel-non-trade-hour.module';
@@ -34,17 +34,18 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 //import { File, IWriteOptions } from '@ionic-native/file/ngx';
 
-import {  
-  FileTransfer,  
-  FileTransferObject  
-} from '@ionic-native/file-transfer/ngx';  
-import {  
+import {
+  FileTransfer,
+  FileTransferObject
+} from '@ionic-native/file-transfer/ngx';
+import {
   File
-} from '@ionic-native/file/ngx';  
+} from '@ionic-native/file/ngx';
 import { EditEventModalPageModule } from './modals/edit-event-modal/edit-event-modal.module';
 import { WithdrawEventModalPageModule } from './modals/withdraw-event-modal/withdraw-event-modal.module';
 import { EditBidModalPageModule } from './modals/edit-bid-modal/edit-bid-modal.module';
 import { DeleteModalPageModule } from './modals/delete-modal/delete-modal.module';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 
 @NgModule({
@@ -79,12 +80,13 @@ import { DeleteModalPageModule } from './modals/delete-modal/delete-modal.module
     SplashScreen,
     OneSignal,
     FileOpener,
-    FileTransfer,  
-    FileTransferObject,  
+    FileTransfer,
+    FileTransferObject,
     File,
+    CallNumber,
     InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
