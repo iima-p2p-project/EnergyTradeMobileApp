@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'manage-orders', loadChildren: './pages/manage-orders/manage-orders.module#ManageOrdersPageModule' },
   { path: 'buy-power', loadChildren: './pages/buy-power/buy-power.module#BuyPowerPageModule' },
   { path: 'sell-power', loadChildren: './pages/sell-power/sell-power.module#SellPowerPageModule' },
-  { path: 'forecast-list', loadChildren: './pages/forecast-list/forecast-list.module#ForecastListPageModule', canActivate:[AuthGuard] },
+  { path: 'forecast-list', loadChildren: './pages/forecast-list/forecast-list.module#ForecastListPageModule', canActivate: [AuthGuard] },
   { path: 'total-sell-leads', loadChildren: './pages/total-sell-leads/total-sell-leads.module#TotalSellLeadsPageModule' },
   { path: 'total-buy-leads', loadChildren: './pages/total-buy-leads/total-buy-leads.module#TotalBuyLeadsPageModule' },
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
@@ -73,7 +73,7 @@ const routes: Routes = [
   { path: 'customer-register', loadChildren: './DR/pages/customer-register/customer-register.module#CustomerRegisterPageModule' },
   { path: 'customer-dashboard', loadChildren: './DR/pages/customer-dashboard/customer-dashboard.module#CustomerDashboardPageModule', canActivate: [AuthGuard] },
   { path: 'notifications', loadChildren: './pages/notifications/notifications.module#NotificationsPageModule', canActivate: [AuthGuard] },
-  { path: 'user-profile', loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule' },
+  { path: 'user-profile', loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule', canActivate: [AuthGuard]  },
   { path: 'events', loadChildren: './pages/events/events.module#EventsPageModule' },
   { path: 'event-details', loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule' },
   { path: 'event-detail-edit', loadChildren: './pages/event-detail-edit/event-detail-edit.module#EventDetailEditPageModule' },
@@ -87,8 +87,8 @@ const routes: Routes = [
   { path: 'choose-user-type', loadChildren: './DR/pages/choose-user-type/choose-user-type.module#ChooseUserTypePageModule' },
   { path: 'create-dr-user-account', loadChildren: './DR/pages/create-dr-user-account/create-dr-user-account.module#CreateDrUserAccountPageModule' },
   { path: 'scheduled-event-set-details', loadChildren: './DR/pages/scheduled-event-set-details/scheduled-event-set-details.module#ScheduledEventSetDetailsPageModule' },
-  { path: 'druser-profile', loadChildren: './DR/pages/druser-profile/druser-profile.module#DRUserProfilePageModule' },
-  { path: 'add-drasset', loadChildren: './DR/pages/add-drasset/add-drasset.module#AddDRAssetPageModule' },
+  { path: 'druser-profile', loadChildren: './DR/pages/druser-profile/druser-profile.module#DRUserProfilePageModule', canActivate: [AuthGuard] },
+  { path: 'add-drasset', loadChildren: './DR/pages/add-drasset/add-drasset.module#AddDRAssetPageModule', canActivate: [AuthGuard]  },
 
 
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DRCustomerService } from 'src/app/services/drcustomer.service';
+import { IngressService } from 'src/app/services/ingress.service';
 
 @Component({
   selector: 'app-druser-profile',
@@ -8,10 +10,25 @@ import { Router } from '@angular/router';
 })
 export class DRUserProfilePage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private drCustomerService: DRCustomerService,
+    private ingressService: IngressService) { }
+
+  customerProfileDetails;
+  energyAssets;
 
   ngOnInit() {
+
+    this.drCustomerService.getDRCustomerProfile(this.ingressService.loggedInUser.userId).subscribe((res: any) => {
+      this.customerProfileDetails = res.response;
+      this.energyAssets = this.customerProfileDetails.drCustomerDevice;
+    }, (err: any) => {
+      window.alert("Something went wrong in fetching DR Customer profile details");
+    })
+
   }
+
+
 
   goToAssets() {
     this.router.navigate(['add-drasset']);
