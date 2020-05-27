@@ -60,9 +60,11 @@
     </ion-row>
 
     <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithPublishedEvents">
-      <ion-col size="12" class="p-0 py-2">
-        <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
-        <div class="event-date">{{eventset?.eventSetName}}</div>
+      <ion-col size="12" class="p-0 pt-2">
+        <div class="event-name">{{eventset?.eventSetName}}</div>
+        <!-- <div class="event-name">{{formatTime(eventset?.createdTs)}}</div> -->
+      </ion-col>
+      <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
             <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
@@ -89,9 +91,11 @@
       </ion-col>
     </ion-row>
     <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
-      <ion-col size="12" class="p-0 py-2">
-        <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
-        <div class="event-date">{{eventset?.eventSetName}}</div>
+      <ion-col size="12" class="p-0 pt-2">
+        <div class="event-name">{{eventset?.eventSetName}}</div>
+        <!-- <div class="event-name">{{formatTime(eventset?.createdTs)}}</div> -->
+      </ion-col>
+      <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
             <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
@@ -118,9 +122,14 @@
       </ion-col>
     </ion-row>
     <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
-      <ion-col size="12" class="p-0 py-2">
-        <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
-        <div class="event-date">{{eventset?.eventSetName}}</div>
+      <ion-col size="12" class="p-0 pt-2 d-flex align-items-center justify-content-between">
+        <div>
+          <div class="event-name">{{eventset?.eventSetName}}</div>
+          <div class="event-date">{{formatTime(eventset?.createdTs)}}</div>
+        </div>
+        <div class="status-chip successful">SUCCESSFUL</div>
+      </ion-col>
+      <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
             <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
@@ -133,8 +142,9 @@
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'scheduled')">
-        View Events
+      <ion-col size="12" class="d-flex align-items-center justify-content-center">
+        <div>50kW</div>
+        <div class="ml-2 pl-2 border-left">₹ 135.00</div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -147,9 +157,14 @@
       </ion-col>
     </ion-row>
     <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
-      <ion-col size="12" class="p-0 py-2">
-        <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
-        <div class="event-date">{{eventset?.eventSetName}}</div>
+      <ion-col size="12" class="p-0 pt-2 d-flex align-items-center justify-content-between">
+        <div>
+          <div class="event-name">{{eventset?.eventSetName}}</div>
+          <div class="event-date">{{formatTime(eventset?.createdTs)}}</div>
+        </div>
+        <div class="status-chip cancelled">CANCELLED</div>
+      </ion-col>
+      <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
             <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
@@ -162,8 +177,9 @@
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'scheduled')">
-        View Events
+      <ion-col size="12" class="d-flex align-items-center justify-content-center">
+        <div>50kW</div>
+        <div class="ml-2 pl-2 border-left">₹ 135.00</div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -176,9 +192,14 @@
       </ion-col>
     </ion-row>
     <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
-      <ion-col size="12" class="p-0 py-2">
-        <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
-        <div class="event-date">{{eventset?.eventSetName}}</div>
+      <ion-col size="12" class="p-0 pt-2 d-flex align-items-center justify-content-between">
+        <div>
+          <div class="event-name">{{eventset?.eventSetName}}</div>
+          <div class="event-date">{{formatTime(eventset?.createdTs)}}</div>
+        </div>
+        <div class="status-chip penalty">PENALTY</div>
+      </ion-col>
+      <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
             <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
@@ -191,8 +212,10 @@
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'scheduled')">
-        View Events
+      <ion-col size="12" class="d-flex align-items-center justify-content-center">
+        <div>50kW</div>
+        <div class="ml-2 pl-2 border-left">₹ 135.00</div>
+        <div class="ml-2 pl-2 border-left">₹ 135.00</div>
       </ion-col>
     </ion-row>
   </ion-grid>

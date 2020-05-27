@@ -106,9 +106,16 @@ ion-content {
     padding: 0 15px;
     border-radius: 5px;
 
-    .event-date {
+    .event-name {
         font-size: 16px;
         font-family: MMedium;
+        text-transform: uppercase;
+    }
+
+    .event-date {
+        font-size: 10px;
+        font-family: MMedium;
+        color: #7F7F7F;
         text-transform: uppercase;
     }
 
@@ -116,6 +123,27 @@ ion-content {
         font-size: 10px;
         font-family: MMedium;
         line-height: 0;
+    }
+
+    .status-chip {
+        display: flex;
+        font-size: 10px;
+        align-items: center;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 50px;
+    }
+
+    .successful {
+        background: #63B508;
+    }
+
+    .cancelled {
+        background: #D0021B;
+    }
+
+    .penalty {
+        background: #F5A623;
     }
 
     .view-event {
@@ -161,31 +189,6 @@ ion-content {
         text-align: center;
         color: white;
         font-family: MMedium;
-    }
-}
-
-.event-list-item {
-    background-color: white;
-    padding: 0 15px;
-    border-radius: 5px;
-
-    .event-date {
-        font-size: 16px;
-        font-family: MMedium;
-    }
-
-    .event-detail {
-        font-size: 10px;
-        font-family: MMedium;
-        line-height: 0;
-    }
-
-    .view-event {
-        padding: 10px;
-        border-top: 1px solid #ccc;
-        color: var(--ion-color-primary);
-        font-size: 12px;
-        font-family: MSemiBold;
     }
 }
 
