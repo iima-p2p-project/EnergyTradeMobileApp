@@ -32,6 +32,71 @@
     </ion-col>
   </ion-row>
 
+  <ion-grid class="total-earning">
+    <ion-row class="px-3">
+      <ion-col class="card p-0">
+        <ion-row class="py-3">
+          <ion-col size="12" class="p-0 text-center header">TOTAL EARNING (30 TRANSACTIONS)</ion-col>
+          <ion-col size="12" class="p-0 d-flex align-items-center justify-content-center header-amount">
+            <div> ₹ 2878.90</div>
+            <div class="ml-2 d-flex align-items-center justify-content-center percent-chip">
+              <ion-icon *ngIf="false" name="arrow-dropdown"></ion-icon>
+              <ion-icon *ngIf="true" name="md-arrow-dropup"></ion-icon>
+              2.66%
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="p-0 px-4 d-flex align-items-center justify-content-between border-bottom">
+            <div class="duration duration-active">
+              <div>Transaction</div>
+              <div class="tab-indicator"></div>
+            </div>
+            <div class="duration">
+              <div>Daily</div>
+              <div class="tab-indicator"></div>
+            </div>
+            <div class="duration">
+              <div>Weekly</div>
+              <div class="tab-indicator"></div>
+            </div>
+            <div class="duration">
+              <div>Monthly</div>
+              <div class="tab-indicator"></div>
+            </div>
+            <div class="duration">
+              <div>Yearly</div>
+              <div class="tab-indicator"></div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="earning-details">
+          <ion-col class="px-2 py-3 d-flex align-items-center justify-content-between">
+            <div>
+              <div class="d-flex align-items-center">
+                <div class="amount"> ₹ 44.5</div>
+                <div class="ml-1 d-flex align-items-center justify-content-center percent-chip">
+                  <ion-icon *ngIf="false" name="arrow-dropdown"></ion-icon>
+                  <ion-icon *ngIf="true" name="md-arrow-dropup"></ion-icon>
+                  2.66%
+                </div>
+              </div>
+              <div class="description">YOUR EARNING (AVG)</div>
+            </div>
+            <div>
+              <div class="amount"> ₹ 44.5</div>
+              <div class="description">TOP 20 PERCENTILE</div>
+            </div>
+            <div>
+              <div class="amount"> ₹ 44.5</div>
+              <div class="description">BOTTOM 20 PERCENTILE</div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-grid>
     <ion-row>
       <ion-col size="9" class="p-0 pl-1 d-flex align-items-center title">
