@@ -114,25 +114,26 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
+  <!-- completed -->
+  <ion-grid *ngIf="completedEvents?.length > 0">
     <ion-row>
       <ion-col size="12" class="p-0 pl-1 d-flex align-items-center title">
         Completed DR Event Sets ({{eventSetsWithScheduledEvents?.length}})&nbsp;<ion-icon
           name="information-circle-outline"></ion-icon>
       </ion-col>
     </ion-row>
-    <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
+    <ion-row class="event-list-item mt-1" *ngFor="let event of completedEvents">
       <ion-col size="12" class="p-0 pt-2 d-flex align-items-center justify-content-between">
         <div>
-          <div class="event-name">{{eventset?.eventSetName}}</div>
-          <div class="event-date">{{formatTime(eventset?.createdTs)}}</div>
+          <div class="event-name">{{event?.eventName}}</div>
+          <div class="event-date">{{formatTime(event?.eventStartTime)}}</div>
         </div>
         <div class="status-chip successful">SUCCESSFUL</div>
       </ion-col>
       <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{event?.commitedPower}} Dr Events
           </div>
           <div class="d-flex align-items-center">
             Scheduled: {{countScheduled(eventset)}}
@@ -263,3 +264,17 @@
 
   </ion-grid> -->
 </ion-content>
+<ion-footer class="the-footer">
+  <ion-grid class="ion-text-center" style="padding:0;opacity:0.5;">
+    <ion-row>
+      <ion-col class="bottom-footer" (click)="applyPeriodFilter()">
+        <ion-icon class="icon" name="time"></ion-icon>
+        EVENTS
+      </ion-col>
+      <ion-col class="bottom-footer" (click)="applyEnergyFilter()">
+        <ion-icon class="icon" name="calendar"></ion-icon>
+        PERIOD
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

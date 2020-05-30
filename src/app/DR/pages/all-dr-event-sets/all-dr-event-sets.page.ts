@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { IngressService } from 'src/app/services/ingress.service';
 import { DRCustomerService } from 'src/app/services/drcustomer.service';
 import * as moment from 'moment';
+import { PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core';
 
 @Component({
   selector: 'app-all-dr-event-sets',
@@ -13,10 +15,15 @@ export class AllDrEventSetsPage implements OnInit {
 
   constructor(private router: Router
     , private ingressService: IngressService
-    , private drCustomerService: DRCustomerService) { }
+    , private drCustomerService: DRCustomerService
+    , private pickerCtrl: PickerController) { }
 
   userId;
   eventSets;
+  allEvents;
+  completedEvents;
+  cancelledEvents;
+  penaltyEvents;
   eventSetsWithPublishedEvents;
   eventSetsWithScheduledEvents;
   eventSetsWithCompletedEvents;
@@ -29,6 +36,7 @@ export class AllDrEventSetsPage implements OnInit {
   ionViewDidEnter() {
     //fetch event set details for customer
     let user = this.userId;
+    this.allEvents = [];
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
       console.log(this.eventSets);
@@ -37,6 +45,18 @@ export class AllDrEventSetsPage implements OnInit {
       this.eventSetsWithCompletedEvents = this.eventSets.filter(eventSet => this.checkForCompletedEvent(eventSet));
       this.eventSetsWithCancelledEvents = this.eventSets.filter(eventSet => this.checkForCancelledEvent(eventSet));
       this.eventSetsWithPenaltyEvents = this.eventSets.filter(eventSet => this.checkForPenaltyEvent(eventSet));
+      // this.eventSets.forEach(eventSet => {
+      //   let events = eventSet.events;
+      //   this.allEvents.concat(eventSet.events);
+      // });
+      this.allEvents = this.eventSets[0].events;
+      for (var i = 1; i < this.eventSets.length; i++) {
+        this.allEvents = this.eventSets[i].events;
+      }
+      console.log("ALL events skr", this.allEvents);
+      this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8");
+      this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
+      this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
     });
   }
   checkForCompletedEvent(eventSet) {
@@ -90,7 +110,7 @@ export class AllDrEventSetsPage implements OnInit {
   countScheduled(eventSet) {
     let scheduled = 0;
     for (let i = 0; i < eventSet.events.length; i++)
-      if (eventSet.events[i].eventCustomerMappingStatus == "2")
+      if (eventSet.events[i].eventCustomerMappingStatus == "3")
         scheduled++;
     return scheduled;
   }
@@ -139,9 +159,9 @@ export class AllDrEventSetsPage implements OnInit {
 
 
   findMaxAndMinPower(eventSet): string {
-    let max = 0;
-    let min = 0;
-    for (let i = 0; i < eventSet.events.length; i++) {
+    let max = eventSet.events[0].plannedPower;
+    let min = eventSet.events[0].plannedPower;
+    for (let i = 1; i < eventSet.events.length; i++) {
       if (eventSet.events[i].plannedPower > max)
         max = eventSet.events[i].plannedPower;
       if (eventSet.events[i].plannedPower < min)
@@ -153,9 +173,9 @@ export class AllDrEventSetsPage implements OnInit {
   }
 
   findMaxAndMinPrice(eventSet): string {
-    let max = 0;
-    let min = 0;
-    for (let i = 0; i < eventSet.events.length; i++) {
+    let max = eventSet.events[0].plannedPrice;
+    let min = eventSet.events[0].plannedPrice;
+    for (let i = 1; i < eventSet.events.length; i++) {
       if (eventSet.events[i].plannedPrice > max)
         max = eventSet.events[i].plannedPrice;
       if (eventSet.events[i].plannedPrice < min)
@@ -164,6 +184,47 @@ export class AllDrEventSetsPage implements OnInit {
 
     return min + " - " + max + " Paise/KWH"
 
+  }
+
+  async applyPeriodFilter() {
+    console.log("Apply Period Filter");
+
+    let opts: PickerOptions = {
+      buttons: [{
+        text: 'Ok', role: 'done', handler: async () => {
+          let col = await picker.getColumn('periodOptions');
+          console.log("Selected Col", col);
+          let periodFilterKey = col.options[col.selectedIndex].value;
+          console.log("Filter Key:", periodFilterKey);
+          if (periodFilterKey == 'All')
+            console.log("All clicked");
+
+        }
+      }, {
+        text: "Cancel", role: "cancel", handler: () => {
+
+        }
+      }],
+      columns: [{
+        name: "periodOptions",
+        options: [{ text: "All", value: "All" }
+          , { text: "Canceled", value: "Canceled" }
+          , { text: "Completed", value: "Completed" }
+          , { text: "Scheduled", value: "Scheduled" }
+          , { text: "Penalty", value: "Penalty" }]
+      }]
+    }
+    let picker = await this.pickerCtrl.create(opts)
+    picker.present();
+    // picker.onDidDismiss().then(async data => {
+
+    // }
+    // );
+  }
+
+
+  applyEnergyFilter() {
+    window.alert("This is an upcoming functionality");
   }
 
 

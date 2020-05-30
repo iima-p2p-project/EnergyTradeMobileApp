@@ -19,9 +19,6 @@
 
 
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="refreshEventSets($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
   <ion-row>
     <ion-col class="menu-button" size="2">
       <ion-menu-button></ion-menu-button>
@@ -34,6 +31,12 @@
       <ion-icon src="assets/svg/notifications.svg"></ion-icon>
     </ion-col>
   </ion-row>
+
+  <ion-refresher slot="fixed" (ionRefresh)="refreshEventSets($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+      refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <ion-grid class="total-earning">
     <ion-row class="px-3">

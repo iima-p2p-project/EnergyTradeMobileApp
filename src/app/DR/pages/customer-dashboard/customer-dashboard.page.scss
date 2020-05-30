@@ -30,7 +30,7 @@ ion-content {
     height: 15px;
     width: 50px;
     font-size: 10px;
-    color: #63B508;
+    color: #63b508;
     background-color: #63b50840;
     border-radius: 15px;
 
@@ -170,4 +170,8 @@ ion-content {
             color: #f5a724;
         }
     }
+}
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
 }

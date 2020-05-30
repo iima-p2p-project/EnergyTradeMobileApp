@@ -115,7 +115,7 @@ ion-content {
     .event-date {
         font-size: 10px;
         font-family: MMedium;
-        color: #7F7F7F;
+        color: #7f7f7f;
         text-transform: uppercase;
     }
 
@@ -135,15 +135,15 @@ ion-content {
     }
 
     .successful {
-        background: #63B508;
+        background: #63b508;
     }
 
     .cancelled {
-        background: #D0021B;
+        background: #d0021b;
     }
 
     .penalty {
-        background: #F5A623;
+        background: #f5a623;
     }
 
     .view-event {
@@ -231,5 +231,23 @@ ion-content {
         .orange {
             color: #f5a724;
         }
+    }
+}
+
+.the-footer {
+    background-color: #0048a8;
+    color: white;
+    padding: 0;
+}
+.bottom-footer {
+    border: rgba(173, 216, 230, 0.3) 0.5px solid;
+    padding: 1em;
+    font-family: MSemiBold !important;
+
+    .icon {
+        display: inline-block;
+        vertical-align: middle;
+        zoom: 1;
+        // color:white;
     }
 }
