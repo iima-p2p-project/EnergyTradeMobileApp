@@ -13,7 +13,8 @@
     </ion-buttons>
   </ion-toolbar>
   <div size="12" class="description px-4 pb-3 text-center">
-    DR call on <b>26th October</b> with 5 events that requires <b> 900 kW - 100kW </b> power for 600-1124 paise/kWh
+    DR call on <b>26th October</b> with {{publishedEvents?.length}} events that requires <b>{{maxMinPower}}</b> power for
+    {{maxMinPrice}}
   </div>
 </ion-header>
 
@@ -23,11 +24,11 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-grid>
-    <ion-row class="mt-2">
+    <!-- <ion-row class="mt-2">
       <ion-col size="12" class="p-0 pl-3 d-flex align-items-center title">
         9:00 AM - 10:00 AM
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <ion-row class="mt-2" *ngFor="let event of publishedEvents">
       <ion-col size="12" class="p-0 px-1">
         <div class="event-list-item rounded ">

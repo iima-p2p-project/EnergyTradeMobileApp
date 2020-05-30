@@ -19,6 +19,9 @@
 
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refreshEventSets($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-row>
     <ion-col class="menu-button" size="2">
       <ion-menu-button></ion-menu-button>
@@ -104,7 +107,7 @@
           name="information-circle-outline"></ion-icon>
       </ion-col>
       <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all "
-        (click)="viewAllEventSets()">
+        (click)="viewAllEventSets()" *ngIf="eventSetsWithPublishedEvents?.length > 0">
         View All &nbsp;&nbsp;<ion-icon name="arrow-forward"></ion-icon>
       </ion-col>
     </ion-row>

@@ -54,7 +54,7 @@ export class CustomerDashboardPage implements OnInit {
   countScheduled(eventSet) {
     let scheduled = 0;
     for (let i = 0; i < eventSet.events.length; i++)
-      if (eventSet.events[i].eventCustomerMappingStatus == "2")
+      if (eventSet.events[i].eventCustomerMappingStatus == "3")
         scheduled++;
     return scheduled;
   }
@@ -103,12 +103,12 @@ export class CustomerDashboardPage implements OnInit {
 
 
   findMaxAndMinPower(eventSet): string {
-    let max = 0;
-    let min = 0;
-    for (let i = 0; i < eventSet.events.length; i++) {
-      if (eventSet.events[i].plannedPower > max)
+    let max = eventSet.events[0].plannedPower;
+    let min = eventSet.events[0].plannedPower;
+    for (let i = 1; i < eventSet.events.length; i++) {
+      if (+eventSet.events[i].plannedPower > max)
         max = eventSet.events[i].plannedPower;
-      if (eventSet.events[i].plannedPower < min)
+      if (+eventSet.events[i].plannedPower < min)
         min = eventSet.events[i].plannedPower;
     }
 
@@ -117,16 +117,32 @@ export class CustomerDashboardPage implements OnInit {
   }
 
   findMaxAndMinPrice(eventSet): string {
-    let max = 0;
-    let min = 0;
-    for (let i = 0; i < eventSet.events.length; i++) {
-      if (eventSet.events[i].plannedPrice > max)
+    let max = eventSet.events[0].plannedPrice;
+    let min = eventSet.events[0].plannedPrice;
+    for (let i = 1; i < eventSet.events.length; i++) {
+      if (+eventSet.events[i].plannedPrice > max)
         max = eventSet.events[i].plannedPrice;
-      if (eventSet.events[i].plannedPrice < min)
+      if (+eventSet.events[i].plannedPrice < min)
         min = eventSet.events[i].plannedPrice;
     }
 
     return min + " - " + max + " Paise/KWH"
+
+  }
+
+  refreshEventSets(refreshEvent) {
+
+    let user = this.userId;
+    this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
+      this.eventSets = res.response.eventSets;
+      console.log(this.eventSets);
+      this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
+      this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
+    });
+
+    setTimeout(() => {
+      refreshEvent.target.complete();
+    }, 1000);
 
   }
 

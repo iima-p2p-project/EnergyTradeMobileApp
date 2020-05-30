@@ -47,8 +47,8 @@ export class EventSetDetailsPage implements OnInit {
       this.maxMinPrice = params["maxMinPrice"];
       this.maxMinPower = params["maxMinPower"];
       this.eventSetName = params["evenSetName"];
-      this.userId= this.ingressService.loggedInUser.userId;
-      
+      this.userId = this.ingressService.loggedInUser.userId;
+
       //get event set events
       this.getEvents();
 
@@ -58,6 +58,7 @@ export class EventSetDetailsPage implements OnInit {
   getEvents() {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
+      console.log("All events", this.allEvents);
       this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2)
       this.allCustomerDevices = res.response.allCustomerDevices;
       this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
