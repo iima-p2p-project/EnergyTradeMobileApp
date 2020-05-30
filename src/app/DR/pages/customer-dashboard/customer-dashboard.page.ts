@@ -19,6 +19,9 @@ export class CustomerDashboardPage implements OnInit {
   eventSets;
   eventSetsWithPublishedEvents;
   eventSetsWithScheduledEvents;
+  penaltyCount;
+  cancelledCount;
+  successfulCount;
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
 
@@ -32,6 +35,7 @@ export class CustomerDashboardPage implements OnInit {
       this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
       this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
     });
+    this.fetchEventCounts();
   }
 
   checkForScheduledEvent(eventSet): boolean {
@@ -139,10 +143,23 @@ export class CustomerDashboardPage implements OnInit {
       this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
       this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
     });
+    this.fetchEventCounts();
 
     setTimeout(() => {
       refreshEvent.target.complete();
-    }, 1000);
+    }, 500);
+
+  }
+
+  fetchEventCounts() {
+
+    this.drCustomerService.fetchEventCounts(this.ingressService.loggedInUser.userId).subscribe((res: any) => {
+      this.successfulCount = res.response.successfulEventsCount;
+      this.cancelledCount = res.response.cancelledEventsCount;
+      this.penaltyCount = res.response.penaltyEventsCount;
+    }, (err) => {
+      window.alert("Something went wrong in fetching event counts");
+    })
 
   }
 

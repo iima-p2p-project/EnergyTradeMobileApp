@@ -20,6 +20,7 @@ export class DRCustomerService {
   addDRDeviceUrl = DR_URL + '/addDRCustomerDevice';
   updateDRDeviceUrl = DR_URL + '/updateDRCustomerDevice';
   deleteDRDeviceUrl = DR_URL + '/deleteDRCustomerDevice';
+  fetchEventCountsUrl = DR_URL + '/fetchEventCounts';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -191,4 +192,17 @@ export class DRCustomerService {
       , options
     );
   }
+
+
+  fetchEventCounts(userId: any) {
+    var options = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.httpClient.get(this.fetchEventCountsUrl + "/" + userId
+      , options
+    );
+  }
+
+
 }
