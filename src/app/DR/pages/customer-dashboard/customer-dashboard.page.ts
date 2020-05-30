@@ -74,25 +74,27 @@ export class CustomerDashboardPage implements OnInit {
     this.router.navigateByUrl('/all-dr-event-sets');
   }
   showEventSetDetails(eventSet, type) {
-    if (type == "scheduled") {
-      this.router.navigate(['/scheduled-event-set-details'], {
-        queryParams: {
-          eventSetId: eventSet.eventSetId,
-          caller: "/customer-dashboard",
-          evenSetName: eventSet.eventSetName,
-          maxMinPower: this.findMaxAndMinPower(eventSet),
-          maxMinPrice: this.findMaxAndMinPrice(eventSet)
-        }
-      });
+    // if (type == "scheduled") {
+    //   this.router.navigate(['/scheduled-event-set-details'], {
+    //     queryParams: {
+    //       eventSetId: eventSet.eventSetId,
+    //       caller: "/customer-dashboard",
+    //       evenSetName: eventSet.eventSetName,
+    //       maxMinPower: this.findMaxAndMinPower(eventSet),
+    //       maxMinPrice: this.findMaxAndMinPrice(eventSet)
+    //     }
+    //   });
 
-    } else if (type == "published") {
+    // } else 
+    if (type == "published") {
       this.router.navigate(['/event-set-details'], {
         queryParams: {
           eventSetId: eventSet.eventSetId,
           caller: "/customer-dashboard",
           evenSetName: eventSet.eventSetName,
           maxMinPower: this.findMaxAndMinPower(eventSet),
-          maxMinPrice: this.findMaxAndMinPrice(eventSet)
+          maxMinPrice: this.findMaxAndMinPrice(eventSet),
+          eventSetDate: eventSet.eventSetDate
         }
       });
     }

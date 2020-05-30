@@ -31,6 +31,7 @@ export class EventSetDetailsPage implements OnInit {
   maxMinTime;
   eventSetName;
   publishedEvents;
+  eventSetDate;
 
 
   selectedDevices = {};
@@ -47,6 +48,9 @@ export class EventSetDetailsPage implements OnInit {
       this.maxMinPrice = params["maxMinPrice"];
       this.maxMinPower = params["maxMinPower"];
       this.eventSetName = params["evenSetName"];
+      this.eventSetDate = params["eventSetDate"];
+
+      this.eventSetDate = moment(this.eventSetDate, 'YYYY-MM-DD').format('Do MMM');
       this.userId = this.ingressService.loggedInUser.userId;
 
       //get event set events
