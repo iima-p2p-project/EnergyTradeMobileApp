@@ -45,7 +45,8 @@
               <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;{{event.expectedPrice}} Paise/KWH
             </div>
           </div>
-          <div class="px-2">
+          <!-- devices -->
+          <div class="px-2" *ngIf="allCustomerDevices?.length > 0">
             <div class="border-bottom py-2">
               <ion-chip *ngFor="let device of allCustomerDevices"
                 [ngClass]="chipCssCheck(event?.eventId, device) ? 'border event-chip active':'border event-chip inactive'"
@@ -57,17 +58,20 @@
               </ion-chip> -->
             </div>
           </div>
-          <div class="p-1 d-flex align-items-center event-rate">
+          <!-- amounts -->
+          <div class="p-1 d-flex align-items-center event-rate" *ngIf="allCustomerDevices?.length > 0">
             <div class="w-50 pr-3 text-right border-right">{{selectedDevices[event.eventId].commitedPower}} KW (±3%)
             </div>
             <div class="w-50 pl-3 text-left"> ₹ {{(event.expectedPrice *
               selectedDevices[event.eventId].commitedPower)/100}} (±3%)</div>
           </div>
+          <!-- success messages -->
           <div class="d-flex align-items-center justify-content-around border-top submit"
-            *ngIf="selectedDevices[event.eventId].status == 'participated'">
+            *ngIf="selectedDevices[event.eventId].status == 'participated' && allCustomerDevices?.length > 0">
             <div class="py-2 text-center">You have agreed to participate</div>
             <div class="py-2 text-center btn-event"
-              (click)="editEvent(event.eventId,'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)">
+              (click)="editEvent(event.eventId,'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)"
+              *ngIf="allCustomerDevices?.length > 0">
               EDIT</div>
             <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div>
           </div>
@@ -78,14 +82,28 @@
             <!-- <div class="py-2 text-center btn-event" (click)="editEvent(event.eventId,'counterbid')">EDIT</div>
             <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div> -->
           </div>
+
+          <!-- buttons- participate and counter bid -->
           <div class="d-flex align-items-center border-top btn-event"
-            *ngIf="selectedDevices[event.eventId].status == 'published'">
+            *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length > 0">
             <div class="w-50 p-2 text-center border-right"
               (click)="counterBid(event.eventId,event.eventStartTime,event.eventEndTime,event.expectedPrice)">Counter
               Bid</div>
             <div class="w-50 p-2 text-center"
               (click)="participateInEvent(event.eventId,selectedDevices[event.eventId].commitedPower,selectedDevices[event.eventId].devices)">
               Participate</div>
+          </div>
+          <!-- no asset available text -->
+          <div class="d-flex align-items-center info-txt"
+            *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length == 0">
+            <div class="w-100 text-center">There are no energy assets available. To participate in the
+              DR event, please add energy assets. </div>
+          </div>
+          <!-- button -add asset -->
+          <div class="d-flex align-items-center border-top btn-event"
+            *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length == 0">
+            <div class="w-100 p-2 text-center border-right" (click)="addDevices()">ADD ENERGY
+              ASSETS</div>
           </div>
         </div>
       </ion-col>

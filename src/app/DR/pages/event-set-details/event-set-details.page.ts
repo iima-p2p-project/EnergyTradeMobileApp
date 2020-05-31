@@ -262,6 +262,15 @@ export class EventSetDetailsPage implements OnInit {
     return await withdrawEventModal.present();
   }
 
+  addDevices() {
+    this.router.navigate(['add-drasset'], {
+      queryParams: {
+        redirect: "/event-set-details",
+        type: "ADD"
+      }
+    });
+  }
+
 
 }
 
