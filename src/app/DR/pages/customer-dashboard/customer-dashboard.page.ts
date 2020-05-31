@@ -38,19 +38,20 @@ export class CustomerDashboardPage implements OnInit {
       console.log(this.eventSets);
       this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
       this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
+
+      this.allEvents = this.eventSets[0].events;
+      for (var i = 1; i < this.eventSets.length; i++) {
+        this.allEvents = this.allEvents.concat(this.eventSets[i].events);
+      }
+      this.allEvents = this.allEvents.filter(event => (
+        event.eventCustomerMappingStatus == "8"
+        || event.eventCustomerMappingStatus == "9"
+        || event.eventCustomerMappingStatus == "10"
+      ));
+      console.log("ALL events skr", this.allEvents);
+      this.fetchEventCounts();
     });
 
-    this.allEvents = this.eventSets[0].events;
-    for (var i = 1; i < this.eventSets.length; i++) {
-      this.allEvents = this.allEvents.concat(this.eventSets[i].events);
-    }
-    this.allEvents = this.allEvents.filter(event => (
-      event.eventCustomerMappingStatus == "8"
-      || event.eventCustomerMappingStatus == "9"
-      || event.eventCustomerMappingStatus == "10"
-    ));
-    console.log("ALL events skr", this.allEvents);
-    this.fetchEventCounts();
   }
 
   checkForScheduledEvent(eventSet): boolean {
@@ -89,19 +90,18 @@ export class CustomerDashboardPage implements OnInit {
     this.router.navigateByUrl('/all-dr-event-sets');
   }
   showEventSetDetails(eventSet, type) {
-    // if (type == "scheduled") {
-    //   this.router.navigate(['/scheduled-event-set-details'], {
-    //     queryParams: {
-    //       eventSetId: eventSet.eventSetId,
-    //       caller: "/customer-dashboard",
-    //       evenSetName: eventSet.eventSetName,
-    //       maxMinPower: this.findMaxAndMinPower(eventSet),
-    //       maxMinPrice: this.findMaxAndMinPrice(eventSet)
-    //     }
-    //   });
+    if (type == "scheduled") {
+      this.router.navigate(['/scheduled-event-set-details'], {
+        queryParams: {
+          eventSetId: eventSet.eventSetId,
+          caller: "/customer-dashboard",
+          evenSetName: eventSet.eventSetName,
+          maxMinPower: this.findMaxAndMinPower(eventSet),
+          maxMinPrice: this.findMaxAndMinPrice(eventSet)
+        }
+      });
 
-    // } else 
-    if (type == "published") {
+    } else if (type == "published") {
       this.router.navigate(['/event-set-details'], {
         queryParams: {
           eventSetId: eventSet.eventSetId,

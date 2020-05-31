@@ -163,7 +163,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
   }
 
   formatTime(eventTime) {
-    return moment.utc(eventTime).format("hh:mm a");
+    return moment.utc(eventTime).format("hh:mm A");
   }
 
   getEventCustomerStatus(status) {

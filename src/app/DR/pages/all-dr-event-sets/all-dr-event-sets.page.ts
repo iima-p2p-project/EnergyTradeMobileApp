@@ -135,8 +135,21 @@ export class AllDrEventSetsPage implements OnInit {
     this.router.navigateByUrl('/all-dr-event-sets');
   }
   showEventSetDetails(eventSet, type) {
-    if (type == "published") {
-      this.router.navigate(['/event-set-details'], {  
+
+    if (type == "scheduled") {
+      this.router.navigate(['/scheduled-event-set-details'], {
+        queryParams: {
+          eventSetId: eventSet.eventSetId,
+          caller: "/customer-dashboard",
+          evenSetName: eventSet.eventSetName,
+          maxMinPower: this.findMaxAndMinPower(eventSet),
+          maxMinPrice: this.findMaxAndMinPrice(eventSet),
+          eventSetDate: eventSet.eventSetDate
+        }
+      });
+
+    } else if (type == "published") {
+      this.router.navigate(['/event-set-details'], {
         queryParams: {
           eventSetId: eventSet.eventSetId,
           caller: "/customer-dashboard",
@@ -186,44 +199,41 @@ export class AllDrEventSetsPage implements OnInit {
   }
 
   async applyPeriodFilter() {
-    console.log("Apply Period Filter");
+    // console.log("Apply Period Filter");
 
-    let opts: PickerOptions = {
-      buttons: [{
-        text: 'Ok', role: 'done', handler: async () => {
-          let col = await picker.getColumn('periodOptions');
-          console.log("Selected Col", col);
-          let periodFilterKey = col.options[col.selectedIndex].value;
-          console.log("Filter Key:", periodFilterKey);
-          if (periodFilterKey == 'All')
-            console.log("All clicked");
+    // let opts: PickerOptions = {
+    //   buttons: [{
+    //     text: 'Ok', role: 'done', handler: async () => {
+    //       let col = await picker.getColumn('periodOptions');
+    //       console.log("Selected Col", col);
+    //       let periodFilterKey = col.options[col.selectedIndex].value;
+    //       console.log("Filter Key:", periodFilterKey);
+    //       if (periodFilterKey == 'All')
+    //         console.log("All clicked");
 
-        }
-      }, {
-        text: "Cancel", role: "cancel", handler: () => {
+    //     }
+    //   }, {
+    //     text: "Cancel", role: "cancel", handler: () => {
 
-        }
-      }],
-      columns: [{
-        name: "periodOptions",
-        options: [{ text: "All", value: "All" }
-          , { text: "Canceled", value: "Canceled" }
-          , { text: "Completed", value: "Completed" }
-          , { text: "Scheduled", value: "Scheduled" }
-          , { text: "Penalty", value: "Penalty" }]
-      }]
-    }
-    let picker = await this.pickerCtrl.create(opts)
-    picker.present();
-    // picker.onDidDismiss().then(async data => {
-
+    //     }
+    //   }],
+    //   columns: [{
+    //     name: "periodOptions",
+    //     options: [{ text: "All", value: "All" }
+    //       , { text: "Canceled", value: "Canceled" }
+    //       , { text: "Completed", value: "Completed" }
+    //       , { text: "Scheduled", value: "Scheduled" }
+    //       , { text: "Penalty", value: "Penalty" }]
+    //   }]
     // }
-    // );
+    // let picker = await this.pickerCtrl.create(opts)
+    // picker.present();
+    window.alert("This is an upcoming functionality. Stay Tuned.")
   }
 
 
   applyEnergyFilter() {
-    window.alert("This is an upcoming functionality");
+    window.alert("This is an upcoming functionality. Stay Tuned.");
   }
 
   getStartEnd(startTime, endTime) {

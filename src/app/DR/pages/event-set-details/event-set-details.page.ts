@@ -153,7 +153,7 @@ export class EventSetDetailsPage implements OnInit {
     return minTime.format("hh:mm A") + " - " + maxTime.format("hh:mm A");
   }
   formatTime(eventTime) {
-    return moment.utc(eventTime).format("hh:mm a");
+    return moment.utc(eventTime).format("hh:mm A");
   }
 
 

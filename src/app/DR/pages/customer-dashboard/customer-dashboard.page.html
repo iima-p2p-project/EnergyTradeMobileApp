@@ -114,7 +114,7 @@
         View All &nbsp;&nbsp;<ion-icon name="arrow-forward"></ion-icon>
       </ion-col>
     </ion-row>
-
+    <!-- empty state -->
     <ion-row *ngIf="eventSetsWithPublishedEvents?.length==0">
       <ion-col size="12">
         <div class="empty-event-list rounded">
@@ -127,9 +127,9 @@
     </ion-row>
 
     <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithPublishedEvents; let i = index">
-      <ion-col size="12" class="p-0 py-2" *ngIf="i<1">
+      <ion-col size="12" class="p-0 py-2" *ngIf="i<2">
         <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
-        <div class="event-date">{{eventset?.eventSetName}}</div>
+        <div class="event-name">{{eventset?.eventSetName}}</div>
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
             <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
@@ -142,7 +142,7 @@
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'published')" *ngIf="i<1">
+      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'published')" *ngIf="i<2">
         View Events
       </ion-col>
     </ion-row>
@@ -178,9 +178,9 @@
       </ion-col>
     </ion-row>
     <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents; let i = index">
-      <ion-col size="12" class="p-0 py-2" *ngIf="i<1">
+      <ion-col size="12" class="p-0 py-2" *ngIf="i<2">
         <!-- <div class="event-date">{{formatTime(eventset?.createdTs)}}</div> -->
-        <div class="event-date">{{eventset?.eventSetName}}</div>
+        <div class="event-name">{{eventset?.eventSetName}}</div>
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
             <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
@@ -193,7 +193,7 @@
           </div>
         </div>
       </ion-col>
-      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'scheduled')" *ngIf="i<1">
+      <ion-col size="12" class="text-center view-event" (click)="showEventSetDetails(eventset,'scheduled')" *ngIf="i<2">
         View Events
       </ion-col>
     </ion-row>
