@@ -29,6 +29,8 @@ export class AllDrEventSetsPage implements OnInit {
   eventSetsWithCompletedEvents;
   eventSetsWithCancelledEvents;
   eventSetsWithPenaltyEvents;
+  totalEarnings = 0;
+  totalPenalty = 0;
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
 
@@ -42,21 +44,28 @@ export class AllDrEventSetsPage implements OnInit {
       console.log(this.eventSets);
       this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet));
       this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet));
-      this.eventSetsWithCompletedEvents = this.eventSets.filter(eventSet => this.checkForCompletedEvent(eventSet));
-      this.eventSetsWithCancelledEvents = this.eventSets.filter(eventSet => this.checkForCancelledEvent(eventSet));
-      this.eventSetsWithPenaltyEvents = this.eventSets.filter(eventSet => this.checkForPenaltyEvent(eventSet));
+      // this.eventSetsWithCompletedEvents = this.eventSets.filter(eventSet => this.checkForCompletedEvent(eventSet));
+      // this.eventSetsWithCancelledEvents = this.eventSets.filter(eventSet => this.checkForCancelledEvent(eventSet));
+      // this.eventSetsWithPenaltyEvents = this.eventSets.filter(eventSet => this.checkForPenaltyEvent(eventSet));
       // this.eventSets.forEach(eventSet => {
       //   let events = eventSet.events;
       //   this.allEvents.concat(eventSet.events);
       // });
       this.allEvents = this.eventSets[0].events;
       for (var i = 1; i < this.eventSets.length; i++) {
-        this.allEvents = this.eventSets[i].events;
+        this.allEvents = this.allEvents.concat(this.eventSets[i].events);
       }
+      this.allEvents = this.allEvents.filter(event => (
+        event.eventCustomerMappingStatus == "8"
+        || event.eventCustomerMappingStatus == "9"
+        || event.eventCustomerMappingStatus == "10"
+      ));
       console.log("ALL events skr", this.allEvents);
       this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8");
       this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
       this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
+
+
     });
   }
   checkForCompletedEvent(eventSet) {
@@ -126,25 +135,15 @@ export class AllDrEventSetsPage implements OnInit {
     this.router.navigateByUrl('/all-dr-event-sets');
   }
   showEventSetDetails(eventSet, type) {
-    if (type == "scheduled") {
-      this.router.navigate(['/scheduled-event-set-details'], {
+    if (type == "published") {
+      this.router.navigate(['/event-set-details'], {  
         queryParams: {
           eventSetId: eventSet.eventSetId,
           caller: "/customer-dashboard",
           evenSetName: eventSet.eventSetName,
           maxMinPower: this.findMaxAndMinPower(eventSet),
-          maxMinPrice: this.findMaxAndMinPrice(eventSet)
-        }
-      });
-
-    } else if (type == "published") {
-      this.router.navigate(['/event-set-details'], {
-        queryParams: {
-          eventSetId: eventSet.eventSetId,
-          caller: "/customer-dashboard",
-          evenSetName: eventSet.eventSetName,
-          maxMinPower: this.findMaxAndMinPower(eventSet),
-          maxMinPrice: this.findMaxAndMinPrice(eventSet)
+          maxMinPrice: this.findMaxAndMinPrice(eventSet),
+          eventSetDate: eventSet.eventSetDate
         }
       });
     }
@@ -227,5 +226,18 @@ export class AllDrEventSetsPage implements OnInit {
     window.alert("This is an upcoming functionality");
   }
 
+  getStartEnd(startTime, endTime) {
+    return moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A")
+  }
+  getTotalEarnings() {
+    this.totalEarnings = 0;
+    this.totalPenalty = 0;
+
+    this.allEvents.forEach(event => {
+      this.totalEarnings += +event.bidprice * +event.committedPower;
+      this.totalPenalty += +event.customerFine;
+    });
+
+  }
 
 }

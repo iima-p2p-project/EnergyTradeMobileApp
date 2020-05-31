@@ -22,6 +22,9 @@ export class CustomerDashboardPage implements OnInit {
   penaltyCount;
   cancelledCount;
   successfulCount;
+  allEvents;
+  totalEarnings = 0;
+  totalPenalty = 0;
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
 
@@ -29,12 +32,24 @@ export class CustomerDashboardPage implements OnInit {
   ionViewDidEnter() {
     //fetch event set details for customer
     let user = this.userId;
+    this.allEvents = [];
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
       console.log(this.eventSets);
       this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
       this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
     });
+
+    this.allEvents = this.eventSets[0].events;
+    for (var i = 1; i < this.eventSets.length; i++) {
+      this.allEvents = this.allEvents.concat(this.eventSets[i].events);
+    }
+    this.allEvents = this.allEvents.filter(event => (
+      event.eventCustomerMappingStatus == "8"
+      || event.eventCustomerMappingStatus == "9"
+      || event.eventCustomerMappingStatus == "10"
+    ));
+    console.log("ALL events skr", this.allEvents);
     this.fetchEventCounts();
   }
 
@@ -162,6 +177,16 @@ export class CustomerDashboardPage implements OnInit {
     }, (err) => {
       window.alert("Something went wrong in fetching event counts");
     })
+  }
+
+  getTotalEarnings() {
+    this.totalEarnings = 0;
+    this.totalPenalty = 0;
+
+    this.allEvents.forEach(event => {
+      this.totalEarnings += +event.bidprice * +event.committedPower;
+      this.totalPenalty += +event.customerFine;
+    });
 
   }
 

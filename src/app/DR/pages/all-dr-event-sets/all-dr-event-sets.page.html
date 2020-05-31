@@ -24,8 +24,9 @@
       <ion-col size="12">
         <div class="total-earning rounded px-2 pb-2 d-flex justify-content-between">
           <div>
-            <div class="d-flex align-items-center">₹ <span class="earning pl-2"> 1940.00</span></div>
-            <div class="text-center description">Total Earnings (24 events)</div>
+            <div class="d-flex align-items-center">₹ <span class="earning pl-2"> {{totalEarnings - totalPenalty}}</span>
+            </div>
+            <div class="text-center description">Total Earnings ({{allEvents?.length}} events)</div>
           </div>
           <div class="d-flex align-items-end">
             <ion-icon src="assets/svg/forecast-data.svg" style="font-size: 50px;color: white;"></ion-icon>
@@ -118,8 +119,8 @@
   <ion-grid *ngIf="completedEvents?.length > 0">
     <ion-row>
       <ion-col size="12" class="p-0 pl-1 d-flex align-items-center title">
-        Completed DR Event Sets ({{eventSetsWithScheduledEvents?.length}})&nbsp;<ion-icon
-          name="information-circle-outline"></ion-icon>
+        Completed DR Events ({{completedEvents?.length}})&nbsp;<ion-icon name="information-circle-outline">
+        </ion-icon>
       </ion-col>
     </ion-row>
     <ion-row class="event-list-item mt-1" *ngFor="let event of completedEvents">
@@ -133,90 +134,97 @@
       <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{event?.commitedPower}} Dr Events
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;{{event?.committedPower}} KW
           </div>
           <div class="d-flex align-items-center">
-            Scheduled: {{countScheduled(eventset)}}
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;₹ {{event?.bidprice}} PAISE/KW
           </div>
           <div class="d-flex align-items-center">
-            Counter Bid: {{countCounterBids(eventset)}}
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>
+            &nbsp;{{getStartEnd(event?.eventStartTime,event?.eventEndTime)}}
           </div>
         </div>
       </ion-col>
       <ion-col size="12" class="d-flex align-items-center justify-content-center">
-        <div>50kW</div>
-        <div class="ml-2 pl-2 border-left">₹ 135.00</div>
+        <div>{{event?.committedPower}} KW</div>
+        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.committedPower}}</div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
+
+  <!-- cancelled events -->
+  <ion-grid *ngIf="cancelledEvents?.length > 0">
     <ion-row>
       <ion-col size="12" class="p-0 pl-1 d-flex align-items-center title">
-        Cancelled DR Event Sets ({{eventSetsWithScheduledEvents?.length}})&nbsp;<ion-icon
-          name="information-circle-outline"></ion-icon>
+        Cancelled DR Events ({{cancelledEvents?.length}})&nbsp;<ion-icon name="information-circle-outline">
+        </ion-icon>
       </ion-col>
     </ion-row>
-    <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
+    <ion-row class="event-list-item mt-1" *ngFor="let event of cancelledEvents">
       <ion-col size="12" class="p-0 pt-2 d-flex align-items-center justify-content-between">
         <div>
-          <div class="event-name">{{eventset?.eventSetName}}</div>
-          <div class="event-date">{{formatTime(eventset?.createdTs)}}</div>
+          <div class="event-name">{{event?.eventName}}</div>
+          <div class="event-date">{{formatTime(event?.eventStartTime)}}</div>
         </div>
         <div class="status-chip cancelled">CANCELLED</div>
       </ion-col>
       <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
+            <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;{{event?.committedPower}} KW
           </div>
           <div class="d-flex align-items-center">
-            Scheduled: {{countScheduled(eventset)}}
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;₹ {{event?.bidprice}} PAISE/KW
           </div>
           <div class="d-flex align-items-center">
-            Counter Bid: {{countCounterBids(eventset)}}
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>
+            &nbsp;{{getStartEnd(event?.eventStartTime,event?.eventEndTime)}}
           </div>
         </div>
       </ion-col>
       <ion-col size="12" class="d-flex align-items-center justify-content-center">
-        <div>50kW</div>
-        <div class="ml-2 pl-2 border-left">₹ 135.00</div>
+        <div>{{event?.committedPower}} KW</div>
+        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.committedPower}}</div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
+
+  <!-- penalty events -->
+  <ion-grid *ngIf="penaltyEvents?.length > 0">
     <ion-row>
       <ion-col size="12" class="p-0 pl-1 d-flex align-items-center title">
-        Penalty DR Event Sets ({{eventSetsWithScheduledEvents?.length}})&nbsp;<ion-icon
-          name="information-circle-outline"></ion-icon>
+        Penalty DR Events ({{penaltyEvents?.length}})&nbsp;<ion-icon name="information-circle-outline">
+        </ion-icon>
       </ion-col>
     </ion-row>
-    <ion-row class="event-list-item mt-1" *ngFor="let eventset of eventSetsWithScheduledEvents">
+    <ion-row class="event-list-item mt-1" *ngFor="let event of penaltyEvents">
       <ion-col size="12" class="p-0 pt-2 d-flex align-items-center justify-content-between">
         <div>
-          <div class="event-name">{{eventset?.eventSetName}}</div>
-          <div class="event-date">{{formatTime(eventset?.createdTs)}}</div>
+          <div class="event-name">{{event?.eventName}}</div>
+          <div class="event-date">{{formatTime(event?.eventStartTime)}}</div>
         </div>
         <div class="status-chip penalty">PENALTY</div>
       </ion-col>
       <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{event?.committedPower}} KW
           </div>
           <div class="d-flex align-items-center">
-            Scheduled: {{countScheduled(eventset)}}
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;₹ {{event?.bidprice}} PAISE/KW
           </div>
           <div class="d-flex align-items-center">
-            Counter Bid: {{countCounterBids(eventset)}}
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>
+            &nbsp;{{getStartEnd(event?.eventStartTime,event?.eventEndTime)}}
           </div>
         </div>
       </ion-col>
       <ion-col size="12" class="d-flex align-items-center justify-content-center">
-        <div>50kW</div>
-        <del class="ml-2 pl-2 border-left text-secondary">₹ 135.00</del>
-        <div class="ml-2 pl-2 border-left">₹ 135.00</div>
+        <div>{{event?.actualPower}} KW</div>
+        <del class="ml-2 pl-2 border-left text-secondary">₹ {{event?.bidprice * event?.committedPower}}</del>
+        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.actualPower}}</div>
       </ion-col>
     </ion-row>
   </ion-grid>
