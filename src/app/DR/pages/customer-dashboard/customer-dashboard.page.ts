@@ -152,7 +152,7 @@ export class CustomerDashboardPage implements OnInit {
 
   }
 
-  refreshEventSets(refreshEvent) {
+  refreshEventSets() {
 
     let user = this.userId;
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
@@ -163,9 +163,9 @@ export class CustomerDashboardPage implements OnInit {
     });
     this.fetchEventCounts();
 
-    setTimeout(() => {
-      refreshEvent.target.complete();
-    }, 500);
+    // setTimeout(() => {
+    //   refreshEvent.target.complete();
+    // }, 500);
 
   }
 

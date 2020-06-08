@@ -27,16 +27,12 @@
       DASHBOARD
     </ion-col>
     <ion-col size="2" style="color:white;font-size:1.6em;text-align:center;margin-top:5px;"
-      (click)="showNotifications()">
-      <ion-icon src="assets/svg/notifications.svg"></ion-icon>
+      (click)="refreshEventSets()">
+      <!-- <ion-icon src="assets/svg/notifications.svg"></ion-icon> -->
+      <ion-icon name="refresh"></ion-icon>
     </ion-col>
   </ion-row>
 
-  <ion-refresher slot="fixed" (ionRefresh)="refreshEventSets($event)">
-    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
-      refreshingSpinner="circles" refreshingText="Refreshing...">
-    </ion-refresher-content>
-  </ion-refresher>
 
   <ion-grid class="total-earning">
     <ion-row class="px-3">
