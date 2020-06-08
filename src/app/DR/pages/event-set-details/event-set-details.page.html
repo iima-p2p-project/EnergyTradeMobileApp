@@ -68,12 +68,17 @@
           <!-- success messages -->
           <div class="d-flex align-items-center justify-content-around border-top submit"
             *ngIf="selectedDevices[event.eventId].status == 'participated' && allCustomerDevices?.length > 0">
-            <div class="py-2 text-center">You have agreed to participate</div>
+            <ion-icon src="assets/svg/clap.svg" class="clap-icon"></ion-icon>&nbsp;
+            <div class="py-2 text-left">You have agreed to participate</div>
+
+            <!-- edit and withdraw buttons -->
             <div class="py-2 text-center btn-event"
               (click)="editEvent(event.eventId,'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)"
-              *ngIf="allCustomerDevices?.length > 0">
+              *ngIf="allCustomerDevices?.length > 0 && event.eventStatus == 'Published'">
               EDIT</div>
             <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div>
+
+
           </div>
           <div class="d-flex align-items-center justify-content-around border-top in-progress"
             *ngIf="selectedDevices[event.eventId].status == 'counterbid'">

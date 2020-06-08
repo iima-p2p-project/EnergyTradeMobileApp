@@ -15,10 +15,10 @@
   </div>
   <div class="p-3 d-flex justify-content-around description">
     <div class="d-flex align-items-center">
-      <ion-icon class="pr-1" name="card"></ion-icon>&nbsp;{{customerProfileDetails?.drContractNumber}}
+      <ion-icon class="pr-1" name="card"></ion-icon>&nbsp;{{customerProfileDetails?.drContractDetails.drContractNumber}}
     </div>
     <div class="d-flex align-items-center">
-      <ion-icon class="pr-1" name="at"></ion-icon>&nbsp;{{customerProfileDetails?.email}}
+      <ion-icon class="pr-1" name="at"></ion-icon>&nbsp;{{customerProfileDetails?.drContractDetails?.emailAddress}}
     </div>
     <div class="d-flex align-items-center">
       <ion-icon class="pr-1" name="call"></ion-icon>&nbsp;{{customerProfileDetails?.phoneNumber}}
@@ -35,6 +35,7 @@
         <b (click)="goToAddAssets()">Add New</b>
       </ion-col>
     </ion-row>
+
     <ion-row class="border rounded mt-2 assest-item" *ngFor="let energyAsset of energyAssets"
       (click)="gotToEditAsset(energyAsset)">
       <ion-col size="7" class="pl-3 py-2">
@@ -43,9 +44,14 @@
       <ion-col size="5" class="pr-3 py-2 d-flex align-items-center justify-content-end">
         <ion-icon src="assets/svg/energy-2.svg"></ion-icon>&nbsp;{{energyAsset?.deviceCapacity}} KW (±3%)
       </ion-col>
+      <ion-col size="12" class="pl-3 py-2">
+        Device ID: {{energyAsset?.portNumber}}
+      </ion-col>
+
       <!-- <ion-col>
         <ion-icon name="trash"></ion-icon>
       </ion-col> -->
+
     </ion-row>
 
     <!-- <ion-row class="border rounded mt-2 assest-item">

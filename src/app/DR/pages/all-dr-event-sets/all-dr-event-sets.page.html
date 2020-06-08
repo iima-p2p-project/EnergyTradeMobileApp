@@ -147,7 +147,7 @@
       </ion-col>
       <ion-col size="12" class="d-flex align-items-center justify-content-center">
         <div>{{event?.committedPower}} KW</div>
-        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.committedPower}}</div>
+        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.committedPower / 100}}</div>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -64,7 +64,7 @@ export class AllDrEventSetsPage implements OnInit {
       this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8");
       this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
       this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
-
+      this.getTotalEarnings();
 
     });
   }
@@ -244,7 +244,7 @@ export class AllDrEventSetsPage implements OnInit {
     this.totalPenalty = 0;
 
     this.allEvents.forEach(event => {
-      this.totalEarnings += +event.bidprice * +event.committedPower;
+      this.totalEarnings += (+event.bidprice/100) * +event.actualPower/4;
       this.totalPenalty += +event.customerFine;
     });
 

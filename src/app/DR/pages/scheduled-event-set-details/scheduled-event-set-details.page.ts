@@ -44,7 +44,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
       this.maxMinPrice = params["maxMinPrice"];
       this.maxMinPower = params["maxMinPower"];
       this.eventSetName = params["evenSetName"];
-      this.userId= this.ingressService.loggedInUser.userId;
+      this.userId = this.ingressService.loggedInUser.userId;
       //get event set events
       this.getEvents();
 
@@ -54,9 +54,9 @@ export class ScheduledEventSetDetailsPage implements OnInit {
   getEvents() {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
-      this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 3
-        || event.eventCustomerDetails.eventCustomerStatus == 4
-        || event.eventCustomerDetails.eventCustomerStatus == 5);
+      this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus != 1
+        && event.eventCustomerDetails.eventCustomerStatus != 2
+      );
       console.log("scheduledEvents", this.scheduledEvents);
       this.allCustomerDevices = res.response.allCustomerDevices;
       console.log(this.allCustomerDevices);
@@ -82,7 +82,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     }, 1000);
   }
 
-  
+
 
   findMaxMinTime() {
     let maxTime = moment.utc(this.allEvents[0].eventEndTime);
@@ -168,13 +168,18 @@ export class ScheduledEventSetDetailsPage implements OnInit {
 
   getEventCustomerStatus(status) {
     switch (status) {
-      case 1: return "Draft";
+      case 1: return "Draft"
       case 2: return "Notified"
-      case 3: return "Scheduled"
+      case 3: return "Participated"
       case 4: return "CounterBid"
-      case 5: return "Accepted"
+      case 5: return "Scheduled"
       case 6: return "Rejected"
       case 7: return "Withdrawn"
+      case 8: return "Completed"
+      case 9: return "Cancelled"
+      case 10: return "Penalty"
+      case 11: return "Device Offline"
+      case 13: return "Device Offline"
     }
   }
 

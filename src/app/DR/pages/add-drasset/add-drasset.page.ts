@@ -43,13 +43,16 @@ export class AddDRAssetPage implements OnInit {
   }
 
   addDRAsset() {
-
     this.drCustomerService.addDRDevice(this.ingressService.loggedInUser.userId
       , this.assetName
       , this.assetPower).subscribe((res: any) => {
         if (res.response.key == "200") {
-          console.log("Success");
-          this.router.navigate(['druser-profile']);
+          if (res.response.message == "No switches available. Cannot add device") {
+            window.alert("No Available switches. Cannot add device.");
+          } else {
+            console.log("Success");
+            this.router.navigate(['druser-profile']);
+          }
         } else {
           window.alert("Something went wrong in the server");
         }

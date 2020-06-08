@@ -50,6 +50,7 @@ export class CustomerDashboardPage implements OnInit {
       ));
       console.log("ALL events skr", this.allEvents);
       this.fetchEventCounts();
+      this.getTotalEarnings();
     });
 
   }
@@ -184,7 +185,7 @@ export class CustomerDashboardPage implements OnInit {
     this.totalPenalty = 0;
 
     this.allEvents.forEach(event => {
-      this.totalEarnings += +event.bidprice * +event.committedPower;
+      this.totalEarnings += (+event.bidprice / 100) * +event.actualPower/4;
       this.totalPenalty += +event.customerFine;
     });
 
