@@ -63,7 +63,7 @@ export class EventSetDetailsPage implements OnInit {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
       console.log("All events", this.allEvents);
-      this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2)
+      this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2 && event.eventStatus == 'Published')
       this.allCustomerDevices = res.response.allCustomerDevices;
       this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
       this.maxMinTime = this.findMaxMinTime();

@@ -55,7 +55,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
       this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus != 1
-        && event.eventCustomerDetails.eventCustomerStatus != 2
+        && event.eventCustomerDetails.eventCustomerStatus != 2 && event.eventStatus != 'Expired'
       );
       console.log("scheduledEvents", this.scheduledEvents);
       this.allCustomerDevices = res.response.allCustomerDevices;
