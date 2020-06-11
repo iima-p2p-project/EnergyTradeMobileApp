@@ -45,7 +45,7 @@
         <div class="event-list-item rounded">
           <div class="px-3 py-2 d-flex justify-content-between">
             <div class="">{{event.eventName}}</div>
-            <div [ngClass]="event.eventCustomerDetails.eventCustomerStatus==3? 'status sceduled':'status counter-bid'">
+            <div [ngClass]="getLabelClass(event.eventCustomerDetails.eventCustomerStatus)">
               {{getEventCustomerStatus(event.eventCustomerDetails.eventCustomerStatus)}}
             </div>
           </div>

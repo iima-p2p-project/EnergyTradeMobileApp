@@ -171,7 +171,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
       case 1: return "Draft"
       case 2: return "Notified"
       case 3: return "Participated"
-      case 4: return "CounterBid"
+      case 4: return "Counter Bid"
       case 5: return "Scheduled"
       case 6: return "Rejected"
       case 7: return "Withdrawn"
@@ -180,6 +180,26 @@ export class ScheduledEventSetDetailsPage implements OnInit {
       case 10: return "Penalty"
       case 11: return "Device Offline"
       case 13: return "Device Offline"
+      case 14: return 'Expired';
+    }
+  }
+
+  getLabelClass(status) {
+
+    switch (status) {
+      case 1: return 'status sceduled'; //"Draft"
+      case 2: return 'status sceduled'; //"Notified"
+      case 3: return 'status sceduled'; //"Participated"
+      case 4: return 'status counter-bid'; //"Counter Bid"
+      case 5: return 'status sceduled'; //"Scheduled"
+      case 6: return 'status rejected'; //"Rejected"
+      case 7: return 'status rejected'; //"Withdrawn"
+      case 8: return 'status completed'; //"Completed"
+      case 9: return 'status cancelled'; //"Cancelled"
+      case 10: return 'status penalty'; //"Penalty"
+      case 11: return 'status offline'; //"Device Offline"
+      case 13: return 'status offline'; //"Device Offline"
+      case 14: return 'status expired'; //"Expired
     }
   }
 

@@ -41,9 +41,26 @@ ion-content {
         &.sceduled {
             background-color: var(--ion-color-primary);
         }
-
         &.counter-bid {
             background-color: #8e5c31;
+        }
+        &.penalty {
+            background-color: #eb1717;
+        }
+        &.completed {
+            background-color: #478f31;
+        }
+        &.cancelled {
+            background-color: #b5c751;
+        }
+        &.expired {
+            background-color: #b5c751;
+        }
+        &.offline {
+            background-color: #eb1717;
+        }
+        &.rejected {
+            background-color: #b5c751;
         }
     }
 

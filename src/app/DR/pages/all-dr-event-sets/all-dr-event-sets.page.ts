@@ -65,7 +65,7 @@ export class AllDrEventSetsPage implements OnInit {
       this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
       this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
       this.getTotalEarnings();
-
+      console.log("completed", this.completedEvents);
     });
   }
   checkForCompletedEvent(eventSet) {
@@ -244,10 +244,24 @@ export class AllDrEventSetsPage implements OnInit {
     this.totalPenalty = 0;
 
     this.allEvents.forEach(event => {
-      this.totalEarnings += (+event.bidprice/100) * +event.actualPower/4;
+      this.totalEarnings += (+event.bidprice / 100) * +event.actualPower / 4;
       this.totalPenalty += +event.customerFine;
     });
 
+  }
+
+  getEarnings(actualRelief, commitedRelief, price) {
+    let earnings = 0;
+    let penalty = 0;
+    // successful
+    if (actualRelief >= commitedRelief) {
+      earnings = (commitedRelief / 4) * (price / 100);
+      penalty = 0;
+    } else {
+      earnings = (actualRelief / 4) * (price / 100);
+      penalty = (commitedRelief - actualRelief) * (price * 1.2 / 100);
+    }
+    return earnings - penalty;
   }
 
 }
