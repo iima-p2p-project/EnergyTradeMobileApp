@@ -163,7 +163,10 @@ export class EventSetDetailsPage implements OnInit {
       deviceArray.push(selectedDevices[i].drDeviceId);
     }
     this.drCustomerService.participateInEvent(eventId, this.userId, committedPower, deviceArray).subscribe((res: any) => {
-      if (res.response.message != "Success") {
+      if (res.response.message == "Power Committed is already more than Planned Power") {
+        window.alert("Cant commit " + committedPower + " KW power as it would overshoot the total asked commitment");
+      }
+      else if (res.response.message != "Success") {
         console.log("Something went wrong in participating in event");
       } else {
         this.selectedDevices[eventId].status = "participated";
