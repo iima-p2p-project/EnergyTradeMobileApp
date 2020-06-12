@@ -31,6 +31,7 @@ export class AllDrEventSetsPage implements OnInit {
   eventSetsWithPenaltyEvents;
   totalEarnings = 0;
   totalPenalty = 0;
+  seacrhString = "";
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
 
@@ -262,6 +263,14 @@ export class AllDrEventSetsPage implements OnInit {
       penalty = (commitedRelief - actualRelief) * (price * 1.2 / 100);
     }
     return earnings - penalty;
+  }
+
+  searchEvents() {
+    // if (this.seacrhString != "" || this.seacrhString != null) {
+
+    // }
+    window.alert("This is an upcoming functionality");
+
   }
 
 }

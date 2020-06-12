@@ -12,8 +12,9 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar color="primary">
-    <ion-searchbar placeholder="Search for events"></ion-searchbar>
+  <ion-toolbar color="primary" (click)="searchEvents()">
+    <ion-searchbar placeholder="Search for events" show-cancel-button="focus" [(ngModel)]="seacrhString">
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
