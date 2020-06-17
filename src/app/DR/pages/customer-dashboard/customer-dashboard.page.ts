@@ -25,6 +25,7 @@ export class CustomerDashboardPage implements OnInit {
   allEvents;
   totalEarnings = 0;
   totalPenalty = 0;
+  activeEventSets;
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
 
@@ -35,9 +36,16 @@ export class CustomerDashboardPage implements OnInit {
     this.allEvents = [];
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
-      console.log(this.eventSets);
-      this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
-      this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
+      console.log("All events", this.eventSets);      
+      this.activeEventSets = this.eventSets.filter(eventSet => {
+        let eventDate = moment(eventSet.eventSetDate, "YYYY-MM-DD");
+        let today = moment(moment().format("YYYY-MM-DD"), "YYYY-MM-DD");
+        return !eventDate.isBefore(today);
+      });
+      console.log("Active events", this.activeEventSets);
+      
+      this.eventSetsWithPublishedEvents = this.activeEventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
+      this.eventSetsWithScheduledEvents = this.activeEventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
 
       this.allEvents = this.eventSets[0].events;
       for (var i = 1; i < this.eventSets.length; i++) {
@@ -158,8 +166,8 @@ export class CustomerDashboardPage implements OnInit {
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
       console.log(this.eventSets);
-      this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
-      this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
+      this.eventSetsWithPublishedEvents = this.activeEventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
+      this.eventSetsWithScheduledEvents = this.activeEventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
     });
     this.fetchEventCounts();
 

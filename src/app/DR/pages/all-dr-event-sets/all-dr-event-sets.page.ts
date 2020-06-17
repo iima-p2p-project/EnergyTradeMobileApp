@@ -32,6 +32,7 @@ export class AllDrEventSetsPage implements OnInit {
   totalEarnings = 0;
   totalPenalty = 0;
   seacrhString = "";
+  activeEventSets;
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
 
@@ -42,9 +43,15 @@ export class AllDrEventSetsPage implements OnInit {
     this.allEvents = [];
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
+      this.activeEventSets = this.eventSets.filter(eventSet => {
+        let eventDate = moment(eventSet.eventSetDate, "YYYY-MM-DD");
+        let today = moment(moment().format("YYYY-MM-DD"), "YYYY-MM-DD");
+        return !eventDate.isBefore(today);
+      });
+
       console.log(this.eventSets);
-      this.eventSetsWithPublishedEvents = this.eventSets.filter(eventSet => this.checkForpublishedEvent(eventSet));
-      this.eventSetsWithScheduledEvents = this.eventSets.filter(eventSet => this.checkForScheduledEvent(eventSet));
+      this.eventSetsWithPublishedEvents = this.activeEventSets.filter(eventSet => this.checkForpublishedEvent(eventSet));
+      this.eventSetsWithScheduledEvents = this.activeEventSets.filter(eventSet => this.checkForScheduledEvent(eventSet));
       // this.eventSetsWithCompletedEvents = this.eventSets.filter(eventSet => this.checkForCompletedEvent(eventSet));
       // this.eventSetsWithCancelledEvents = this.eventSets.filter(eventSet => this.checkForCancelledEvent(eventSet));
       // this.eventSetsWithPenaltyEvents = this.eventSets.filter(eventSet => this.checkForPenaltyEvent(eventSet));
