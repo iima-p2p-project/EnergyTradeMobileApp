@@ -68,9 +68,8 @@ export class ScheduledEventSetDetailsPage implements OnInit {
   refreshEvents(refreshEvent) {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
-      this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 3
-        || event.eventCustomerDetails.eventCustomerStatus == 4
-        || event.eventCustomerDetails.eventCustomerStatus == 5);
+      this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus != 1
+        && event.eventCustomerDetails.eventCustomerStatus != 2 && event.eventStatus != 'Expired');
       console.log("scheduledEvents", this.scheduledEvents);
       this.allCustomerDevices = res.response.allCustomerDevices;
       console.log(this.allCustomerDevices);
