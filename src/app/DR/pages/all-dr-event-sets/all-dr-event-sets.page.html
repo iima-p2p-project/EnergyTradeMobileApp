@@ -100,7 +100,8 @@
       <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{eventset?.events.length}} Dr Events
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;
+            {{countScheduled(eventset)+countCounterBids(eventset)}} Dr Events
           </div>
           <div class="d-flex align-items-center">
             Scheduled: {{countScheduled(eventset)}}

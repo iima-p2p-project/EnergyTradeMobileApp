@@ -24,6 +24,7 @@ export class AllDrEventSetsPage implements OnInit {
   completedEvents;
   cancelledEvents;
   penaltyEvents;
+  failedEvents;
   eventSetsWithPublishedEvents;
   eventSetsWithScheduledEvents;
   eventSetsWithCompletedEvents;
@@ -67,11 +68,14 @@ export class AllDrEventSetsPage implements OnInit {
         event.eventCustomerMappingStatus == "8"
         || event.eventCustomerMappingStatus == "9"
         || event.eventCustomerMappingStatus == "10"
+        || event.eventCustomerMappingStatus == "11"
+        || event.eventCustomerMappingStatus == "12"
       ));
       console.log("ALL events skr", this.allEvents);
       this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8");
       this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
       this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
+      this.failedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "11" || event.eventCustomerMappingStatus == "12");
       this.getTotalEarnings();
       console.log("completed", this.completedEvents);
     });
@@ -110,7 +114,10 @@ export class AllDrEventSetsPage implements OnInit {
   checkForScheduledEvent(eventSet): boolean {
     let events = eventSet.events;
     for (let i = 0; i < events.length; i++) {
-      if (events[i].eventCustomerMappingStatus == "3" || events[i].eventCustomerMappingStatus == "4")
+      if ((events[i].eventCustomerMappingStatus == "3"
+        || events[i].eventCustomerMappingStatus == "4"
+        || events[i].eventCustomerMappingStatus == "5"
+        || events[i].eventCustomerMappingStatus == "13"))
         return true;
     }
     return false;
@@ -127,7 +134,9 @@ export class AllDrEventSetsPage implements OnInit {
   countScheduled(eventSet) {
     let scheduled = 0;
     for (let i = 0; i < eventSet.events.length; i++)
-      if (eventSet.events[i].eventCustomerMappingStatus == "3")
+      if (eventSet.events[i].eventCustomerMappingStatus == "3"
+        || eventSet.events[i].eventCustomerMappingStatus == "5"
+        || eventSet.events[i].eventCustomerMappingStatus == "13")
         scheduled++;
     return scheduled;
   }

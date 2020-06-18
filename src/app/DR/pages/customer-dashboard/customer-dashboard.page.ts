@@ -73,7 +73,7 @@ export class CustomerDashboardPage implements OnInit {
       if ((events[i].eventCustomerMappingStatus == "3"
         || events[i].eventCustomerMappingStatus == "4"
         || events[i].eventCustomerMappingStatus == "5"
-        || events[i].eventCustomerMappingStatus == "13") )
+        || events[i].eventCustomerMappingStatus == "13"))
         return true;
     }
     return false;
@@ -90,7 +90,9 @@ export class CustomerDashboardPage implements OnInit {
   countScheduled(eventSet) {
     let scheduled = 0;
     for (let i = 0; i < eventSet.events.length; i++)
-      if (eventSet.events[i].eventCustomerMappingStatus == "3")
+      if (eventSet.events[i].eventCustomerMappingStatus == "3"
+        || eventSet.events[i].eventCustomerMappingStatus == "5"
+        || eventSet.events[i].eventCustomerMappingStatus == "13")
         scheduled++;
     return scheduled;
   }
