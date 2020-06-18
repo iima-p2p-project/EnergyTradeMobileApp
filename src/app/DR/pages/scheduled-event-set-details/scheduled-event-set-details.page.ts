@@ -54,8 +54,9 @@ export class ScheduledEventSetDetailsPage implements OnInit {
   getEvents() {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
-      this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus != 1
-        && event.eventCustomerDetails.eventCustomerStatus != 2 && event.eventStatus != 'Expired'
+      this.scheduledEvents = this.allEvents.filter(event => (event.eventCustomerDetails.eventCustomerStatus == 3
+        || event.eventCustomerDetails.eventCustomerStatus == 4 || event.eventCustomerDetails.eventCustomerStatus == 5
+        || event.eventCustomerDetails.eventCustomerStatus == 13) && event.eventStatus != 'Expired'
       );
       console.log("scheduledEvents", this.scheduledEvents);
       this.allCustomerDevices = res.response.allCustomerDevices;
@@ -66,16 +67,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
   }
 
   refreshEvents(refreshEvent) {
-    this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
-      this.allEvents = res.response.events;
-      this.scheduledEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus != 1
-        && event.eventCustomerDetails.eventCustomerStatus != 2 && event.eventStatus != 'Expired');
-      console.log("scheduledEvents", this.scheduledEvents);
-      this.allCustomerDevices = res.response.allCustomerDevices;
-      console.log(this.allCustomerDevices);
-      console.log(this.allEvents);
-      this.maxMinTime = this.findMaxMinTime();
-    });
+    this.getEvents();
     setTimeout(() => {
       refreshEvent.target.complete();
     }, 1000);
@@ -178,7 +170,8 @@ export class ScheduledEventSetDetailsPage implements OnInit {
       case 9: return "Cancelled"
       case 10: return "Penalty"
       case 11: return "Device Offline"
-      case 13: return "Device Offline"
+      case 12: return "Device Offline"
+      case 13: return "Live"
       case 14: return 'Expired';
     }
   }

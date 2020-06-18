@@ -22,23 +22,27 @@ export class EditEventModalPage implements OnInit {
 
   updateEventCommitment() {
     let deviceList = [];
-    for (let i = 0; i < this.selectedDevices.length; i++)
-      deviceList.push(this.selectedDevices[i].drDeviceId);
+    if (this.committedPower == 0) {
+      window.alert("Please select any device");
+    } else {
+      for (let i = 0; i < this.selectedDevices.length; i++)
+        deviceList.push(this.selectedDevices[i].drDeviceId);
 
-    this.drCustomerService.updateEventCommitments(this.params.eventId
-      , this.params.userId
-      , this.committedPower
-      , 0
-      , deviceList).subscribe((res: any) => {
-        if (res.response.message != "Success")
-          console.log("Something went wrong in edit event");
-        else
-          this.modal.dismiss({
-            selectedDevices: this.selectedDevices,
-            committedPower: this.committedPower
-          });
+      this.drCustomerService.updateEventCommitments(this.params.eventId
+        , this.params.userId
+        , this.committedPower
+        , 0
+        , deviceList).subscribe((res: any) => {
+          if (res.response.message != "Success")
+            console.log("Something went wrong in edit event");
+          else
+            this.modal.dismiss({
+              selectedDevices: this.selectedDevices,
+              committedPower: this.committedPower
+            });
 
-      });
+        });
+    }
 
   }
   ionViewWillEnter() {

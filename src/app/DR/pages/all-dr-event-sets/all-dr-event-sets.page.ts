@@ -269,7 +269,7 @@ export class AllDrEventSetsPage implements OnInit {
       earnings = (actualRelief / 4) * (price / 100);
       penalty = (commitedRelief - actualRelief) * (price * 1.2 / 100);
     }
-    return earnings - penalty;
+    return (earnings - penalty).toFixed(2);
   }
 
   searchEvents() {

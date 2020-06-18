@@ -31,19 +31,23 @@ export class CustomerDashboardPage implements OnInit {
 
   }
   ionViewDidEnter() {
-    //fetch event set details for customer
+    this.getEventSets();
+  }
+
+  getEventSets() {
+
     let user = this.userId;
     this.allEvents = [];
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
-      console.log("All events", this.eventSets);      
+      console.log("All events", this.eventSets);
       this.activeEventSets = this.eventSets.filter(eventSet => {
         let eventDate = moment(eventSet.eventSetDate, "YYYY-MM-DD");
         let today = moment(moment().format("YYYY-MM-DD"), "YYYY-MM-DD");
         return !eventDate.isBefore(today);
       });
       console.log("Active events", this.activeEventSets);
-      
+
       this.eventSetsWithPublishedEvents = this.activeEventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
       this.eventSetsWithScheduledEvents = this.activeEventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
 
@@ -66,7 +70,10 @@ export class CustomerDashboardPage implements OnInit {
   checkForScheduledEvent(eventSet): boolean {
     let events = eventSet.events;
     for (let i = 0; i < events.length; i++) {
-      if (events[i].eventCustomerMappingStatus == "3" || events[i].eventCustomerMappingStatus == "4")
+      if ((events[i].eventCustomerMappingStatus == "3"
+        || events[i].eventCustomerMappingStatus == "4"
+        || events[i].eventCustomerMappingStatus == "5"
+        || events[i].eventCustomerMappingStatus == "13") )
         return true;
     }
     return false;
@@ -161,20 +168,7 @@ export class CustomerDashboardPage implements OnInit {
   }
 
   refreshEventSets() {
-
-    let user = this.userId;
-    this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
-      this.eventSets = res.response.eventSets;
-      console.log(this.eventSets);
-      this.eventSetsWithPublishedEvents = this.activeEventSets.filter(eventSet => this.checkForpublishedEvent(eventSet))
-      this.eventSetsWithScheduledEvents = this.activeEventSets.filter(eventSet => this.checkForScheduledEvent(eventSet))
-    });
-    this.fetchEventCounts();
-
-    // setTimeout(() => {
-    //   refreshEvent.target.complete();
-    // }, 500);
-
+    this.getEventSets();
   }
 
   fetchEventCounts() {
