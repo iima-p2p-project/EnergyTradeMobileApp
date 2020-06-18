@@ -230,6 +230,34 @@
         <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.actualPower}}</div>
       </ion-col>
     </ion-row>
+    <ion-row class="event-list-item mt-1" *ngFor="let event of failedEvents">
+      <ion-col size="12" class="p-0 pt-2 d-flex align-items-center justify-content-between">
+        <div>
+          <div class="event-name">{{event?.eventName}}</div>
+          <div class="event-date">{{formatTime(event?.eventStartTime)}}</div>
+        </div>
+        <div class="status-chip penalty">FAILED</div>
+      </ion-col>
+      <ion-col class="px-0 py-2 border-bottom">
+        <div class="d-flex justify-content-between event-detail">
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{event?.committedPower}} KW
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;₹ {{event?.bidprice}} PAISE/KW
+          </div>
+          <div class="d-flex align-items-center">
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>
+            &nbsp;{{getStartEnd(event?.eventStartTime,event?.eventEndTime)}}
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="12" class="d-flex align-items-center justify-content-center">
+        <div>{{event?.actualPower}} KW</div>
+        <del class="ml-2 pl-2 border-left text-secondary">₹ {{event?.bidprice * event?.committedPower}}</del>
+        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.actualPower}}</div>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 
 
