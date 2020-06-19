@@ -25,93 +25,98 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-grid>
-    <!-- <ion-row class="mt-2">
-      <ion-col size="12" class="p-0 pl-3 d-flex align-items-center title">
-        9:00 AM - 10:00 AM
-      </ion-col>
-    </ion-row> -->
-    <ion-row class="mt-2" *ngFor="let event of publishedEvents">
-      <ion-col size="12" class="p-0 px-1">
-        <div class="event-list-item rounded ">
-          <div class="px-3 pt-3 d-flex justify-content-between event-detail">
-            <div class="d-flex align-items-center">
-              <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{formatTime(event.eventStartTime)}} -
-              {{formatTime(event.eventEndTime)}}
+
+    <ion-row class="mt-2" *ngFor="let bracket of hourlyEvents">
+      <ion-row class="mt-2">
+        <ion-col size="12" class="p-0 pl-3 d-flex align-items-center title">
+          {{getTimeSpan(bracket)}}
+        </ion-col>
+      </ion-row><br>
+
+      <ion-row class="mt-2" *ngFor="let event of getEventArrayFromBracket(bracket)">
+        <ion-col size="12" class="p-0 px-1">
+          <div class="event-list-item rounded ">
+            <div class="px-3 pt-3 d-flex justify-content-between event-detail">
+              <div class="d-flex align-items-center">
+                <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{formatTime(event.eventStartTime)}} -
+                {{formatTime(event.eventEndTime)}}
+              </div>
+              <div class="d-flex align-items-center">
+                <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;{{event.plannedPower}} KW
+              </div>
+              <div class="d-flex align-items-center">
+                <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;{{event.expectedPrice}} Paise/KWH
+              </div>
             </div>
-            <div class="d-flex align-items-center">
-              <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;{{event.plannedPower}} KW
-            </div>
-            <div class="d-flex align-items-center">
-              <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;{{event.expectedPrice}} Paise/KWH
-            </div>
-          </div>
-          <!-- devices -->
-          <div class="px-2" *ngIf="allCustomerDevices?.length > 0">
-            <div class="border-bottom py-2">
-              <ion-chip *ngFor="let device of allCustomerDevices"
-                [ngClass]="chipCssCheck(event?.eventId, device) ? 'border event-chip active':'border event-chip inactive'"
-                (click)="toggleDeviceSelection(event?.eventId,device)">
-                <ion-label>{{device.drDeviceName}}</ion-label>
-              </ion-chip>
-              <!-- <ion-chip class="border event-chip active">
+            <!-- devices -->
+            <div class="px-2" *ngIf="allCustomerDevices?.length > 0">
+              <div class="border-bottom py-2">
+                <ion-chip *ngFor="let device of allCustomerDevices"
+                  [ngClass]="chipCssCheck(event?.eventId, device) ? 'border event-chip active':'border event-chip inactive'"
+                  (click)="toggleDeviceSelection(event?.eventId,device)">
+                  <ion-label>{{device.drDeviceName}}</ion-label>
+                </ion-chip>
+                <!-- <ion-chip class="border event-chip active">
                 <ion-label>Machinery</ion-label>
               </ion-chip> -->
+              </div>
             </div>
-          </div>
-          <!-- amounts -->
-          <div class="p-1 d-flex align-items-center event-rate" *ngIf="allCustomerDevices?.length > 0">
-            <div class="w-50 pr-3 text-right border-right">{{selectedDevices[event.eventId].commitedPower}} KW (±3%)
-            </div>
-            <div class="w-50 pl-3 text-left"> ₹ {{(event.expectedPrice *
+            <!-- amounts -->
+            <div class="p-1 d-flex align-items-center event-rate" *ngIf="allCustomerDevices?.length > 0">
+              <div class="w-50 pr-3 text-right border-right">{{selectedDevices[event.eventId].commitedPower}} KW (±3%)
+              </div>
+              <div class="w-50 pl-3 text-left"> ₹ {{(event.expectedPrice *
               selectedDevices[event.eventId].commitedPower)/100}} (±3%)</div>
-          </div>
-          <!-- success messages -->
-          <div class="d-flex align-items-center justify-content-around border-top submit"
-            *ngIf="selectedDevices[event.eventId].status == 'participated' && allCustomerDevices?.length > 0">
-            <ion-icon src="assets/svg/clap.svg" class="clap-icon"></ion-icon>&nbsp;
-            <div class="py-2 text-left">You have agreed to participate</div>
+            </div>
+            <!-- success messages -->
+            <div class="d-flex align-items-center justify-content-around border-top submit"
+              *ngIf="selectedDevices[event.eventId].status == 'participated' && allCustomerDevices?.length > 0">
+              <ion-icon src="assets/svg/clap.svg" class="clap-icon"></ion-icon>&nbsp;
+              <div class="py-2 text-left">You have agreed to participate</div>
 
-            <!-- edit and withdraw buttons -->
-            <div class="py-2 text-center btn-event"
-              (click)="editEvent(event.eventId,'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)"
-              *ngIf="allCustomerDevices?.length > 0 && event.eventStatus == 'Published'">
-              EDIT</div>
-            <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div>
+              <!-- edit and withdraw buttons -->
+              <div class="py-2 text-center btn-event"
+                (click)="editEvent(event.eventId,'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)"
+                *ngIf="allCustomerDevices?.length > 0 && event.eventStatus == 'Published'">
+                EDIT</div>
+              <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div>
 
 
-          </div>
-          <div class="d-flex align-items-center justify-content-around border-top in-progress"
-            *ngIf="selectedDevices[event.eventId].status == 'counterbid'">
-            <div class="py-2 text-center">Proposed counter bid - <b>{{selectedDevices[event.eventId].counterBidAmount}}
-                paise/kwh</b> </div>
-            <!-- <div class="py-2 text-center btn-event" (click)="editEvent(event.eventId,'counterbid')">EDIT</div>
+            </div>
+            <div class="d-flex align-items-center justify-content-around border-top in-progress"
+              *ngIf="selectedDevices[event.eventId].status == 'counterbid'">
+              <div class="py-2 text-center">Proposed counter bid -
+                <b>{{selectedDevices[event.eventId].counterBidAmount}}
+                  paise/kwh</b> </div>
+              <!-- <div class="py-2 text-center btn-event" (click)="editEvent(event.eventId,'counterbid')">EDIT</div>
             <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div> -->
-          </div>
+            </div>
 
-          <!-- buttons- participate and counter bid -->
-          <div class="d-flex align-items-center border-top btn-event"
-            *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length > 0">
-            <div class="w-50 p-2 text-center border-right"
-              (click)="counterBid(event.eventId,event.eventStartTime,event.eventEndTime,event.expectedPrice)">Counter
-              Bid</div>
-            <div class="w-50 p-2 text-center"
-              (click)="participateInEvent(event.eventId,selectedDevices[event.eventId].commitedPower,selectedDevices[event.eventId].devices)">
-              Participate</div>
+            <!-- buttons- participate and counter bid -->
+            <div class="d-flex align-items-center border-top btn-event"
+              *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length > 0">
+              <div class="w-50 p-2 text-center border-right"
+                (click)="counterBid(event.eventId,event.eventStartTime,event.eventEndTime,event.expectedPrice)">Counter
+                Bid</div>
+              <div class="w-50 p-2 text-center"
+                (click)="participateInEvent(event.eventId,selectedDevices[event.eventId].commitedPower,selectedDevices[event.eventId].devices)">
+                Participate</div>
+            </div>
+            <!-- no asset available text -->
+            <div class="d-flex align-items-center info-txt"
+              *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length == 0">
+              <div class="w-100 text-center">There are no energy assets available. To participate in the
+                DR event, please add energy assets. </div>
+            </div>
+            <!-- button -add asset -->
+            <div class="d-flex align-items-center border-top btn-event"
+              *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length == 0">
+              <div class="w-100 p-2 text-center border-right" (click)="addDevices()">ADD ENERGY
+                ASSETS</div>
+            </div>
           </div>
-          <!-- no asset available text -->
-          <div class="d-flex align-items-center info-txt"
-            *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length == 0">
-            <div class="w-100 text-center">There are no energy assets available. To participate in the
-              DR event, please add energy assets. </div>
-          </div>
-          <!-- button -add asset -->
-          <div class="d-flex align-items-center border-top btn-event"
-            *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length == 0">
-            <div class="w-100 p-2 text-center border-right" (click)="addDevices()">ADD ENERGY
-              ASSETS</div>
-          </div>
-        </div>
-      </ion-col>
+        </ion-col>
+      </ion-row>
     </ion-row>
 
     <!-- <ion-row class="mt-2">
