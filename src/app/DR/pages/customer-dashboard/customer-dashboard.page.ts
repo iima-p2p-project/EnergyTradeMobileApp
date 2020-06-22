@@ -189,11 +189,11 @@ export class CustomerDashboardPage implements OnInit {
     this.totalPenalty = 0;
 
     this.allEvents.forEach(event => {
-      this.totalEarnings += (+event.bidprice / 100) * +event.actualPower / 4;
+      this.totalEarnings += +event.earnings
       this.totalPenalty += +event.customerFine;
     });
-    this.totalEarnings = +this.totalEarnings.toFixed(2);
-    this.totalPenalty = +this.totalPenalty.toFixed(2);
+    this.totalEarnings = +(this.totalEarnings/100).toFixed(2);
+    this.totalPenalty = +(this.totalPenalty/100).toFixed(2);
 
   }
 

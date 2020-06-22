@@ -72,7 +72,7 @@ export class AllDrEventSetsPage implements OnInit {
         || event.eventCustomerMappingStatus == "12"
       ));
       console.log("ALL events skr", this.allEvents);
-      this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8");
+      this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8" || event.eventCustomerMappingStatus == "15");
       this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
       this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
       this.failedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "11" || event.eventCustomerMappingStatus == "12");
@@ -261,9 +261,12 @@ export class AllDrEventSetsPage implements OnInit {
     this.totalPenalty = 0;
 
     this.allEvents.forEach(event => {
-      this.totalEarnings += (+event.bidprice / 100) * +event.actualPower / 4;
+      this.totalEarnings += +event.earnings
       this.totalPenalty += +event.customerFine;
     });
+    this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
+    this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
+
 
   }
 
