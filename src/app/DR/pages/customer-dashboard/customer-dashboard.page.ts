@@ -40,6 +40,12 @@ export class CustomerDashboardPage implements OnInit {
     this.allEvents = [];
     this.drCustomerService.getEventSetsForCustomer(user).subscribe((res: any) => {
       this.eventSets = res.response.eventSets;
+      this.eventSets.sort(
+        (eventSet1, eventSet2) => {
+          return moment(eventSet1.eventSetDate, "YYYY-MM-DD").diff(moment(eventSet2.eventSetDate, "YYYY-MM-DD"));
+        });
+
+
       console.log("All events", this.eventSets);
       this.activeEventSets = this.eventSets.filter(eventSet => {
         let eventDate = moment(eventSet.eventSetDate, "YYYY-MM-DD");
