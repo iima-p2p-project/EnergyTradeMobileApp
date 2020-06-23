@@ -104,8 +104,13 @@ export class CustomerDashboardPage implements OnInit {
     }
     return false;
   }
-  viewAllEventSets() {
-    this.router.navigateByUrl('/all-dr-event-sets');
+  viewAllEventSets(type) {
+    this.router.navigate(['all-dr-event-sets'], {
+      queryParams: {
+        redirect: "/customer-dashboard",
+        type: type
+      }
+    });
   }
   showEventSetDetails(eventSet, type) {
     if (type == "scheduled") {
@@ -192,8 +197,8 @@ export class CustomerDashboardPage implements OnInit {
       this.totalEarnings += +event.earnings
       this.totalPenalty += +event.customerFine;
     });
-    this.totalEarnings = +(this.totalEarnings/100).toFixed(2);
-    this.totalPenalty = +(this.totalPenalty/100).toFixed(2);
+    this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
+    this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
 
   }
 

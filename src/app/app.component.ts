@@ -248,7 +248,7 @@ export class AppComponent {
   }
 
   navigateToAllDREvents() {
-    this.router.navigate(['all-dr-event-sets']);
+    this.router.navigate(['all-events']);
 
   }
   @HostListener('document:backbutton')

@@ -99,6 +99,7 @@
     </ion-row>
   </ion-grid>
 
+  <!-- available event sets -->
   <ion-grid>
     <ion-row>
       <ion-col size="9" class="p-0 pl-1 d-flex align-items-center title">
@@ -106,7 +107,7 @@
           name="information-circle-outline"></ion-icon>
       </ion-col>
       <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all "
-        (click)="viewAllEventSets()" *ngIf="eventSetsWithPublishedEvents?.length > 0">
+        (click)="viewAllEventSets('available')" *ngIf="eventSetsWithPublishedEvents?.length > 0">
         View All &nbsp;&nbsp;<ion-icon name="arrow-forward"></ion-icon>
       </ion-col>
     </ion-row>
@@ -166,6 +167,7 @@
 
   </ion-grid>
 
+  <!-- subscribe event sets -->
   <ion-grid>
     <ion-row>
       <ion-col size="9" class="p-0 pl-1 d-flex align-items-center title">
@@ -173,7 +175,7 @@
           name="information-circle-outline"></ion-icon>
       </ion-col>
       <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center view-all "
-        (click)="viewAllEventSets()" *ngIf="eventSetsWithScheduledEvents?.length > 0">
+        (click)="viewAllEventSets('subscribed')" *ngIf="eventSetsWithScheduledEvents?.length > 0">
         View All &nbsp;&nbsp;<ion-icon name="arrow-forward"></ion-icon>
       </ion-col>
     </ion-row>
@@ -183,7 +185,8 @@
         <div class="event-name">{{eventset?.eventSetName}}</div>
         <div class="d-flex justify-content-between event-detail">
           <div class="d-flex align-items-center">
-            <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{countScheduled(eventset)+countCounterBids(eventset)}} Dr Events
+            <ion-icon src="assets/svg/timer.svg"></ion-icon>
+            &nbsp;{{countScheduled(eventset)+countCounterBids(eventset)}} Dr Events
           </div>
           <div class="d-flex align-items-center">
             Scheduled: {{countScheduled(eventset)}}

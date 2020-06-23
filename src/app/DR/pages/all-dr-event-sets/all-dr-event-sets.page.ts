@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { IngressService } from 'src/app/services/ingress.service';
 import { DRCustomerService } from 'src/app/services/drcustomer.service';
 import * as moment from 'moment';
@@ -16,7 +16,8 @@ export class AllDrEventSetsPage implements OnInit {
   constructor(private router: Router
     , private ingressService: IngressService
     , private drCustomerService: DRCustomerService
-    , private pickerCtrl: PickerController) { }
+    , private pickerCtrl: PickerController
+    , private route: ActivatedRoute) { }
 
   userId;
   eventSets;
@@ -34,11 +35,21 @@ export class AllDrEventSetsPage implements OnInit {
   totalPenalty = 0;
   seacrhString = "";
   activeEventSets;
+  type;
+  redirect;
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
-
   }
   ionViewDidEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.type = params['type'];
+      this.redirect = params['redirect'];
+      this.fetchEventSets();
+    });
+  }
+
+  fetchEventSets() {
+
     //fetch event set details for customer
     let user = this.userId;
     this.allEvents = [];
@@ -53,32 +64,31 @@ export class AllDrEventSetsPage implements OnInit {
       console.log(this.eventSets);
       this.eventSetsWithPublishedEvents = this.activeEventSets.filter(eventSet => this.checkForpublishedEvent(eventSet));
       this.eventSetsWithScheduledEvents = this.activeEventSets.filter(eventSet => this.checkForScheduledEvent(eventSet));
-      // this.eventSetsWithCompletedEvents = this.eventSets.filter(eventSet => this.checkForCompletedEvent(eventSet));
-      // this.eventSetsWithCancelledEvents = this.eventSets.filter(eventSet => this.checkForCancelledEvent(eventSet));
-      // this.eventSetsWithPenaltyEvents = this.eventSets.filter(eventSet => this.checkForPenaltyEvent(eventSet));
-      // this.eventSets.forEach(eventSet => {
-      //   let events = eventSet.events;
-      //   this.allEvents.concat(eventSet.events);
-      // });
-      this.allEvents = this.eventSets[0].events;
-      for (var i = 1; i < this.eventSets.length; i++) {
-        this.allEvents = this.allEvents.concat(this.eventSets[i].events);
-      }
-      this.allEvents = this.allEvents.filter(event => (
-        event.eventCustomerMappingStatus == "8"
-        || event.eventCustomerMappingStatus == "9"
-        || event.eventCustomerMappingStatus == "10"
-        || event.eventCustomerMappingStatus == "11"
-        || event.eventCustomerMappingStatus == "12"
-      ));
+      this.getAllEvents();
+
+      // this.allEvents = this.allEvents.filter(event => (
+      //   event.eventCustomerMappingStatus == "8"
+      //   || event.eventCustomerMappingStatus == "9"
+      //   || event.eventCustomerMappingStatus == "10"
+      //   || event.eventCustomerMappingStatus == "11"
+      //   || event.eventCustomerMappingStatus == "12"
+      // ));
       console.log("ALL events skr", this.allEvents);
-      this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8" || event.eventCustomerMappingStatus == "15");
-      this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
-      this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
-      this.failedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "11" || event.eventCustomerMappingStatus == "12");
+      // this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8" || event.eventCustomerMappingStatus == "15");
+      // this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
+      // this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
+      // this.failedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "11" || event.eventCustomerMappingStatus == "12");
       this.getTotalEarnings();
-      console.log("completed", this.completedEvents);
+
     });
+  }
+
+  getAllEvents() {
+    this.allEvents = this.eventSets[0].events;
+    for (var i = 1; i < this.eventSets.length; i++) {
+      this.allEvents = this.allEvents.concat(this.eventSets[i].events);
+    }
+
   }
   checkForCompletedEvent(eventSet) {
     let events = eventSet.events;
@@ -117,6 +127,7 @@ export class AllDrEventSetsPage implements OnInit {
       if ((events[i].eventCustomerMappingStatus == "3"
         || events[i].eventCustomerMappingStatus == "4"
         || events[i].eventCustomerMappingStatus == "5"
+        || events[i].eventCustomerMappingStatus == "6"
         || events[i].eventCustomerMappingStatus == "13"))
         return true;
     }
@@ -260,13 +271,18 @@ export class AllDrEventSetsPage implements OnInit {
     this.totalEarnings = 0;
     this.totalPenalty = 0;
 
-    this.allEvents.forEach(event => {
+    let completedEvents = this.allEvents.filter(event => {
+      event.eventCustomerMappingStatus == "8"
+        || event.eventCustomerMappingStatus == "15"
+        || event.eventCustomerMappingStatus == "10"
+    });
+
+    completedEvents.forEach(event => {
       this.totalEarnings += +event.earnings
       this.totalPenalty += +event.customerFine;
     });
     this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
     this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
-
 
   }
 
