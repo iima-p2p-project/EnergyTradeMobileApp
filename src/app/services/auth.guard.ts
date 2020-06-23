@@ -19,11 +19,19 @@ export class AuthGuard implements CanActivate {
       console.log(this.ingressService.getLoggedInUser());
       return true;
     }
-    this.router.navigate(['/login'], {
-      queryParams: {
-        redirect: state.url
+    else {
+      let temp = await this.storage.get('LoggedInUser');
+      if (temp) {
+        this.ingressService.loggedInUser = temp;
+        return true;
+      } else {
+        this.router.navigate(['/login'], {
+          queryParams: {
+            redirect: state.url
+          }
+        });
+        return true;
       }
-    });
-    return true;
+    }
   }
 }

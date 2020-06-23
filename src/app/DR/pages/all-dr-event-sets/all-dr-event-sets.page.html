@@ -25,7 +25,8 @@
       <ion-col size="12">
         <div class="total-earning rounded px-2 pb-2 d-flex justify-content-between">
           <div>
-            <div class="d-flex align-items-center">₹ <span class="earning pl-2"> {{totalEarnings - totalPenalty}}</span>
+            <div class="d-flex align-items-center">₹ <span class="earning pl-2">
+                {{(totalEarnings - totalPenalty).toFixed(2)}}</span>
             </div>
             <div class="text-center description">Total Earnings ({{allEvents?.length}} events)</div>
           </div>
