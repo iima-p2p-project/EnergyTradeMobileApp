@@ -55,13 +55,13 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
       this.scheduledEvents = this.allEvents.filter(event => (event.eventCustomerDetails.eventCustomerStatus == 3
-        || event.eventCustomerDetails.eventCustomerStatus == 4 || event.eventCustomerDetails.eventCustomerStatus == 5
+        || event.eventCustomerDetails.eventCustomerStatus == 4
+        || event.eventCustomerDetails.eventCustomerStatus == 5
+        || event.eventCustomerDetails.eventCustomerStatus == 6
         || event.eventCustomerDetails.eventCustomerStatus == 13) && event.eventStatus != 'Expired'
       );
       console.log("scheduledEvents", this.scheduledEvents);
       this.allCustomerDevices = res.response.allCustomerDevices;
-      console.log(this.allCustomerDevices);
-      console.log(this.allEvents);
       this.maxMinTime = this.findMaxMinTime();
     });
   }
@@ -88,8 +88,6 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     return minTime.format("hh:mm A") + " - " + maxTime.format("hh:mm A");
   }
 
-
-
   async editEvent(eventId, type, mappedDevices, startTime, endTime) {
     let editEventModal = await this.modal.create({
       component: EditEventModalPage,
@@ -112,7 +110,6 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     return await editEventModal.present();
   }
 
-
   async withdrawEvent(eventId, startTime, endTime) {
     let withdrawEventModal = await this.modal.create({
       component: WithdrawEventModalPage,
@@ -128,15 +125,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     return await withdrawEventModal.present();
   }
 
-  // async editBid() {
-  //   let editEventModal = await this.modal.create({
-  //     component: EditBidModalPage,
-  //     cssClass: 'edit-bid-modal-css',
-  //     componentProps: {
-  //     }
-  //   });
-  //   return await editEventModal.present();
-  // }
+
 
   async deletePumps() {
     let deletePumpsModal = await this.modal.create({
@@ -161,19 +150,26 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     switch (status) {
       case 1: return "Draft"
       case 2: return "Notified"
-      case 3: return "Participated"
-      case 4: return "Counter Bid"
-      case 5: return "Scheduled"
-      case 6: return "Rejected"
+      case 3: return "PARTICIPATED"
+      case 4: return "COUNTER BID"
+      case 5: return "PARTICIPATED"
+      case 6: return "REJECTED"
       case 7: return "Withdrawn"
       case 8: return "Completed"
       case 9: return "Cancelled"
       case 10: return "Penalty"
       case 11: return "Device Offline"
       case 12: return "Device Offline"
-      case 13: return "Live"
+      case 13: return "LIVE"
       case 14: return 'Expired';
     }
+  }
+
+  isEditable(eventStatus) {
+    if (eventStatus == 3 || eventStatus == 4)
+      return true;
+    else
+      return false;
   }
 
   getLabelClass(status) {
@@ -190,7 +186,8 @@ export class ScheduledEventSetDetailsPage implements OnInit {
       case 9: return 'status cancelled'; //"Cancelled"
       case 10: return 'status penalty'; //"Penalty"
       case 11: return 'status offline'; //"Device Offline"
-      case 13: return 'status offline'; //"Device Offline"
+      case 12: return 'status offline'; //"Device Offline"
+      case 13: return 'status live'; //"Live"
       case 14: return 'status expired'; //"Expired
     }
   }

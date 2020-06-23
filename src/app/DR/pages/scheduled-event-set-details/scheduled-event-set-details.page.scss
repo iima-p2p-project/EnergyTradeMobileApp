@@ -39,10 +39,10 @@ ion-content {
         height: 20px;
 
         &.sceduled {
-            background-color: var(--ion-color-primary);
+            background-color: #0048A8;
         }
         &.counter-bid {
-            background-color: #8e5c31;
+            background-color: #DB7B2E;
         }
         &.penalty {
             background-color: #eb1717;
@@ -60,7 +60,10 @@ ion-content {
             background-color: #eb1717;
         }
         &.rejected {
-            background-color: #b5c751;
+            background-color: #D0021B;
+        }
+        &.live {
+            background-color: #2C7800;
         }
     }
 

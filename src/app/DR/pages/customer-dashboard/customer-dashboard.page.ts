@@ -73,6 +73,7 @@ export class CustomerDashboardPage implements OnInit {
       if ((events[i].eventCustomerMappingStatus == "3"
         || events[i].eventCustomerMappingStatus == "4"
         || events[i].eventCustomerMappingStatus == "5"
+        || events[i].eventCustomerMappingStatus == "6"
         || events[i].eventCustomerMappingStatus == "13"))
         return true;
     }
