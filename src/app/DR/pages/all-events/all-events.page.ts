@@ -39,7 +39,9 @@ export class AllEventsPage implements OnInit {
       this.eventSets = res.response.eventSets;
       console.log(this.eventSets);
       this.getAllEvents();
-      this.getTotalEarnings();
+      //this.getTotalEarnings();
+      this.totalEarnings = this.drCustomerService.totalEarnings;
+      this.totalPenalty = this.drCustomerService.totalPenalty;
     });
 
   }
@@ -59,27 +61,27 @@ export class AllEventsPage implements OnInit {
     // ));
     console.log("All events:", this.allEvents);
 
-    this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "8" || event.eventCustomerMappingStatus == "15");
+    this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "15" && event.isFineApplicable == 'N');
     this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
-    this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
+    this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "15" && event.isFineApplicable == 'Y');
     this.failedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "11" || event.eventCustomerMappingStatus == "12");
 
   }
 
-  getTotalEarnings() {
-    this.totalEarnings = 0;
-    this.totalPenalty = 0;
+  // getTotalEarnings() {
+  //   this.totalEarnings = 0;
+  //   this.totalPenalty = 0;
 
-    this.allEvents.forEach(event => {
-      this.totalEarnings += +event.earnings
-      this.totalPenalty += +event.customerFine;
-    });
-    this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
-    this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
+  //   this.allEvents.forEach(event => {
+  //     this.totalEarnings += +event.earnings
+  //     this.totalPenalty += +event.customerFine;
+  //   });
+  //   this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
+  //   this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
 
-  }
+  // }
 
-  
+
   formatTime(date) {
     return moment(date).format("DD MMM, YYYY");
   }

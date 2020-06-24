@@ -22,6 +22,9 @@ export class DRCustomerService {
   deleteDRDeviceUrl = DR_URL + '/deleteDRCustomerDevice';
   fetchEventCountsUrl = DR_URL + '/fetchEventCounts';
 
+  totalEarnings = 0;
+  totalPenalty = 0;
+
 
   constructor(private httpClient: HttpClient) { }
 

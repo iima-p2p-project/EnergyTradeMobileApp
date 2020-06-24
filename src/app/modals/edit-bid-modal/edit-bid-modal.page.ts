@@ -40,7 +40,7 @@ export class EditBidModalPage implements OnInit {
   }
 
   close(type) {
-    this.modal.dismiss({type});
+    this.modal.dismiss({ type });
   }
 
   async counterBidInEvent() {
@@ -52,18 +52,21 @@ export class EditBidModalPage implements OnInit {
         deviceArray.push(this.params.devices[i].drDeviceId);
       }
 
+
+
       this.drCustomerService.counterBidToEvent(this.params.eventId
         , this.params.userId
         , this.params.commitedPower
         , this.yourBid
         , deviceArray).subscribe((res: any) => {
-
-          if (res.response.message != "Success") {
+          if (res.response.message == "Power Committed is already more than Planned Power") {
+            window.alert("Cant commit " + this.params.commitedPower + " KW power as it would overshoot the total asked commitment");
+          } else if (res.response.message != "Success") {
             console.log("Something went wrong in counter bid");
           } else {
             this.modal.dismiss({
               bid: this.yourBid,
-              type:'bid'
+              type: 'bid'
             });
           }
         })

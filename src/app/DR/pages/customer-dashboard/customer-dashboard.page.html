@@ -33,14 +33,13 @@
     </ion-col>
   </ion-row>
 
-
   <ion-grid class="total-earning">
     <ion-row class="px-3">
       <ion-col class="card p-0">
         <ion-row class="py-3">
           <ion-col size="12" class="p-0 text-center header">TOTAL EARNING</ion-col>
           <ion-col size="12" class="p-0 d-flex align-items-center justify-content-center header-amount">
-            <div> ₹ {{totalEarnings - totalPenalty}}</div>
+            <div> ₹ {{(totalEarnings - totalPenalty).toFixed(2)}}</div>
             <div class="ml-2 d-flex align-items-center justify-content-center percent-chip">
               <ion-icon *ngIf="false" name="arrow-dropdown"></ion-icon>
               <ion-icon *ngIf="true" name="md-arrow-dropup"></ion-icon>

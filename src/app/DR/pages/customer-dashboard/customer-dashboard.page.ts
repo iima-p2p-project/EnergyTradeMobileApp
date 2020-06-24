@@ -62,7 +62,7 @@ export class CustomerDashboardPage implements OnInit {
       ));
       console.log("ALL events skr", this.allEvents);
       this.fetchEventCounts();
-      this.getTotalEarnings();
+      //this.getTotalEarnings();
     });
 
   }
@@ -180,27 +180,32 @@ export class CustomerDashboardPage implements OnInit {
   }
 
   fetchEventCounts() {
-
     this.drCustomerService.fetchEventCounts(this.ingressService.loggedInUser.userId).subscribe((res: any) => {
       this.successfulCount = res.response.successfulEventsCount;
       this.cancelledCount = res.response.cancelledEventsCount;
       this.penaltyCount = res.response.penaltyEventsCount;
+      this.totalEarnings = (+(res.response.totalEarnings) / 100);
+      this.totalPenalty = (+(res.response.totalPenalty) / 100);
+      this.drCustomerService.totalEarnings = this.totalEarnings;
+      this.drCustomerService.totalPenalty = this.totalPenalty;
     }, (err) => {
       window.alert("Something went wrong in fetching event counts");
     })
   }
 
-  getTotalEarnings() {
-    this.totalEarnings = 0;
-    this.totalPenalty = 0;
+  // getTotalEarnings() {
+  //   this.totalEarnings = 0;
+  //   this.totalPenalty = 0;
 
-    this.allEvents.forEach(event => {
-      this.totalEarnings += +event.earnings
-      this.totalPenalty += +event.customerFine;
-    });
-    this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
-    this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
 
-  }
+
+  //   this.allEvents.forEach(event => {
+  //     this.totalEarnings += +event.earnings
+  //     this.totalPenalty += +event.customerFine;
+  //   });
+  //   this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
+  //   this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
+
+  // }
 
 }

@@ -29,7 +29,8 @@
             <div class="d-flex align-items-center">₹ <span class="earning pl-2">
                 {{(totalEarnings - totalPenalty).toFixed(2)}}</span>
             </div>
-            <div class="text-center description">Total Earnings ({{allEvents?.length}} events)</div>
+            <div class="text-center description">Total Earnings ({{completedEvents?.length + penaltyEvents?.length}}
+              events)</div>
           </div>
           <div class="d-flex align-items-end">
             <ion-icon src="assets/svg/forecast-data.svg" style="font-size: 50px;color: white;"></ion-icon>

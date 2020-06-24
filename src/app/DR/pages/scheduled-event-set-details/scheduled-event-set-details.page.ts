@@ -122,6 +122,10 @@ export class ScheduledEventSetDetailsPage implements OnInit {
         }
       }
     });
+
+    withdrawEventModal.onDidDismiss().then((data: any) => {
+      this.getEvents();
+    });
     return await withdrawEventModal.present();
   }
 

@@ -78,7 +78,10 @@ export class AllDrEventSetsPage implements OnInit {
       // this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
       // this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "10");
       // this.failedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "11" || event.eventCustomerMappingStatus == "12");
-      this.getTotalEarnings();
+      ///this.getTotalEarnings();
+
+      this.totalEarnings = this.drCustomerService.totalEarnings;
+      this.totalPenalty = this.drCustomerService.totalPenalty;
 
     });
   }
@@ -267,38 +270,38 @@ export class AllDrEventSetsPage implements OnInit {
   getStartEnd(startTime, endTime) {
     return moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A")
   }
-  getTotalEarnings() {
-    this.totalEarnings = 0;
-    this.totalPenalty = 0;
+  // getTotalEarnings() {
+  //   this.totalEarnings = 0;
+  //   this.totalPenalty = 0;
 
-    let completedEvents = this.allEvents.filter(event => {
-      event.eventCustomerMappingStatus == "8"
-        || event.eventCustomerMappingStatus == "15"
-        || event.eventCustomerMappingStatus == "10"
-    });
+  //   let completedEvents = this.allEvents.filter(event => {
+  //     event.eventCustomerMappingStatus == "8"
+  //       || event.eventCustomerMappingStatus == "15"
+  //       || event.eventCustomerMappingStatus == "10"
+  //   });
 
-    completedEvents.forEach(event => {
-      this.totalEarnings += +event.earnings
-      this.totalPenalty += +event.customerFine;
-    });
-    this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
-    this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
+  //   completedEvents.forEach(event => {
+  //     this.totalEarnings += +event.earnings
+  //     this.totalPenalty += +event.customerFine;
+  //   });
+  //   this.totalEarnings = +(this.totalEarnings / 100).toFixed(2);
+  //   this.totalPenalty = +(this.totalPenalty / 100).toFixed(2);
 
-  }
+  // }
 
-  getEarnings(actualRelief, commitedRelief, price) {
-    let earnings = 0;
-    let penalty = 0;
-    // successful
-    if (actualRelief >= commitedRelief) {
-      earnings = (commitedRelief / 4) * (price / 100);
-      penalty = 0;
-    } else {
-      earnings = (actualRelief / 4) * (price / 100);
-      penalty = (commitedRelief - actualRelief) * (price * 1.2 / 100);
-    }
-    return (earnings - penalty).toFixed(2);
-  }
+  // getEarnings(actualRelief, commitedRelief, price) {
+  //   let earnings = 0;
+  //   let penalty = 0;
+  //   // successful
+  //   if (actualRelief >= commitedRelief) {
+  //     earnings = (commitedRelief / 4) * (price / 100);
+  //     penalty = 0;
+  //   } else {
+  //     earnings = (actualRelief / 4) * (price / 100);
+  //     penalty = (commitedRelief - actualRelief) * (price * 1.2 / 100);
+  //   }
+  //   return (earnings - penalty).toFixed(2);
+  // }
 
   searchEvents() {
     // if (this.seacrhString != "" || this.seacrhString != null) {
