@@ -90,4 +90,45 @@ export class AllEventsPage implements OnInit {
     return moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A")
   }
 
+  async applyPeriodFilter() {
+    // console.log("Apply Period Filter");
+
+    // let opts: PickerOptions = {
+    //   buttons: [{
+    //     text: 'Ok', role: 'done', handler: async () => {
+    //       let col = await picker.getColumn('periodOptions');
+    //       console.log("Selected Col", col);
+    //       let periodFilterKey = col.options[col.selectedIndex].value;
+    //       console.log("Filter Key:", periodFilterKey);
+    //       if (periodFilterKey == 'All')
+    //         console.log("All clicked");
+
+    //     }
+    //   }, {
+    //     text: "Cancel", role: "cancel", handler: () => {
+
+    //     }
+    //   }],
+    //   columns: [{
+    //     name: "periodOptions",
+    //     options: [{ text: "All", value: "All" }
+    //       , { text: "Canceled", value: "Canceled" }
+    //       , { text: "Completed", value: "Completed" }
+    //       , { text: "Scheduled", value: "Scheduled" }
+    //       , { text: "Penalty", value: "Penalty" }]
+    //   }]
+    // }
+    // let picker = await this.pickerCtrl.create(opts)
+    // picker.present();
+    window.alert("This is an upcoming functionality. Stay Tuned.")
+  }
+
+  applyEnergyFilter() {
+    window.alert("This is an upcoming functionality. Stay Tuned.");
+  }
+
+  searchEvents() {
+    window.alert("This is an upcoming functionality");
+  }
+
 }
