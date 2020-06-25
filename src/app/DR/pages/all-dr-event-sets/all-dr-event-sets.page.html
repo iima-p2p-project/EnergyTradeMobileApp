@@ -132,7 +132,8 @@
           <div class="event-name">{{event?.eventName}}</div>
           <div class="event-date">{{formatTime(event?.eventStartTime)}}</div>
         </div>
-        <div class="status-chip successful">SUCCESSFUL</div>
+        <div class="status-chip successful" *ngIf="event?.eventCustomerMappingStatus == '15'">SUCCESSFUL</div>
+        <div class="status-chip pending-validation" *ngIf="event?.eventCustomerMappingStatus == '8'">PENDING VALIDATION</div>
       </ion-col>
       <ion-col class="px-0 py-2 border-bottom">
         <div class="d-flex justify-content-between event-detail">
@@ -150,7 +151,7 @@
       </ion-col>
       <ion-col size="12" class="d-flex align-items-center justify-content-center">
         <div>{{event?.committedPower}} KW</div>
-        <div class="ml-2 pl-2 border-left">₹ {{getEarnings(event?.actualPower,event?.committedPower,event?.bidprice)}}
+        <div class="ml-2 pl-2 border-left">₹ {{(event?.earnings/100).toFixed(2)}}
         </div>
       </ion-col>
     </ion-row>
@@ -189,7 +190,7 @@
       </ion-col>
       <ion-col size="12" class="d-flex align-items-center justify-content-center">
         <div>{{event?.committedPower}} KW</div>
-        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.committedPower}}</div>
+        <div class="ml-2 pl-2 border-left">₹ {{(event?.earnings/100).toFixed(2)}}</div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -228,7 +229,7 @@
       <ion-col size="12" class="d-flex align-items-center justify-content-center">
         <div>{{event?.actualPower}} KW</div>
         <del class="ml-2 pl-2 border-left text-secondary">₹ {{event?.bidprice * event?.committedPower}}</del>
-        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.actualPower}}</div>
+        <div class="ml-2 pl-2 border-left">₹ {{((event?.earnings - event?.customerFine)/100).toFixed(2)}}</div>
       </ion-col>
     </ion-row>
     <ion-row class="event-list-item mt-1" *ngFor="let event of failedEvents">
@@ -255,8 +256,9 @@
       </ion-col>
       <ion-col size="12" class="d-flex align-items-center justify-content-center">
         <div>{{event?.actualPower}} KW</div>
-        <del class="ml-2 pl-2 border-left text-secondary">₹ {{event?.bidprice * event?.committedPower}}</del>
-        <div class="ml-2 pl-2 border-left">₹ {{event?.bidprice * event?.actualPower}}</div>
+        <del class="ml-2 pl-2 border-left text-secondary">₹
+          {{((event?.bidprice * event?.committedPower)/100).toFixed(2)}}</del>
+        <div class="ml-2 pl-2 border-left">₹ {{((event?.earnings - event?.customerFine)/100).toFixed(2)}}</div>
       </ion-col>
     </ion-row>
   </ion-grid>
