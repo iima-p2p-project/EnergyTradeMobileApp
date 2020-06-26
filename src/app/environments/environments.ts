@@ -9,10 +9,14 @@ export const environment = {
 
 export const devAddress = "http://139.59.30.90:8080";
 export const uatAddress = "http://139.59.34.247:8080";
-export const brplDemo = "http://api.energytrade.io:8080";
+// export const brplDemo = "http://api.energytrade.io:8080";
+
+export const brplDemo = "http://134.209.154.124:8080";
 
 
-export const activeBackend = devAddress;
+
+
+export const activeBackend = brplDemo;
 
 
 // for uat

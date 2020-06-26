@@ -143,7 +143,8 @@ export class ScheduledEventSetDetailsPage implements OnInit {
   }
 
   showNotifications() {
-    this.router.navigateByUrl('/notifications');
+    window.alert("This is an upcoming funtionality");
+
   }
 
   formatTime(eventTime) {
@@ -195,5 +196,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
       case 14: return 'status expired'; //"Expired
     }
   }
+
+
 
 }

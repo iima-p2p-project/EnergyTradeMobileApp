@@ -274,6 +274,10 @@ export class EventSetDetailsPage implements OnInit {
     });
   }
 
+  upcomingFunctionality() {
+    window.alert("This is an upcoming funtionality");
+  }
+
 
 }
 
