@@ -73,10 +73,11 @@
 
             <!-- edit and withdraw buttons -->
             <div class="py-2 text-center btn-event"
-              (click)="editEvent(event.eventId,'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)"
+              (click)="editEvent(event.eventId,'bid',event.eventStartTime,event.eventEndTime)"
               *ngIf="allCustomerDevices?.length > 0 && event.eventStatus == 'Published'">
               EDIT</div>
-            <div class="py-2 text-center btn-event" (click)="withdrawFromEvent(event.eventId)">WITHDRAW</div>
+            <div class="py-2 text-center btn-event"
+              (click)="withdrawFromEvent(event.eventId,event.eventStartTime,event.eventEndTime)">WITHDRAW</div>
 
 
           </div>
