@@ -61,6 +61,12 @@ export class AllDrEventSetsPage implements OnInit {
         return !eventDate.isBefore(today);
       });
 
+      this.eventSets.sort(
+        (eventSet1, eventSet2) => {
+          return moment(eventSet1.eventSetDate, "YYYY-MM-DD").diff(moment(eventSet2.eventSetDate, "YYYY-MM-DD"));
+        });
+
+
       console.log(this.eventSets);
       this.eventSetsWithPublishedEvents = this.activeEventSets.filter(eventSet => this.checkForpublishedEvent(eventSet));
       this.eventSetsWithScheduledEvents = this.activeEventSets.filter(eventSet => this.checkForScheduledEvent(eventSet));

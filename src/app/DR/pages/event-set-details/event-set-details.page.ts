@@ -31,6 +31,7 @@ export class EventSetDetailsPage implements OnInit {
   maxMinTime;
   eventSetName;
   publishedEvents;
+  hourlyEvents = [];
   eventSetDate;
 
 
@@ -64,13 +65,49 @@ export class EventSetDetailsPage implements OnInit {
       this.allEvents = res.response.events;
       console.log("All events", this.allEvents);
       this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2 && event.eventStatus == 'Published')
-      this.allCustomerDevices = res.response.allCustomerDevices;
-      this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
-      this.maxMinTime = this.findMaxMinTime();
+      this.publishedEvents.sort((ts1, ts2) => {
+        return moment(ts1.eventStartTime).diff(ts2.eventStartTime);
+      });
+      this.publishedEvents.forEach(event => {
+        let check = false;
+        let startHour = moment.utc(event.eventStartTime).hours();
+        this.hourlyEvents.forEach(val => {
+          if (val[startHour]) {
+            val[startHour].push(event);
+            check = true;
+          }
+        });
+        if (check == false) {
+          this.hourlyEvents.push({ [startHour]: [event] });
+        }
+        this.allCustomerDevices = res.response.allCustomerDevices;
+        this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
+        this.maxMinTime = this.findMaxMinTime();
+      });
+      console.log("Hourly events:", this.hourlyEvents);
     });
-
-
   }
+  getEventArrayFromBracket(bracket) {
+    return Object.values(bracket)[0]
+  }
+  getBracketname(bracket) {
+    return Object.keys(bracket)[0]
+  }
+  getTimeSpan(bracket) {
+    let code = +Object.keys(bracket)[0];
+    if (code == 0) {
+      return "12 AM - 1 AM";
+    } else if (code < 11) {
+      return code + "AM - " + (code + 1) + "";
+    } else if (code == 11) {
+      return "11 AM - 12 PM";
+    } else if (code == 12) {
+      return "12 PM - 1 PM";
+    } else {
+      return (code % 12) + " PM - " + ((code + 1) % 12) + " PM";
+    }
+  }
+
 
   refreshEvents(refreshEvent) {
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
