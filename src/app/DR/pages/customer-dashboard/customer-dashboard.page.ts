@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IngressService } from 'src/app/services/ingress.service';
 import { DRCustomerService } from 'src/app/services/drcustomer.service';
 import * as moment from 'moment';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-customer-dashboard',
@@ -13,7 +14,8 @@ export class CustomerDashboardPage implements OnInit {
 
   constructor(private router: Router
     , private ingressService: IngressService
-    , private drCustomerService: DRCustomerService) { }
+    , private drCustomerService: DRCustomerService
+    , private platform: Platform) { }
 
   userId;
   eventSets;
@@ -26,12 +28,27 @@ export class CustomerDashboardPage implements OnInit {
   totalEarnings = 0;
   totalPenalty = 0;
   activeEventSets;
+  backButtonSub;
   ngOnInit() {
     this.userId = this.ingressService.loggedInUser.userId;
 
   }
   ionViewDidEnter() {
     this.getEventSets();
+    this.disableBackButton();
+  }
+
+  disableBackButton() {
+    this.backButtonSub = this.platform.backButton.subscribeWithPriority(9999, () => {
+      document.addEventListener('backbutton', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }, false);
+    });
+  }
+
+  ionViewWillLeave() {
+    this.backButtonSub.unsubscribe();
   }
 
   getEventSets() {

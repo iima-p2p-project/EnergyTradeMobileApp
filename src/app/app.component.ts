@@ -110,8 +110,18 @@ export class AppComponent {
 
   }
 
+  disableBackButton() {
+    this.platform.backButton.subscribeWithPriority(9999, () => {
+      document.addEventListener('backbutton', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }, false);
+    });
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
+     // this.disableBackButton();
       this.statusBar.styleBlackTranslucent();
       this.splashScreen.hide();
       this.setupPushNotif();
@@ -251,16 +261,16 @@ export class AppComponent {
     this.router.navigate(['all-events']);
 
   }
-  @HostListener('document:backbutton')
-  onBackButton() {
-    if (this.backButtonService.quitOnBackButton) {
-      if (window.confirm("Do you want to exit the app?")) {
-        this.backButtonService.closeApp();
-      }
-    } else {
-      this.navCtrl.back();
-    }
-  }
+  // @HostListener('document:backbutton')
+  // onBackButton() {
+  //   if (this.backButtonService.quitOnBackButton) {
+  //     if (window.confirm("Do you want to exit the app?")) {
+  //       this.backButtonService.closeApp();
+  //     }
+  //   } else {
+  //     this.navCtrl.back();
+  //   }
+  // }
   callHelp() {
     this.callNumber.callNumber(SUPPORT_NUMBER, true)
       .then(res => console.log('Launched dialer!', res))

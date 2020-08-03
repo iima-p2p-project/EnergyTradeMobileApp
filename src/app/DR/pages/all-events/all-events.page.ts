@@ -61,10 +61,24 @@ export class AllEventsPage implements OnInit {
     // ));
     console.log("All events:", this.allEvents);
 
+
+    this.allEvents.sort(
+      (event1, event2) => {
+        return moment(event2.eventStartTime).diff(moment(event1.eventStartTime));
+      });
+
     this.completedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "15" && event.isFineApplicable == 'N');
     this.cancelledEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "9");
     this.penaltyEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "15" && event.isFineApplicable == 'Y');
     this.failedEvents = this.allEvents.filter(event => event.eventCustomerMappingStatus == "11" || event.eventCustomerMappingStatus == "12");
+
+
+
+    this.cancelledEvents.sort(
+      (event1, event2) => {
+        return moment(event1.eventStartTime).diff(moment(event2.eventStartTime));
+      });
+
 
   }
 
