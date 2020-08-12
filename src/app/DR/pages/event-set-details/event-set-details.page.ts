@@ -98,7 +98,7 @@ export class EventSetDetailsPage implements OnInit {
     if (code == 0) {
       return "12 AM - 1 AM";
     } else if (code < 11) {
-      return code + "AM - " + (code + 1) + "";
+      return code + " AM - " + (code + 1) + " AM";
     } else if (code == 11) {
       return "11 AM - 12 PM";
     } else if (code == 12) {

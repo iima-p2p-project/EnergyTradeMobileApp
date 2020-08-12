@@ -37,7 +37,7 @@ export const ACTION_FORECAST = 'FORECAST';
 export const ACTION_CREATE = 'CREATE';
 export const ACTION_EDIT = 'EDIT';
 
-export const SUPPORT_NUMBER = '123456789';
+export const SUPPORT_NUMBER = '+919550451441';
 
 export const INGRESS_URL = activeBackend + '/et_ingress/rest';
 export const ADMIN_URL = activeBackend + '/et_order/rest/';
