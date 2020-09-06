@@ -97,7 +97,7 @@ export class AllEventsPage implements OnInit {
 
 
   formatTime(date) {
-    return moment(date).format("DD MMM, YYYY");
+    return moment.utc(date).format("DD MMM, YYYY");
   }
 
   getStartEnd(startTime, endTime) {

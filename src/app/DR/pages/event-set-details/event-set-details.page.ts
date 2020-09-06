@@ -94,7 +94,7 @@ export class EventSetDetailsPage implements OnInit {
     return Object.keys(bracket)[0]
   }
   getTimeSpan(bracket) {
-    let code = +Object.keys(bracket)[0];
+    let code = +Object.keys(bracket)[0];  
     if (code == 0) {
       return "12 AM - 1 AM";
     } else if (code < 11) {
@@ -103,6 +103,8 @@ export class EventSetDetailsPage implements OnInit {
       return "11 AM - 12 PM";
     } else if (code == 12) {
       return "12 PM - 1 PM";
+    } else if (code == 23) {
+      return "11 PM - 12 AM";
     } else {
       return (code % 12) + " PM - " + ((code + 1) % 12) + " PM";
     }
@@ -238,7 +240,7 @@ export class EventSetDetailsPage implements OnInit {
           userId: this.userId,
           devices: this.selectedDevices[eventId].devices,
           commitedPower: this.selectedDevices[eventId].commitedPower,
-          timeRange: moment(startTime).format("hh:mm A") + " - " + moment(endTime).format("hh:mm A"),
+          timeRange: moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A"),
           expectedPrice: expectedPrice,
           type: 'counterbid'
         }
@@ -269,7 +271,7 @@ export class EventSetDetailsPage implements OnInit {
           allDevices: this.allCustomerDevices,
           committedPower: this.selectedDevices[eventId].commitedPower,
           selectedDevices: this.selectedDevices[eventId].devices,
-          timeRange: moment(startTime).format("hh:mm A") + " - " + moment(endTime).format("hh:mm A"),
+          timeRange: moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A"),
 
         }
       }

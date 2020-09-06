@@ -16,7 +16,7 @@ export const brplDemo = "http://134.209.154.124:8080";
 
 
 
-export const activeBackend = brplDemo;
+export const activeBackend = devAddress;
 
 
 // for uat
