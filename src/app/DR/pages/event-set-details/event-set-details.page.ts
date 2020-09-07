@@ -94,7 +94,7 @@ export class EventSetDetailsPage implements OnInit {
     return Object.keys(bracket)[0]
   }
   getTimeSpan(bracket) {
-    let code = +Object.keys(bracket)[0];  
+    let code = +Object.keys(bracket)[0];
     if (code == 0) {
       return "12 AM - 1 AM";
     } else if (code < 11) {
@@ -198,20 +198,24 @@ export class EventSetDetailsPage implements OnInit {
 
   participateInEvent(eventId, committedPower, selectedDevices) {
     let deviceArray = [];
-    for (let i = 0; i < selectedDevices.length; i++) {
-      deviceArray.push(selectedDevices[i].drDeviceId);
+    if (selectedDevices.length == 0) {
+      window.alert("Please select any device to participate");
+    } else {
+      for (let i = 0; i < selectedDevices.length; i++) {
+        deviceArray.push(selectedDevices[i].drDeviceId);
+      }
+      this.drCustomerService.participateInEvent(eventId, this.userId, committedPower, deviceArray).subscribe((res: any) => {
+        if (res.response.message == "Power Committed is already more than Planned Power") {
+          window.alert("Cant commit " + committedPower + " KW power as it would overshoot the total asked commitment");
+        }
+        else if (res.response.message != "Success") {
+          console.log("Something went wrong in participating in event");
+        } else {
+          this.selectedDevices[eventId].status = "participated";
+          //this.getEvents();
+        }
+      });
     }
-    this.drCustomerService.participateInEvent(eventId, this.userId, committedPower, deviceArray).subscribe((res: any) => {
-      if (res.response.message == "Power Committed is already more than Planned Power") {
-        window.alert("Cant commit " + committedPower + " KW power as it would overshoot the total asked commitment");
-      }
-      else if (res.response.message != "Success") {
-        console.log("Something went wrong in participating in event");
-      } else {
-        this.selectedDevices[eventId].status = "participated";
-        //this.getEvents();
-      }
-    });
   }
 
   // counterBidInEvent(eventId, committedPower, selectedDevices) {
