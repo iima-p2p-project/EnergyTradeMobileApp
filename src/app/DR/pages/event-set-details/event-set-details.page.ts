@@ -61,6 +61,8 @@ export class EventSetDetailsPage implements OnInit {
   }
 
   getEvents() {
+    this.allEvents = [];
+    this.hourlyEvents= [];
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
       console.log("All events", this.allEvents);
