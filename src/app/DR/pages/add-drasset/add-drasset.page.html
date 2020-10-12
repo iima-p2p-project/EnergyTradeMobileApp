@@ -36,6 +36,14 @@
           <div class="unit"> KW (±3%)</div>
         </div>
       </div>
+      <div class="px-4 pt-3 form-item">
+        <div class="form-control-label">ENERGY ASSET TYPE</div>
+        <ion-select class="form-control-input type-input" value="others" [(ngModel)]="deviceType">
+          <ion-select-option value="others">Others</ion-select-option>
+          <ion-select-option value="ac">AC</ion-select-option>
+        </ion-select>
+      </div>
+   
       <!-- <div class="px-4 pt-3 form-item ">
         <div class="form-control-label">OPERATING TIME </div>
         <div class="d-flex align-items-center">

@@ -23,6 +23,7 @@ export class AddDRAssetPage implements OnInit {
   redirect;
   type;
   userDeviceId;
+  deviceType = "others";
 
 
 
@@ -45,7 +46,7 @@ export class AddDRAssetPage implements OnInit {
   addDRAsset() {
     this.drCustomerService.addDRDevice(this.ingressService.loggedInUser.userId
       , this.assetName
-      , this.assetPower).subscribe((res: any) => {
+      , this.assetPower, this.deviceType).subscribe((res: any) => {
         if (res.response.key == "200") {
           if (res.response.message == "No switches available. Cannot add device") {
             window.alert("No Available switches. Cannot add device.");

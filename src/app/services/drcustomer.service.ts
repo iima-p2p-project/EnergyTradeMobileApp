@@ -154,7 +154,7 @@ export class DRCustomerService {
   }
 
 
-  addDRDevice(userId: any, deviceName: String, deviceCapacity: String) {
+  addDRDevice(userId: any, deviceName: String, deviceCapacity: String, deviceType: String) {
     var options = {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
@@ -164,7 +164,8 @@ export class DRCustomerService {
         userId,
         deviceDetails: [{
           deviceName,
-          deviceCapacity
+          deviceCapacity,
+          deviceType
         }]
       }
       , options
