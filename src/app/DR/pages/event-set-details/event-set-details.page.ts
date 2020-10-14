@@ -33,6 +33,7 @@ export class EventSetDetailsPage implements OnInit {
   publishedEvents;
   hourlyEvents = [];
   eventSetDate;
+  acAdded = false;
 
 
   selectedDevices = {};
@@ -62,7 +63,7 @@ export class EventSetDetailsPage implements OnInit {
 
   getEvents() {
     this.allEvents = [];
-    this.hourlyEvents= [];
+    this.hourlyEvents = [];
     this.drCustomerService.getEventsForCustomerAndEventSet(this.eventSetId, this.userId).subscribe((res: any) => {
       this.allEvents = res.response.events;
       console.log("All events", this.allEvents);
@@ -83,7 +84,14 @@ export class EventSetDetailsPage implements OnInit {
           this.hourlyEvents.push({ [startHour]: [event] });
         }
         this.allCustomerDevices = res.response.allCustomerDevices;
-        this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
+        //remove AC
+        let allCusDeviceswithoutAC = this.allCustomerDevices.filter((device) => {
+          if(device.deviceTypeId !=1)
+            return true;
+          else
+            return false;
+            });
+        this.preSelectDevices(this.publishedEvents, allCusDeviceswithoutAC);
         this.maxMinTime = this.findMaxMinTime();
       });
       console.log("Hourly events:", this.hourlyEvents);
@@ -118,7 +126,11 @@ export class EventSetDetailsPage implements OnInit {
       this.allEvents = res.response.events;
       this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2)
       this.allCustomerDevices = res.response.allCustomerDevices;
-      this.preSelectDevices(this.publishedEvents, this.allCustomerDevices);
+      let allCusDeviceswithoutAC = this.allCustomerDevices.filter(
+        (device) => {
+           device.deviceTypeId == 1 });
+
+      this.preSelectDevices(this.publishedEvents, allCusDeviceswithoutAC);
       this.maxMinTime = this.findMaxMinTime();
     });
 
@@ -151,16 +163,28 @@ export class EventSetDetailsPage implements OnInit {
     for (i = 0; i < presentDeviceArray.length; i++) {
       if (presentDeviceArray[i].drDeviceId == device.drDeviceId) {
         this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower - device.deviceCapacity;
-
+        if (device.deviceTypeId == 1)
+          this.acAdded = false;
         presentDeviceArray.splice(i, 1);
         flag = true;
         break;
       }
     }
     if (!flag) {
-      this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
-
-      presentDeviceArray.push(device);
+      //verify if AC is already selected
+      if (device.deviceTypeId == 1) {
+        if (this.acAdded == false) {
+          this.acAdded = true;
+          this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
+          presentDeviceArray.push(device);
+        } else {
+          window.alert("Cannot have both AC and AC Setpoint change selected.")
+        }
+      }
+      else {
+        this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
+        presentDeviceArray.push(device);
+      }
     }
     this.selectedDevices[eventId].devices = presentDeviceArray;
     console.log("Updated device selecttion", this.selectedDevices);
