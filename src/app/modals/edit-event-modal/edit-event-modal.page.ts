@@ -15,6 +15,7 @@ export class EditEventModalPage implements OnInit {
   @Input() params;
   selectedDevices = [];
   committedPower = 0;
+  acSelected;
 
 
   ngOnInit() {
@@ -46,11 +47,14 @@ export class EditEventModalPage implements OnInit {
 
   }
   ionViewWillEnter() {
-
+    this.acSelected = false;
     console.log(this.params);
     this.selectedDevices = this.params.selectedDevices.filter(() => true);
-    for (let i = 0; i < this.selectedDevices.length; i++)
+    for (let i = 0; i < this.selectedDevices.length; i++){
       this.committedPower += this.selectedDevices[i].deviceCapacity;
+      if(this.selectedDevices[i].deviceTypeId == 1)
+        this.acSelected = true;
+    }
     console.log("Commited power", this.committedPower);
 
   }
@@ -60,6 +64,8 @@ export class EditEventModalPage implements OnInit {
     let flag = false;
     for (i = 0; i < this.selectedDevices.length; i++) {
       if (this.selectedDevices[i].drDeviceId == device.drDeviceId) {
+        if (device.deviceTypeId == 1)
+          this.acSelected = false;
         this.committedPower = this.committedPower - device.deviceCapacity;
 
         this.selectedDevices.splice(i, 1);
@@ -68,9 +74,21 @@ export class EditEventModalPage implements OnInit {
       }
     }
     if (!flag) {
-      this.committedPower = this.committedPower + device.deviceCapacity;
+      if (device.deviceTypeId == 1) {
+        if (this.acSelected  == false) {
+          this.acSelected = true;
+          this.committedPower = this.committedPower + device.deviceCapacity;
+          this.selectedDevices.push(device);
+        } else {
+          window.alert("Cannot have both AC and AC Setpoint change selected.")
+        }
+      }
+      else {
+        this.committedPower = this.committedPower + device.deviceCapacity;
+        this.selectedDevices.push(device);
+      }
 
-      this.selectedDevices.push(device);
+      
     }
     console.log("Updated device selecttion", this.selectedDevices);
   }

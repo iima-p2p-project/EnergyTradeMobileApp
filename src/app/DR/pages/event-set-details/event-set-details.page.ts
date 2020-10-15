@@ -147,6 +147,7 @@ export class EventSetDetailsPage implements OnInit {
       this.selectedDevices[eventId] = { "devices": devices };
       this.selectedDevices[eventId].status = "published";
       this.selectedDevices[eventId].counterBidAmount = 0;
+      this.selectedDevices[eventId].acSelected = false;
 
       for (j = 0; j < devices.length; j++) {
         commitedPower += devices[j].deviceCapacity;
@@ -164,7 +165,7 @@ export class EventSetDetailsPage implements OnInit {
       if (presentDeviceArray[i].drDeviceId == device.drDeviceId) {
         this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower - device.deviceCapacity;
         if (device.deviceTypeId == 1)
-          this.acAdded = false;
+          this.selectedDevices[eventId].acSelected = false;
         presentDeviceArray.splice(i, 1);
         flag = true;
         break;
@@ -173,8 +174,8 @@ export class EventSetDetailsPage implements OnInit {
     if (!flag) {
       //verify if AC is already selected
       if (device.deviceTypeId == 1) {
-        if (this.acAdded == false) {
-          this.acAdded = true;
+        if (this.selectedDevices[eventId].acSelected  == false) {
+          this.selectedDevices[eventId].acSelected = true;
           this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
           presentDeviceArray.push(device);
         } else {
