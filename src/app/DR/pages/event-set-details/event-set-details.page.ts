@@ -86,11 +86,11 @@ export class EventSetDetailsPage implements OnInit {
         this.allCustomerDevices = res.response.allCustomerDevices;
         //remove AC
         let allCusDeviceswithoutAC = this.allCustomerDevices.filter((device) => {
-          if(device.deviceTypeId !=1)
+          if (device.pairedDevice == -1)
             return true;
           else
             return false;
-            });
+        });
         this.preSelectDevices(this.publishedEvents, allCusDeviceswithoutAC);
         this.maxMinTime = this.findMaxMinTime();
       });
@@ -126,9 +126,12 @@ export class EventSetDetailsPage implements OnInit {
       this.allEvents = res.response.events;
       this.publishedEvents = this.allEvents.filter(event => event.eventCustomerDetails.eventCustomerStatus == 2)
       this.allCustomerDevices = res.response.allCustomerDevices;
-      let allCusDeviceswithoutAC = this.allCustomerDevices.filter(
-        (device) => {
-           device.deviceTypeId == 1 });
+      let allCusDeviceswithoutAC = this.allCustomerDevices.filter((device) => {
+        if (device.pairedDevice == -1)
+          return true;
+        else
+          return false;
+      });
 
       this.preSelectDevices(this.publishedEvents, allCusDeviceswithoutAC);
       this.maxMinTime = this.findMaxMinTime();
@@ -147,7 +150,7 @@ export class EventSetDetailsPage implements OnInit {
       this.selectedDevices[eventId] = { "devices": devices };
       this.selectedDevices[eventId].status = "published";
       this.selectedDevices[eventId].counterBidAmount = 0;
-      this.selectedDevices[eventId].acSelected = false;
+      this.selectedDevices[eventId].acSelected = [];
 
       for (j = 0; j < devices.length; j++) {
         commitedPower += devices[j].deviceCapacity;
@@ -164,8 +167,14 @@ export class EventSetDetailsPage implements OnInit {
     for (i = 0; i < presentDeviceArray.length; i++) {
       if (presentDeviceArray[i].drDeviceId == device.drDeviceId) {
         this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower - device.deviceCapacity;
-        if (device.deviceTypeId == 1)
-          this.selectedDevices[eventId].acSelected = false;
+        if (device.pairedDevice != -1) {
+
+          let index = this.selectedDevices[eventId].acSelected.indexOf(device.pairedDevice);
+          if (index > -1) {
+            this.selectedDevices[eventId].acSelected.splice(index, 1);
+          }
+          this.selectedDevices[eventId].acSelected.splice(device.pairedDevice);
+        }
         presentDeviceArray.splice(i, 1);
         flag = true;
         break;
@@ -173,9 +182,9 @@ export class EventSetDetailsPage implements OnInit {
     }
     if (!flag) {
       //verify if AC is already selected
-      if (device.deviceTypeId == 1) {
-        if (this.selectedDevices[eventId].acSelected  == false) {
-          this.selectedDevices[eventId].acSelected = true;
+      if (device.pairedDevice != -1) {
+        if (!this.checkPairedAC(device.drDeviceId, this.selectedDevices[eventId].acSelected)) {
+          this.selectedDevices[eventId].acSelected.push(device.pairedDevice);
           this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
           presentDeviceArray.push(device);
         } else {
@@ -191,6 +200,13 @@ export class EventSetDetailsPage implements OnInit {
     console.log("Updated device selecttion", this.selectedDevices);
   }
 
+
+  checkPairedAC(deviceId, selectedDevices) {
+    if (selectedDevices.includes(deviceId))
+      return true;
+    else
+      return false;
+  }
   chipCssCheck(eventId, device) {
 
     let deviceArray = this.selectedDevices[eventId].devices;

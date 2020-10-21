@@ -61,10 +61,11 @@
             </div>
             <!-- amounts -->
             <div class="p-1 d-flex align-items-center event-rate" *ngIf="allCustomerDevices?.length > 0">
-              <div class="w-50 pr-3 text-right border-right">{{selectedDevices[event.eventId].commitedPower}} KW (±3%)
+              <div class="w-50 pr-3 text-right border-right">
+                {{(selectedDevices[event.eventId].commitedPower).toFixed(2)}} KW (±3%)
               </div>
-              <div class="w-50 pl-3 text-left"> ₹ {{(event.expectedPrice *
-              selectedDevices[event.eventId].commitedPower)/400}} (±3%)</div>
+              <div class="w-50 pl-3 text-left"> ₹ {{((event.expectedPrice *
+              selectedDevices[event.eventId].commitedPower)/400).toFixed(2)}} (±3%)</div>
             </div>
             <!-- success messages -->
             <div class="d-flex align-items-center justify-content-around border-top submit"
@@ -72,13 +73,13 @@
               <ion-icon src="assets/svg/clap.svg" class="clap-icon"></ion-icon>&nbsp;
               <div class="py-2 text-left">You have agreed to participate</div>
 
-            <!-- edit and withdraw buttons -->
-            <div class="py-2 text-center btn-event"
-              (click)="editEvent(event.eventId,'bid',event.eventStartTime,event.eventEndTime)"
-              *ngIf="allCustomerDevices?.length > 0 && event.eventStatus == 'Published'">
-              EDIT</div>
-            <div class="py-2 text-center btn-event"
-              (click)="withdrawFromEvent(event.eventId,event.eventStartTime,event.eventEndTime)">WITHDRAW</div>
+              <!-- edit and withdraw buttons -->
+              <div class="py-2 text-center btn-event"
+                (click)="editEvent(event.eventId,'bid',event.eventStartTime,event.eventEndTime)"
+                *ngIf="allCustomerDevices?.length > 0 && event.eventStatus == 'Published'">
+                EDIT</div>
+              <div class="py-2 text-center btn-event"
+                (click)="withdrawFromEvent(event.eventId,event.eventStartTime,event.eventEndTime)">WITHDRAW</div>
 
 
             </div>
