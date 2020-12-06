@@ -58,7 +58,7 @@
 
             <!-- devices -->
             <div class="px-2" *ngIf="allCustomerDevices?.length > 0">
-              <div class="border-bottom py-2">
+              <div class="border-bottom py-2" [class.border-white]="event.eventTypeName=='Load Shift'">
                 <ion-chip *ngFor="let device of allCustomerDevices"
                   [ngClass]="chipCssCheck(event?.eventId, device) ? 'border event-chip active':'border event-chip inactive'"
                   (click)="toggleDeviceSelection(event?.eventId,device)">
@@ -71,7 +71,7 @@
             </div>
             <!-- amounts -->
             <div class="p-1 d-flex align-items-center event-rate" *ngIf="allCustomerDevices?.length > 0">
-              <div class="w-50 pr-3 text-right border-right">
+              <div class="w-50 pr-3 text-right border-right" [class.border-white]="event.eventTypeName=='Load Shift'">
                 {{(selectedDevices[event.eventId].commitedPower).toFixed(2)}} KW (±3%)
               </div>
               <div class="w-50 pl-3 text-left"> ₹ {{((event.expectedPrice *
@@ -94,6 +94,7 @@
 
             </div>
             <div class="d-flex align-items-center justify-content-around border-top in-progress"
+              [class.border-white]="event.eventTypeName=='Load Shift'"
               *ngIf="selectedDevices[event.eventId].status == 'counterbid'">
               <div class="py-2 text-center">Proposed counter bid -
                 <b>{{selectedDevices[event.eventId].counterBidAmount}}
@@ -104,8 +105,9 @@
 
             <!-- buttons- participate and counter bid -->
             <div class="d-flex align-items-center border-top btn-event"
+              [class.border-white]="event.eventTypeName=='Load Shift'"
               *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length > 0">
-              <div class="w-50 p-2 text-center border-right"
+              <div class="w-50 p-2 text-center border-right" [class.border-white]="event.eventTypeName=='Load Shift'"
                 (click)="counterBid(event.eventId,event.eventStartTime,event.eventEndTime,event.expectedPrice)">Counter
                 Bid</div>
               <div class="w-50 p-2 text-center"
