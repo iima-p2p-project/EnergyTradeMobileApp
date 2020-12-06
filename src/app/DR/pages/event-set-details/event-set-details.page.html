@@ -106,7 +106,7 @@
             <!-- buttons- participate and counter bid -->
             <div class="d-flex align-items-center border-top btn-event"
               [class.border-white]="event.eventTypeName=='Load Shift'"
-              *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length > 0">
+              *ngIf="selectedDevices[event.eventId].status == 'published' && allCustomerDevices?.length > 0 && selectedDevices[event.eventId].commitedPower > 0">
               <div class="w-50 p-2 text-center border-right" [class.border-white]="event.eventTypeName=='Load Shift'"
                 (click)="counterBid(event.eventId,event.eventStartTime,event.eventEndTime,event.expectedPrice)">Counter
                 Bid</div>
