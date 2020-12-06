@@ -33,8 +33,8 @@
 
       <ng-container *ngFor="let event of getEventArrayFromBracket(bracket)">
         <ion-col size="12" class="p-0 px-1 mt-2">
-          <div class="event-list-item rounded ">
-            <div class="pt-3 d-flex justify-content-between event-detail">
+          <div class="event-list-item rounded event-blue">
+            <div class="pt-3 pb-2 d-flex justify-content-between event-detail">
               <div class="d-flex align-items-center">
                 <ion-icon src="assets/svg/timer.svg"></ion-icon> &nbsp;{{formatTime(event.eventStartTime)}} -
                 {{formatTime(event.eventEndTime)}}
@@ -48,8 +48,7 @@
             </div>
             <!-- load shift message -->
 
-
-            <div class="d-flex align-items-left justify-content-around border-top submit">
+            <div class="d-flex align-items-center justify-content-around border-top notification">
               <ion-icon src="assets/svg/information_icon.svg" class="clap-icon"></ion-icon>
               <div class="py-2 text-left">
                 &nbsp;Your devices will be switched on between 3 am to 6 am</div>
