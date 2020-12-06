@@ -34,16 +34,16 @@
       <ng-container *ngFor="let event of getEventArrayFromBracket(bracket)">
         <ion-col size="12" class="p-0 px-1 mt-2">
           <div class="event-list-item rounded ">
-            <div class="px-3 pt-3 d-flex justify-content-between event-detail">
+            <div class="pt-3 d-flex justify-content-between event-detail">
               <div class="d-flex align-items-center">
-                <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{formatTime(event.eventStartTime)}} -
+                <ion-icon src="assets/svg/timer.svg"></ion-icon> &nbsp;{{formatTime(event.eventStartTime)}} -
                 {{formatTime(event.eventEndTime)}}
               </div>
               <div class="d-flex align-items-center">
                 <ion-icon src="assets/svg/energy.svg"></ion-icon>&nbsp;{{event.plannedPower}} KW
               </div>
               <div class="d-flex align-items-center">
-                <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;{{event.expectedPrice}} Paise/KWH
+                <ion-icon src="assets/svg/rupee.svg"></ion-icon>&nbsp;{{event.expectedPrice/100}} / KWH
               </div>
             </div>
             <!-- load shift message -->
