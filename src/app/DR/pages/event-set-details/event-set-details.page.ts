@@ -166,52 +166,57 @@ export class EventSetDetailsPage implements OnInit {
       this.selectedDevices[eventId].counterBidAmount = 0;
       this.selectedDevices[eventId].acSelected = [];
 
-      for (j = 0; j < devices.length; j++) {
-        commitedPower += devices[j].deviceCapacity;
+      for (j = 0; j < actualDeviceList.length; j++) {
+        commitedPower += actualDeviceList[j].deviceCapacity;
       }
       this.selectedDevices[eventId].commitedPower = commitedPower;
     }
 
     //console.log("Selected Devices", this.selectedDevices);
   }
-  toggleDeviceSelection(eventId, device) {
-    let presentDeviceArray = this.selectedDevices[eventId].devices.slice();
-    let i = 0;
-    let flag = false;
-    for (i = 0; i < presentDeviceArray.length; i++) {
-      if (presentDeviceArray[i].drDeviceId == device.drDeviceId) {
-        this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower - device.deviceCapacity;
-        if (device.pairedDevice != -1) {
+  toggleDeviceSelection(eventId, device, eventType) {
 
-          let index = this.selectedDevices[eventId].acSelected.indexOf(device.pairedDevice);
-          if (index > -1) {
-            this.selectedDevices[eventId].acSelected.splice(index, 1);
+    if (eventType == "Load Shift" && device.deviceTypeId != "3") {
+      window.alert("You can only participate with load shift type devices in this event");
+    } else {
+      let presentDeviceArray = this.selectedDevices[eventId].devices.slice();
+      let i = 0;
+      let flag = false;
+      for (i = 0; i < presentDeviceArray.length; i++) {
+        if (presentDeviceArray[i].drDeviceId == device.drDeviceId) {
+          this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower - device.deviceCapacity;
+          if (device.pairedDevice != -1) {
+
+            let index = this.selectedDevices[eventId].acSelected.indexOf(device.pairedDevice);
+            if (index > -1) {
+              this.selectedDevices[eventId].acSelected.splice(index, 1);
+            }
+            this.selectedDevices[eventId].acSelected.splice(device.pairedDevice);
           }
-          this.selectedDevices[eventId].acSelected.splice(device.pairedDevice);
+          presentDeviceArray.splice(i, 1);
+          flag = true;
+          break;
         }
-        presentDeviceArray.splice(i, 1);
-        flag = true;
-        break;
       }
-    }
-    if (!flag) {
-      //verify if AC is already selected
-      if (device.pairedDevice != -1) {
-        if (!this.checkPairedAC(device.drDeviceId, this.selectedDevices[eventId].acSelected)) {
-          this.selectedDevices[eventId].acSelected.push(device.pairedDevice);
+      if (!flag) {
+        //verify if AC is already selected
+        if (device.pairedDevice != -1) {
+          if (!this.checkPairedAC(device.drDeviceId, this.selectedDevices[eventId].acSelected)) {
+            this.selectedDevices[eventId].acSelected.push(device.pairedDevice);
+            this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
+            presentDeviceArray.push(device);
+          } else {
+            window.alert("Cannot have both AC and AC Setpoint change selected.")
+          }
+        }
+        else {
           this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
           presentDeviceArray.push(device);
-        } else {
-          window.alert("Cannot have both AC and AC Setpoint change selected.")
         }
       }
-      else {
-        this.selectedDevices[eventId].commitedPower = this.selectedDevices[eventId].commitedPower + device.deviceCapacity;
-        presentDeviceArray.push(device);
-      }
+      this.selectedDevices[eventId].devices = presentDeviceArray;
+      console.log("Updated device selecttion", this.selectedDevices);
     }
-    this.selectedDevices[eventId].devices = presentDeviceArray;
-    console.log("Updated device selecttion", this.selectedDevices);
   }
 
 

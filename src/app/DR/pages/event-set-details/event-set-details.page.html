@@ -61,7 +61,7 @@
               <div class="border-bottom py-2" [class.border-white]="event.eventTypeName=='Load Shift'">
                 <ion-chip *ngFor="let device of allCustomerDevices"
                   [ngClass]="chipCssCheck(event?.eventId, device) ? 'border event-chip active':'border event-chip inactive'"
-                  (click)="toggleDeviceSelection(event?.eventId,device)">
+                  (click)="toggleDeviceSelection(event?.eventId,device,event?.eventTypeName)">
                   <ion-label>{{device.drDeviceName}}</ion-label>
                 </ion-chip>
                 <!-- <ion-chip class="border event-chip active">
