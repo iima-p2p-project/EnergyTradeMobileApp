@@ -53,7 +53,7 @@
               *ngIf="event.eventTypeName=='Load Shift'">
               <ion-icon src="assets/svg/information_icon.svg" class="clap-icon"></ion-icon>
               <div class="py-2 pl-2 text-left">
-                &nbsp;Your devices will be switched on between 3 am to 6 am</div>
+                &nbsp;Your devices will be switched on between {{getLoadShiftTime(event.eventStartTime)}}</div>
             </div>
 
             <!-- devices -->
