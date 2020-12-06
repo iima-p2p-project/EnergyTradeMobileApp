@@ -143,11 +143,25 @@ export class EventSetDetailsPage implements OnInit {
   }
   preSelectDevices(events, devices) {
     let i, j = 0;
+    let actualDeviceList = []
     for (i = 0; i < events.length; i++) {
       let commitedPower = 0
       let eventId = events[i].eventId;
+      if (events[i].eventTypeName == "Load Shift") {
+        //remove non load shift devices
+        actualDeviceList = devices.filter((device) => {
+          if (device.deviceTypeName == "Load Shift")
+            return true;
+          else
+            return false;
+        });
+      } else {
+        // all devices for non load shift events
+        actualDeviceList = devices;
+      }
 
-      this.selectedDevices[eventId] = { "devices": devices };
+      //
+      this.selectedDevices[eventId] = { "devices": actualDeviceList };
       this.selectedDevices[eventId].status = "published";
       this.selectedDevices[eventId].counterBidAmount = 0;
       this.selectedDevices[eventId].acSelected = [];
