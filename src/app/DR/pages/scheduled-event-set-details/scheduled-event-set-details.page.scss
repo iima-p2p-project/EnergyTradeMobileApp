@@ -23,7 +23,8 @@ ion-content {
     }
 }
 
-.event-list-item {
+.event-list-item-normal {
+    
     background-color: white;
     box-shadow: 0px 2px 5px #00000055;
 
@@ -101,3 +102,85 @@ ion-content {
         font-size: 10px;
     }
 }
+
+.event-list-item-ls {
+    
+    background-color: #DEECFF;
+    border: white;
+    box-shadow: 0px 2px 5px #00000055;
+
+    .event-date {
+        font-size: 16px;
+    }
+
+    .status {
+        font-size: 10px;
+        padding: 3px 10px;
+        border-radius: 1em;
+        color: white;
+        height: 20px;
+
+        &.sceduled {
+            background-color: #0048A8;
+        }
+        &.counter-bid {
+            background-color: #DB7B2E;
+        }
+        &.penalty {
+            background-color: #eb1717;
+        }
+        &.completed {
+            background-color: #478f31;
+        }
+        &.cancelled {
+            background-color: #b5c751;
+        }
+        &.expired {
+            background-color: #b5c751;
+        }
+        &.offline {
+            background-color: #eb1717;
+        }
+        &.rejected {
+            background-color: #D0021B;
+        }
+        &.live {
+            background-color: #2C7800;
+        }
+    }
+
+    .event-detail {
+        font-size: 10px;
+        line-height: 0;
+    }
+
+    .event-chip {
+        background-color: white;
+        color: var(--ion-color-primary);
+        opacity: 0.5;
+
+        &.active {
+            background-color: var(--ion-color-primary);
+            color: white;
+        }
+        &.inactive {
+            background-color: var(--ion-color-primary);
+            color: white;
+            opacity: 0.5;
+        }
+    }
+
+    .event-rate {
+        font-size: 14px;
+    }
+
+    .btn-event {
+        color: var(--ion-color-primary);
+        font-size: 12px;
+    }
+
+    .bid-description {
+        font-size: 10px;
+    }
+}
+
