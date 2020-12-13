@@ -88,13 +88,14 @@ export class ScheduledEventSetDetailsPage implements OnInit {
     return minTime.format("hh:mm A") + " - " + maxTime.format("hh:mm A");
   }
 
-  async editEvent(eventId, type, mappedDevices, startTime, endTime) {
+  async editEvent(eventId, eventType, type, mappedDevices, startTime, endTime) {
     let editEventModal = await this.modal.create({
       component: EditEventModalPage,
       cssClass: 'edit-event-modal-css',
       componentProps: {
         params: {
           allDevices: this.allCustomerDevices,
+          eventType,
           selectedDevices: mappedDevices,
           timeRange: moment.utc(startTime).format("hh:mm A") + " - " + moment.utc(endTime).format("hh:mm A"),
           eventId,

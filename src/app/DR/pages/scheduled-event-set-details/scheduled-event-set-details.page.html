@@ -79,7 +79,7 @@
           <div class="d-flex align-items-center border-top btn-event"
             *ngIf="isEditable(event?.eventCustomerDetails?.eventCustomerStatus)">
             <div class=" w-50 p-2 text-center border-right"
-              (click)="editEvent(event.eventId, 'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)">
+              (click)="editEvent(event.eventId,event.eventTypeName,'bid',event.eventCustomerDetails.mappedDevices,event.eventStartTime,event.eventEndTime)">
               EDIT</div>
             <div class="w-50 p-2 text-center"
               (click)="withdrawEvent(event.eventId,event.eventStartTime,event.eventEndTime)">WITHDRAW</div>
