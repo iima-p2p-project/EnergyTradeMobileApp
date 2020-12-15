@@ -87,7 +87,11 @@ export class EditEventModalPage implements OnInit {
             this.selectedDevices.push(device);
           }
         } else {
-          window.alert("Cannot have both AC and AC Setpoint change selected.")
+          if (this.params.eventType == "Load Shift" && device.deviceTypeName != "Load Shift") {
+            window.alert("Please select load shift devices only for load shift events");
+          } else {
+            window.alert("Cannot have both AC and AC Setpoint change selected.")
+          }
         }
       }
       else {
