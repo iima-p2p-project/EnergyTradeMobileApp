@@ -50,7 +50,17 @@
               {{getEventCustomerStatus(event.eventCustomerDetails.eventCustomerStatus)}}
             </div>
           </div>
-          <div class="px-3 d-flex justify-content-between event-detail">
+          <!-- load shift message -->
+
+          <div class="d-flex align-items-center justify-content-center border-top notification"
+            *ngIf="event.eventTypeName=='Load Shift'">
+            <ion-icon src="assets/svg/information_icon.svg" class="clap-icon"></ion-icon>
+            <div class="py-2 pl-2 text-left">
+              &nbsp;Your devices will be switched on between {{getLoadShiftTime(event.eventStartTime)}}</div>
+          </div>
+
+
+          <div class="px-3 py-2 d-flex justify-content-between event-detail">
             <div class="d-flex align-items-center">
               <ion-icon src="assets/svg/timer.svg"></ion-icon>&nbsp;{{formatTime(event.eventStartTime)}} -
               {{formatTime(event.eventEndTime)}}

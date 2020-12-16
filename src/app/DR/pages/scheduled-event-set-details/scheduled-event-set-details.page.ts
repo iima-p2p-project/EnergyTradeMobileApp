@@ -199,5 +199,7 @@ export class ScheduledEventSetDetailsPage implements OnInit {
   }
 
 
-
+  getLoadShiftTime(eventTime) {
+    return moment.utc(eventTime).subtract(3, 'hours').format("hh:mm A") + " and " + moment.utc(eventTime).subtract(2, 'hours').subtract(45, 'minutes').format("hh:mm A")
+  }
 }
