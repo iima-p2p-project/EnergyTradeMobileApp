@@ -40,7 +40,7 @@ import {
 } from '@ionic-native/file-transfer/ngx';  
 import {  
   File
-} from '@ionic-native/file/ngx';  
+} from '@ionic-native/file/ngx';
 
 
 @NgModule({

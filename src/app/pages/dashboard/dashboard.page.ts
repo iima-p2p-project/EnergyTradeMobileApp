@@ -211,54 +211,54 @@ export class DashboardPage implements OnInit {
         if (!this.forecastService.forecastFetched) {
           this.forecastService.forecastList = [];
           this.forecastService.formattedForecastList = [];
-          this.forecastService.getForecasts(this.ingressService.loggedInUserId).subscribe((res) => {
-            this.resFromServer = res;
-            console.log('forecast response : ', this.resFromServer);
-            //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
-            this.forecastList = this.resFromServer.response.listOfForecast;
-            //this.forecastService.forecastList=this.forecastList;
-            console.log('forecast response 123 : ', this.forecastList);
-            if (this.forecastList != null) {
-              console.log('not null check');
-              this.upcomingForecast = this.forecastList[0];
-              console.log('upcoming forecast : ', this.upcomingForecast);
-              if (this.upcomingForecast.startTime != null) {
-                this.upcomingForecastStartTime = this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
-              }
-              if (this.upcomingForecast.endTime != null) {
-                this.upcomingForecastEndTime = this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
-              }
-              this.upcomingForecastPower = this.upcomingForecast.power;
-              this.upcomingForecastPrice = this.upcomingForecast.pricePerUnit;
-              this.forecastLen = this.forecastList.length;
-              this.forecastList.forEach(forecast => {
-                if (forecast != null) {
-                  this.deviceList = forecast.listOfUserDevices;
-                  this.forecastService.deviceList = this.deviceList;
-                  if (this.deviceList != null) {
-                    this.deviceList.forEach(device => {
-                      if (device != null) {
-                        if (device.deviceTypeId == 1 && device.deviceTypeName == 'Solar') {
-                          //this.solarDeviceId=device.userDeviceId;
-                          forecast.solarDeviceId = device.userDeviceId;
-                        }
-                        if (device.deviceTypeId == 2 && device.deviceTypeName == 'Generator') {
-                          //this.generatorDeviceId=device.userDeviceId;
-                          forecast.generatorDeviceId = device.userDeviceId;
-                        }
-                        if (device.deviceTypeId == 4 && device.deviceTypeName == 'Battery') {
-                          //this.evDeviceId=device.userDeviceId;
-                          forecast.evDeviceId = device.userDeviceId;
-                        }
-                      }
-                    });
-                  }
-                }
-              });
-              this.forecastService.forecastList = this.forecastList;
-              this.forecastService.formatForecastData(this.forecastService.forecastList);
-            }
-          });
+          // this.forecastService.getForecasts(this.ingressService.loggedInUserId).subscribe((res) => {
+          //   this.resFromServer = res;
+          //   console.log('forecast response : ', this.resFromServer);
+          //   //this.forecastList = this.forecastService.formatForecastData(this.resFromServer.allForecasts);
+          //   this.forecastList = this.resFromServer.response.listOfForecast;
+          //   //this.forecastService.forecastList=this.forecastList;
+          //   console.log('forecast response 123 : ', this.forecastList);
+          //   if (this.forecastList != null) {
+          //     console.log('not null check');
+          //     this.upcomingForecast = this.forecastList[0];
+          //     console.log('upcoming forecast : ', this.upcomingForecast);
+          //     if (this.upcomingForecast.startTime != null) {
+          //       this.upcomingForecastStartTime = this.formatTimeForForecast(this.upcomingForecast.startTime, 't');
+          //     }
+          //     if (this.upcomingForecast.endTime != null) {
+          //       this.upcomingForecastEndTime = this.formatTimeForForecast(this.upcomingForecast.endTime, 't');
+          //     }
+          //     this.upcomingForecastPower = this.upcomingForecast.power;
+          //     this.upcomingForecastPrice = this.upcomingForecast.pricePerUnit;
+          //     this.forecastLen = this.forecastList.length;
+          //     this.forecastList.forEach(forecast => {
+          //       if (forecast != null) {
+          //         this.deviceList = forecast.listOfUserDevices;
+          //         this.forecastService.deviceList = this.deviceList;
+          //         if (this.deviceList != null) {
+          //           this.deviceList.forEach(device => {
+          //             if (device != null) {
+          //               if (device.deviceTypeId == 1 && device.deviceTypeName == 'Solar') {
+          //                 //this.solarDeviceId=device.userDeviceId;
+          //                 forecast.solarDeviceId = device.userDeviceId;
+          //               }
+          //               if (device.deviceTypeId == 2 && device.deviceTypeName == 'Generator') {
+          //                 //this.generatorDeviceId=device.userDeviceId;
+          //                 forecast.generatorDeviceId = device.userDeviceId;
+          //               }
+          //               if (device.deviceTypeId == 4 && device.deviceTypeName == 'Battery') {
+          //                 //this.evDeviceId=device.userDeviceId;
+          //                 forecast.evDeviceId = device.userDeviceId;
+          //               }
+          //             }
+          //           });
+          //         }
+          //       }
+          //     });
+          //     this.forecastService.forecastList = this.forecastList;
+          //     this.forecastService.formatForecastData(this.forecastService.forecastList);
+          //   }
+          // });
           this.forecastService.lastForecastFetchedDate = new Date().toISOString().substring(0, 10);
           this.forecastService.forecastFetched = true;
         }

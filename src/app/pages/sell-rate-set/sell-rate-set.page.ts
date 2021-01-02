@@ -11,6 +11,7 @@ import { TimeService } from 'src/app/services/time.service';
 import * as moment from 'moment';
 import { USER_ROLE, ACTION_CREATE, ACTION_EDIT, ACTION_FORECAST } from 'src/app/environments/environments';
 import { strictEqual } from 'assert';
+import { InvalidInputModalPage } from 'src/app/invalid-input-modal/invalid-input-modal.page';
 
 @Component({
   selector: 'app-sell-rate-set',
@@ -150,6 +151,10 @@ export class SellRateSetPage implements OnInit {
   }
 
   calculateTotalAmount() {
+    if(+(this.rate)<0) {
+      this.invalidInput("Rate per unit cannot be negative");
+      return;
+    }
     // console.log('POWER 1 : ', this.energy);
     // console.log('RATE 1 : ', this.rate);
     //this.totalAmount = parseInt(this.rate) * parseInt(this.energy);
@@ -169,6 +174,17 @@ export class SellRateSetPage implements OnInit {
     // else {
     //   this.totalAmountStr = this.totalAmount;
     // }
+  }
+
+  async invalidInput(message: string) {
+    let defg = await this.modal.create({
+      component: InvalidInputModalPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+        errorMessage: message
+      }
+    });
+    return await defg.present();
   }
 
   async submit() {
@@ -271,6 +287,10 @@ export class SellRateSetPage implements OnInit {
   }
 
   calculateEnergy() {
+    if(+(this.power)<0) {
+      this.invalidInput("Power cannot be negative");
+      return;
+    }
     let timeDiff = (moment(this.timeService.endTime).diff(this.timeService.startTime, 'minutes')) / 60;
     this.energy = (+this.power * timeDiff) + "";
 

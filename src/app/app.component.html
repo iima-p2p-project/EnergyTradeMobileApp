@@ -51,13 +51,13 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "Admin"'>
+          <!-- <ion-menu-toggle *ngIf='userRole == "Admin"'>
             <ion-item style="padding-top:0.2em;" class="list-item" lines="none">
               <ion-icon style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
                 src="assets/svg/add_resources.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Add Locations</ion-label>
             </ion-item>
-          </ion-menu-toggle>
+          </ion-menu-toggle> -->
 
           <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item class="list-item" lines="none" (click)="navigateToSell()">
@@ -111,14 +111,14 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "User"'>
+          <!-- <ion-menu-toggle *ngIf='userRole == "User"'>
             <ion-item class="list-item" lines="none">
               <ion-icon name="add-circle-outline" slot="start"></ion-icon>
               <ion-label class="name-class">Add Resources</ion-label>
             </ion-item>
-          </ion-menu-toggle>
+          </ion-menu-toggle> -->
 
-          <ion-menu-toggle>
+          <!-- <ion-menu-toggle>
             <ion-item class="list-item" lines="none">
               <ion-icon src="assets/svg/settings.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Settings</ion-label>
@@ -130,7 +130,7 @@
               <ion-icon src="assets/svg/headset.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Help</ion-label>
             </ion-item>
-          </ion-menu-toggle>
+          </ion-menu-toggle> -->
 
           <ion-menu-toggle>
             <ion-item (click)="logout()">

@@ -9,8 +9,9 @@ export const environment = {
 export const devAddress = "http://139.59.30.90:8080";
 export const uatAddress = "http://139.59.34.247:8080";
 
-export const devAddress1 = "http://139.59.30.90:8080"; //bypl
-export const activeBackend = devAddress1;
+export const byplAddress = "http://139.59.30.199:8080";
+
+export const activeBackend = byplAddress;
 
 
 // for uat
