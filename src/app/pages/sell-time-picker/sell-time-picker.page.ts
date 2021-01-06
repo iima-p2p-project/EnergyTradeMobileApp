@@ -127,6 +127,7 @@ export class SellTimePickerPage implements OnInit {
 
   getStartTimeDetails() {
     this.formatTime(this.startTime, 's');
+    this.formatTime(this.endTime, 'e');
     let timediff = moment(this.startTimeFormatted).diff(moment(), 'minutes');
 
 
@@ -179,6 +180,7 @@ export class SellTimePickerPage implements OnInit {
   }
 
   getEndTimeDetails() {
+    this.formatTime(this.startTime, 's');
     this.formatTime(this.endTime, 'e');
 
     let cutOffEndTime = moment(moment(this.endTimeFormatted).format("YYYY-MM-DD") + "T18:00:00.000");
