@@ -76,6 +76,7 @@ export class DashboardPage implements OnInit {
   orderCSS = 'card-bottom';
   showGateClosureLabel = false;
   showLiveLabel = false;
+  isRefreshDisable = true;
 
   constructor(private router: Router
     , private route: ActivatedRoute
@@ -104,6 +105,9 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    setTimeout(() => {
+      this.isRefreshDisable = false;
+    }, 60000);
     this.backButtonService.quitOnBackButton = true;
     if (new Date().toISOString().substring(0, 10) != this.forecastService.lastForecastFetchedDate) {
       this.forecastService.forecastFetched = false;
@@ -517,15 +521,15 @@ export class DashboardPage implements OnInit {
     this.orderCSS = 'card-bottom';
     if (order != null) {
       if (order.orderType == 'sell' &&
-      (order.orderStatus == 'Completed' 
-      || (order.orderStatus == 'Validated' && order.isFineApplicable == 'N'))) {
+        (order.orderStatus == 'Completed'
+          || (order.orderStatus == 'Validated' && order.isFineApplicable == 'N'))) {
         this.orderDisabled = false;
         this.orderCSS = 'card-bottom green';
         this.showLiveLabel = false;
         this.showGateClosureLabel = false;
       }
       else if (order.orderType == 'sell' &&
-      (order.orderStatus == 'Cancelled' || order.orderStatus == 'Expired')) {
+        (order.orderStatus == 'Cancelled' || order.orderStatus == 'Expired')) {
         this.orderDisabled = true;
         this.orderCSS = 'card-bottom red';
         this.showLiveLabel = false;
@@ -537,8 +541,8 @@ export class DashboardPage implements OnInit {
         this.showLiveLabel = true;
         this.showGateClosureLabel = false;
       }
-      else if (order.orderType == 'sell' && 
-      (order.orderStatus == 'Contracted' && order.isCancellable == 'N')) {
+      else if (order.orderType == 'sell' &&
+        (order.orderStatus == 'Contracted' && order.isCancellable == 'N')) {
         this.orderDisabled = false;
         this.orderCSS = 'card-bottom';
         this.showLiveLabel = false;
@@ -552,15 +556,15 @@ export class DashboardPage implements OnInit {
       //   this.showGateClosureLabel = false;
       // }
       else if (order.orderType == 'buy' &&
-      (order.contractStatus == 'Completed' 
-      || (order.contractStatus == 'Validated' && order.isFineApplicable == 'N'))) {
+        (order.contractStatus == 'Completed'
+          || (order.contractStatus == 'Validated' && order.isFineApplicable == 'N'))) {
         this.orderDisabled = false;
         this.orderCSS = 'card-bottom green';
         this.showLiveLabel = false;
         this.showGateClosureLabel = false;
       }
-      else if (order.orderType == 'buy' && 
-      (order.contractStatus == 'Cancelled' || order.contractStatus == 'Expired')) {
+      else if (order.orderType == 'buy' &&
+        (order.contractStatus == 'Cancelled' || order.contractStatus == 'Expired')) {
         this.orderDisabled = true;
         this.orderCSS = 'card-bottom red';
         this.showLiveLabel = false;
@@ -572,8 +576,8 @@ export class DashboardPage implements OnInit {
         this.orderCSS = 'card-bottom';
         this.showGateClosureLabel = false;
       }
-      else if (order.orderType == 'buy' && 
-      (order.contractStatus == 'Active' && order.isCancellable == 'N')) {
+      else if (order.orderType == 'buy' &&
+        (order.contractStatus == 'Active' && order.isCancellable == 'N')) {
         this.orderDisabled = false;
         this.orderCSS = 'card-bottom';
         this.showLiveLabel = false;

@@ -256,3 +256,50 @@ ion-input {
 // Roboto Regular
 // Montserrat SemiBold
 // Montserrat Light
+
+.sell-failed-card {
+  background-color: white;
+  margin-bottom: 10px;
+
+  .image {
+    display: block;
+    margin: auto;
+    height: 100px;
+    width: auto;
+  }
+
+  .description {
+    font-family: MMedium !important;
+    font-size: 0.7em;
+  }
+
+  ion-button {
+    font-family: MSemiBold !important;
+    font-size: 1.2em;
+    font-weight: 800;
+  }
+}
+
+.sell-refresh-card {
+  background-color: black;
+  margin-bottom: 10px;
+
+  .image {
+    display: block;
+    margin: auto;
+    height: 100px;
+    width: auto;
+  }
+
+  .description {
+    color: white;
+    font-family: MMedium !important;
+    font-size: 0.7em;
+  }
+
+  ion-button {
+    font-family: MSemiBold !important;
+    font-size: 1.2em;
+    font-weight: 800;
+  }
+}

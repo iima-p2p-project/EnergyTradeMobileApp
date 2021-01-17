@@ -145,6 +145,16 @@
                   </ion-label>
                 </ion-col>
               </ion-row> -->
+        <ion-row class="in-progress">
+          <ion-col size="12">
+            <div class="d-flex align-items-center">
+              <ion-icon src="assets/svg/infoyellow.svg"></ion-icon>
+              <span class="description ion-padding-end">
+                Your order request is under process, it might take few seconds before it is live.
+              </span>
+            </div>
+          </ion-col>
+        </ion-row>
         <ion-row style="border-top:0.5px rgba(156, 156, 156, 0.685) solid;text-align:center;"
           *ngIf="order.orderType == 'sell' && (order.isCancellable == 'Y' || order.isEditable == 'Y')">
 
@@ -171,6 +181,14 @@
             </ion-button>
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-label>
+              <ion-icon class="icon" src="assets/svg/timer.svg" slot="start"></ion-icon>
+              Hello
+            </ion-label>
+          </ion-col>
+        </ion-row>
       </ion-card>
       <ion-card class="cart-note" *ngIf="showFine">
         <ion-row class="ion-align-items-center">
@@ -186,7 +204,7 @@
     <!-- END PRODUCTION -->
 
 
-    <ion-row hidden="true">
+    <ion-row>
       <ion-card class="card-bottom green">
         <ion-row class="ion-align-items-center">
           <ion-col size="2" class="prediction">
@@ -228,7 +246,16 @@
             </ion-row>
           </ion-col>
         </ion-row>
-
+        <ion-row class="in-progress">
+          <ion-col size="12">
+            <div class="d-flex align-items-center">
+              <ion-icon src="assets/svg/infoyellow.svg"></ion-icon>
+              <span class="description ion-padding-end">
+                Your order request is under process, it might take few seconds before it is live.
+              </span>
+            </div>
+          </ion-col>
+        </ion-row>
       </ion-card>
     </ion-row>
 

@@ -340,3 +340,17 @@ ion-item {
     padding: 5px 0;
   }
 }
+
+.in-progress {
+  border-top: 0.5px rgba(156, 156, 156, 0.685) solid;
+  text-align: center;
+
+  ion-icon {
+    font-size: 20px;
+    padding: 0 10px;
+  }
+
+  .description {
+    font-size: 10px;
+  }
+}

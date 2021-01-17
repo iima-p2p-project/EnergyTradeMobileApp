@@ -262,6 +262,60 @@
         </ion-grid>
       </ion-card-content>
     </ion-card>
+
+    <ion-card class="ion-no-margin sell-failed-card">
+      <ion-grid>
+        <ion-row>
+          <ion-col [size]="12" class="ion-padding">
+            <img src="assets/svg/sell-failed.svg" class="image">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col [size]="10" [push]="1" class="ion-text-center description">
+            Dear customer, we regret to inform you that your
+            registration was not sucessful due to some technical error.
+            <br>
+            <br>
+            Please contact our Technical Expert to resolve this issue
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col [size]="10" [push]="1">
+            <ion-button shape="round" expand="full">
+              +91 88888 88888
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
+    <ion-card class="ion-no-margin sell-refresh-card">
+      <ion-grid>
+        <ion-row>
+          <ion-col [size]="12" class="ion-padding">
+            <img src="assets/svg/sell-refresh.svg" class="image">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col [size]="10" [push]="1" class="ion-text-center description">
+            Dear Customer, your registration is under process.
+            This process should not take more than a minute.
+            <br>
+            <br>
+            Once the registration is completed. You will be able to click
+            on the ‘Refresh’ button below and start publishing the events
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col [size]="10" [push]="1">
+            <ion-button shape="round" expand="full" [disabled]="isRefreshDisable">
+              REFERSH
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
     <ion-row style="margin-top:1em;">
       <ion-col size="6" class="middle-row-left">
         Latest Transactions
@@ -420,7 +474,7 @@
 
 
 
-  
+
   <!-- <app-sell (sellFlow)=initiateSellFlow($event)></app-sell>
     <br/><br/><br/><br/><br/><br/>
     <app-buy (buyFlow)=initiateBuyFlow($event)></app-buy> -->
