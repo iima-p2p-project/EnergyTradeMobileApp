@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
 })
 export class IngressService {
 
+  USER_BLOCKCHAIN_REGISTRATION_SUCCESS = 'Successful';
+  USER_BLOCKCHAIN_REGISTRATION_FAILED = 'Failed';
+  USER_BLOCKCHAIN_REGISTRATION_PENDING = 'Pending';
+
   loginUrl = INGRESS_URL + '/loginUser';
   sendOtpUrl = INGRESS_URL + '/sendOtp';
   generateOtpUrl = INGRESS_URL + '/generateOtp';
@@ -35,6 +39,7 @@ export class IngressService {
   evDeviceId;
   generatorDeviceId;
   
+  userBlockchainRegStatus: string;
 
   constructor(private httpClient: HttpClient
     ,private storage: Storage
@@ -178,6 +183,14 @@ export class IngressService {
     this.userDevicesList = deviceList;
   }
 
+  setUserBlockchainRegistrationStatus(status: string) {
+    this.userBlockchainRegStatus = status;
+  }
+
+  getUserBlockchainRegistrationStatus() {
+    return this.userBlockchainRegStatus;
+  }
+ 
   async getUserIdToken() {
     console.log("get token");
     if (!this.loggedInUserId) {

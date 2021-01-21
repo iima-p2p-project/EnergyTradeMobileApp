@@ -44,6 +44,8 @@ export class AppComponent {
   userRole: any;
   localityName: any;
 
+  blockchainStatus: string;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -57,12 +59,13 @@ export class AppComponent {
 
   ) {
     this.initializeApp();
-
+    console.log('APP COMPONENT');
 
 
   }
 
   ionViewDidEnter() {
+    //console.log('APP COMPONENT');
   }
 
   setupPushNotif() {
@@ -143,6 +146,7 @@ export class AppComponent {
   }
 
   getUserDetails() {
+    this.blockchainStatus = this.ingressService.getUserBlockchainRegistrationStatus();
     this.ingressService.getUserNameToken().then((res) => {
       console.log('app component user name : ', res);
       this.userName = res;

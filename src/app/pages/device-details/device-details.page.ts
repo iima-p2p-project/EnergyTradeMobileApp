@@ -112,6 +112,7 @@ export class DeviceDetailsPage implements OnInit {
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
           console.log('user devices from server : ', res);
           this.responseFromService = res;
+          this.ingressService.setUserBlockchainRegistrationStatus(this.responseFromService.response.blockChainStatus);
           this.ingressService.setUserDevices(this.responseFromService.response.devices);
           this.storage.set('LoggedInUserDevices', this.ingressService.getUserDevicesFromLocal());
           this.storage.set('LoggedInUserId', this.userId).then(() => {

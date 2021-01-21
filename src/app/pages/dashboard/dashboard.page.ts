@@ -78,6 +78,9 @@ export class DashboardPage implements OnInit {
   showLiveLabel = false;
   isRefreshDisable = true;
 
+  blockchainStatus: string;
+  responseFromService; any;
+
   constructor(private router: Router
     , private route: ActivatedRoute
     , private modal: ModalController
@@ -144,6 +147,7 @@ export class DashboardPage implements OnInit {
       }
     });
 
+    this.blockchainStatus = this.ingressService.getUserBlockchainRegistrationStatus();
     this.ingressService.getUserIdToken().then((res) => {
       this.userId = res;
       this.ingressService.loggedInUserId = this.userId;
@@ -267,6 +271,14 @@ export class DashboardPage implements OnInit {
           this.forecastService.forecastFetched = true;
         }
       }
+    });
+  }
+
+  refreshDashboard() {
+    this.ingressService.getUserDevices(this.userId).subscribe((res) => {
+      this.responseFromService = res;
+      this.ingressService.setUserBlockchainRegistrationStatus(this.responseFromService.response.blockChainStatus);
+      this.blockchainStatus = this.responseFromService.response.blockChainStatus;
     });
   }
 

@@ -11,7 +11,7 @@ export const uatAddress = "http://139.59.34.247:8080";
 
 export const byplAddress = "http://139.59.30.199:8080";
 
-export const activeBackend = byplAddress;
+export const activeBackend = devAddress;
 
 
 // for uat
@@ -34,10 +34,10 @@ export const ACTION_EDIT = 'EDIT';
 
 export const SUPPORT_NUMBER = '';
 
-export const INGRESS_URL = activeBackend + '/et_ingress/rest';
-export const ADMIN_URL = activeBackend + '/et_order/rest/';
-export const ORDER_URL = activeBackend + '/et_order/rest/';
-export const FORECAST_URL = activeBackend + '/et_forecast/rest/';
+export const INGRESS_URL = activeBackend + '/et_ingress_test/rest';
+export const ADMIN_URL = activeBackend + '/et_order_test/rest/';
+export const ORDER_URL = activeBackend + '/et_order_test/rest/';
+export const FORECAST_URL = activeBackend + '/et_forecast_test/rest/';
 export const TRADE_URL = activeBackend + '/apiv1/trade';
 
 

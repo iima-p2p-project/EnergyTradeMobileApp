@@ -51,6 +51,13 @@ export class ManageOrdersPage implements OnInit {
 
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.ionViewWillEnter();
+      event.target.complete();
+    }, 3000); 
+  }
+
   ionViewWillEnter() {
     this.allOrdersAndContracts = [];
     this.orderListUpdated = [];

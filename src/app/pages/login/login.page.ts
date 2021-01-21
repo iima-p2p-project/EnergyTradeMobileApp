@@ -100,6 +100,7 @@ export class LoginPage implements OnInit {
         this.ingressService.loggedInUserName = this.userName;
         this.ingressService.getUserDevices(this.userId).subscribe((res) => {
           this.responseFromService = res;
+          this.ingressService.setUserBlockchainRegistrationStatus(this.responseFromService.response.blockChainStatus);
           this.ingressService.setUserDevices(this.responseFromService.response.devices);
           this.storage.set('LoggedInUserDevices', this.ingressService.userDevicesList);
           this.storage.set('LoggedInUserRole', this.userRole);

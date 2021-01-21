@@ -97,14 +97,14 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "User"'>
+          <ion-menu-toggle *ngIf='userRole == "User" && blockchainStatus == "Successful"'>
             <ion-item class="list-item" lines="none" routerLink="statement" routerDirection="forward">
               <ion-icon src="assets/svg/boxlid.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Monthly Statement</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle *ngIf='userRole == "User"'>
+          <ion-menu-toggle *ngIf='userRole == "User" && blockchainStatus == "Successful"'>
             <ion-item class="list-item" lines="none" routerLink="forecast-list" routerDirection="forward">
               <ion-icon src="assets/svg/wallet.svg" slot="start"></ion-icon>
               <ion-label class="name-class">Forecast</ion-label>
