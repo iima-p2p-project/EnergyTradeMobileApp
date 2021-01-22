@@ -55,7 +55,7 @@ export class ManageOrdersPage implements OnInit {
     setTimeout(() => {
       this.ionViewWillEnter();
       event.target.complete();
-    }, 3000); 
+    }, 1000); 
   }
 
   ionViewWillEnter() {
