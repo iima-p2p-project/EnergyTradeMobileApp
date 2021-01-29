@@ -1,0 +1,93 @@
+ion-content {
+    --ion-font-family: MMedium;
+}
+
+.header {
+    font-family: MMedium;
+    background-color: var(--ion-color-primary);
+    color: white;
+
+    .name {
+        font-size: 16px;
+    }
+
+    .view {
+        font-size: 10px;
+    }
+
+    .description {
+        font-size: 12px;
+    }
+}
+
+.asset-list {
+    .header-row {
+        .title {
+            font-size: 14px;
+        }
+
+        .btn-add {
+            font-size: 12px;
+            color: var(--ion-color-primary);
+        }
+
+        .required {
+            font-size: 10px;
+
+            &::before {
+                content: '*';
+                color: red;
+            }
+        }
+    }
+
+    .assest-item {
+        font-size: 12px;
+
+        .asset-name {
+            font-size: 14px;
+        }
+
+        .device-id {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .form-item {
+            .form-control-label {
+                font-size: 12px;
+                padding: 5px 0;
+            }
+
+            .power {
+                .power-icon {
+                    font-size: 20px;
+                }
+            }
+
+            .input-div {
+                width: 60px;
+            }
+
+            .power-input {
+                --padding-top: 0px;
+                --padding-bottom: 0px;
+                --padding-start: 0px;
+            }
+
+            .form-control-input {
+                --placeholder-color: gray;
+                color: var(--ion-color-primary);
+                font-size: 20px;
+                font-weight: bold;
+                padding-left: 10px !important;
+                height: 36px;
+            }
+
+            .unit {
+                font-size: 12px;
+            }
+
+        }
+    }
+}

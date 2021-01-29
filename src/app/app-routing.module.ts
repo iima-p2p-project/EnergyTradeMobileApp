@@ -91,6 +91,8 @@ const routes: Routes = [
   { path: 'add-drasset', loadChildren: './DR/pages/add-drasset/add-drasset.module#AddDRAssetPageModule', canActivate: [AuthGuard] },
   { path: 'contract-details', loadChildren: './DR/pages/contract-details/contract-details.module#ContractDetailsPageModule', canActivate: [AuthGuard] },
   { path: 'all-events', loadChildren: './DR/pages/all-events/all-events.module#AllEventsPageModule', canActivate: [AuthGuard] },
+  { path: 'sync-assets', loadChildren: './pages/sync-assets/sync-assets.module#SyncAssetsPageModule' },
+
 
 
 
